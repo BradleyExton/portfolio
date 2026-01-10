@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import UnderConstruction from "@/components/UnderConstruction";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -41,12 +42,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const isUnderConstruction = process.env.UNDER_CONSTRUCTION === "true";
+
   return (
     <html lang="en" className="scroll-smooth">
       <body
         className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased bg-slate-50 text-slate-900`}
       >
-        {children}
+        {isUnderConstruction ? <UnderConstruction /> : children}
       </body>
     </html>
   );
