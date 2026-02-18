@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Design/prototype artifact, not part of runtime app.
+    "homepage-preview.jsx",
   ]),
 ]);
 

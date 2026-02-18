@@ -6,7 +6,13 @@ export default function UnderConstruction() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    setIsVisible(true);
+    const animationFrame = requestAnimationFrame(() => {
+      setIsVisible(true);
+    });
+
+    return () => {
+      cancelAnimationFrame(animationFrame);
+    };
   }, []);
 
   return (

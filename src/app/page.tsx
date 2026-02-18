@@ -10,7 +10,13 @@ export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    setIsVisible(true);
+    const animationFrame = requestAnimationFrame(() => {
+      setIsVisible(true);
+    });
+
+    return () => {
+      cancelAnimationFrame(animationFrame);
+    };
   }, []);
 
   const techStack = [
@@ -120,6 +126,16 @@ export default function Home() {
           <div className="absolute top-20 right-0 w-96 h-96 bg-emerald-200/30 rounded-full blur-3xl" />
           <div className="absolute bottom-0 left-0 w-80 h-80 bg-amber-100/40 rounded-full blur-3xl" />
 
+          {/* Tech decorative background - full right side */}
+          <div className="absolute right-0 top-0 w-1/2 h-full pointer-events-none">
+            <Image
+              src="/images/hero-background.png"
+              alt=""
+              fill
+              className="object-cover object-center"
+            />
+          </div>
+
           <div className="max-w-6xl mx-auto relative">
             <div className="grid lg:grid-cols-5 gap-12 items-center">
               {/* Content */}
@@ -187,19 +203,15 @@ export default function Home() {
                     : "opacity-0 translate-y-8 scale-95"
                 }`}
               >
-                <div className="relative mx-auto lg:mx-0 w-64 h-64 md:w-80 md:h-80 lg:w-full lg:h-auto lg:aspect-square max-w-sm">
-                  {/* Glow effect */}
-                  <div className="absolute -inset-2 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-full opacity-20 blur-xl" />
-                  <div className="absolute -inset-1 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-full opacity-30" />
-
+                <div className="relative mx-auto lg:mx-0 w-56 h-56 md:w-72 md:h-72 lg:w-full lg:h-auto lg:aspect-square max-w-xs">
                   {/* Image container */}
-                  <div className="relative w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200 border-4 border-white shadow-2xl">
+                  <div className="relative w-full h-full rounded-full overflow-hidden bg-white border-4 border-white shadow-2xl">
                     <Image
-                      src="/images/me.png"
+                      src="/images/cartoon-me.png"
                       alt="Bradley Exton"
                       fill
                       sizes="(max-width: 768px) 256px, (max-width: 1024px) 320px, 384px"
-                      className="object-cover object-top"
+                      className="object-cover scale-125 object-[center_25%]"
                       priority
                     />
                   </div>
