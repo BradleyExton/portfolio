@@ -1,0 +1,10 @@
+export const section = "bg-surface px-6 py-16";
+export const container = "mx-auto max-w-6xl";
+export const grid = "mb-16 grid gap-8 md:grid-cols-3";
+export const card = "rounded-xl border border-border-subtle bg-surface-muted p-6";
+export const row = "mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-soft";
+export const icon = "h-6 w-6 text-brand";
+export const subheading = "mb-2 text-xl font-bold text-content";
+export const description = "mb-4 text-content-muted";
+export const link = "inline-flex items-center gap-2 font-medium text-brand transition-colors hover:text-brand-strong";
+export const linkIcon = "h-4 w-4";

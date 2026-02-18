@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bradley Exton Portfolio
 
-## Getting Started
+Personal portfolio and services site built with Next.js App Router.
 
-First, run the development server:
+## Standards Docs
+
+Use `STANDARDS.frontend.md` as the index and entrypoint. The standards set is:
+
+- `AGENTS.frontend.md`
+- `DESIGN.frontend.md`
+- `COPY.frontend.md`
+- `PR-CHECKLIST.frontend.md`
+
+## Tech Stack
+
+- Next.js 16 (App Router)
+- React 19
+- TypeScript (strict)
+- Tailwind CSS v4 (semantic token classes)
+- Vitest + Testing Library
+- Playwright (smoke E2E)
+
+## Project Structure
+
+- `src/app`: route-level wrappers and metadata exports
+- `src/features`: feature-first UI modules and section components
+- `src/copy`: typed user-facing copy and metadata source modules
+- `src/config`: typed env parsing and safety guards
+
+Component folder contract (for feature UI modules):
+- `index.tsx`
+- `styles.ts`
+- `types.ts`
+- `utils.ts`
+- `index.test.tsx` for behavior-bearing components
+
+## Commands
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run lint
+npm run typecheck
+npm run build
+npm test
+npm run test:watch
+npm run test:e2e
+npm run verify
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`npm run verify` is the required local baseline (`lint + typecheck + build`).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `NEXT_PUBLIC_FORMSPREE_ID`
+- `NEXT_PUBLIC_CALCOM_URL`
+- `UNDER_CONSTRUCTION`
 
-## Learn More
+Env access is centralized through `src/config/publicEnv.ts`.
 
-To learn more about Next.js, take a look at the following resources:
+## Contributor Workflow
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Follow `STANDARDS.frontend.md` and linked docs before coding.
+2. Keep route files thin; put UI/copy logic in `src/features` and `src/copy`.
+3. Run `npm run verify`, `npm test`, and `npm run test:e2e` before opening a PR.
+4. Use `.github/pull_request_template.md` and complete the checklist.
+5. Include at least one screenshot in PR body when frontend files changed.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## CI Expectations
 
-## Deploy on Vercel
+PRs to `main` run blocking checks in `.github/workflows/pr-checks.yml`:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `npm ci`
+- `npm run lint`
+- `npm run typecheck`
+- `npm test`
+- `npm run build`
+- `npm run test:e2e`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+PRs also run `.github/workflows/pr-screenshot-required.yml`, which fails when frontend changes are detected and no image is present in PR body.

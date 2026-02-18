@@ -1,0 +1,15 @@
+export const section = "bg-surface px-6 py-20";
+export const container = "mx-auto max-w-6xl";
+export const block = "mb-12 text-center";
+export const eyebrow = "mb-3 text-sm font-semibold uppercase tracking-wider text-brand";
+export const subheading = "mb-4 text-3xl font-bold text-content font-[family-name:var(--font-space-grotesk)]";
+export const description = "mx-auto max-w-2xl text-content-muted";
+export const grid = "grid gap-6 md:grid-cols-3";
+export const card = "group rounded-xl border border-border-subtle bg-surface-muted p-6 transition-all hover:border-brand-tint hover:bg-surface hover:shadow-lg";
+export const row = "mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-soft text-2xl transition-transform group-hover:scale-110";
+export const cardTitle = "mb-2 text-xl font-bold text-content";
+export const text = "mb-4 text-content-subtle";
+export const price = "font-semibold text-brand";
+export const ctaRow = "mt-10 text-center";
+export const link = "inline-flex items-center gap-2 font-medium text-brand transition-colors hover:text-brand-strong";
+export const icon = "h-4 w-4";

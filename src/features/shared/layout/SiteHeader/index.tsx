@@ -3,58 +3,56 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { commonCopy } from "@/copy/common";
+import { navigationCopy } from "@/copy/navigation";
+import { profile } from "@/copy/profile";
+import * as styles from "./styles";
+import { buildHeaderNavItems, getHeaderContactHref, toggleMenu } from "./utils";
 
-export default function Header() {
+export default function SiteHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const isHomePage = pathname === "/";
 
-  const navItems = [
-    { label: "About", href: isHomePage ? "#about" : "/about" },
-    {
-      label: "Experience",
-      href: isHomePage ? "#experience" : "/#experience",
-    },
-    { label: "Services", href: isHomePage ? "#services" : "/services" },
-  ];
-
-  const contactHref = isHomePage ? "#contact" : "/contact";
+  const navItems = buildHeaderNavItems(isHomePage);
+  const contactHref = getHeaderContactHref(isHomePage);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
-      <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-        <Link href="/" className="text-xl font-bold text-slate-900">
-          <span className="text-emerald-600">B</span>radley{" "}
-          <span className="text-emerald-600">E</span>xton
+    <nav className={styles.nav}>
+      <div className={styles.row}>
+        <Link href="/" className={styles.link}>
+          <span className={styles.labelText}>{profile.firstName.charAt(0)}</span>
+          {profile.firstName.slice(1)}{" "}
+          <span className={styles.labelText}>{profile.lastName.charAt(0)}</span>
+          {profile.lastName.slice(1)}
         </Link>
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex gap-8 items-center">
+        <div className={styles.desktopNav}>
           {navItems.map((item) => (
             <Link
               key={item.label}
               href={item.href}
-              className="text-slate-600 hover:text-emerald-600 transition-colors text-sm font-medium"
+              className={styles.desktopNavLink}
             >
               {item.label}
             </Link>
           ))}
           <Link
             href={contactHref}
-            className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+            className={styles.ctaLink}
           >
-            Get In Touch
+            {commonCopy.cta.getInTouch}
           </Link>
         </div>
 
-        {/* Mobile Menu Button */}
         <button
-          className="md:hidden p-2"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className={styles.button}
+          onClick={() => setIsMenuOpen((open) => toggleMenu(open))}
           aria-label="Toggle menu"
+          aria-expanded={isMenuOpen}
         >
           <svg
-            className="w-6 h-6 text-slate-900"
+            className={styles.icon}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -78,14 +76,13 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white border-t border-slate-200 px-6 py-4 space-y-4">
+        <div className={styles.block}>
           {navItems.map((item) => (
             <Link
               key={item.label}
               href={item.href}
-              className="block text-slate-600 hover:text-emerald-600 transition-colors text-sm font-medium"
+              className={styles.mobileNavLink}
               onClick={() => setIsMenuOpen(false)}
             >
               {item.label}
@@ -93,10 +90,10 @@ export default function Header() {
           ))}
           <Link
             href={contactHref}
-            className="block bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors text-center"
+            className={styles.mobileCtaLink}
             onClick={() => setIsMenuOpen(false)}
           >
-            Get In Touch
+            {navigationCopy.headerPrimaryLabel}
           </Link>
         </div>
       )}

@@ -2,66 +2,86 @@
 
 :root {
   /* Primary - Emerald Tech */
-  --color-primary-50: #ECFDF5;
-  --color-primary-100: #D1FAE5;
-  --color-primary-200: #A7F3D0;
-  --color-primary-300: #6EE7B7;
-  --color-primary-400: #34D399;
-  --color-primary-500: #10B981;
+  --color-primary-50: #ecfdf5;
+  --color-primary-100: #d1fae5;
+  --color-primary-200: #a7f3d0;
+  --color-primary-300: #6ee7b7;
+  --color-primary-400: #34d399;
+  --color-primary-500: #10b981;
   --color-primary-600: #059669;
   --color-primary-700: #047857;
-  --color-primary-800: #065F46;
-  --color-primary-900: #064E3B;
+  --color-primary-800: #065f46;
+  --color-primary-900: #064e3b;
 
   /* Accent - Warm Amber */
-  --color-accent-400: #FBBF24;
-  --color-accent-500: #F59E0B;
-  --color-accent-600: #D97706;
+  --color-accent-400: #fbbf24;
+  --color-accent-500: #f59e0b;
+  --color-accent-600: #d97706;
 
   /* Neutrals - Slate */
-  --color-neutral-50: #F8FAFC;
-  --color-neutral-100: #F1F5F9;
-  --color-neutral-200: #E2E8F0;
-  --color-neutral-300: #CBD5E1;
-  --color-neutral-400: #94A3B8;
-  --color-neutral-500: #64748B;
+  --color-neutral-50: #f8fafc;
+  --color-neutral-100: #f1f5f9;
+  --color-neutral-200: #e2e8f0;
+  --color-neutral-300: #cbd5e1;
+  --color-neutral-400: #94a3b8;
+  --color-neutral-500: #64748b;
   --color-neutral-600: #475569;
   --color-neutral-700: #334155;
-  --color-neutral-800: #1E293B;
-  --color-neutral-900: #0F172A;
+  --color-neutral-800: #1e293b;
+  --color-neutral-900: #0f172a;
 
   /* Semantic */
-  --color-success: #10B981;
-  --color-warning: #F59E0B;
-  --color-error: #EF4444;
-  --color-info: #3B82F6;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
 
   --background: #ffffff;
-  --foreground: #0F172A;
+  --foreground: #0f172a;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-inter);
   --font-heading: var(--font-space-grotesk);
 
-  /* Primary Colors */
-  --color-primary-50: var(--color-primary-50);
-  --color-primary-100: var(--color-primary-100);
-  --color-primary-200: var(--color-primary-200);
-  --color-primary-300: var(--color-primary-300);
-  --color-primary-400: var(--color-primary-400);
-  --color-primary-500: var(--color-primary-500);
-  --color-primary-600: var(--color-primary-600);
-  --color-primary-700: var(--color-primary-700);
-  --color-primary-800: var(--color-primary-800);
-  --color-primary-900: var(--color-primary-900);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
 
-  /* Accent Colors */
-  --color-accent-400: var(--color-accent-400);
-  --color-accent-500: var(--color-accent-500);
-  --color-accent-600: var(--color-accent-600);
+  /* Surface + content tokens */
+  --color-surface: #ffffff;
+  --color-surface-muted: var(--color-neutral-50);
+  --color-surface-subtle: var(--color-neutral-100);
+  --color-surface-inverse: var(--color-neutral-900);
+  --color-surface-inverse-alt: var(--color-neutral-800);
+
+  --color-content: var(--color-neutral-900);
+  --color-content-muted: var(--color-neutral-600);
+  --color-content-subtle: var(--color-neutral-500);
+  --color-content-faint: var(--color-neutral-400);
+  --color-content-inverse: #ffffff;
+  --color-content-inverse-muted: var(--color-neutral-300);
+
+  /* Brand + accent tokens */
+  --color-brand: var(--color-primary-600);
+  --color-brand-strong: var(--color-primary-700);
+  --color-brand-soft: var(--color-primary-100);
+  --color-brand-weak: var(--color-primary-50);
+  --color-brand-tint: var(--color-primary-200);
+  --color-brand-contrast: var(--color-primary-400);
+  --color-brand-deep: var(--color-primary-800);
+  --color-brand-deeper: var(--color-primary-900);
+  --color-brand-muted: var(--color-primary-100);
+
+  --color-accent-soft: var(--color-accent-400);
+
+  /* Border + state tokens */
+  --color-border-default: var(--color-neutral-200);
+  --color-border-subtle: var(--color-neutral-100);
+  --color-border-strong: var(--color-neutral-700);
+
+  --color-danger-soft: #fef2f2;
+  --color-danger-border: #fecaca;
+  --color-danger-content: #b91c1c;
 }
 
 body {
@@ -69,12 +89,21 @@ body {
   color: var(--foreground);
 }
 
-/* Smooth scroll */
 html {
   scroll-behavior: smooth;
 }
 
-/* Custom utilities */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

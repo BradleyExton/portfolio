@@ -1,25 +1,15 @@
 import type { Metadata } from "next";
-import ContactPageClient from "./ContactPageClient";
+import { contactMetadata } from "@/copy/metadata";
+import { publicEnv } from "@/config/publicEnv";
+import ContactPageClient from "@/features/contact/ContactPageClient";
 
-export const metadata: Metadata = {
-  title: "Contact | Bradley Exton",
-  description:
-    "Contact Bradley Exton for full-time opportunities, freelance projects, or technical collaboration.",
-  openGraph: {
-    title: "Contact | Bradley Exton",
-    description:
-      "Get in touch with Bradley Exton for opportunities, projects, and collaboration.",
-    url: "https://bradleyexton.ca/contact",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Contact | Bradley Exton",
-    description:
-      "Get in touch with Bradley Exton for opportunities, projects, and collaboration.",
-  },
-};
+export const metadata: Metadata = contactMetadata;
 
 export default function ContactPage() {
-  return <ContactPageClient />;
+  return (
+    <ContactPageClient
+      formspreeFormId={publicEnv.formspreeFormId}
+      calcomUrl={publicEnv.calcomUrl}
+    />
+  );
 }

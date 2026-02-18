@@ -1,0 +1,9 @@
+export const section = "bg-surface-muted px-6 py-16";
+export const container = "mx-auto max-w-4xl";
+export const eyebrow = "mb-3 text-sm font-semibold uppercase tracking-wider text-brand";
+export const subheading = "mb-12 text-3xl font-bold text-content font-[family-name:var(--font-space-grotesk)]";
+export const block = "space-y-8";
+export const row = "flex gap-6";
+export const stepBadge = "flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-brand text-lg font-bold text-content-inverse";
+export const cardTitle = "mb-2 text-xl font-bold text-content";
+export const description = "text-content-muted";

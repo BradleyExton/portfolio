@@ -1,0 +1,17 @@
+export const section = "bg-surface-muted px-6 py-20";
+export const container = "mx-auto max-w-6xl";
+export const eyebrow = "mb-3 text-sm font-semibold uppercase tracking-wider text-brand";
+export const subheading = "mb-12 text-3xl font-bold text-content font-[family-name:var(--font-space-grotesk)]";
+export const block = "space-y-6";
+export const card = "group rounded-xl border border-border-default bg-surface p-6 transition-all hover:border-brand-tint hover:shadow-lg";
+export const row = "flex flex-col justify-between gap-4 md:flex-row md:items-center";
+export const roleContent = "flex-1";
+export const roleHeader = "mb-2 flex items-center gap-3";
+export const cardTitle = "text-xl font-bold text-content";
+export const badge = "rounded-full bg-brand-soft px-2 py-0.5 text-xs font-medium text-brand-strong";
+export const text = "mb-2 font-medium text-brand";
+export const roleDescription = "text-content-subtle";
+export const timeline = "whitespace-nowrap text-sm font-medium text-content-faint md:text-right";
+export const ctaRow = "mt-8";
+export const link = "inline-flex items-center gap-2 font-medium text-content-muted transition-colors hover:text-brand";
+export const icon = "h-4 w-4";

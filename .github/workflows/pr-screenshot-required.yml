@@ -1,0 +1,44 @@
+name: PR UI Screenshot
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+    branches: [main]
+
+jobs:
+  screenshot-required:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            frontend:
+              - 'src/**'
+              - 'public/**'
+              - '*.css'
+              - '*.tsx'
+              - '*.ts'
+
+      - name: Validate screenshot in PR body
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const frontendChanged = '${{ steps.changes.outputs.frontend }}' === 'true';
+            if (!frontendChanged) {
+              core.info('No frontend changes detected. Screenshot not required.');
+              return;
+            }
+
+            const body = context.payload.pull_request?.body || '';
+            const markdownImageRegex = /!\[[^\]]*\]\(([^)]+)\)/i;
+            const htmlImageRegex = /<img\s+[^>]*src=\"[^\"]+\"[^>]*>/i;
+
+            if (!markdownImageRegex.test(body) && !htmlImageRegex.test(body)) {
+              core.setFailed('Frontend changes detected but no screenshot found in PR body. Add at least one image.');
+              return;
+            }
+
+            core.info('Screenshot requirement satisfied.');

@@ -22,6 +22,7 @@ Guardrail:
 ## 1) Canonical Design Tokens
 
 Use semantic tokens from `src/app/globals.css`.
+Component class maps must be defined in colocated `styles.ts` files and imported into `index.tsx`.
 
 Core palette:
 - Primary: `--color-primary-50..900`
@@ -34,6 +35,7 @@ Rules:
 - Accent (amber) is secondary emphasis only.
 - Keep error/warning/success usage functional (not decorative).
 - Do not hardcode hex values in component files.
+- Do not use raw Tailwind palette color utility classes in `styles.ts`.
 
 ---
 

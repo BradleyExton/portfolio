@@ -63,7 +63,8 @@ Run guidance:
 ## 4) Project Structure
 
 - Route files live under `src/app/`.
-- Shared UI lives under `src/components/`.
+- Feature UI lives under `src/features/`.
+- Thin compatibility wrappers may exist under `src/components/`.
 - Shared copy should live under `src/copy/` when introduced.
 - Keep feature concerns grouped and avoid deep cross-feature imports.
 
@@ -72,13 +73,20 @@ Run guidance:
 ## 5) Component and Utility Structure
 
 - Components/utilities should be small and focused.
-- Prefer one component per file with clear names.
+- Each component must live in a descriptive folder.
+- Component entry file must be `index.tsx`.
+- Component folder contract files:
+  - `styles.ts` (required)
+  - `types.ts` (required)
+  - `utils.ts` (required; keep pure helper/business logic here)
+- Tests should be colocated as `index.test.tsx` for behavior-bearing components.
 - If files grow too large, extract subcomponents before adding more sections.
 - Co-locate feature-only utilities near the component that uses them.
 
 Guardrails:
-- Keep component files around 220 lines when practical.
-- Hard cap component files around 260 lines unless intentionally documented.
+- Keep `index.tsx` files around 220 lines when practical.
+- Hard cap `index.tsx` files around 260 lines unless intentionally documented.
+- Keep `styles.ts` files around 140 lines when practical.
 
 ---
 

@@ -1,0 +1,17 @@
+export const row = "flex min-h-screen items-center justify-center bg-gradient-to-br from-brand via-brand-strong to-surface-inverse px-6";
+export const block = "mb-8";
+export const labelText = "text-6xl font-bold md:text-7xl font-[family-name:var(--font-space-grotesk)]";
+export const initialPrimary = "text-content-inverse";
+export const initialAccent = "text-brand-contrast";
+export const title = "mb-2 text-3xl font-bold text-content-inverse md:text-4xl font-[family-name:var(--font-space-grotesk)]";
+export const description = "mb-8 text-lg text-brand-muted";
+export const divider = "mx-auto mb-8 h-1 w-16 rounded-full bg-brand-contrast";
+export const heading = "mb-3 text-xl font-semibold text-content-inverse md:text-2xl font-[family-name:var(--font-space-grotesk)]";
+export const comingSoonDescription = "mx-auto mb-10 max-w-md text-brand-muted/80";
+export const socialLinks = "flex justify-center gap-6";
+export const link = "flex items-center gap-2 text-brand-muted transition-colors hover:text-content-inverse";
+export const icon = "h-5 w-5";
+export const badge = "text-sm font-medium";
+export const content = "text-center transition-all duration-700";
+export const contentVisible = "translate-y-0 opacity-100";
+export const contentHidden = "translate-y-4 opacity-0";

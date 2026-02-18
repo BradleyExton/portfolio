@@ -1,0 +1,12 @@
+export const section = "bg-surface px-6 py-16";
+export const container = "mx-auto max-w-4xl";
+export const eyebrow = "mb-3 text-sm font-semibold uppercase tracking-wider text-brand";
+export const subheading = "mb-8 text-3xl font-bold text-content font-[family-name:var(--font-space-grotesk)]";
+export const block = "space-y-4";
+export const card = "overflow-hidden rounded-xl border border-border-default";
+export const row = "flex w-full items-center justify-between px-6 py-4 text-left transition-colors hover:bg-surface-muted";
+export const labelText = "font-semibold text-content";
+export const answerContainer = "px-6 pb-4";
+export const description = "text-content-muted";
+export const chevronIcon = "h-5 w-5 text-content-subtle transition-transform";
+export const chevronExpanded = "rotate-180";

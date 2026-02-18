@@ -1,0 +1,12 @@
+export const nav = "fixed left-0 right-0 top-0 z-50 border-b border-border-default bg-surface/80 backdrop-blur-md";
+export const row = "mx-auto flex max-w-6xl items-center justify-between px-6 py-4";
+export const link = "text-xl font-bold text-content";
+export const labelText = "text-brand";
+export const desktopNav = "hidden items-center gap-8 md:flex";
+export const desktopNavLink = "text-sm font-medium text-content-muted transition-colors hover:text-brand";
+export const ctaLink = "rounded-lg bg-brand px-4 py-2 text-sm font-medium text-content-inverse transition-colors hover:bg-brand-strong";
+export const button = "p-2 md:hidden";
+export const icon = "h-6 w-6 text-content";
+export const block = "space-y-4 border-t border-border-default bg-surface px-6 py-4 md:hidden";
+export const mobileNavLink = "block text-sm font-medium text-content-muted transition-colors hover:text-brand";
+export const mobileCtaLink = "block rounded-lg bg-brand px-4 py-2 text-center text-sm font-medium text-content-inverse transition-colors hover:bg-brand-strong";

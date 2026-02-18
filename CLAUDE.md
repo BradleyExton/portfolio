@@ -4,7 +4,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Personal portfolio website for Bradley Exton, a senior full-stack developer. The site serves as both a professional portfolio for job hunting and a freelance business presence. Positioning is "developer first, freelance services second."
+Personal portfolio website for Bradley Exton. The site is structured around App Router route wrappers plus feature modules, with standardized copy ownership and UI guardrails.
+
+## Standards Entry Point
+
+Start with `STANDARDS.frontend.md`, then follow:
+
+- `AGENTS.frontend.md`
+- `DESIGN.frontend.md`
+- `COPY.frontend.md`
+- `PR-CHECKLIST.frontend.md`
 
 ## Commands
 
@@ -13,6 +22,10 @@ npm run dev      # Start development server (localhost:3000)
 npm run build    # Production build
 npm run start    # Start production server
 npm run lint     # Run ESLint
+npm run typecheck
+npm run verify   # Required local gate: lint + typecheck + build
+npm test         # Unit/component tests (Vitest)
+npm run test:e2e # Smoke E2E (Playwright)
 ```
 
 ## Tech Stack
@@ -20,48 +33,41 @@ npm run lint     # Run ESLint
 - **Framework:** Next.js 16 (App Router)
 - **Language:** TypeScript (strict mode)
 - **Styling:** Tailwind CSS v4
-- **Fonts:** Inter (body) + Space Grotesk (headings) via next/font/google
+- **Testing:** Vitest + Testing Library + Playwright
 
 ## Architecture
 
-### App Router Structure
+### Top-Level Structure
 
 ```
 src/app/
-├── layout.tsx      # Root layout with fonts, metadata, global styles
-├── page.tsx        # Homepage (client component with animations)
-├── globals.css     # Tailwind imports + CSS custom properties
-├── about/page.tsx  # About page (server component with metadata)
-├── services/page.tsx # Services page (client component for FAQ accordion)
-└── contact/        # Contact page (planned, not yet implemented)
+src/features/
+src/copy/
+src/config/
 ```
 
-### Components
+### App Router Expectations
 
-Shared components in `src/components/`:
-- `Header.tsx` - Fixed navigation with mobile hamburger menu (client component)
-- `Footer.tsx` - Site footer with links (server component)
+- Keep `src/app/*/page.tsx` files thin and declarative.
+- Keep section/component logic under `src/features/**`.
+- Keep user-facing copy in `src/copy/**`.
+- Keep env parsing/validation in `src/config/publicEnv.ts`.
+- Use component folders with `index.tsx`, `styles.ts`, `types.ts`, and `utils.ts`.
 
-### Styling Conventions
+### Styling Expectations
 
-- Brand colors defined as CSS custom properties in `globals.css` and exposed via Tailwind's `@theme inline`
-- Primary color: Emerald (emerald-600 is the main brand color)
-- Accent color: Amber (for secondary CTAs)
-- Neutrals: Slate
-- Headings use `font-[family-name:var(--font-space-grotesk)]`
-- Path alias `@/*` maps to `./src/*`
+- Use semantic token classes (`bg-surface`, `text-content`, `border-default`, etc.).
+- Do not use raw Tailwind palette utility classes in component markup for refactored modules.
+- Keep accessibility-visible focus states and non-color-only state signaling.
 
-### Page Patterns
+### Guardrails
 
-- Pages use `Header` and `Footer` wrapper components
-- Hero sections typically have gradient backgrounds (`from-emerald-50 via-white to-slate-50`)
-- Section headings follow pattern: small uppercase label + large heading
-- CTAs use emerald gradient backgrounds with white text
+- ESLint enforces entry-file naming and component contract files.
+- ESLint enforces `max-lines` for `index.tsx` (260) and `styles.ts` (140), excluding blank/comments.
+- Avoid oversized page/components; decompose into feature sections.
 
-## Project Brief
+### CI/PR Requirements
 
-Full design specifications, copy, and brand guidelines are in `bradleyexton-site-brief.md`. Reference this file for:
-- Complete page copy and content
-- Color palette values
-- Design direction and aesthetic guidelines
-- Planned features (Cal.com booking, contact form)
+- PR checks (`.github/workflows/pr-checks.yml`) run lint, typecheck, unit tests, build, and E2E.
+- Screenshot enforcement (`.github/workflows/pr-screenshot-required.yml`) requires an image in PR body when frontend files change.
+- Use `.github/pull_request_template.md` and complete `PR-CHECKLIST.frontend.md`.

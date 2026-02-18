@@ -1,0 +1,15 @@
+export const section = "bg-surface px-6 py-16";
+export const container = "mx-auto max-w-6xl";
+export const block = "space-y-12";
+export const grid = "grid gap-8 rounded-2xl border border-border-subtle bg-surface-muted p-8 md:grid-cols-2";
+export const row = "mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-brand-soft text-3xl";
+export const subheading = "mb-3 text-2xl font-bold text-content font-[family-name:var(--font-space-grotesk)]";
+export const description = "mb-4 text-content-muted";
+export const text = "text-2xl font-bold text-brand";
+export const cardTitle = "mb-3 font-semibold text-content";
+export const featureList = "mb-6 space-y-2";
+export const featureItem = "flex items-start gap-2 text-content-muted";
+export const icon = "mt-0.5 h-5 w-5 flex-shrink-0 text-brand";
+export const card = "rounded-lg border border-border-default bg-surface p-4";
+export const idealForText = "text-sm text-content-subtle";
+export const labelText = "font-semibold text-content-muted";

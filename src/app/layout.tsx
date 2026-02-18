@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import { siteMetadata } from "@/copy/metadata";
+import { publicEnv } from "@/config/publicEnv";
 import UnderConstruction from "@/components/UnderConstruction";
 
 const inter = Inter({
@@ -13,41 +15,19 @@ const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Bradley Exton | Senior Full-Stack Developer",
-  description: "Senior full-stack developer based in Barrie, Ontario with 9+ years of experience building web applications. Specializing in React, Node.js, and modern JavaScript.",
-  keywords: ["web developer", "full-stack developer", "React", "Node.js", "TypeScript", "Barrie", "Ontario", "freelance"],
-  authors: [{ name: "Bradley Exton" }],
-  openGraph: {
-    title: "Bradley Exton | Senior Full-Stack Developer",
-    description: "Senior full-stack developer based in Barrie, Ontario with 9+ years of experience building web applications.",
-    url: "https://bradleyexton.ca",
-    siteName: "Bradley Exton",
-    locale: "en_CA",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Bradley Exton | Senior Full-Stack Developer",
-    description: "Senior full-stack developer based in Barrie, Ontario with 9+ years of experience building web applications.",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+export const metadata: Metadata = siteMetadata;
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const isUnderConstruction = process.env.UNDER_CONSTRUCTION === "true";
+  const isUnderConstruction = publicEnv.underConstruction;
 
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased bg-slate-50 text-slate-900`}
+        className={`${inter.variable} ${spaceGrotesk.variable} bg-surface-muted font-sans text-content antialiased`}
       >
         {isUnderConstruction ? <UnderConstruction /> : children}
       </body>

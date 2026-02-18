@@ -1,0 +1,12 @@
+export const footer = "bg-surface-inverse px-6 py-12 text-content-inverse";
+export const container = "mx-auto max-w-6xl";
+export const grid = "mb-8 grid gap-8 md:grid-cols-3";
+export const link = "text-xl font-bold";
+export const labelText = "text-brand-contrast";
+export const text = "mt-2 text-sm text-content-faint";
+export const cardTitle = "mb-4 text-sm font-semibold uppercase tracking-wider text-content-faint";
+export const nav = "space-y-2";
+export const navLink = "block text-sm text-content-inverse-muted transition-colors hover:text-brand-contrast";
+export const row = "flex flex-col items-center justify-between gap-4 border-t border-border-strong pt-8 md:flex-row";
+export const copyright = "text-sm text-content-faint";
+export const location = "text-sm text-content-subtle";

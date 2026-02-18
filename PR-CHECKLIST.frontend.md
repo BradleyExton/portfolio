@@ -10,6 +10,7 @@ Use this checklist for pull requests that modify frontend behavior or UI.
 ## Component Quality
 - [ ] Components remain modular and focused.
 - [ ] Oversized components were decomposed where needed.
+- [ ] Component folders follow contract (`index.tsx`, `styles.ts`, `types.ts`, `utils.ts`).
 - [ ] Styles use semantic tokens (no hardcoded hex values in components).
 - [ ] User-facing copy is sourced from copy modules when practical.
 
@@ -26,11 +27,12 @@ Use this checklist for pull requests that modify frontend behavior or UI.
 
 ## Testing and Verification
 - [ ] Commands run:
+  - [ ] `npm run verify`
   - [ ] `npm run lint`
   - [ ] `npm run typecheck`
   - [ ] `npm run build`
   - [ ] `npm test` (if configured)
-  - [ ] `npx playwright test` (if applicable)
+  - [ ] `npm run test:e2e` (if applicable)
 - [ ] If tests were not added for behavior changes, rationale is documented.
 
 ## Review Artifacts
