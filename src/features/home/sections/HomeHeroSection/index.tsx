@@ -10,18 +10,18 @@ type HomeHeroSectionProps = {
 export function HomeHeroSection({ isVisible }: HomeHeroSectionProps) {
   return (
     <section className={styles.section}>
-      <div className={styles.overlay} />
-      <div className={styles.accentOrbTopRight} />
-      <div className={styles.accentOrbBottomLeft} />
-
       <div className={styles.backgroundImageOverlay}>
         <Image
-          src="/images/hero-background.png"
+          src="/images/hero.png"
           alt=""
           fill
+          priority
           className={styles.image}
         />
       </div>
+      <div className={styles.overlay} />
+      <div className={styles.accentOrbTopRight} />
+      <div className={styles.accentOrbBottomLeft} />
 
       <div className={styles.container}>
         <div className={styles.grid}>
@@ -75,34 +75,6 @@ export function HomeHeroSection({ isVisible }: HomeHeroSectionProps) {
               >
                 {homeCopy.hero.ctaSecondary}
               </Link>
-            </div>
-          </div>
-
-          <div
-            className={
-              isVisible
-                ? `${styles.imageColumn} ${styles.imageVisibleState}`
-                : `${styles.imageColumn} ${styles.imageHiddenState}`
-            }
-          >
-            <div className={styles.wrapper}>
-              <div className={styles.card}>
-                <Image
-                  src="/images/cartoon-me.png"
-                  alt="Bradley Exton"
-                  fill
-                  sizes="(max-width: 768px) 256px, (max-width: 1024px) 320px, 384px"
-                  className={styles.portraitImage}
-                  priority
-                />
-              </div>
-
-              <div className={styles.experienceBadge}>
-                <p className={styles.text}>{homeCopy.hero.yearsExperience}</p>
-                <p className={styles.experienceLabel}>
-                  {homeCopy.hero.yearsExperienceLabel}
-                </p>
-              </div>
             </div>
           </div>
         </div>
