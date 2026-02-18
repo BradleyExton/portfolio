@@ -5,140 +5,199 @@ import Image from "next/image";
 import Link from "next/link";
 import { homeCopy } from "@/copy/home";
 import * as styles from "./styles";
-import {
-  applyHeroParallaxTransforms,
-  clearHeroParallaxTransforms,
-  getHeroParallaxCenteredProgress,
-  shouldEnableHeroParallax,
-} from "./utils";
+import { setupHeroParallaxController } from "./utils";
 
-type HomeHeroSectionProps = {
-  isVisible: boolean;
-};
+type HeroTechPill = (typeof homeCopy.techStackPills)[number];
 
-export function HomeHeroSection({ isVisible }: HomeHeroSectionProps) {
+function TechPillIcon({ tech }: { tech: HeroTechPill }) {
+  if (tech === "React") {
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+        className={styles.techIcon}
+      >
+        <circle cx="12" cy="12" r="1.75" fill="currentColor" />
+        <ellipse
+          cx="12"
+          cy="12"
+          rx="10"
+          ry="4.25"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+        />
+        <ellipse
+          cx="12"
+          cy="12"
+          rx="10"
+          ry="4.25"
+          transform="rotate(60 12 12)"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+        />
+        <ellipse
+          cx="12"
+          cy="12"
+          rx="10"
+          ry="4.25"
+          transform="rotate(120 12 12)"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+        />
+      </svg>
+    );
+  }
+
+  if (tech === "Next.js") {
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+        className={styles.techIcon}
+      >
+        <circle
+          cx="12"
+          cy="12"
+          r="9.25"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+        />
+        <path
+          d="M7.75 15.5V8.5L16.25 15.5V8.5"
+          fill="none"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="1.8"
+        />
+      </svg>
+    );
+  }
+
+  if (tech === "TypeScript") {
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+        className={styles.techIcon}
+      >
+        <rect
+          x="3.25"
+          y="3.25"
+          width="17.5"
+          height="17.5"
+          rx="3"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+        />
+        <text
+          x="12"
+          y="15.4"
+          fill="currentColor"
+          fontSize="8.5"
+          fontWeight="800"
+          textAnchor="middle"
+        >
+          TS
+        </text>
+      </svg>
+    );
+  }
+
+  if (tech === "Node.js") {
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+        className={styles.techIcon}
+      >
+        <path
+          d="M12 2.5L20 7V17L12 21.5L4 17V7L12 2.5Z"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+        />
+        <text
+          x="12"
+          y="15.35"
+          fill="currentColor"
+          fontSize="8.5"
+          fontWeight="800"
+          textAnchor="middle"
+        >
+          N
+        </text>
+      </svg>
+    );
+  }
+
+  return null;
+}
+
+export function HomeHeroSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const backgroundLayerRef = useRef<HTMLDivElement | null>(null);
   const topOrbLayerRef = useRef<HTMLDivElement | null>(null);
   const bottomOrbLayerRef = useRef<HTMLDivElement | null>(null);
+  const contentLayerRef = useRef<HTMLDivElement | null>(null);
+  const pillsLayerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
-
-    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let frameId = 0;
-    let isParallaxEnabled = false;
-
-    const getLayerRefs = () => {
-      return {
-        backgroundLayer: backgroundLayerRef.current,
-        topOrbLayer: topOrbLayerRef.current,
-        bottomOrbLayer: bottomOrbLayerRef.current,
-      };
-    };
-
-    const updateParallax = () => {
-      frameId = 0;
-
-      const section = sectionRef.current;
-      if (!section || !isParallaxEnabled) {
-        return;
-      }
-
-      const centeredProgress = getHeroParallaxCenteredProgress(
-        section.getBoundingClientRect(),
-        window.innerHeight,
-      );
-
-      applyHeroParallaxTransforms(getLayerRefs(), centeredProgress);
-    };
-
-    const queueParallaxUpdate = () => {
-      if (frameId !== 0) {
-        return;
-      }
-
-      frameId = window.requestAnimationFrame(updateParallax);
-    };
-
-    const refreshParallaxMode = () => {
-      const nextMode = shouldEnableHeroParallax(
-        window.innerWidth,
-        motionQuery.matches,
-      );
-
-      if (nextMode !== isParallaxEnabled) {
-        isParallaxEnabled = nextMode;
-        if (!isParallaxEnabled) {
-          clearHeroParallaxTransforms(getLayerRefs());
-        }
-      }
-
-      queueParallaxUpdate();
-    };
-
-    const handleScroll = () => {
-      queueParallaxUpdate();
-    };
-
-    const handleResize = () => {
-      refreshParallaxMode();
-    };
-
-    const handleMotionPreferenceChange = () => {
-      refreshParallaxMode();
-    };
-
-    refreshParallaxMode();
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleResize);
-    motionQuery.addEventListener("change", handleMotionPreferenceChange);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
-      motionQuery.removeEventListener("change", handleMotionPreferenceChange);
-
-      if (frameId !== 0) {
-        window.cancelAnimationFrame(frameId);
-      }
-
-      clearHeroParallaxTransforms(getLayerRefs());
-    };
+    return setupHeroParallaxController({
+      sectionRef,
+      backgroundLayerRef,
+      topOrbLayerRef,
+      bottomOrbLayerRef,
+      contentLayerRef,
+      pillsLayerRef,
+    });
   }, []);
 
   return (
-    <section ref={sectionRef} className={styles.section}>
-      <div ref={backgroundLayerRef} className={styles.parallaxLayer}>
-        <div className={styles.backgroundImageOverlay}>
-          <Image
-            src="/images/hero.png"
-            alt=""
-            fill
-            priority
-            className={styles.image}
-          />
+    <section ref={sectionRef} className={styles.section} data-parallax-section="hero">
+      <div
+        ref={backgroundLayerRef}
+        className={styles.parallaxLayer}
+        data-parallax-layer="background"
+      >
+        <div className={styles.backgroundImageViewport}>
+          <div className={styles.backgroundImageOverlay}>
+            <Image
+              src="/images/hero.png"
+              alt=""
+              fill
+              priority
+              className={styles.image}
+            />
+          </div>
         </div>
       </div>
       <div className={styles.overlay} />
-      <div ref={topOrbLayerRef} className={styles.parallaxLayer}>
+      <div
+        ref={topOrbLayerRef}
+        className={styles.parallaxLayer}
+        data-parallax-layer="top-orb"
+      >
         <div className={styles.accentOrbTopRight} />
       </div>
-      <div ref={bottomOrbLayerRef} className={styles.parallaxLayer}>
+      <div
+        ref={bottomOrbLayerRef}
+        className={styles.parallaxLayer}
+        data-parallax-layer="bottom-orb"
+      >
         <div className={styles.accentOrbBottomLeft} />
       </div>
 
       <div className={styles.container}>
         <div className={styles.grid}>
           <div
-            className={
-              isVisible
-                ? `${styles.textColumn} ${styles.visibleState}`
-                : `${styles.textColumn} ${styles.hiddenState}`
-            }
+            ref={contentLayerRef}
+            className={`${styles.textColumn} ${styles.visibleState}`}
           >
             <div className={styles.row}>
               <span className={styles.badge} />
@@ -188,18 +247,16 @@ export function HomeHeroSection({ isVisible }: HomeHeroSectionProps) {
         </div>
 
         <div
-          className={
-            isVisible
-              ? `${styles.techPillsRow} ${styles.visibleState}`
-              : `${styles.techPillsRow} ${styles.hiddenState}`
-          }
+          ref={pillsLayerRef}
+          className={`${styles.techPillsRow} ${styles.visibleState}`}
         >
           {homeCopy.techStackPills.map((tech) => (
             <span
               key={tech}
               className={styles.techPill}
             >
-              {tech}
+              <TechPillIcon tech={tech} />
+              <span>{tech}</span>
             </span>
           ))}
         </div>

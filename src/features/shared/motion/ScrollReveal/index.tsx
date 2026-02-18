@@ -13,13 +13,8 @@ export function ScrollReveal({
   once = true,
 }: ScrollRevealProps) {
   const elementRef = useRef<HTMLDivElement | null>(null);
-  const [isVisible, setIsVisible] = useState(() => {
-    if (typeof window === "undefined") {
-      return false;
-    }
-
-    return typeof window.IntersectionObserver === "undefined";
-  });
+  const hasIntersectedRef = useRef(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     if (typeof window.IntersectionObserver === "undefined") {
@@ -31,10 +26,27 @@ export function ScrollReveal({
       return;
     }
 
+    const sectionIsInViewport = (): boolean => {
+      const rect = node.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const normalizedThreshold = Math.max(0, Math.min(threshold, 1));
+      const thresholdOffset = normalizedThreshold * rect.height;
+      // Reveal slightly earlier so content does not look faded while already peeking into view.
+      const bottomMarginOffset = viewportHeight * 0.02;
+
+      return (
+        rect.top <= viewportHeight - bottomMarginOffset - thresholdOffset
+        && rect.bottom >= thresholdOffset
+      );
+    };
+
+    setIsVisible(sectionIsInViewport());
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
+            hasIntersectedRef.current = true;
             setIsVisible(true);
             if (once) {
               observer.unobserve(entry.target);
@@ -42,14 +54,14 @@ export function ScrollReveal({
             return;
           }
 
-          if (!once) {
+          if (!once || !hasIntersectedRef.current) {
             setIsVisible(false);
           }
         });
       },
       {
         threshold,
-        rootMargin: "0px 0px -8% 0px",
+        rootMargin: "0px 0px -2% 0px",
       },
     );
 
@@ -67,7 +79,7 @@ export function ScrollReveal({
         styles.base,
         getRevealDelayClass(delayMs),
         className,
-        isVisible ? styles.visible : undefined,
+        isVisible ? styles.visible : styles.hidden,
       )}
     >
       {children}
