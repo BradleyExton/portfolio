@@ -23,7 +23,7 @@ export default function HomePageClient() {
   return (
     <>
       <SiteHeader />
-      <main className={styles.main}>
+      <main id="main-content" className={styles.main}>
         <HomeHeroSection isVisible={isVisible} />
         <HomeAboutSnapshotSection />
         <HomeExperienceSection />

@@ -6,12 +6,12 @@ export function HomeExperienceSection() {
   return (
     <section id="experience" className={styles.section}>
       <div className={styles.container}>
-        <h2 className={styles.eyebrow}>
+        <p className={styles.eyebrow}>
           {homeCopy.experience.eyebrow}
-        </h2>
-        <h3 className={styles.subheading}>
+        </p>
+        <h2 className={styles.subheading}>
           {homeCopy.experience.heading}
-        </h3>
+        </h2>
 
         <div className={styles.block}>
           {homeCopy.experience.items.map((job) => (

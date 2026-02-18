@@ -1,4 +1,5 @@
 export const nav = "fixed left-0 right-0 top-0 z-50 border-b border-border-default bg-surface/80 backdrop-blur-md";
+export const skipLink = "sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] rounded-lg bg-surface px-3 py-2 text-sm font-medium text-content shadow";
 export const row = "mx-auto flex max-w-6xl items-center justify-between px-6 py-4";
 export const link = "text-xl font-bold text-content";
 export const labelText = "text-brand";

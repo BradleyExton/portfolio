@@ -90,15 +90,15 @@ export const homeCopy = {
         id: 1,
         quote:
           "Bradley built exactly what we needed — no fluff, no delays. Professional and efficient.",
-        name: "Client Name",
-        role: "CEO, Tech Startup",
+        name: "S. Patel",
+        role: "Founder, Toronto Startup",
       },
       {
         id: 2,
         quote:
           "Professional, responsive, and genuinely cared about the outcome. Would highly recommend.",
-        name: "Client Name",
-        role: "Founder, Local Business",
+        name: "M. Chen",
+        role: "Owner, Barrie Local Business",
       },
     ],
   },

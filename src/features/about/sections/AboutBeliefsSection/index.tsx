@@ -5,12 +5,12 @@ export function AboutBeliefsSection() {
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        <h2 className={styles.eyebrow}>
+        <p className={styles.eyebrow}>
           {aboutCopy.beliefs.eyebrow}
-        </h2>
-        <h3 className={styles.subheading}>
+        </p>
+        <h2 className={styles.subheading}>
           {aboutCopy.beliefs.heading}
-        </h3>
+        </h2>
 
         <div className={styles.block}>
           {aboutCopy.beliefs.items.map((belief) => (

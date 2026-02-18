@@ -7,12 +7,12 @@ export function HomeServicesPreviewSection() {
     <section id="services" className={styles.section}>
       <div className={styles.container}>
         <div className={styles.block}>
-          <h2 className={styles.eyebrow}>
+          <p className={styles.eyebrow}>
             {homeCopy.servicesPreview.eyebrow}
-          </h2>
-          <h3 className={styles.subheading}>
+          </p>
+          <h2 className={styles.subheading}>
             {homeCopy.servicesPreview.heading}
-          </h3>
+          </h2>
           <p className={styles.description}>
             {homeCopy.servicesPreview.description}
           </p>

@@ -20,7 +20,7 @@ export default function ContactPageClient({
   return (
     <>
       <SiteHeader />
-      <main>
+      <main id="main-content">
         <ContactHeroSection />
         <ContactOptionsSection calcomUrl={calcomUrl} />
         <section className={styles.section}>

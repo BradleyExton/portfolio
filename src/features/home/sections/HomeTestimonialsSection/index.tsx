@@ -6,12 +6,12 @@ export function HomeTestimonialsSection() {
     <section className={styles.section}>
       <div className={styles.container}>
         <div className={styles.block}>
-          <h2 className={styles.eyebrow}>
+          <p className={styles.eyebrow}>
             {homeCopy.testimonials.eyebrow}
-          </h2>
-          <h3 className={styles.subheading}>
+          </p>
+          <h2 className={styles.subheading}>
             {homeCopy.testimonials.heading}
-          </h3>
+          </h2>
         </div>
 
         <div className={styles.grid}>
@@ -25,6 +25,7 @@ export function HomeTestimonialsSection() {
                   <svg
                     key={index}
                     className={styles.icon}
+                    aria-hidden="true"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >

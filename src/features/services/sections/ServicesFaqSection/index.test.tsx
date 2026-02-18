@@ -16,12 +16,17 @@ describe("ServicesFaqSection", () => {
       name: firstFaq.question,
     });
 
-    expect(screen.queryByText(firstFaq.answer)).not.toBeInTheDocument();
+    const panelId = questionButton.getAttribute("aria-controls");
+    expect(panelId).toBeTruthy();
+    const answerRegion = document.getElementById(panelId as string);
+    expect(answerRegion).toBeTruthy();
+    expect(answerRegion).not.toBeVisible();
 
     await user.click(questionButton);
-    expect(screen.getByText(firstFaq.answer)).toBeInTheDocument();
+    expect(answerRegion).toBeVisible();
+    expect(screen.getByText(firstFaq.answer)).toBeVisible();
 
     await user.click(questionButton);
-    expect(screen.queryByText(firstFaq.answer)).not.toBeInTheDocument();
+    expect(answerRegion).not.toBeVisible();
   });
 });

@@ -55,7 +55,12 @@ export function ContactFormSection({ formspreeFormId }: ContactFormSectionProps)
       )}
 
       {submitStatus === "success" ? (
-        <div className={styles.successCard}>
+        <div
+          className={styles.successCard}
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        >
           <svg
             className={styles.icon}
             fill="none"
@@ -148,7 +153,7 @@ export function ContactFormSection({ formspreeFormId }: ContactFormSectionProps)
           </div>
 
           {submitStatus === "error" && (
-            <div className={styles.errorCard}>
+            <div className={styles.errorCard} role="alert">
               {errorCopy.contact.submitFailed}
             </div>
           )}

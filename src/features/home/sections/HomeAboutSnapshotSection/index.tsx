@@ -8,12 +8,12 @@ export function HomeAboutSnapshotSection() {
       <div className={styles.container}>
         <div className={styles.grid}>
           <div>
-            <h2 className={styles.eyebrow}>
+            <p className={styles.eyebrow}>
               {homeCopy.aboutSnapshot.eyebrow}
-            </h2>
-            <h3 className={styles.subheading}>
+            </p>
+            <h2 className={styles.subheading}>
               {homeCopy.aboutSnapshot.heading}
-            </h3>
+            </h2>
             <p className={styles.description}>
               {homeCopy.aboutSnapshot.description}
             </p>

@@ -18,7 +18,10 @@ export default function SiteHeader() {
   const contactHref = getHeaderContactHref(isHomePage);
 
   return (
-    <nav className={styles.nav}>
+    <nav className={styles.nav} aria-label="Primary">
+      <a href="#main-content" className={styles.skipLink}>
+        Skip to main content
+      </a>
       <div className={styles.row}>
         <Link href="/" className={styles.link}>
           <span className={styles.labelText}>{profile.firstName.charAt(0)}</span>
@@ -50,6 +53,7 @@ export default function SiteHeader() {
           onClick={() => setIsMenuOpen((open) => toggleMenu(open))}
           aria-label="Toggle menu"
           aria-expanded={isMenuOpen}
+          aria-controls="mobile-menu"
         >
           <svg
             className={styles.icon}
@@ -77,7 +81,7 @@ export default function SiteHeader() {
       </div>
 
       {isMenuOpen && (
-        <div className={styles.block}>
+        <div id="mobile-menu" className={styles.block}>
           {navItems.map((item) => (
             <Link
               key={item.label}

@@ -5,12 +5,12 @@ export function AboutTechStackSection() {
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        <h2 className={styles.eyebrow}>
+        <p className={styles.eyebrow}>
           {aboutCopy.techStack.eyebrow}
-        </h2>
-        <h3 className={styles.subheading}>
+        </p>
+        <h2 className={styles.subheading}>
           {aboutCopy.techStack.heading}
-        </h3>
+        </h2>
 
         <div className={styles.grid}>
           {Object.entries(aboutCopy.techStack.categories).map(([category, tools]) => (

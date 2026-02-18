@@ -5,12 +5,12 @@ export function ServicesProcessSection() {
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        <h2 className={styles.eyebrow}>
+        <p className={styles.eyebrow}>
           {servicesCopy.process.eyebrow}
-        </h2>
-        <h3 className={styles.subheading}>
+        </p>
+        <h2 className={styles.subheading}>
           {servicesCopy.process.heading}
-        </h3>
+        </h2>
 
         <div className={styles.block}>
           {servicesCopy.process.steps.map((item) => (

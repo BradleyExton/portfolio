@@ -12,44 +12,57 @@ export function ServicesFaqSection() {
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        <h2 className={styles.eyebrow}>
+        <p className={styles.eyebrow}>
           {servicesCopy.faq.eyebrow}
-        </h2>
-        <h3 className={styles.subheading}>
+        </p>
+        <h2 className={styles.subheading}>
           {servicesCopy.faq.heading}
-        </h3>
+        </h2>
 
         <div className={styles.block}>
-          {servicesCopy.faq.items.map((faq, index) => (
-            <div key={faq.question} className={styles.card}>
-              <button
-                onClick={() => setOpenFaq(toggleFaq(openFaq, index))}
-                className={styles.row}
-              >
-                <span className={styles.labelText}>{faq.question}</span>
-                <svg
-                  className={
-                    openFaq === index ? `${styles.chevronIcon} ${styles.chevronExpanded}` : styles.chevronIcon
-                  }
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+          {servicesCopy.faq.items.map((faq, index) => {
+            const isOpen = openFaq === index;
+            const buttonId = `services-faq-trigger-${index}`;
+            const panelId = `services-faq-panel-${index}`;
+
+            return (
+              <div key={faq.question} className={styles.card}>
+                <button
+                  type="button"
+                  onClick={() => setOpenFaq(toggleFaq(openFaq, index))}
+                  className={styles.row}
+                  aria-expanded={isOpen}
+                  aria-controls={panelId}
+                  id={buttonId}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-              </button>
-              {openFaq === index && (
-                <div className={styles.answerContainer}>
+                  <span className={styles.labelText}>{faq.question}</span>
+                  <svg
+                    className={isOpen ? `${styles.chevronIcon} ${styles.chevronExpanded}` : styles.chevronIcon}
+                    aria-hidden="true"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </button>
+                <div
+                  id={panelId}
+                  className={styles.answerContainer}
+                  role="region"
+                  aria-labelledby={buttonId}
+                  hidden={!isOpen}
+                >
                   <p className={styles.description}>{faq.answer}</p>
                 </div>
-              )}
-            </div>
-          ))}
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

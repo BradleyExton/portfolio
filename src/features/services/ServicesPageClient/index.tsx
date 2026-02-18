@@ -13,7 +13,7 @@ export default function ServicesPageClient() {
   return (
     <>
       <SiteHeader />
-      <main className={styles.main}>
+      <main id="main-content" className={styles.main}>
         <ServicesHeroSection />
         <ServicesCatalogSection />
         <ServicesProcessSection />

@@ -12,7 +12,7 @@ export default function AboutPage() {
   return (
     <>
       <SiteHeader />
-      <main className={styles.main}>
+      <main id="main-content" className={styles.main}>
         <AboutHeroSection />
         <AboutStorySection />
         <AboutBeliefsSection />
