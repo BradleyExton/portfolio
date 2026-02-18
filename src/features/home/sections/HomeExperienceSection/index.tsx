@@ -1,11 +1,36 @@
+"use client";
+
+import { useMemo } from "react";
 import { homeCopy } from "@/copy/home";
 import { profile } from "@/copy/profile";
 import { ScrollReveal } from "@/features/shared/motion/ScrollReveal";
+import type { ExperienceTimelineItem } from "./types";
+import { useTimelineMetrics } from "./useTimelineMetrics";
 import * as styles from "./styles";
 
+const experienceItems = homeCopy.experience.items satisfies readonly ExperienceTimelineItem[];
+
+const getClassName = (...classNames: Array<string | false>): string => {
+  return classNames.filter(Boolean).join(" ");
+};
+
 export function HomeExperienceSection() {
+  const currentRoleIndex = useMemo(() => {
+    return experienceItems.findIndex((item) => item.current);
+  }, []);
+  const {
+    activeIndex,
+    reduceMotion,
+    sectionRef,
+    listRef,
+    railTrackRef,
+    railFillRef,
+    setMilestoneRef,
+  } = useTimelineMetrics({ currentRoleIndex });
+
   return (
-    <section id="experience" className={styles.section}>
+    <section id="experience" ref={sectionRef} className={styles.section}>
+      <div aria-hidden="true" className={styles.ambientBackdrop} />
       <div className={styles.container}>
         <ScrollReveal>
           <p className={styles.eyebrow}>
@@ -16,32 +41,84 @@ export function HomeExperienceSection() {
           </h2>
         </ScrollReveal>
 
-        <div className={styles.block}>
-          {homeCopy.experience.items.map((job, index) => (
-            <ScrollReveal
-              key={job.company}
-              className={styles.card}
-              delayMs={120 + index * 90}
-            >
-              <div className={styles.row}>
-                <div className={styles.roleContent}>
-                  <div className={styles.roleHeader}>
-                    <h4 className={styles.cardTitle}>{job.company}</h4>
-                    {job.current && (
-                      <span className={styles.badge}>
-                        {homeCopy.experience.currentLabel}
+        <div className={styles.timelineWrapper}>
+          <div ref={railTrackRef} aria-hidden="true" className={styles.railTrack}>
+            <span ref={railFillRef} className={styles.railFill} />
+          </div>
+
+          <ol ref={listRef} className={styles.timelineList} aria-label="Career timeline">
+            {experienceItems.map((job, index) => {
+              const isActive = index === activeIndex;
+
+              return (
+                <li
+                  key={job.company}
+                  className={styles.timelineItem}
+                  aria-current={isActive ? "step" : undefined}
+                >
+                  <ScrollReveal className={styles.itemReveal} delayMs={120 + index * 90}>
+                    <div className={styles.nodeColumn}>
+                      <span
+                        ref={(node) => {
+                          setMilestoneRef(index, node);
+                        }}
+                        className={getClassName(
+                          styles.milestoneNode,
+                          isActive && styles.milestoneNodeActive,
+                          job.current && styles.milestoneNodeCurrent,
+                          reduceMotion && styles.milestoneNodeReducedMotion,
+                        )}
+                      >
+                        <span aria-hidden="true" className={styles.milestoneCore} />
                       </span>
-                    )}
-                  </div>
-                  <p className={styles.text}>{job.role}</p>
-                  <p className={styles.roleDescription}>{job.description}</p>
-                </div>
-                <div className={styles.timeline}>
-                  {job.period}
-                </div>
-              </div>
-            </ScrollReveal>
-          ))}
+                    </div>
+
+                    <article className={getClassName(styles.card, isActive && styles.cardActive)}>
+                      <header className={styles.cardHeader}>
+                        <div className={styles.companyBlock}>
+                          <span aria-hidden="true" className={styles.monogram}>
+                            {job.monogram}
+                          </span>
+                          <div className={styles.roleContent}>
+                            <div className={styles.roleHeader}>
+                              <h3 className={styles.cardTitle}>{job.company}</h3>
+                              {job.current && (
+                                <span className={styles.badge}>
+                                  {homeCopy.experience.currentLabel}
+                                </span>
+                              )}
+                            </div>
+                            <p className={styles.text}>{job.role}</p>
+                          </div>
+                        </div>
+                        <p className={styles.timeline}>
+                          {job.period}
+                        </p>
+                      </header>
+
+                      <p className={styles.roleDescription}>{job.description}</p>
+
+                      <ul className={styles.highlightsList} aria-label={`${job.company} highlights`}>
+                        {job.highlights.map((highlight) => (
+                          <li key={`${job.company}-${highlight}`} className={styles.highlightItem}>
+                            {highlight}
+                          </li>
+                        ))}
+                      </ul>
+
+                      <ul className={styles.chipList} aria-label={`${job.company} technologies`}>
+                        {job.techChips.map((chip) => (
+                          <li key={`${job.company}-${chip}`} className={styles.chip}>
+                            {chip}
+                          </li>
+                        ))}
+                      </ul>
+                    </article>
+                  </ScrollReveal>
+                </li>
+              );
+            })}
+          </ol>
         </div>
 
         <ScrollReveal delayMs={180}>
