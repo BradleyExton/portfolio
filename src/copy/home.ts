@@ -15,11 +15,118 @@ export const homeCopy = {
   },
   aboutSnapshot: {
     eyebrow: "What I Do",
-    heading: "Building fast, reliable web applications",
+    heading: "Senior full-stack delivery, accelerated with AI workflows",
     description:
-      "I build fast, reliable web applications — the kind that scale. Currently a Senior Developer at Local Logic, I've spent the last decade shipping product across companies like Weedmaps, Opsware Data, and RenoRun.",
+      "I lead end-to-end delivery for a customer-facing reporting platform at Local Logic, acting as a key technical owner across Product, Design, Data, Platform, and Support. I partner closely with stakeholders to translate requirements into PRDs, technical specs, and clear Jira execution plans, then carry work through Figma iteration, implementation, testing, and production launch. Over the last year, I've also built AI workflows and automations that improve delivery speed and cross-team productivity without lowering quality.",
     cta: "More about me",
+    aiFocusLabel: "AI Workflow",
+    aiToolbeltHeading: "AI Tools (Recent Focus)",
   },
+  whatIDoCapabilities: [
+    {
+      title: "Front-End Engineering",
+      outcome: "Build polished web interfaces that stay fast, accessible, and maintainable as products scale.",
+      proofPoints: [
+        "Led the transition from static PDF reports to an interactive Next.js web experience with polished UX and motion.",
+        "Iterate on Figma designs and ship pixel-accurate interfaces while preserving content and data parity across report formats.",
+      ],
+      techChips: ["React", "Next.js", "TypeScript", "React Native"],
+      emphasis: "core",
+    },
+    {
+      title: "Product-Focused Engineering",
+      outcome: "Translate business goals into clear, scoped execution plans that teams can deliver with confidence.",
+      proofPoints: [
+        "Partner closely with Product, Design, and stakeholders to define requirements, tradeoffs, and delivery priorities.",
+        "Turn ambiguous initiatives into PRDs, technical specs, and Jira-ready tickets with realistic estimates and aligned milestones.",
+      ],
+      techChips: ["Product Discovery", "Figma", "Jira", "Technical Specs", "Backlog Planning"],
+      emphasis: "core",
+    },
+    {
+      title: "Cloud & Backend Architecture",
+      outcome: "Design backend systems and cloud infrastructure that scale with product demand.",
+      proofPoints: [
+        "Diagnose platform constraints and deliver scalable architecture changes, including support for context-specific branding across delivery channels.",
+        "Build Python (FastAPI) and Node.js (Express) services with AWS serverless patterns, including Cognito, DynamoDB, Lambda, and enterprise SSO flows.",
+        "Implement SSO integrations using SAML and OIDC to support secure, scalable authentication across customer environments.",
+      ],
+      techChips: ["Python", "Node.js", "Express", "FastAPI", "AWS", "SSO (SAML/OIDC)"],
+      emphasis: "core",
+    },
+    {
+      title: "Quality Engineering & Testing",
+      outcome: "Build release confidence with layered testing across frontend and backend systems.",
+      proofPoints: [
+        "Own test strategy across unit, integration/component, and end-to-end coverage.",
+        "Use Vitest and Jest for frontend quality, Cypress and Playwright for user-flow regression, and Pytest with Pydantic validation tests to catch backend data and contract issues before production.",
+      ],
+      techChips: ["Vitest", "Jest", "Cypress", "Playwright", "Pytest", "Pydantic"],
+      emphasis: "core",
+    },
+    {
+      title: "Engineering Standards & Enablement",
+      outcome: "Raise team productivity and consistency through standards, documentation, and coaching.",
+      proofPoints: [
+        "Automate front-end standards enforcement and codify repeatable quality practices across the delivery workflow.",
+        "Share context through technical docs, AI tooling presentations, and onboarding support for engineers and cross-functional partners.",
+      ],
+      techChips: ["FE Standards", "Documentation", "Coaching", "Cross-Functional Enablement"],
+      emphasis: "core",
+    },
+    {
+      title: "AI Tooling & Automation",
+      outcome: "Build practical AI workflows that accelerate delivery and reduce repetitive engineering overhead.",
+      proofPoints: [
+        "Implement custom agents, MCP server workflows, and ChatGPT integrations for engineering and business-facing use cases.",
+        "Present practical AI adoption patterns (including Jira and Confluence workflows via MCP), author spec.md and agent.md standards, and run Codex automations for Sentry triage, PR readiness, and docs updates.",
+      ],
+      techChips: ["Custom Agents", "MCP Servers", "ChatGPT Integrations", "AI Standards"],
+      emphasis: "ai",
+    },
+    {
+      title: "Integrations, Analytics & Observability",
+      outcome: "Connect critical business platforms and instrument product behavior and reliability for better decisions.",
+      proofPoints: [
+        "Implement Salesforce and Stripe integrations while expanding Mixpanel with provider attribution and group analytics for stronger product visibility.",
+        "Integrate Sentry monitoring and lead defensive hardening initiatives that reduce recurring production failures and support overhead.",
+      ],
+      techChips: ["Salesforce", "Stripe", "Mixpanel", "Google Analytics", "Sentry"],
+      emphasis: "core",
+    },
+  ],
+  aiToolbelt: [
+    {
+      name: "Codex",
+      usage: "Custom agent workflows for implementation, plus standards-driven automations for Sentry triage, PR checks, and documentation tasks.",
+      level: "core",
+    },
+    {
+      name: "Claude Code",
+      usage: "Deep codebase analysis, planning support, and structured edits with reusable agent skills.",
+      level: "core",
+    },
+    {
+      name: "GitHub Copilot",
+      usage: "In-editor acceleration for repetitive code patterns.",
+      level: "core",
+    },
+    {
+      name: "MCP Servers",
+      usage: "Tool-connected agent context for repo, docs, and platform workflows.",
+      level: "core",
+    },
+    {
+      name: "ChatGPT Integrations",
+      usage: "Chat-based features and internal productivity workflows for cross-functional teams.",
+      level: "core",
+    },
+    {
+      name: "Gemini Code Assist / Cloud Code",
+      usage: "Evaluating cloud-native development workflows.",
+      level: "exploring",
+    },
+  ],
   experience: {
     eyebrow: "Experience",
     heading: "Where I've Worked",
@@ -30,14 +137,17 @@ export const homeCopy = {
         company: "Local Logic",
         role: "Senior Software Developer",
         description:
-          "Delivered neighborhood intelligence features that made location data faster to interpret and easier to trust for end users.",
+          "Primary technical owner of a customer-facing reporting platform, leading full-stack delivery and product direction through major team transitions.",
         highlights: [
-          "Translated dense geospatial data into clear product experiences for both consumers and enterprise stakeholders.",
-          "Improved feature reliability through iterative UI polish, API integration hardening, and performance-focused refactors.",
+          "Led migration from static PDF reporting to an interactive web experience, improving usability while preserving feature parity.",
+          "Evolved theming and custom-branding architecture, including a scalable color-driven illustration approach that preserved product differentiation.",
+          "Designed and delivered backend/frontend branding architecture updates to support distinct experiences across channels without brittle workarounds.",
+          "Expanded analytics and internal tooling to enable self-serve branding and authentication management for non-engineering teams.",
+          "Shared technical context through documentation, AI tooling presentations, and onboarding support while driving standards automation for sustainable team velocity.",
         ],
         period: "2022 - Present",
         monogram: "LL",
-        techChips: ["React", "TypeScript", "Data Visualization", "Maps API"],
+        techChips: ["Next.js", "React", "Python", "FastAPI", "AWS", "Lambda", "DynamoDB", "Sentry"],
         current: true,
       },
       {
@@ -141,24 +251,6 @@ export const homeCopy = {
     ctaPrimary: "Send Me an Email",
     ctaSecondary: "Book a Call",
   },
-  skillAreas: [
-    {
-      label: "Front-End",
-      skills: "React, Next.js, TypeScript, Tailwind CSS",
-    },
-    {
-      label: "Back-End",
-      skills: "Node.js, Python, REST APIs, GraphQL",
-    },
-    {
-      label: "Tools",
-      skills: "Git, Vercel, AWS, Figma",
-    },
-    {
-      label: "Exploring",
-      skills: "AI integrations, LLMs, automation",
-    },
-  ],
   techStackPills: [
     "React",
     "Next.js",

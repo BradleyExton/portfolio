@@ -37,11 +37,15 @@ export const aboutCopy = {
     eyebrow: "Tech Stack",
     heading: "What I work with",
     categories: {
-      "Front-End": "React, Next.js, TypeScript, Tailwind CSS, HTML/CSS",
+      "Front-End": "React, Next.js, TypeScript, React Native, Tailwind CSS",
       "Back-End":
-        "Node.js, Python, REST APIs, GraphQL, PostgreSQL, MongoDB",
-      "Tools & Platforms": "Git, Vercel, AWS, Figma, Linear, Jira",
-      "Currently Exploring": "AI integrations, LLMs, automation workflows",
+        "Node.js, Python, FastAPI, AWS Lambda, DynamoDB, GraphQL, SSO",
+      "Quality & Observability":
+        "Vitest, Jest, Cypress, Playwright, Pytest, Pydantic, Sentry, Mixpanel, Google Analytics, Documentation",
+      "Tools & Platforms":
+        "Git, AWS, Figma, Contentful, Prismic, Salesforce, Stripe, Jira",
+      "AI & Automation":
+        "Custom agents, MCP servers, ChatGPT integrations, spec.md and agent.md standards, automation runbooks",
     },
   },
   outsideOfCode: {
