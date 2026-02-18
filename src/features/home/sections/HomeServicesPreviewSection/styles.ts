@@ -1,4 +1,4 @@
-export const section = "bg-surface px-6 py-20";
+export const section = "bg-surface px-6 py-16 md:py-20";
 export const container = "mx-auto max-w-6xl";
 export const block = "mb-12 text-center";
 export const eyebrow = "mb-3 text-sm font-semibold uppercase tracking-wider text-brand";
@@ -11,5 +11,5 @@ export const cardTitle = "mb-2 text-xl font-bold text-content";
 export const text = "mb-4 text-content-subtle";
 export const price = "font-semibold text-brand";
 export const ctaRow = "mt-10 text-center";
-export const link = "inline-flex items-center gap-2 font-medium text-brand transition-colors hover:text-brand-strong";
-export const icon = "h-4 w-4";
+export const link = "group inline-flex items-center gap-2 font-medium text-brand transition-colors hover:text-brand-strong";
+export const icon = "h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-focus-visible:translate-x-0.5";

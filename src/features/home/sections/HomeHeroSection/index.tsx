@@ -1,27 +1,135 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { homeCopy } from "@/copy/home";
 import * as styles from "./styles";
+import {
+  applyHeroParallaxTransforms,
+  clearHeroParallaxTransforms,
+  getHeroParallaxCenteredProgress,
+  shouldEnableHeroParallax,
+} from "./utils";
 
 type HomeHeroSectionProps = {
   isVisible: boolean;
 };
 
 export function HomeHeroSection({ isVisible }: HomeHeroSectionProps) {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const backgroundLayerRef = useRef<HTMLDivElement | null>(null);
+  const topOrbLayerRef = useRef<HTMLDivElement | null>(null);
+  const bottomOrbLayerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let frameId = 0;
+    let isParallaxEnabled = false;
+
+    const getLayerRefs = () => {
+      return {
+        backgroundLayer: backgroundLayerRef.current,
+        topOrbLayer: topOrbLayerRef.current,
+        bottomOrbLayer: bottomOrbLayerRef.current,
+      };
+    };
+
+    const updateParallax = () => {
+      frameId = 0;
+
+      const section = sectionRef.current;
+      if (!section || !isParallaxEnabled) {
+        return;
+      }
+
+      const centeredProgress = getHeroParallaxCenteredProgress(
+        section.getBoundingClientRect(),
+        window.innerHeight,
+      );
+
+      applyHeroParallaxTransforms(getLayerRefs(), centeredProgress);
+    };
+
+    const queueParallaxUpdate = () => {
+      if (frameId !== 0) {
+        return;
+      }
+
+      frameId = window.requestAnimationFrame(updateParallax);
+    };
+
+    const refreshParallaxMode = () => {
+      const nextMode = shouldEnableHeroParallax(
+        window.innerWidth,
+        motionQuery.matches,
+      );
+
+      if (nextMode !== isParallaxEnabled) {
+        isParallaxEnabled = nextMode;
+        if (!isParallaxEnabled) {
+          clearHeroParallaxTransforms(getLayerRefs());
+        }
+      }
+
+      queueParallaxUpdate();
+    };
+
+    const handleScroll = () => {
+      queueParallaxUpdate();
+    };
+
+    const handleResize = () => {
+      refreshParallaxMode();
+    };
+
+    const handleMotionPreferenceChange = () => {
+      refreshParallaxMode();
+    };
+
+    refreshParallaxMode();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize);
+    motionQuery.addEventListener("change", handleMotionPreferenceChange);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+      motionQuery.removeEventListener("change", handleMotionPreferenceChange);
+
+      if (frameId !== 0) {
+        window.cancelAnimationFrame(frameId);
+      }
+
+      clearHeroParallaxTransforms(getLayerRefs());
+    };
+  }, []);
+
   return (
-    <section className={styles.section}>
-      <div className={styles.backgroundImageOverlay}>
-        <Image
-          src="/images/hero.png"
-          alt=""
-          fill
-          priority
-          className={styles.image}
-        />
+    <section ref={sectionRef} className={styles.section}>
+      <div ref={backgroundLayerRef} className={styles.parallaxLayer}>
+        <div className={styles.backgroundImageOverlay}>
+          <Image
+            src="/images/hero.png"
+            alt=""
+            fill
+            priority
+            className={styles.image}
+          />
+        </div>
       </div>
       <div className={styles.overlay} />
-      <div className={styles.accentOrbTopRight} />
-      <div className={styles.accentOrbBottomLeft} />
+      <div ref={topOrbLayerRef} className={styles.parallaxLayer}>
+        <div className={styles.accentOrbTopRight} />
+      </div>
+      <div ref={bottomOrbLayerRef} className={styles.parallaxLayer}>
+        <div className={styles.accentOrbBottomLeft} />
+      </div>
 
       <div className={styles.container}>
         <div className={styles.grid}>
@@ -65,7 +173,7 @@ export function HomeHeroSection({ isVisible }: HomeHeroSectionProps) {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
+                    d="M9 5l7 7-7 7"
                   />
                 </svg>
               </Link>

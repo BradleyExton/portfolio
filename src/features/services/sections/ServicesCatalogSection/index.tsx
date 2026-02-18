@@ -1,4 +1,5 @@
 import { servicesCopy } from "@/copy/services";
+import { ScrollReveal } from "@/features/shared/motion/ScrollReveal";
 import * as styles from "./styles";
 
 export function ServicesCatalogSection() {
@@ -6,10 +7,11 @@ export function ServicesCatalogSection() {
     <section className={styles.section}>
       <div className={styles.container}>
         <div className={styles.block}>
-          {servicesCopy.services.map((service) => (
-            <div
+          {servicesCopy.services.map((service, index) => (
+            <ScrollReveal
               key={service.title}
               className={styles.grid}
+              delayMs={120 + index * 90}
             >
               <div>
                 <div className={styles.row}>
@@ -50,7 +52,7 @@ export function ServicesCatalogSection() {
                   </p>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>

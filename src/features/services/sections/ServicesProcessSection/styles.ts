@@ -1,9 +1,13 @@
-export const section = "bg-surface-muted px-6 py-16";
+export const section = "bg-surface-muted px-6 py-16 md:py-20";
 export const container = "mx-auto max-w-4xl";
 export const eyebrow = "mb-3 text-sm font-semibold uppercase tracking-wider text-brand";
 export const subheading = "mb-12 text-3xl font-bold text-content font-[family-name:var(--font-space-grotesk)]";
 export const block = "space-y-8";
-export const row = "flex gap-6";
-export const stepBadge = "flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-brand text-lg font-bold text-content-inverse";
+export const row = "group relative flex gap-5 rounded-xl border border-transparent p-2 transition-colors duration-300 hover:border-border-default/80";
+export const stepColumn = "relative flex w-12 flex-shrink-0 flex-col items-center";
+export const stepBadge = "relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-brand text-lg font-bold text-content-inverse shadow-[0_14px_26px_-18px_rgba(5,150,105,0.95)] transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:scale-[1.04]";
+export const stepConnector = "absolute left-1/2 top-12 h-[calc(100%-3rem)] w-px -translate-x-1/2 overflow-hidden bg-border-default";
+export const stepConnectorFlow = "absolute inset-0 block bg-gradient-to-b from-transparent via-brand/75 to-transparent motion-safe:animate-[process-flow_2.4s_ease-in-out_infinite]";
+export const stepContent = "pt-0.5";
 export const cardTitle = "mb-2 text-xl font-bold text-content";
 export const description = "text-content-muted";

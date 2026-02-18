@@ -1,25 +1,32 @@
 import { aboutCopy } from "@/copy/about";
+import { ScrollReveal } from "@/features/shared/motion/ScrollReveal";
 import * as styles from "./styles";
 
 export function AboutStorySection() {
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        <h2 className={styles.eyebrow}>
-          {aboutCopy.story.eyebrow}
-        </h2>
+        <ScrollReveal>
+          <h2 className={styles.eyebrow}>
+            {aboutCopy.story.eyebrow}
+          </h2>
+        </ScrollReveal>
         <div className={styles.block}>
           {aboutCopy.story.paragraphs.map((paragraph, index) => (
-            <p
+            <ScrollReveal
               key={paragraph}
-              className={
-                index < aboutCopy.story.paragraphs.length - 1
-                  ? `${styles.paragraph} ${styles.paragraphSpacing}`
-                  : styles.paragraph
-              }
+              delayMs={90 + index * 70}
             >
-              {paragraph}
-            </p>
+              <p
+                className={
+                  index < aboutCopy.story.paragraphs.length - 1
+                    ? `${styles.paragraph} ${styles.paragraphSpacing}`
+                    : styles.paragraph
+                }
+              >
+                {paragraph}
+              </p>
+            </ScrollReveal>
           ))}
         </div>
       </div>

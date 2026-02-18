@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { servicesCopy } from "@/copy/services";
+import { ScrollReveal } from "@/features/shared/motion/ScrollReveal";
 import * as styles from "./styles";
 import type { OpenFaqIndex } from "./types";
 import { toggleFaq } from "./utils";
@@ -12,12 +13,14 @@ export function ServicesFaqSection() {
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        <p className={styles.eyebrow}>
-          {servicesCopy.faq.eyebrow}
-        </p>
-        <h2 className={styles.subheading}>
-          {servicesCopy.faq.heading}
-        </h2>
+        <ScrollReveal>
+          <p className={styles.eyebrow}>
+            {servicesCopy.faq.eyebrow}
+          </p>
+          <h2 className={styles.subheading}>
+            {servicesCopy.faq.heading}
+          </h2>
+        </ScrollReveal>
 
         <div className={styles.block}>
           {servicesCopy.faq.items.map((faq, index) => {
@@ -26,7 +29,11 @@ export function ServicesFaqSection() {
             const panelId = `services-faq-panel-${index}`;
 
             return (
-              <div key={faq.question} className={styles.card}>
+              <ScrollReveal
+                key={faq.question}
+                className={styles.card}
+                delayMs={120 + index * 80}
+              >
                 <button
                   type="button"
                   onClick={() => setOpenFaq(toggleFaq(openFaq, index))}
@@ -60,7 +67,7 @@ export function ServicesFaqSection() {
                 >
                   <p className={styles.description}>{faq.answer}</p>
                 </div>
-              </div>
+              </ScrollReveal>
             );
           })}
         </div>

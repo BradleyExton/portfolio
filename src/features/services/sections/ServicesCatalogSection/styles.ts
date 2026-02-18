@@ -1,4 +1,4 @@
-export const section = "bg-surface px-6 py-16";
+export const section = "bg-surface px-6 py-16 md:py-20";
 export const container = "mx-auto max-w-6xl";
 export const block = "space-y-12";
 export const grid = "grid gap-8 rounded-2xl border border-border-subtle bg-surface-muted p-8 md:grid-cols-2";

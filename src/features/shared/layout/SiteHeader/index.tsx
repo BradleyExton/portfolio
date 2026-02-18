@@ -22,85 +22,87 @@ export default function SiteHeader() {
       <a href="#main-content" className={styles.skipLink}>
         Skip to main content
       </a>
-      <div className={styles.row}>
-        <Link href="/" className={styles.link}>
-          <span className={styles.labelText}>{profile.firstName.charAt(0)}</span>
-          {profile.firstName.slice(1)}{" "}
-          <span className={styles.labelText}>{profile.lastName.charAt(0)}</span>
-          {profile.lastName.slice(1)}
-        </Link>
-
-        <div className={styles.desktopNav}>
-          {navItems.map((item) => (
-            <Link
-              key={item.label}
-              href={item.href}
-              className={styles.desktopNavLink}
-            >
-              {item.label}
-            </Link>
-          ))}
-          <Link
-            href={contactHref}
-            className={styles.ctaLink}
-          >
-            {commonCopy.cta.getInTouch}
+      <div className={styles.container}>
+        <div className={styles.row}>
+          <Link href="/" className={styles.link}>
+            <span className={styles.labelText}>{profile.firstName.charAt(0)}</span>
+            {profile.firstName.slice(1)}{" "}
+            <span className={styles.labelText}>{profile.lastName.charAt(0)}</span>
+            {profile.lastName.slice(1)}
           </Link>
+
+          <div className={styles.desktopNav}>
+            {navItems.map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                className={styles.desktopNavLink}
+              >
+                {item.label}
+              </Link>
+            ))}
+            <Link
+              href={contactHref}
+              className={styles.ctaLink}
+            >
+              {commonCopy.cta.getInTouch}
+            </Link>
+          </div>
+
+          <button
+            className={styles.button}
+            onClick={() => setIsMenuOpen((open) => toggleMenu(open))}
+            aria-label="Toggle menu"
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-menu"
+          >
+            <svg
+              className={styles.icon}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              {isMenuOpen ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              )}
+            </svg>
+          </button>
         </div>
 
-        <button
-          className={styles.button}
-          onClick={() => setIsMenuOpen((open) => toggleMenu(open))}
-          aria-label="Toggle menu"
-          aria-expanded={isMenuOpen}
-          aria-controls="mobile-menu"
-        >
-          <svg
-            className={styles.icon}
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            {isMenuOpen ? (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            ) : (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            )}
-          </svg>
-        </button>
-      </div>
-
-      {isMenuOpen && (
-        <div id="mobile-menu" className={styles.block}>
-          {navItems.map((item) => (
+        {isMenuOpen && (
+          <div id="mobile-menu" className={styles.block}>
+            {navItems.map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                className={styles.mobileNavLink}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
             <Link
-              key={item.label}
-              href={item.href}
-              className={styles.mobileNavLink}
+              href={contactHref}
+              className={styles.mobileCtaLink}
               onClick={() => setIsMenuOpen(false)}
             >
-              {item.label}
+              {navigationCopy.headerPrimaryLabel}
             </Link>
-          ))}
-          <Link
-            href={contactHref}
-            className={styles.mobileCtaLink}
-            onClick={() => setIsMenuOpen(false)}
-          >
-            {navigationCopy.headerPrimaryLabel}
-          </Link>
-        </div>
-      )}
+          </div>
+        )}
+      </div>
     </nav>
   );
 }

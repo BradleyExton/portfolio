@@ -1,4 +1,4 @@
-export const section = "bg-surface-muted px-6 py-20";
+export const section = "bg-surface-muted px-6 py-16 md:py-20";
 export const container = "mx-auto max-w-6xl";
 export const eyebrow = "mb-3 text-sm font-semibold uppercase tracking-wider text-brand";
 export const subheading = "mb-12 text-3xl font-bold text-content font-[family-name:var(--font-space-grotesk)]";
@@ -13,5 +13,5 @@ export const text = "mb-2 font-medium text-brand";
 export const roleDescription = "text-content-subtle";
 export const timeline = "whitespace-nowrap text-sm font-medium text-content-faint md:text-right";
 export const ctaRow = "mt-8";
-export const link = "inline-flex items-center gap-2 font-medium text-content-muted transition-colors hover:text-brand";
-export const icon = "h-4 w-4";
+export const link = "group inline-flex items-center gap-2 font-medium text-content-muted transition-colors hover:text-brand";
+export const icon = "h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-focus-visible:translate-x-0.5";

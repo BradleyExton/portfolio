@@ -1,4 +1,4 @@
-export const section = "bg-surface-inverse px-6 py-20 text-content-inverse";
+export const section = "bg-surface-inverse px-6 py-16 text-content-inverse md:py-20";
 export const container = "mx-auto max-w-6xl";
 export const block = "mb-12 text-center";
 export const eyebrow = "mb-3 text-sm font-semibold uppercase tracking-wider text-brand-contrast";
