@@ -13,9 +13,15 @@ export function ServicesProcessSection() {
           <h2 className={styles.subheading}>
             {servicesCopy.process.heading}
           </h2>
+          <p className={styles.intro}>
+            {servicesCopy.process.description}
+          </p>
         </ScrollReveal>
 
         <div className={styles.block}>
+          <div className={styles.blockRail} aria-hidden="true">
+            <span className={styles.blockRailFlow} />
+          </div>
           {servicesCopy.process.steps.map((item, index) => (
             <ScrollReveal key={item.step} delayMs={120 + index * 90}>
               <div className={styles.row}>
@@ -23,15 +29,14 @@ export function ServicesProcessSection() {
                   <div className={styles.stepBadge}>
                     {item.step}
                   </div>
-                  {index < servicesCopy.process.steps.length - 1 && (
-                    <div className={styles.stepConnector} aria-hidden="true">
-                      <span className={styles.stepConnectorFlow} />
-                    </div>
-                  )}
                 </div>
                 <div className={styles.stepContent}>
                   <h4 className={styles.cardTitle}>{item.title}</h4>
                   <p className={styles.description}>{item.description}</p>
+                  <p className={styles.output}>
+                    <span className={styles.outputLabel}>You get:</span>{" "}
+                    {item.output}
+                  </p>
                 </div>
               </div>
             </ScrollReveal>
