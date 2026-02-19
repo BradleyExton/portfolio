@@ -13,7 +13,6 @@ type UseTimelineMetricsParams = {
 
 type UseTimelineMetricsResult = {
   activeIndex: number;
-  borderActiveIndex: number;
   reduceMotion: boolean;
   sectionRef: RefObject<HTMLElement | null>;
   listRef: RefObject<HTMLOListElement | null>;
@@ -23,8 +22,7 @@ type UseTimelineMetricsResult = {
 };
 
 const INITIAL_TIMELINE_STATE: TimelineState = {
-  activeIndex: -1,
-  borderActiveIndex: -1,
+  activeIndex: 0,
   progress: 0,
   pathDefinition: "",
   svgWidthPx: 1,
@@ -34,6 +32,7 @@ const INITIAL_TIMELINE_STATE: TimelineState = {
 };
 
 const PROGRESS_EPSILON = 0.001;
+// Ignore subpixel differences to prevent resize/scroll jitter from re-rendering the rail path.
 const PIXEL_EPSILON = 0.5;
 
 type PathPoint = {
@@ -128,6 +127,8 @@ export function useTimelineMetrics({
         y: checkpointPoint.y,
       };
     });
+    // Extend only when the card bottom is meaningfully below the final checkpoint,
+    // ignoring subpixel layout noise near the boundary.
     if (railEndRelativeY > checkpointPathPoints[checkpointPathPoints.length - 1].y + PIXEL_EPSILON) {
       checkpointPathPoints.push({
         x: laneX,
@@ -155,11 +156,9 @@ export function useTimelineMetrics({
       }, -1);
       const activeIndex = reducedMotion
         ? fallbackIndex
-        : progressActiveIndex;
-      const borderActiveIndex = activeIndex;
+        : Math.max(0, progressActiveIndex);
       const metricsUnchanged = (
         previousState.activeIndex === activeIndex
-        && previousState.borderActiveIndex === borderActiveIndex
         && Math.abs(previousState.progress - progress) < PROGRESS_EPSILON
         && previousState.pathDefinition === pathDefinition
         && Math.abs(previousState.svgWidthPx - svgWidthPx) < PIXEL_EPSILON
@@ -172,7 +171,6 @@ export function useTimelineMetrics({
       return {
         ...previousState,
         activeIndex,
-        borderActiveIndex,
         progress,
         pathDefinition,
         svgWidthPx,
@@ -344,7 +342,6 @@ export function useTimelineMetrics({
 
   return {
     activeIndex: timelineState.activeIndex,
-    borderActiveIndex: timelineState.borderActiveIndex,
     reduceMotion: timelineState.reduceMotion,
     sectionRef,
     listRef,

@@ -11,7 +11,6 @@ export type ExperienceTimelineItem = {
 
 export type TimelineMetrics = {
   activeIndex: number;
-  borderActiveIndex: number;
   progress: number;
   pathDefinition: string;
   svgWidthPx: number;

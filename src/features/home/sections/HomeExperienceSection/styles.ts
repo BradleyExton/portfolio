@@ -12,12 +12,13 @@ export const timelineItem = "relative";
 export const itemReveal = "relative py-8 md:py-10";
 export const milestoneNode = "absolute left-0 top-8 z-50 flex h-7 w-7 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-brand-tint bg-surface ring-4 ring-surface shadow-sm transition-[transform,border-color,box-shadow] duration-300 md:top-10 md:h-8 md:w-8";
 export const milestoneNodeActive = "border-brand bg-brand-soft shadow-md";
+// The pulse is intentionally slower than the entry focus transition to avoid a synced "double beat".
 export const milestoneNodePulsing = "motion-safe:animate-[timeline-node-pulse_2.1s_ease-in-out_infinite]";
 export const milestoneNodeReducedMotion = "motion-safe:animate-none";
 export const milestoneCore = "h-2.5 w-2.5 rounded-full bg-brand shadow-[0_0_0_2px_var(--color-surface)] md:h-3 md:w-3";
-export const entry = "relative isolate w-full rounded-2xl rounded-bl-none border border-border-subtle bg-surface/65 p-6 transition-[background-color,border-color,box-shadow] duration-300 before:pointer-events-none before:absolute before:inset-[-1px] before:rounded-2xl before:rounded-bl-none before:border-2 before:border-brand before:opacity-0 before:[clip-path:circle(0%_at_0_0)] before:transition-all before:duration-[1180ms] before:ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:before:transition-none md:p-7";
+export const entry = "relative isolate w-full rounded-2xl rounded-bl-none border border-border-subtle bg-surface/65 p-6 transition-[background-color,border-color,box-shadow] duration-300 before:pointer-events-none before:absolute before:inset-[-1px] before:rounded-2xl before:rounded-bl-none before:border-2 before:border-brand before:opacity-0 before:[clip-path:circle(0%_at_0px_0px)] before:transition-all before:duration-[1180ms] before:ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:before:transition-none md:p-7";
 export const entryActive = "bg-surface shadow-md motion-safe:animate-[timeline-entry-focus_780ms_cubic-bezier(0.22,1,0.36,1)_1]";
-export const entryBorderActive = "border-l-transparent before:opacity-100 before:border-l-0 before:[clip-path:circle(180%_at_0_0)]";
+export const entryBorderActive = "border-l-transparent before:opacity-100 before:border-l-0 before:[clip-path:circle(180%_at_0px_0px)]";
 export const entryHeader = "mb-4";
 export const metaRow = "mb-2 flex items-center gap-3 text-sm text-content-faint";
 export const monogram = "font-mono text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-brand-strong";

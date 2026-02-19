@@ -20,7 +20,6 @@ export function HomeExperienceSection() {
   }, []);
   const {
     activeIndex,
-    borderActiveIndex,
     reduceMotion,
     sectionRef,
     listRef,
@@ -56,7 +55,6 @@ export function HomeExperienceSection() {
           <ol ref={listRef} className={styles.timelineList} aria-label="Career timeline">
             {experienceItems.map((job, index) => {
               const isActive = index === activeIndex;
-              const isBorderActive = index === borderActiveIndex;
 
               return (
                 <li
@@ -65,11 +63,12 @@ export function HomeExperienceSection() {
                   aria-current={isActive ? "step" : undefined}
                 >
                   <span
+                    aria-hidden="true"
                     data-timeline-milestone="true"
                     className={getClassName(
                       styles.milestoneNode,
                       isActive && styles.milestoneNodeActive,
-                      isActive && styles.milestoneNodePulsing,
+                      job.current && styles.milestoneNodePulsing,
                       reduceMotion && styles.milestoneNodeReducedMotion,
                     )}
                   >
@@ -81,7 +80,7 @@ export function HomeExperienceSection() {
                       data-timeline-entry="true"
                       className={getClassName(
                         styles.entry,
-                        isBorderActive && styles.entryBorderActive,
+                        isActive && styles.entryBorderActive,
                         isActive && styles.entryActive,
                       )}
                     >
