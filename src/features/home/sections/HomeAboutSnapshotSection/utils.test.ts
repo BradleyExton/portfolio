@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import type { CapabilityId } from "./types";
 import {
   getCapabilityAccentClass,
@@ -17,11 +17,18 @@ describe("HomeAboutSnapshotSection utils", () => {
   });
 
   it("returns stacked index classes and a safe fallback", () => {
+    const consoleWarnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+
     expect(getStackedCardIndexClass(0)).toBe("[--index:1]");
     expect(getStackedCardIndexClass(1)).toBe("[--index:2]");
     expect(getStackedCardIndexClass(2)).toBe("[--index:3]");
     expect(getStackedCardIndexClass(3)).toBe("[--index:4]");
     expect(getStackedCardIndexClass(12)).toBe("[--index:1]");
+    expect(consoleWarnSpy).toHaveBeenCalledWith(
+      "[HomeAboutSnapshotSection] Missing stacked index class for card index: 12",
+    );
+
+    consoleWarnSpy.mockRestore();
   });
 
   it("returns accent classes for each capability id", () => {

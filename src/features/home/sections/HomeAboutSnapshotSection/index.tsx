@@ -51,12 +51,12 @@ export function HomeAboutSnapshotSection() {
                 // Alternate illustration side on desktop for visual rhythm while preserving mobile order.
                 <li
                   key={capability.id}
-                  ref={(cardNode) => setCardRef(capability.id, cardNode)}
                   className={joinClassNames(styles.stackedCardItem, getStackedCardIndexClass(index))}
                   data-active={capability.id === activeCapabilityId ? "true" : "false"}
                 >
                   <article className={styles.stackedCard}>
                     <div
+                      ref={(cardNode) => setCardRef(capability.id, cardNode)}
                       className={joinClassNames(
                         styles.cardSurface,
                         getCapabilityAccentClass(capability.id),

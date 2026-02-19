@@ -12,7 +12,7 @@ type UseActiveCapabilityIdResult = {
   activeCapabilityId: CapabilityId;
   reduceMotion: boolean;
   listRef: RefObject<HTMLOListElement | null>;
-  setCardRef: (id: CapabilityId, node: HTMLLIElement | null) => void;
+  setCardRef: (id: CapabilityId, node: HTMLDivElement | null) => void;
 };
 
 const DEFAULT_STICKY_TOP_PX = 80;
@@ -30,6 +30,8 @@ const parseStickyTopPx = (listNode: HTMLOListElement): number => {
     if (Number.isFinite(rootFontSize)) {
       return parsedValue * rootFontSize;
     }
+
+    return DEFAULT_STICKY_TOP_PX;
   }
 
   return parsedValue;
@@ -39,14 +41,14 @@ export function useActiveCapabilityId({
   capabilityIds,
 }: UseActiveCapabilityIdParams): UseActiveCapabilityIdResult {
   const listRef = useRef<HTMLOListElement | null>(null);
-  const cardRefs = useRef<Partial<Record<CapabilityId, HTMLLIElement | null>>>({});
+  const cardRefs = useRef<Partial<Record<CapabilityId, HTMLDivElement | null>>>({});
   const frameRef = useRef<number | null>(null);
   const isSectionVisibleRef = useRef(true);
   const defaultCapabilityId = useMemo<CapabilityId>(() => capabilityIds[0] ?? "delivery", [capabilityIds]);
   const [activeCapabilityId, setActiveCapabilityId] = useState<CapabilityId>(defaultCapabilityId);
   const [reduceMotion, setReduceMotion] = useState(false);
 
-  const setCardRef = useCallback((id: CapabilityId, node: HTMLLIElement | null) => {
+  const setCardRef = useCallback((id: CapabilityId, node: HTMLDivElement | null) => {
     cardRefs.current[id] = node;
   }, []);
 

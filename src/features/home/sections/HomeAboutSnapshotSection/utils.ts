@@ -25,7 +25,17 @@ export const joinClassNames = (...classes: Array<string | false | undefined>): s
 };
 
 export const getStackedCardIndexClass = (index: number): string => {
-  return STACKED_CARD_INDEX_CLASSES[index] ?? "[--index:1]";
+  const indexClass = STACKED_CARD_INDEX_CLASSES[index];
+  if (indexClass) {
+    return indexClass;
+  }
+
+  if (process.env.NODE_ENV !== "production") {
+    // Guardrail to make maintenance issues obvious if card count grows past the current stack config.
+    console.warn(`[HomeAboutSnapshotSection] Missing stacked index class for card index: ${index}`);
+  }
+
+  return "[--index:1]";
 };
 
 export const getCapabilityIllustrationSrc = (id: CapabilityId): string => {
