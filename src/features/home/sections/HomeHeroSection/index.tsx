@@ -8,130 +8,51 @@ import * as styles from "./styles";
 import { setupHeroParallaxController } from "./utils";
 
 type HeroTechPill = (typeof homeCopy.techStackPills)[number];
+const steamWispClasses = [
+  styles.steamWispOne,
+  styles.steamWispTwo,
+  styles.steamWispThree,
+  styles.steamWispFour,
+  styles.steamWispFive,
+  styles.steamWispSix,
+  styles.steamWispSeven,
+];
 
 function TechPillIcon({ tech }: { tech: HeroTechPill }) {
   if (tech === "React") {
     return (
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-        className={styles.techIcon}
-      >
+      <svg viewBox="0 0 24 24" aria-hidden="true" className={styles.techIcon}>
         <circle cx="12" cy="12" r="1.75" fill="currentColor" />
-        <ellipse
-          cx="12"
-          cy="12"
-          rx="10"
-          ry="4.25"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.8"
-        />
-        <ellipse
-          cx="12"
-          cy="12"
-          rx="10"
-          ry="4.25"
-          transform="rotate(60 12 12)"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.8"
-        />
-        <ellipse
-          cx="12"
-          cy="12"
-          rx="10"
-          ry="4.25"
-          transform="rotate(120 12 12)"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.8"
-        />
+        <ellipse cx="12" cy="12" rx="10" ry="4.25" fill="none" stroke="currentColor" strokeWidth="1.8" />
+        <ellipse cx="12" cy="12" rx="10" ry="4.25" transform="rotate(60 12 12)" fill="none" stroke="currentColor" strokeWidth="1.8" />
+        <ellipse cx="12" cy="12" rx="10" ry="4.25" transform="rotate(120 12 12)" fill="none" stroke="currentColor" strokeWidth="1.8" />
       </svg>
     );
   }
 
   if (tech === "Next.js") {
     return (
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-        className={styles.techIcon}
-      >
-        <circle
-          cx="12"
-          cy="12"
-          r="9.25"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.8"
-        />
-        <path
-          d="M7.75 15.5V8.5L16.25 15.5V8.5"
-          fill="none"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="1.8"
-        />
+      <svg viewBox="0 0 24 24" aria-hidden="true" className={styles.techIcon}>
+        <circle cx="12" cy="12" r="9.25" fill="none" stroke="currentColor" strokeWidth="1.8" />
+        <path d="M7.75 15.5V8.5L16.25 15.5V8.5" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" />
       </svg>
     );
   }
 
   if (tech === "TypeScript") {
     return (
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-        className={styles.techIcon}
-      >
-        <rect
-          x="3.25"
-          y="3.25"
-          width="17.5"
-          height="17.5"
-          rx="3"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.8"
-        />
-        <text
-          x="12"
-          y="15.4"
-          fill="currentColor"
-          fontSize="8.5"
-          fontWeight="800"
-          textAnchor="middle"
-        >
-          TS
-        </text>
+      <svg viewBox="0 0 24 24" aria-hidden="true" className={styles.techIcon}>
+        <rect x="3.25" y="3.25" width="17.5" height="17.5" rx="3" fill="none" stroke="currentColor" strokeWidth="1.8" />
+        <text x="12" y="15.4" fill="currentColor" fontSize="8.5" fontWeight="800" textAnchor="middle">TS</text>
       </svg>
     );
   }
 
   if (tech === "Node.js") {
     return (
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-        className={styles.techIcon}
-      >
-        <path
-          d="M12 2.5L20 7V17L12 21.5L4 17V7L12 2.5Z"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.8"
-        />
-        <text
-          x="12"
-          y="15.35"
-          fill="currentColor"
-          fontSize="8.5"
-          fontWeight="800"
-          textAnchor="middle"
-        >
-          N
-        </text>
+      <svg viewBox="0 0 24 24" aria-hidden="true" className={styles.techIcon}>
+        <path d="M12 2.5L20 7V17L12 21.5L4 17V7L12 2.5Z" fill="none" stroke="currentColor" strokeWidth="1.8" />
+        <text x="12" y="15.35" fill="currentColor" fontSize="8.5" fontWeight="800" textAnchor="middle">N</text>
       </svg>
     );
   }
@@ -142,6 +63,7 @@ function TechPillIcon({ tech }: { tech: HeroTechPill }) {
 export function HomeHeroSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const backgroundLayerRef = useRef<HTMLDivElement | null>(null);
+  const steamLayerRef = useRef<HTMLDivElement | null>(null);
   const topOrbLayerRef = useRef<HTMLDivElement | null>(null);
   const bottomOrbLayerRef = useRef<HTMLDivElement | null>(null);
   const contentLayerRef = useRef<HTMLDivElement | null>(null);
@@ -151,6 +73,7 @@ export function HomeHeroSection() {
     return setupHeroParallaxController({
       sectionRef,
       backgroundLayerRef,
+      steamLayerRef,
       topOrbLayerRef,
       bottomOrbLayerRef,
       contentLayerRef,
@@ -168,7 +91,7 @@ export function HomeHeroSection() {
         <div className={styles.backgroundImageViewport}>
           <div className={styles.backgroundImageOverlay}>
             <Image
-              src="/images/hero.png"
+              src="/images/hero-v2.png"
               alt=""
               fill
               priority
@@ -178,6 +101,17 @@ export function HomeHeroSection() {
         </div>
       </div>
       <div className={styles.overlay} />
+      <div ref={steamLayerRef} className={styles.steamLayer} aria-hidden="true">
+        <div className={styles.steamCluster}>
+          <div className={styles.steamBaseGlow} />
+          {steamWispClasses.map((steamClassName) => (
+            <span
+              key={steamClassName}
+              className={`${styles.steamWisp} ${steamClassName}`}
+            />
+          ))}
+        </div>
+      </div>
       <div
         ref={topOrbLayerRef}
         className={styles.parallaxLayer}
