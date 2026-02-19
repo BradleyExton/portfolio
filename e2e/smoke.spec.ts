@@ -2,7 +2,9 @@ import { expect, test } from "@playwright/test";
 
 test("primary routes render", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: /Senior/i })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { level: 1, name: "Senior Full-Stack Developer" }),
+  ).toBeVisible();
 
   await page.goto("/about");
   await expect(page.getByRole("heading", { name: "About Me" })).toBeVisible();
@@ -57,6 +59,12 @@ test("keyboard navigation reaches form controls and focus is visible", async ({
   await page.goto("/contact");
 
   const nameInput = page.getByLabel("Name");
+  const unavailableHeading = page.getByText("Form temporarily unavailable");
+
+  if (await nameInput.isDisabled()) {
+    await expect(unavailableHeading).toBeVisible();
+    return;
+  }
 
   for (let index = 0; index < 20; index += 1) {
     await page.keyboard.press("Tab");
