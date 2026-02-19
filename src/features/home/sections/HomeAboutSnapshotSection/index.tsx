@@ -7,6 +7,7 @@ import type { WhatIDoCapability } from "./types";
 import {
   getCapabilityAccentClass,
   getCapabilityIllustrationSrc,
+  getStackedCardCountClass,
   getStackedCardIndexClass,
   joinClassNames,
 } from "./utils";
@@ -43,7 +44,10 @@ export function HomeAboutSnapshotSection() {
           <div>
             <ol
               ref={listRef}
-              className={styles.stackedCardList}
+              className={joinClassNames(
+                styles.stackedCardList,
+                getStackedCardCountClass(whatIDoCapabilities.length),
+              )}
               aria-label="What I do capabilities"
               data-reduced-motion={reduceMotion ? "true" : "false"}
             >

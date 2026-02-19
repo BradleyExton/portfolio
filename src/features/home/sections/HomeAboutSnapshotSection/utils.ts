@@ -7,6 +7,17 @@ const STACKED_CARD_INDEX_CLASSES = [
   "[--index:4]",
 ] as const;
 
+const STACKED_CARD_COUNT_CLASSES = [
+  "[--numcards:1]",
+  "[--numcards:2]",
+  "[--numcards:3]",
+  "[--numcards:4]",
+  "[--numcards:5]",
+  "[--numcards:6]",
+  "[--numcards:7]",
+  "[--numcards:8]",
+] as const;
+
 const CAPABILITY_ACCENT_CLASSES: Record<CapabilityId, string> = {
   delivery: "[--cap-accent:var(--color-primary-500)] [--cap-border:var(--color-primary-200)] [--cap-wash:var(--color-primary-50)]",
   frontend: "[--cap-accent:var(--color-info)] [--cap-border:var(--color-info-200)] [--cap-wash:var(--color-info-50)]",
@@ -36,6 +47,20 @@ export const getStackedCardIndexClass = (index: number): string => {
   }
 
   return "[--index:1]";
+};
+
+export const getStackedCardCountClass = (count: number): string => {
+  const countClass = STACKED_CARD_COUNT_CLASSES[count - 1];
+  if (countClass) {
+    return countClass;
+  }
+
+  if (process.env.NODE_ENV !== "production") {
+    // Guardrail for future content growth beyond the current class map.
+    console.warn(`[HomeAboutSnapshotSection] Missing stacked card count class for count: ${count}`);
+  }
+
+  return "[--numcards:4]";
 };
 
 export const getCapabilityIllustrationSrc = (id: CapabilityId): string => {

@@ -3,6 +3,7 @@ import type { CapabilityId } from "./types";
 import {
   getCapabilityAccentClass,
   getCapabilityIllustrationSrc,
+  getStackedCardCountClass,
   getStackedCardIndexClass,
   resolveActiveCapabilityId,
 } from "./utils";
@@ -26,6 +27,20 @@ describe("HomeAboutSnapshotSection utils", () => {
     expect(getStackedCardIndexClass(12)).toBe("[--index:1]");
     expect(consoleWarnSpy).toHaveBeenCalledWith(
       "[HomeAboutSnapshotSection] Missing stacked index class for card index: 12",
+    );
+
+    consoleWarnSpy.mockRestore();
+  });
+
+  it("returns stacked card-count classes and a safe fallback", () => {
+    const consoleWarnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+
+    expect(getStackedCardCountClass(1)).toBe("[--numcards:1]");
+    expect(getStackedCardCountClass(4)).toBe("[--numcards:4]");
+    expect(getStackedCardCountClass(8)).toBe("[--numcards:8]");
+    expect(getStackedCardCountClass(12)).toBe("[--numcards:4]");
+    expect(consoleWarnSpy).toHaveBeenCalledWith(
+      "[HomeAboutSnapshotSection] Missing stacked card count class for count: 12",
     );
 
     consoleWarnSpy.mockRestore();
