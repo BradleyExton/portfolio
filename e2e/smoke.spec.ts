@@ -2,7 +2,12 @@ import { expect, test } from "@playwright/test";
 
 test("primary routes render", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: /Senior/i })).toBeVisible();
+  await expect(
+    page.getByRole("heading", {
+      level: 1,
+      name: "Senior Full-Stack Developer",
+    }),
+  ).toBeVisible();
 
   await page.goto("/about");
   await expect(page.getByRole("heading", { name: "About Me" })).toBeVisible();

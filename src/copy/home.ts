@@ -198,27 +198,27 @@ export const homeCopy = {
     eyebrow: "Services",
     heading: "Available for Select Projects",
     description:
-      "Outside of my full-time role, I take on a limited number of projects for local businesses and startups.",
-    cta: "Learn more about services",
+      "I take on a small number of projects for local businesses and startups.",
+    cta: "See all services",
     items: [
       {
         title: "Websites",
         description:
-          "Marketing sites and landing pages built with modern tools — fast, responsive, and easy to update.",
+          "Launch marketing pages that are fast, clear, and easy to update.",
         price: "Starting at $1,500",
         icon: "🌐",
       },
       {
         title: "Web Applications",
         description:
-          "Dashboards, booking systems, client portals — tools built specifically for how your business operates.",
+          "Build internal tools that are fast, clear, and easy to use.",
         price: "Starting at $3,000",
         icon: "⚡",
       },
       {
         title: "AI-Powered Tools",
         description:
-          "Chatbots, automated workflows, and integrations that save hours of manual work.",
+          "Deploy AI workflows that are fast, clear, and easy to adopt.",
         price: "Custom pricing",
         icon: "🤖",
       },
