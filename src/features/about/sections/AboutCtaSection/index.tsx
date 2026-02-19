@@ -18,7 +18,7 @@ export function AboutCtaSection() {
           <div className={styles.row}>
             <a
               href={profileComputed.mailto}
-              className={styles.link}
+              className={styles.primaryLink}
             >
               <svg
                 className={styles.icon}
@@ -37,7 +37,7 @@ export function AboutCtaSection() {
             </a>
             <Link
               href="/contact"
-              className={styles.ctaLink}
+              className={styles.secondaryLink}
             >
               <svg
                 className={styles.icon}
@@ -58,7 +58,7 @@ export function AboutCtaSection() {
               href={profile.links.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className={styles.ctaLink}
+              className={styles.tertiaryLink}
             >
               <svg
                 className={styles.icon}

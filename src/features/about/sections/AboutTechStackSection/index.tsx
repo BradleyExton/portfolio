@@ -23,7 +23,13 @@ export function AboutTechStackSection() {
               delayMs={120 + index * 90}
             >
               <h4 className={styles.cardTitle}>{category}</h4>
-              <p className={styles.description}>{tools}</p>
+              <ul className={styles.chipList}>
+                {tools.split(",").map((tool) => (
+                  <li key={`${category}-${tool}`} className={styles.chip}>
+                    {tool.trim()}
+                  </li>
+                ))}
+              </ul>
             </ScrollReveal>
           ))}
         </div>

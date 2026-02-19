@@ -6,28 +6,29 @@ export function AboutStorySection() {
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        <ScrollReveal>
-          <h2 className={styles.eyebrow}>
-            {aboutCopy.story.eyebrow}
-          </h2>
-        </ScrollReveal>
-        <div className={styles.block}>
-          {aboutCopy.story.paragraphs.map((paragraph, index) => (
-            <ScrollReveal
-              key={paragraph}
-              delayMs={90 + index * 70}
-            >
-              <p
-                className={
-                  index < aboutCopy.story.paragraphs.length - 1
-                    ? `${styles.paragraph} ${styles.paragraphSpacing}`
-                    : styles.paragraph
-                }
+        <div className={styles.panel}>
+          <ScrollReveal>
+            <h2 className={styles.eyebrow}>
+              {aboutCopy.story.eyebrow}
+            </h2>
+          </ScrollReveal>
+          <div className={styles.block}>
+            {aboutCopy.story.paragraphs.map((paragraph, index) => (
+              <ScrollReveal
+                key={paragraph}
+                className={styles.paragraphReveal}
+                delayMs={90 + index * 70}
               >
-                {paragraph}
-              </p>
-            </ScrollReveal>
-          ))}
+                <p
+                  className={
+                    `${styles.paragraph} ${index === 0 ? styles.paragraphLead : ""} ${index < aboutCopy.story.paragraphs.length - 1 ? styles.paragraphSpacing : ""}`
+                  }
+                >
+                  {paragraph}
+                </p>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </div>
     </section>
