@@ -32,15 +32,17 @@ export default function SiteHeader() {
           </Link>
 
           <div className={styles.desktopNav}>
-            {navItems.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={styles.desktopNavLink}
-              >
-                {item.label}
-              </Link>
-            ))}
+            <div className={styles.desktopNavList}>
+              {navItems.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={styles.desktopNavLink}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
             <Link
               href={contactHref}
               className={styles.ctaLink}
