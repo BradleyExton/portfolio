@@ -14,6 +14,18 @@ const POINTER_DEAD_ZONE = 0.1;
 const DEFAULT_FRAME_DELTA_MS = 16;
 const MIN_FRAME_DELTA_MS = 8;
 const MAX_FRAME_DELTA_MS = 40;
+const HERO_MD_BREAKPOINT = 768;
+const HERO_XL_BREAKPOINT = 1280;
+const HERO_BACKGROUND_IMAGE_WIDTH = 1536;
+const HERO_BACKGROUND_IMAGE_HEIGHT = 1024;
+const HERO_STEAM_SOURCE_POINT = {
+  x: 1320,
+  y: 820,
+};
+const HERO_STEAM_CLUSTER_OFFSET = {
+  x: -50,
+  y: 8,
+};
 
 const clamp = (value: number, min: number, max: number): number => {
   return Math.min(Math.max(value, min), max);
@@ -63,11 +75,81 @@ const resolveLayerElements = (
   return {
     backgroundLayer: refs.backgroundLayerRef.current,
     steamLayer: refs.steamLayerRef.current,
+    steamCluster: refs.steamClusterRef.current,
     topOrbLayer: refs.topOrbLayerRef.current,
     bottomOrbLayer: refs.bottomOrbLayerRef.current,
     contentLayer: refs.contentLayerRef.current,
     pillsLayer: refs.pillsLayerRef.current,
   };
+};
+
+const getHeroBackgroundObjectPosition = (
+  viewportWidth: number,
+): HeroParallaxVector => {
+  return {
+    x: viewportWidth >= HERO_MD_BREAKPOINT ? 0.72 : 0.7,
+    y: viewportWidth >= HERO_XL_BREAKPOINT ? 1 : 0.5,
+  };
+};
+
+const applyHeroSteamClusterAnchor = (
+  steamCluster: HTMLDivElement | null,
+): void => {
+  if (!steamCluster) {
+    return;
+  }
+
+  const steamViewport = steamCluster.parentElement as HTMLDivElement | null;
+  if (!steamViewport) {
+    return;
+  }
+
+  const viewportWidth = steamViewport.clientWidth;
+  const viewportHeight = steamViewport.clientHeight;
+
+  if (viewportWidth <= 0 || viewportHeight <= 0) {
+    return;
+  }
+
+  const objectPosition = getHeroBackgroundObjectPosition(window.innerWidth);
+  const coverScale = Math.max(
+    viewportWidth / HERO_BACKGROUND_IMAGE_WIDTH,
+    viewportHeight / HERO_BACKGROUND_IMAGE_HEIGHT,
+  );
+  const renderedWidth = HERO_BACKGROUND_IMAGE_WIDTH * coverScale;
+  const renderedHeight = HERO_BACKGROUND_IMAGE_HEIGHT * coverScale;
+  const offsetX = (viewportWidth - renderedWidth) * objectPosition.x;
+  const offsetY = (viewportHeight - renderedHeight) * objectPosition.y;
+  const anchorX = (
+    offsetX
+    + HERO_STEAM_SOURCE_POINT.x * coverScale
+    + HERO_STEAM_CLUSTER_OFFSET.x
+  );
+  const anchorY = (
+    offsetY
+    + HERO_STEAM_SOURCE_POINT.y * coverScale
+    + HERO_STEAM_CLUSTER_OFFSET.y
+  );
+
+  steamCluster.style.left = toPixelOffset(anchorX);
+  steamCluster.style.top = toPixelOffset(anchorY);
+  steamCluster.style.right = "auto";
+  steamCluster.style.bottom = "auto";
+  steamCluster.style.transform = "translate3d(-50%, -100%, 0)";
+};
+
+const clearHeroSteamClusterAnchor = (
+  steamCluster: HTMLDivElement | null,
+): void => {
+  if (!steamCluster) {
+    return;
+  }
+
+  steamCluster.style.left = "";
+  steamCluster.style.top = "";
+  steamCluster.style.right = "";
+  steamCluster.style.bottom = "";
+  steamCluster.style.transform = "";
 };
 
 const subscribeMediaQueryChange = (
@@ -442,6 +524,9 @@ export const setupHeroParallaxController = (
   };
 
   const refreshCapabilities = () => {
+    const layerElements = getLayerElements();
+    applyHeroSteamClusterAnchor(layerElements.steamCluster);
+
     const prefersReducedMotion = reducedMotionQuery.matches;
     scrollParallaxEnabled = shouldEnableHeroScrollParallax(
       window.innerWidth,
@@ -458,7 +543,7 @@ export const setupHeroParallaxController = (
     }
 
     if (!scrollParallaxEnabled && !pointerParallaxEnabled) {
-      clearHeroParallaxTransforms(getLayerElements());
+      clearHeroParallaxTransforms(layerElements);
       return;
     }
 
@@ -565,6 +650,8 @@ export const setupHeroParallaxController = (
     unsubscribeReducedMotion();
     unsubscribeFinePointer();
     visibilityObserver?.disconnect();
-    clearHeroParallaxTransforms(getLayerElements());
+    const layerElements = getLayerElements();
+    clearHeroParallaxTransforms(layerElements);
+    clearHeroSteamClusterAnchor(layerElements.steamCluster);
   };
 };

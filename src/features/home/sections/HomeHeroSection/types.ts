@@ -22,6 +22,7 @@ export type HeroParallaxLayerOffsets = {
 export type HeroParallaxLayerElements = {
   backgroundLayer: HTMLDivElement | null;
   steamLayer: HTMLDivElement | null;
+  steamCluster: HTMLDivElement | null;
   topOrbLayer: HTMLDivElement | null;
   bottomOrbLayer: HTMLDivElement | null;
   contentLayer: HTMLDivElement | null;
@@ -32,6 +33,7 @@ export type HeroParallaxLayerRefs = {
   sectionRef: RefObject<HTMLElement | null>;
   backgroundLayerRef: RefObject<HTMLDivElement | null>;
   steamLayerRef: RefObject<HTMLDivElement | null>;
+  steamClusterRef: RefObject<HTMLDivElement | null>;
   topOrbLayerRef: RefObject<HTMLDivElement | null>;
   bottomOrbLayerRef: RefObject<HTMLDivElement | null>;
   contentLayerRef: RefObject<HTMLDivElement | null>;

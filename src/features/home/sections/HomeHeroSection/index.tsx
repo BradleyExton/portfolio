@@ -64,6 +64,7 @@ export function HomeHeroSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const backgroundLayerRef = useRef<HTMLDivElement | null>(null);
   const steamLayerRef = useRef<HTMLDivElement | null>(null);
+  const steamClusterRef = useRef<HTMLDivElement | null>(null);
   const topOrbLayerRef = useRef<HTMLDivElement | null>(null);
   const bottomOrbLayerRef = useRef<HTMLDivElement | null>(null);
   const contentLayerRef = useRef<HTMLDivElement | null>(null);
@@ -74,6 +75,7 @@ export function HomeHeroSection() {
       sectionRef,
       backgroundLayerRef,
       steamLayerRef,
+      steamClusterRef,
       topOrbLayerRef,
       bottomOrbLayerRef,
       contentLayerRef,
@@ -102,14 +104,16 @@ export function HomeHeroSection() {
       </div>
       <div className={styles.overlay} />
       <div ref={steamLayerRef} className={styles.steamLayer} aria-hidden="true">
-        <div className={styles.steamCluster}>
-          <div className={styles.steamBaseGlow} />
-          {steamWispClasses.map((steamClassName) => (
-            <span
-              key={steamClassName}
-              className={`${styles.steamWisp} ${steamClassName}`}
-            />
-          ))}
+        <div className={styles.steamViewport}>
+          <div ref={steamClusterRef} className={styles.steamCluster}>
+            <div className={styles.steamBaseGlow} />
+            {steamWispClasses.map((steamClassName) => (
+              <span
+                key={steamClassName}
+                className={`${styles.steamWisp} ${steamClassName}`}
+              />
+            ))}
+          </div>
         </div>
       </div>
       <div
