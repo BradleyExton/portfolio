@@ -22,6 +22,12 @@ export function AboutBeliefsSection() {
               className={styles.card}
               delayMs={120 + index * 90}
             >
+              <div className={styles.cardHeader}>
+                <span className={styles.cardIndex}>
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className={styles.cardAccent} />
+              </div>
               <h4 className={styles.cardTitle}>{belief.title}</h4>
               <p className={styles.description}>{belief.description}</p>
             </ScrollReveal>

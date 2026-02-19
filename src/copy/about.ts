@@ -1,8 +1,14 @@
 export const aboutCopy = {
   hero: {
+    badge: "Available for opportunities",
     heading: "About Me",
     description:
       "I'm a senior full-stack developer based in Barrie, Ontario. I've spent the last 9+ years building web applications at companies ranging from early-stage startups to established tech platforms.",
+    highlights: [
+      "9+ years experience",
+      "Barrie, Ontario",
+      "Full-stack delivery",
+    ],
   },
   story: {
     eyebrow: "My Story",
