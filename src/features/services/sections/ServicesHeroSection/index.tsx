@@ -6,15 +6,20 @@ export function ServicesHeroSection() {
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        <ScrollReveal>
-          <div className={styles.content}>
-            <h1 className={styles.title}>
-              {servicesCopy.hero.heading}
-            </h1>
-            <p className={styles.description}>
-              {servicesCopy.hero.description}
-            </p>
-          </div>
+        <ScrollReveal className={styles.shell}>
+          <p className={styles.eyebrow}>{servicesCopy.hero.eyebrow}</p>
+          <h1 className={styles.title}>
+            {servicesCopy.hero.heading}
+          </h1>
+          <p className={styles.description}>
+            {servicesCopy.hero.description}
+          </p>
+          <p className={styles.availability}>
+            <span className={styles.availabilityLabel}>
+              {servicesCopy.hero.availabilityLabel}:
+            </span>{" "}
+            {servicesCopy.hero.availability}
+          </p>
         </ScrollReveal>
       </div>
     </section>
