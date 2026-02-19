@@ -5,7 +5,6 @@ import Link from "next/link";
 import { homeCopy } from "@/copy/home";
 import type { WhatIDoCapability } from "./types";
 import {
-  getCapabilityAccentClass,
   getCapabilityIllustrationSrc,
   getStackedCardCountClass,
   getStackedCardIndexClass,
@@ -61,11 +60,7 @@ export function HomeAboutSnapshotSection() {
                   <article className={styles.stackedCard}>
                     <div
                       ref={(cardNode) => setCardRef(capability.id, cardNode)}
-                      className={joinClassNames(
-                        styles.cardSurface,
-                        getCapabilityAccentClass(capability.id),
-                        !reduceMotion && styles.cardSurfaceActiveScale,
-                      )}
+                      className={styles.cardSurface}
                       data-active={capability.id === activeCapabilityId ? "true" : "false"}
                     >
                       <div className={styles.cardLayout}>
