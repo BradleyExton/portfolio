@@ -3,7 +3,20 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { contactCopy } from "@/copy/contact";
+import {
+  trackContactFormError,
+  trackContactFormStart,
+  trackContactFormSubmit,
+  trackContactLeadGenerated,
+} from "@/features/shared/analytics";
 import { ContactFormSection } from "./index";
+
+vi.mock("@/features/shared/analytics", () => ({
+  trackContactFormError: vi.fn(),
+  trackContactFormStart: vi.fn(),
+  trackContactFormSubmit: vi.fn(),
+  trackContactLeadGenerated: vi.fn(),
+}));
 
 describe("ContactFormSection", () => {
   const originalFetch = global.fetch;
@@ -48,6 +61,10 @@ describe("ContactFormSection", () => {
     });
 
     expect(screen.getByText(contactCopy.form.successTitle)).toBeInTheDocument();
+    expect(trackContactFormStart).toHaveBeenCalledTimes(1);
+    expect(trackContactFormSubmit).toHaveBeenCalledWith("hiring");
+    expect(trackContactLeadGenerated).toHaveBeenCalledWith("hiring");
+    expect(trackContactFormError).not.toHaveBeenCalled();
   });
 
   it("shows error when Formspree response is not ok", async () => {
@@ -69,5 +86,8 @@ describe("ContactFormSection", () => {
     });
 
     expect(screen.getByText(/Something went wrong/i)).toBeInTheDocument();
+    expect(trackContactFormSubmit).toHaveBeenCalledWith("hiring");
+    expect(trackContactLeadGenerated).not.toHaveBeenCalled();
+    expect(trackContactFormError).toHaveBeenCalledWith("submit_failed");
   });
 });

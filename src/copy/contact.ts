@@ -5,10 +5,14 @@ export const contactCopy = {
       "Whether you're hiring, have a project in mind, or just want to connect — I'd love to hear from you.",
   },
   options: {
+    heading: "Choose your preferred channel",
+    description:
+      "Book a call for the fastest path, or reach out by email/LinkedIn if you prefer async.",
     call: {
       title: "Book a Call",
       description:
         "The fastest way to discuss a project or opportunity. Grab a 30-minute slot and let's chat.",
+      badge: "Fastest path",
       cta: "Schedule a call",
       fallbackCta: "Email me instead",
     },
@@ -25,10 +29,21 @@ export const contactCopy = {
   },
   form: {
     heading: "Or send me a message",
+    intro:
+      "Share a little context and I'll reply within 1-2 business days with recommended next steps.",
     nameLabel: "Name",
     emailLabel: "Email",
     topicLabel: "What can I help you with?",
     messageLabel: "Message",
+    topicHint: "Pick the option that best matches your request.",
+    messageHint: "Include goals, timeline, or constraints so I can respond with useful direction.",
+    supportHeading: "What happens next",
+    supportSteps: [
+      "I review your message and priorities.",
+      "I follow up with suggested next steps.",
+      "If needed, we schedule a quick call.",
+    ],
+    supportDetail: "Need a faster response? Use the call option above.",
     namePlaceholder: "Your name",
     emailPlaceholder: "your@email.com",
     messagePlaceholder: "Tell me about your project or opportunity...",
