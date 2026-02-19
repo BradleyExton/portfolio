@@ -1,5 +1,6 @@
 import { contactCopy } from "@/copy/contact";
 import { profile, profileComputed } from "@/copy/profile";
+import { trackContactCtaClick } from "@/features/shared/analytics";
 import { ScrollReveal } from "@/features/shared/motion/ScrollReveal";
 import * as styles from "./styles";
 
@@ -8,14 +9,42 @@ type ContactOptionsSectionProps = {
 };
 
 export function ContactOptionsSection({ calcomUrl }: ContactOptionsSectionProps) {
+  const handleCallClick = () => {
+    trackContactCtaClick({
+      ctaType: "call",
+      destinationKind: calcomUrl ? "calendar" : "mailto",
+    });
+  };
+
+  const handleEmailClick = () => {
+    trackContactCtaClick({
+      ctaType: "email",
+      destinationKind: "mailto",
+    });
+  };
+
+  const handleLinkedinClick = () => {
+    trackContactCtaClick({
+      ctaType: "linkedin",
+      destinationKind: "external",
+    });
+  };
+
   return (
     <section className={styles.section}>
+      <div className={styles.ambientBackdrop} aria-hidden="true" />
       <div className={styles.container}>
+        <ScrollReveal className={styles.intro}>
+          <h2 className={styles.heading}>{contactCopy.options.heading}</h2>
+          <p className={styles.introDescription}>{contactCopy.options.description}</p>
+        </ScrollReveal>
+
         <div className={styles.grid}>
-          <ScrollReveal className={styles.card} delayMs={120}>
-            <div className={styles.row}>
+          <ScrollReveal className={styles.primaryCard} delayMs={120}>
+            <p className={styles.priorityBadge}>{contactCopy.options.call.badge}</p>
+            <div className={styles.primaryRow}>
               <svg
-                className={styles.icon}
+                className={styles.iconInverse}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -34,7 +63,8 @@ export function ContactOptionsSection({ calcomUrl }: ContactOptionsSectionProps)
               href={calcomUrl ?? profileComputed.mailto}
               target={calcomUrl ? "_blank" : undefined}
               rel={calcomUrl ? "noopener noreferrer" : undefined}
-              className={styles.link}
+              className={styles.primaryLink}
+              onClick={handleCallClick}
             >
               {calcomUrl
                 ? contactCopy.options.call.cta
@@ -76,6 +106,7 @@ export function ContactOptionsSection({ calcomUrl }: ContactOptionsSectionProps)
             <a
               href={profileComputed.mailto}
               className={styles.link}
+              onClick={handleEmailClick}
             >
               {profile.email}
               <svg
@@ -107,6 +138,7 @@ export function ContactOptionsSection({ calcomUrl }: ContactOptionsSectionProps)
               target="_blank"
               rel="noopener noreferrer"
               className={styles.link}
+              onClick={handleLinkedinClick}
             >
               {contactCopy.options.linkedin.cta}
               <svg
