@@ -23,9 +23,9 @@ export function HomeExperienceSection() {
     reduceMotion,
     sectionRef,
     listRef,
-    railTrackRef,
-    railFillRef,
-    setMilestoneRef,
+    pathSvgRef,
+    pathTrackRef,
+    pathFillRef,
   } = useTimelineMetrics({ currentRoleIndex });
 
   return (
@@ -42,9 +42,15 @@ export function HomeExperienceSection() {
         </ScrollReveal>
 
         <div className={styles.timelineWrapper}>
-          <div ref={railTrackRef} aria-hidden="true" className={styles.railTrack}>
-            <span ref={railFillRef} className={styles.railFill} />
-          </div>
+          <svg
+            ref={pathSvgRef}
+            aria-hidden="true"
+            className={styles.pathSvg}
+            preserveAspectRatio="none"
+          >
+            <path ref={pathTrackRef} className={styles.pathTrack} />
+            <path ref={pathFillRef} className={styles.pathFill} />
+          </svg>
 
           <ol ref={listRef} className={styles.timelineList} aria-label="Career timeline">
             {experienceItems.map((job, index) => {
@@ -56,44 +62,44 @@ export function HomeExperienceSection() {
                   className={styles.timelineItem}
                   aria-current={isActive ? "step" : undefined}
                 >
-                  <ScrollReveal className={styles.itemReveal} delayMs={120 + index * 90}>
-                    <div className={styles.nodeColumn}>
-                      <span
-                        ref={(node) => {
-                          setMilestoneRef(index, node);
-                        }}
-                        className={getClassName(
-                          styles.milestoneNode,
-                          isActive && styles.milestoneNodeActive,
-                          job.current && styles.milestoneNodeCurrent,
-                          reduceMotion && styles.milestoneNodeReducedMotion,
-                        )}
-                      >
-                        <span aria-hidden="true" className={styles.milestoneCore} />
-                      </span>
-                    </div>
+                  <span
+                    aria-hidden="true"
+                    data-timeline-milestone="true"
+                    className={getClassName(
+                      styles.milestoneNode,
+                      isActive && styles.milestoneNodeActive,
+                      job.current && styles.milestoneNodePulsing,
+                      reduceMotion && styles.milestoneNodeReducedMotion,
+                    )}
+                  >
+                    <span aria-hidden="true" className={styles.milestoneCore} />
+                  </span>
 
-                    <article className={getClassName(styles.card, isActive && styles.cardActive)}>
-                      <header className={styles.cardHeader}>
-                        <div className={styles.companyBlock}>
+                  <ScrollReveal className={styles.itemReveal} delayMs={120 + index * 90}>
+                    <article
+                      data-timeline-entry="true"
+                      className={getClassName(
+                        styles.entry,
+                        isActive && styles.entryBorderActive,
+                        isActive && styles.entryActive,
+                      )}
+                    >
+                      <header className={styles.entryHeader}>
+                        <p className={styles.metaRow}>
                           <span aria-hidden="true" className={styles.monogram}>
                             {job.monogram}
                           </span>
-                          <div className={styles.roleContent}>
-                            <div className={styles.roleHeader}>
-                              <h3 className={styles.cardTitle}>{job.company}</h3>
-                              {job.current && (
-                                <span className={styles.badge}>
-                                  {homeCopy.experience.currentLabel}
-                                </span>
-                              )}
-                            </div>
-                            <p className={styles.text}>{job.role}</p>
-                          </div>
-                        </div>
-                        <p className={styles.timeline}>
-                          {job.period}
+                          <span className={styles.timeline}>{job.period}</span>
                         </p>
+                        <div className={styles.roleHeader}>
+                          <h3 className={styles.company}>{job.company}</h3>
+                          {job.current && (
+                            <span className={styles.badge}>
+                              {homeCopy.experience.currentLabel}
+                            </span>
+                          )}
+                        </div>
+                        <p className={styles.text}>{job.role}</p>
                       </header>
 
                       <p className={styles.roleDescription}>{job.description}</p>

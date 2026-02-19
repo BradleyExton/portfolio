@@ -26,6 +26,7 @@ const createZeroVector = (): HeroParallaxVector => {
 const createZeroLayerOffsets = (): HeroParallaxLayerOffsets => {
   return {
     background: createZeroVector(),
+    steam: createZeroVector(),
     topOrb: createZeroVector(),
     bottomOrb: createZeroVector(),
     content: createZeroVector(),
@@ -61,6 +62,7 @@ const resolveLayerElements = (
 ): HeroParallaxLayerElements => {
   return {
     backgroundLayer: refs.backgroundLayerRef.current,
+    steamLayer: refs.steamLayerRef.current,
     topOrbLayer: refs.topOrbLayerRef.current,
     bottomOrbLayer: refs.bottomOrbLayerRef.current,
     contentLayer: refs.contentLayerRef.current,
@@ -191,6 +193,10 @@ export const getHeroScrollLayerOffsets = (
       x: 0,
       y: centeredProgress * 20,
     },
+    steam: {
+      x: 0,
+      y: centeredProgress * 20,
+    },
     topOrb: {
       x: centeredProgress * -12,
       y: centeredProgress * -24,
@@ -215,6 +221,10 @@ export const getHeroPointerLayerOffsets = (
 ): HeroParallaxLayerOffsets => {
   return {
     background: {
+      x: pointerVector.x * -4,
+      y: pointerVector.y * -6,
+    },
+    steam: {
       x: pointerVector.x * -4,
       y: pointerVector.y * -6,
     },
@@ -246,6 +256,10 @@ export const mergeHeroParallaxLayerOffsets = (
       x: scrollOffsets.background.x + pointerOffsets.background.x,
       y: scrollOffsets.background.y + pointerOffsets.background.y,
     },
+    steam: {
+      x: scrollOffsets.steam.x + pointerOffsets.steam.x,
+      y: scrollOffsets.steam.y + pointerOffsets.steam.y,
+    },
     topOrb: {
       x: scrollOffsets.topOrb.x + pointerOffsets.topOrb.x,
       y: scrollOffsets.topOrb.y + pointerOffsets.topOrb.y,
@@ -273,6 +287,10 @@ export const applyHeroParallaxTransforms = (
     elements.backgroundLayer.style.transform = `translate3d(${toPixelOffset(offsets.background.x)}, ${toPixelOffset(offsets.background.y)}, 0)`;
   }
 
+  if (elements.steamLayer) {
+    elements.steamLayer.style.transform = `translate3d(${toPixelOffset(offsets.steam.x)}, ${toPixelOffset(offsets.steam.y)}, 0)`;
+  }
+
   if (elements.topOrbLayer) {
     elements.topOrbLayer.style.transform = `translate3d(${toPixelOffset(offsets.topOrb.x)}, ${toPixelOffset(offsets.topOrb.y)}, 0)`;
   }
@@ -295,6 +313,10 @@ export const clearHeroParallaxTransforms = (
 ): void => {
   if (elements.backgroundLayer) {
     elements.backgroundLayer.style.transform = "";
+  }
+
+  if (elements.steamLayer) {
+    elements.steamLayer.style.transform = "";
   }
 
   if (elements.topOrbLayer) {

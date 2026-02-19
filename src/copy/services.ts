@@ -1,88 +1,154 @@
 export const servicesCopy = {
   hero: {
-    heading: "Services",
+    eyebrow: "Services",
+    heading: "Senior full-stack execution for teams that need momentum.",
     description:
-      "I take on a limited number of freelance projects alongside my full-time work. If you need a website, web application, or custom tool built right — let's talk.",
+      "I take on a limited number of projects each quarter for teams that want high-quality execution without agency overhead.",
+    availabilityLabel: "Availability",
+    availability: "Currently booking selective projects for Spring 2026.",
+  },
+  catalog: {
+    eyebrow: "Service Pillars",
+    heading: "Choose the engagement model that matches your stage.",
+    description:
+      "Each engagement includes clear planning, transparent updates, and a practical handoff.",
+    timelineLabel: "Typical timeline",
+    deliverablesLabel: "Core deliverables",
+    stackLabel: "Suggested stack",
+    bestFitLabel: "Best fit",
   },
   services: [
     {
-      title: "Websites",
+      id: "websites",
+      title: "Marketing Websites",
       description:
-        "Marketing sites, landing pages, and business websites built with modern tools. Fast, responsive, and designed to convert.",
+        "Conversion-focused websites that feel premium, load fast, and are easy to manage.",
+      outcome:
+        "Turn your website into a stronger sales and trust channel instead of just an online brochure.",
       price: "Starting at $1,500",
-      icon: "🌐",
-      features: [
-        "Custom design (no templates)",
-        "Mobile-responsive layout",
-        "SEO fundamentals",
-        "Contact forms",
-        "Analytics setup",
-        "1 month of support after launch",
+      timeline: "2-4 weeks",
+      illustration: {
+        src: "/images/services/website-illustration.png",
+        alt: "Abstract illustration representing a high-converting marketing website",
+      },
+      deliverables: [
+        "Information architecture and visual direction",
+        "Responsive front-end build",
+        "Performance and technical SEO baseline",
+        "Form and conversion tracking setup",
+        "Launch support and post-launch stabilization",
+      ],
+      stack: [
+        "Next.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "Analytics",
       ],
       bestFor:
-        "Small businesses, startups, professionals who need an online presence that actually works.",
+        "Small businesses, consultants, and startups that need a high-quality website without a long agency cycle.",
+      proof:
+        "Performance-first build, semantic structure, and conversion instrumentation from day one.",
     },
     {
+      id: "web-applications",
       title: "Web Applications",
       description:
-        "Custom dashboards, booking systems, client portals, and internal tools — built specifically for how your business operates.",
+        "Custom internal or customer apps built around how your team actually works.",
+      outcome:
+        "Replace manual workflows with productized systems that improve speed, visibility, and reliability.",
       price: "Starting at $3,000",
-      icon: "⚡",
-      features: [
-        "Requirements discovery session",
-        "Custom UI/UX design",
-        "Full-stack development",
-        "Database setup",
-        "User authentication (if needed)",
-        "Deployment and hosting setup",
-        "1 month of support after launch",
+      timeline: "4-8 weeks",
+      illustration: {
+        src: "/images/services/web-application-illustration.png",
+        alt: "Abstract illustration representing a custom web application workflow",
+      },
+      deliverables: [
+        "Discovery and scope alignment",
+        "UX flows and production UI build",
+        "Backend APIs and data modeling",
+        "Authentication and role-aware access",
+        "Deployment pipeline and release support",
+      ],
+      stack: [
+        "React + Next.js",
+        "Node.js or FastAPI",
+        "Postgres or DynamoDB",
+        "Vercel or AWS",
       ],
       bestFor:
-        "Businesses that have outgrown spreadsheets, need to automate workflows, or want a custom tool that off-the-shelf software can't provide.",
+        "Teams that have outgrown spreadsheets and patchwork SaaS workflows, and need software tailored to operations.",
+      proof:
+        "Clear scope boundaries, iterative delivery checkpoints, and maintainable architecture decisions.",
     },
     {
-      title: "AI-Powered Tools",
+      id: "ai-tools",
+      title: "AI Workflows & Integrations",
       description:
-        "Chatbots, automated workflows, and smart integrations that save hours of manual work.",
+        "Practical AI workflows integrated into existing operations without brittle complexity.",
+      outcome:
+        "Automate repetitive execution and accelerate decision speed with safe, observable AI workflows.",
       price: "Custom pricing",
-      icon: "🤖",
-      features: [
-        "Customer service chatbot for your website",
-        "Automated lead qualification",
-        "Document processing and data extraction",
-        "Custom AI assistants for your team",
+      timeline: "3-6 weeks",
+      illustration: {
+        src: "/images/services/ai-tools-illustration.png",
+        alt: "Abstract illustration representing AI workflows and integrations",
+      },
+      deliverables: [
+        "Use-case mapping and ROI prioritization",
+        "Workflow automation and AI orchestration",
+        "Internal assistants or chat interfaces",
+        "Integrations with existing systems",
+        "Guardrails, monitoring, and fallback flows",
+      ],
+      stack: [
+        "OpenAI APIs",
+        "Agent workflows",
+        "MCP integrations",
+        "Observability tooling",
       ],
       bestFor:
-        "Businesses looking to automate repetitive tasks or add intelligent features to their existing tools.",
+        "Teams with repetitive manual workflows, fragmented tools, or support-heavy processes that need smarter automation.",
+      proof:
+        "Production-minded integration patterns with clear guardrails, logging, and human override pathways.",
     },
   ],
   process: {
     eyebrow: "Process",
-    heading: "How I Work",
+    heading: "How delivery works",
+    description:
+      "A simple four-step flow focused on clear decisions, predictable execution, and a clean handoff.",
     steps: [
       {
         step: 1,
-        title: "Discovery Call",
+        title: "Discovery & Alignment",
         description:
-          "We hop on a 30-minute call to discuss your project. I'll ask questions to understand what you need, and give you honest feedback on scope, timeline, and budget.",
+          "We align on goals, users, constraints, and technical risks so the scope is grounded before work starts.",
+        output:
+          "A clear direction, key priorities, and early risk callouts.",
       },
       {
         step: 2,
-        title: "Proposal",
+        title: "Scope & Plan",
         description:
-          "If we're a good fit, I'll send a clear proposal with scope, timeline, and fixed pricing. No surprises.",
+          "You get a practical implementation plan with deliverables, milestones, timeline, and pricing.",
+        output:
+          "A written scope and execution plan you can approve with confidence.",
       },
       {
         step: 3,
-        title: "Build",
+        title: "Build in Iterations",
         description:
-          "I work in short cycles, sharing progress along the way. You'll see your project come together and have opportunities to give feedback before we're too far down the road.",
+          "Work is shipped in short cycles with regular reviews, so you can steer decisions before changes get expensive.",
+        output:
+          "Visible weekly progress and decisions captured as we go.",
       },
       {
         step: 4,
         title: "Launch & Handoff",
         description:
-          "I deploy your project, walk you through everything, and make sure you're set up for success. I stick around for a month after launch to handle any issues.",
+          "After QA and launch, I provide handoff context and support to stabilize production.",
+        output:
+          "A stable release, handoff notes, and short post-launch support.",
       },
     ],
   },
@@ -93,34 +159,34 @@ export const servicesCopy = {
       {
         question: "How long does a project take?",
         answer:
-          "Simple websites: 2-3 weeks. Web applications: 4-8 weeks depending on complexity. I'll give you a realistic timeline in our discovery call.",
+          "Marketing websites usually take 2-4 weeks. Application builds typically run 4-8 weeks based on scope and integrations. You'll get a realistic timeline before work starts.",
       },
       {
         question: "Do you offer ongoing maintenance?",
         answer:
-          "Yes. After the included support period, I offer monthly maintenance packages starting at $150/month. We can discuss what makes sense for your project.",
+          "Yes. After the included post-launch support window, I offer monthly maintenance and iteration support based on your needs.",
       },
       {
-        question: "Can you work with my existing site?",
+        question: "Can you work with an existing product or codebase?",
         answer:
-          "Depends on what it's built with. I'm happy to take a look and let you know what's possible.",
+          "In most cases, yes. I'll review the current setup and recommend whether to improve in place or rebuild specific areas.",
       },
       {
         question: "What if I just need a small update or fix?",
         answer:
-          "I offer hourly work for smaller tasks at $100/hour with a 2-hour minimum. Get in touch with details.",
+          "Smaller scoped work is available when capacity allows. Share the details and I'll confirm the fastest path.",
       },
       {
         question: "Do you do design, or just development?",
         answer:
-          "I do both. I handle the full process from design to deployment. If you already have designs, I can work from those too.",
+          "Both. I can lead from planning and interface design through implementation and launch, or plug into an existing design workflow.",
       },
     ],
   },
   cta: {
-    heading: "Let's build something.",
+    heading: "Let's scope your project.",
     description:
-      "Book a free 30-minute discovery call. I'll give you honest advice on your project — whether we end up working together or not.",
+      "Book a free 30-minute call and I'll give you direct feedback on scope, timeline, and the best implementation path.",
     buttonLabel: "Book a Free Consultation",
   },
 } as const;

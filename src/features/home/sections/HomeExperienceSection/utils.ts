@@ -32,25 +32,3 @@ export const computeTimelineProgress = ({
 
   return clamp01((anchorY - startY) / span);
 };
-
-export const getActiveIndex = (
-  itemCenters: readonly number[],
-  anchorY: number,
-): number => {
-  if (itemCenters.length === 0) {
-    return 0;
-  }
-
-  let closestIndex = 0;
-  let closestDistance = Math.abs(itemCenters[0] - anchorY);
-
-  itemCenters.forEach((center, index) => {
-    const distance = Math.abs(center - anchorY);
-    if (distance < closestDistance) {
-      closestDistance = distance;
-      closestIndex = index;
-    }
-  });
-
-  return closestIndex;
-};
