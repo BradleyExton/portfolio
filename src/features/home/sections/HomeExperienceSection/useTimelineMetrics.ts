@@ -2,7 +2,10 @@
 
 import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
 import type { TimelineState } from "./types";
-import { computeTimelineProgress, getActiveIndex, getViewportAnchorY } from "./utils";
+import {
+  computeTimelineProgress,
+  getViewportAnchorY,
+} from "./utils";
 
 type UseTimelineMetricsParams = {
   currentRoleIndex: number;
@@ -10,20 +13,22 @@ type UseTimelineMetricsParams = {
 
 type UseTimelineMetricsResult = {
   activeIndex: number;
+  borderActiveIndex: number;
   reduceMotion: boolean;
   sectionRef: RefObject<HTMLElement | null>;
   listRef: RefObject<HTMLOListElement | null>;
-  railTrackRef: RefObject<HTMLDivElement | null>;
-  railFillRef: RefObject<HTMLSpanElement | null>;
-  setMilestoneRef: (index: number, node: HTMLSpanElement | null) => void;
+  pathSvgRef: RefObject<SVGSVGElement | null>;
+  pathTrackRef: RefObject<SVGPathElement | null>;
+  pathFillRef: RefObject<SVGPathElement | null>;
 };
 
 const INITIAL_TIMELINE_STATE: TimelineState = {
-  activeIndex: 0,
+  activeIndex: -1,
+  borderActiveIndex: -1,
   progress: 0,
-  railLeftPx: 16,
-  railTopPx: 16,
-  railHeightPx: 0,
+  pathDefinition: "",
+  svgWidthPx: 1,
+  svgHeightPx: 1,
   isSectionInView: true,
   reduceMotion: false,
 };
@@ -31,20 +36,32 @@ const INITIAL_TIMELINE_STATE: TimelineState = {
 const PROGRESS_EPSILON = 0.001;
 const PIXEL_EPSILON = 0.5;
 
+type PathPoint = {
+  x: number;
+  y: number;
+};
+
+const buildPathDefinition = (points: readonly PathPoint[]): string => {
+  if (points.length === 0) {
+    return "";
+  }
+
+  return points.map((point, index) => {
+    const command = index === 0 ? "M" : "L";
+    return `${command} ${point.x.toFixed(2)} ${point.y.toFixed(2)}`;
+  }).join(" ");
+};
+
 export function useTimelineMetrics({
   currentRoleIndex,
 }: UseTimelineMetricsParams): UseTimelineMetricsResult {
   const sectionRef = useRef<HTMLElement | null>(null);
   const listRef = useRef<HTMLOListElement | null>(null);
-  const railTrackRef = useRef<HTMLDivElement | null>(null);
-  const railFillRef = useRef<HTMLSpanElement | null>(null);
-  const milestoneRefs = useRef<Array<HTMLSpanElement | null>>([]);
+  const pathSvgRef = useRef<SVGSVGElement | null>(null);
+  const pathTrackRef = useRef<SVGPathElement | null>(null);
+  const pathFillRef = useRef<SVGPathElement | null>(null);
   const frameRequestRef = useRef<number | null>(null);
   const [timelineState, setTimelineState] = useState<TimelineState>(INITIAL_TIMELINE_STATE);
-
-  const setMilestoneRef = useCallback((index: number, node: HTMLSpanElement | null) => {
-    milestoneRefs.current[index] = node;
-  }, []);
 
   const updateTimelineMetrics = useCallback((reduceMotionOverride?: boolean) => {
     if (typeof window === "undefined") {
@@ -52,8 +69,11 @@ export function useTimelineMetrics({
     }
 
     const listNode = listRef.current;
-    const milestoneNodes = milestoneRefs.current.filter(
-      (node): node is HTMLSpanElement => Boolean(node),
+    const milestoneNodes = Array.from(
+      listNode?.querySelectorAll<HTMLSpanElement>("[data-timeline-milestone='true']") ?? [],
+    );
+    const entryNodes = Array.from(
+      listNode?.querySelectorAll<HTMLElement>("[data-timeline-entry='true']") ?? [],
     );
     if (!listNode || milestoneNodes.length === 0) {
       return;
@@ -65,33 +85,85 @@ export function useTimelineMetrics({
       const rect = node.getBoundingClientRect();
       return rect.top + window.scrollY + (rect.height / 2);
     });
+    const entryBottomsAbsolute = entryNodes.map((node) => {
+      const rect = node.getBoundingClientRect();
+      return rect.bottom + window.scrollY;
+    });
+    const milestoneCentersRelative = milestoneNodes.map<PathPoint>((node) => {
+      const rect = node.getBoundingClientRect();
+      return {
+        x: rect.left - listRect.left + (rect.width / 2),
+        y: rect.top - listRect.top + (rect.height / 2),
+      };
+    });
+    const entryBottomsRelative = entryNodes.map((node) => {
+      const rect = node.getBoundingClientRect();
+      return rect.bottom - listRect.top;
+    });
     const reducedMotion = reduceMotionOverride ?? timelineState.reduceMotion;
     const fallbackIndex = currentRoleIndex >= 0 ? currentRoleIndex : 0;
-    const activeIndex = reducedMotion
-      ? fallbackIndex
-      : getActiveIndex(milestoneCentersAbsolute, absoluteAnchorY);
+    const endY = Math.max(
+      milestoneCentersAbsolute[milestoneCentersAbsolute.length - 1],
+      entryBottomsAbsolute[entryBottomsAbsolute.length - 1]
+        ?? milestoneCentersAbsolute[milestoneCentersAbsolute.length - 1],
+    );
     const progress = reducedMotion
       ? 1
       : computeTimelineProgress({
         anchorY: absoluteAnchorY,
         startY: milestoneCentersAbsolute[0],
-        endY: milestoneCentersAbsolute[milestoneCentersAbsolute.length - 1],
+        endY,
       });
 
-    const firstMilestoneRect = milestoneNodes[0].getBoundingClientRect();
-    const lastMilestoneRect = milestoneNodes[milestoneNodes.length - 1].getBoundingClientRect();
-    const railTopPx = firstMilestoneRect.top - listRect.top + (firstMilestoneRect.height / 2);
-    const railBottomPx = lastMilestoneRect.top - listRect.top + (lastMilestoneRect.height / 2);
-    const railHeightPx = Math.max(0, railBottomPx - railTopPx);
-    const railLeftPx = firstMilestoneRect.left - listRect.left + (firstMilestoneRect.width / 2);
+    const firstMilestonePoint = milestoneCentersRelative[0];
+    const laneX = firstMilestonePoint.x;
+    const railEndRelativeY = Math.max(
+      milestoneCentersRelative[milestoneCentersRelative.length - 1].y,
+      entryBottomsRelative[entryBottomsRelative.length - 1]
+        ?? milestoneCentersRelative[milestoneCentersRelative.length - 1].y,
+    );
+    const checkpointPathPoints = milestoneCentersRelative.map<PathPoint>((checkpointPoint) => {
+      return {
+        x: laneX,
+        y: checkpointPoint.y,
+      };
+    });
+    if (railEndRelativeY > checkpointPathPoints[checkpointPathPoints.length - 1].y + PIXEL_EPSILON) {
+      checkpointPathPoints.push({
+        x: laneX,
+        y: railEndRelativeY,
+      });
+    }
+    const pathDefinition = buildPathDefinition(checkpointPathPoints);
+    const checkpointProgress = milestoneCentersAbsolute.map((checkpointCenterAbsoluteY) => {
+      return computeTimelineProgress({
+        anchorY: checkpointCenterAbsoluteY,
+        startY: milestoneCentersAbsolute[0],
+        endY,
+      });
+    });
+    const svgWidthPx = Math.max(1, listRect.width);
+    const svgHeightPx = Math.max(1, listRect.height);
 
     setTimelineState((previousState) => {
+      const progressActiveIndex = checkpointProgress.reduce((resolvedIndex, checkpoint) => {
+        if (progress + PROGRESS_EPSILON < checkpoint) {
+          return resolvedIndex;
+        }
+
+        return resolvedIndex + 1;
+      }, -1);
+      const activeIndex = reducedMotion
+        ? fallbackIndex
+        : progressActiveIndex;
+      const borderActiveIndex = activeIndex;
       const metricsUnchanged = (
         previousState.activeIndex === activeIndex
+        && previousState.borderActiveIndex === borderActiveIndex
         && Math.abs(previousState.progress - progress) < PROGRESS_EPSILON
-        && Math.abs(previousState.railLeftPx - railLeftPx) < PIXEL_EPSILON
-        && Math.abs(previousState.railTopPx - railTopPx) < PIXEL_EPSILON
-        && Math.abs(previousState.railHeightPx - railHeightPx) < PIXEL_EPSILON
+        && previousState.pathDefinition === pathDefinition
+        && Math.abs(previousState.svgWidthPx - svgWidthPx) < PIXEL_EPSILON
+        && Math.abs(previousState.svgHeightPx - svgHeightPx) < PIXEL_EPSILON
       );
       if (metricsUnchanged) {
         return previousState;
@@ -100,10 +172,11 @@ export function useTimelineMetrics({
       return {
         ...previousState,
         activeIndex,
+        borderActiveIndex,
         progress,
-        railLeftPx,
-        railTopPx,
-        railHeightPx,
+        pathDefinition,
+        svgWidthPx,
+        svgHeightPx,
       };
     });
   }, [currentRoleIndex, timelineState.reduceMotion]);
@@ -120,21 +193,58 @@ export function useTimelineMetrics({
   }, [updateTimelineMetrics]);
 
   useEffect(() => {
-    const railTrackNode = railTrackRef.current;
-    const railFillNode = railFillRef.current;
-    if (!railTrackNode || !railFillNode) {
+    const pathSvgNode = pathSvgRef.current;
+    const pathTrackNode = pathTrackRef.current;
+    const pathFillNode = pathFillRef.current;
+    if (!pathSvgNode || !pathTrackNode || !pathFillNode) {
       return;
     }
 
-    railTrackNode.style.left = `${timelineState.railLeftPx}px`;
-    railTrackNode.style.top = `${timelineState.railTopPx}px`;
-    railTrackNode.style.height = `${timelineState.railHeightPx}px`;
-    railFillNode.style.transform = `scaleY(${timelineState.progress})`;
+    const applyPath = ({
+      trackNode,
+      fillNode,
+      definition,
+      fillProgress,
+    }: {
+      trackNode: SVGPathElement;
+      fillNode: SVGPathElement;
+      definition: string;
+      fillProgress: number;
+    }) => {
+      if (definition.length === 0) {
+        trackNode.setAttribute("d", "");
+        fillNode.setAttribute("d", "");
+        fillNode.style.strokeDasharray = "0";
+        fillNode.style.strokeDashoffset = "0";
+        return;
+      }
+
+      trackNode.setAttribute("d", definition);
+      fillNode.setAttribute("d", definition);
+
+      const totalPathLength = trackNode.getTotalLength();
+      if (totalPathLength <= 0) {
+        fillNode.style.strokeDasharray = "0";
+        fillNode.style.strokeDashoffset = "0";
+        return;
+      }
+
+      fillNode.style.strokeDasharray = `${totalPathLength}`;
+      fillNode.style.strokeDashoffset = `${totalPathLength * (1 - fillProgress)}`;
+    };
+
+    pathSvgNode.setAttribute("viewBox", `0 0 ${timelineState.svgWidthPx} ${timelineState.svgHeightPx}`);
+    applyPath({
+      trackNode: pathTrackNode,
+      fillNode: pathFillNode,
+      definition: timelineState.pathDefinition,
+      fillProgress: timelineState.progress,
+    });
   }, [
+    timelineState.pathDefinition,
     timelineState.progress,
-    timelineState.railHeightPx,
-    timelineState.railLeftPx,
-    timelineState.railTopPx,
+    timelineState.svgHeightPx,
+    timelineState.svgWidthPx,
   ]);
 
   useEffect(() => {
@@ -234,11 +344,12 @@ export function useTimelineMetrics({
 
   return {
     activeIndex: timelineState.activeIndex,
+    borderActiveIndex: timelineState.borderActiveIndex,
     reduceMotion: timelineState.reduceMotion,
     sectionRef,
     listRef,
-    railTrackRef,
-    railFillRef,
-    setMilestoneRef,
+    pathSvgRef,
+    pathTrackRef,
+    pathFillRef,
   };
 }

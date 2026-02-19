@@ -11,10 +11,11 @@ export type ExperienceTimelineItem = {
 
 export type TimelineMetrics = {
   activeIndex: number;
+  borderActiveIndex: number;
   progress: number;
-  railLeftPx: number;
-  railTopPx: number;
-  railHeightPx: number;
+  pathDefinition: string;
+  svgWidthPx: number;
+  svgHeightPx: number;
 };
 
 export type TimelineState = TimelineMetrics & {

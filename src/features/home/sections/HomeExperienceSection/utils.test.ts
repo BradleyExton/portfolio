@@ -3,6 +3,7 @@ import {
   clamp01,
   computeTimelineProgress,
   getActiveIndex,
+  getStableActiveIndex,
   getViewportAnchorY,
 } from "./utils";
 
@@ -75,5 +76,45 @@ describe("HomeExperienceSection utils", () => {
 
   it("falls back to the first item when no centers exist", () => {
     expect(getActiveIndex([], 200)).toBe(0);
+  });
+
+  it("keeps active index stable near boundaries with hysteresis", () => {
+    const centers = [100, 280, 520, 760];
+
+    expect(
+      getStableActiveIndex({
+        itemCenters: centers,
+        anchorY: 205,
+        previousIndex: 0,
+        hysteresisPx: 30,
+      }),
+    ).toBe(0);
+
+    expect(
+      getStableActiveIndex({
+        itemCenters: centers,
+        anchorY: 225,
+        previousIndex: 0,
+        hysteresisPx: 30,
+      }),
+    ).toBe(1);
+
+    expect(
+      getStableActiveIndex({
+        itemCenters: centers,
+        anchorY: 175,
+        previousIndex: 1,
+        hysteresisPx: 30,
+      }),
+    ).toBe(1);
+
+    expect(
+      getStableActiveIndex({
+        itemCenters: centers,
+        anchorY: 145,
+        previousIndex: 1,
+        hysteresisPx: 30,
+      }),
+    ).toBe(0);
   });
 });

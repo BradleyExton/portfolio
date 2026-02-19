@@ -54,3 +54,43 @@ export const getActiveIndex = (
 
   return closestIndex;
 };
+
+export const getStableActiveIndex = ({
+  itemCenters,
+  anchorY,
+  previousIndex,
+  hysteresisPx = 20,
+}: {
+  itemCenters: readonly number[];
+  anchorY: number;
+  previousIndex: number;
+  hysteresisPx?: number;
+}): number => {
+  if (itemCenters.length === 0) {
+    return 0;
+  }
+
+  let nextIndex = Math.max(0, Math.min(previousIndex, itemCenters.length - 1));
+
+  while (nextIndex < itemCenters.length - 1) {
+    const downBoundary = (
+      (itemCenters[nextIndex] + itemCenters[nextIndex + 1]) / 2
+    ) + hysteresisPx;
+    if (anchorY < downBoundary) {
+      break;
+    }
+    nextIndex += 1;
+  }
+
+  while (nextIndex > 0) {
+    const upBoundary = (
+      (itemCenters[nextIndex - 1] + itemCenters[nextIndex]) / 2
+    ) - hysteresisPx;
+    if (anchorY > upBoundary) {
+      break;
+    }
+    nextIndex -= 1;
+  }
+
+  return nextIndex;
+};

@@ -56,6 +56,21 @@ describe("HomeExperienceSection", () => {
     });
   });
 
+  it("renders milestone stops pinned to each entry's top-left corner", () => {
+    render(<HomeExperienceSection />);
+
+    const stops = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-timeline-milestone='true']"),
+    );
+    expect(stops).toHaveLength(homeCopy.experience.items.length);
+    stops.forEach((stop) => {
+      expect(stop).toHaveClass("left-0");
+      expect(stop).toHaveClass("top-8");
+      expect(stop).toHaveClass("md:top-10");
+      expect(stop).not.toHaveClass("right-3");
+    });
+  });
+
   it("renders a visible current role badge", () => {
     render(<HomeExperienceSection />);
 
