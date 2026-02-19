@@ -1,17 +1,13 @@
 export type CapabilityEmphasis = "core" | "ai";
 
-export type AiToolLevel = "core" | "exploring";
+export type CapabilityId = "delivery" | "frontend" | "platform" | "ai";
 
 export type WhatIDoCapability = {
+  id: CapabilityId;
+  nodeLabel: string;
   title: string;
   outcome: string;
-  proofPoints: readonly string[];
+  proofPoints: readonly [string, string];
   techChips: readonly string[];
   emphasis?: CapabilityEmphasis;
-};
-
-export type WhatIDoAiTool = {
-  name: string;
-  usage: string;
-  level: AiToolLevel;
 };

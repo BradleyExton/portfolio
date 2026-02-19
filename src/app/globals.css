@@ -186,6 +186,12 @@ html {
   }
 }
 
+@keyframes what-i-do-stack-scale {
+  to {
+    transform: scale(var(--target-scale));
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

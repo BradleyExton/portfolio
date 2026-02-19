@@ -1,8 +1,19 @@
 import { render, screen, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { homeCopy } from "@/copy/home";
-import { getToolLevelLabel } from "./utils";
 import { HomeAboutSnapshotSection } from "./index";
+
+vi.mock("next/image", () => ({
+  default: ({ fill, ...props }: { fill?: boolean } & Record<string, unknown>) => {
+    void fill;
+    const altText = typeof props.alt === "string" ? props.alt : "";
+
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img {...props} alt={altText} />
+    );
+  },
+}));
 
 const matchMediaMock = vi.fn().mockImplementation((query: string) => ({
   matches: false,
@@ -43,18 +54,19 @@ describe("HomeAboutSnapshotSection", () => {
     expect(link).toHaveAttribute("href", "/about");
   });
 
-  it("renders capability cards as a semantic list", () => {
+  it("renders stacked capability cards as a semantic list", () => {
     render(<HomeAboutSnapshotSection />);
 
     const list = screen.getByRole("list", { name: "What I do capabilities" });
-    expect(list.querySelectorAll(":scope > li")).toHaveLength(homeCopy.whatIDoCapabilities.length);
+    const topLevelItems = Array.from(list.children).filter((node) => node.tagName === "LI");
+    expect(topLevelItems).toHaveLength(homeCopy.whatIDoCapabilities.length);
   });
 
-  it("renders every capability with outcome, proof points, and chips", () => {
+  it("renders every capability card with outcome, proof points, and chips", () => {
     render(<HomeAboutSnapshotSection />);
 
     homeCopy.whatIDoCapabilities.forEach((capability) => {
-      expect(screen.getByRole("heading", { name: capability.title })).toBeInTheDocument();
+      expect(screen.getByRole("heading", { level: 3, name: capability.title })).toBeInTheDocument();
       expect(screen.getByText(capability.outcome)).toBeInTheDocument();
 
       capability.proofPoints.forEach((proofPoint) => {
@@ -68,31 +80,50 @@ describe("HomeAboutSnapshotSection", () => {
     });
   });
 
+  it("renders deterministic illustration src paths for all capability cards", () => {
+    render(<HomeAboutSnapshotSection />);
+
+    const list = screen.getByRole("list", { name: "What I do capabilities" });
+    const images = list.querySelectorAll("img");
+    expect(images).toHaveLength(homeCopy.whatIDoCapabilities.length);
+
+    homeCopy.whatIDoCapabilities.forEach((capability, index) => {
+      expect(images[index]).toHaveAttribute("src", `/images/what-i-do/${capability.id}.png`);
+    });
+  });
+
   it("renders a visible ai emphasis badge", () => {
     render(<HomeAboutSnapshotSection />);
 
     expect(screen.getByText(homeCopy.aboutSnapshot.aiFocusLabel)).toBeInTheDocument();
   });
 
-  it("renders ai toolbelt title and tool level labels", () => {
+  it("does not render the removed ai toolbelt rail", () => {
     render(<HomeAboutSnapshotSection />);
 
-    expect(screen.getByText(homeCopy.aboutSnapshot.aiToolbeltHeading)).toBeInTheDocument();
-
-    const toolbeltList = screen.getByRole("list", { name: "AI toolbelt" });
-    expect(toolbeltList.querySelectorAll(":scope > li")).toHaveLength(homeCopy.aiToolbelt.length);
-
-    homeCopy.aiToolbelt.forEach((tool) => {
-      expect(within(toolbeltList).getByText(tool.name)).toBeInTheDocument();
-      expect(within(toolbeltList).getByText(tool.usage)).toBeInTheDocument();
-      expect(within(toolbeltList).getAllByText(getToolLevelLabel(tool.level)).length).toBeGreaterThan(0);
-    });
+    expect(screen.queryByText("AI Tools (Recent Focus)")).not.toBeInTheDocument();
+    expect(screen.queryByRole("list", { name: "AI toolbelt" })).not.toBeInTheDocument();
   });
 
-  it("does not render legacy skill area labels", () => {
+  it("keeps a short ai tools one-liner in the ai card outcome", () => {
     render(<HomeAboutSnapshotSection />);
 
-    expect(screen.queryByText("Front-End")).not.toBeInTheDocument();
-    expect(screen.queryByText("Back-End")).not.toBeInTheDocument();
+    expect(
+      screen.getByText(/Recent stack: Codex, Claude Code, MCP Servers, and ChatGPT Integrations\./),
+    ).toBeInTheDocument();
+  });
+
+  it("does not render prototype comparison controls", () => {
+    render(<HomeAboutSnapshotSection />);
+
+    expect(screen.queryByText("Prototype Comparison")).not.toBeInTheDocument();
+    expect(screen.queryByRole("tablist", { name: "Capability section prototypes" })).not.toBeInTheDocument();
+  });
+
+  it("does not render legacy skill area headings", () => {
+    render(<HomeAboutSnapshotSection />);
+
+    expect(screen.queryByRole("heading", { name: "Front-End" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: "Back-End" })).not.toBeInTheDocument();
   });
 });
