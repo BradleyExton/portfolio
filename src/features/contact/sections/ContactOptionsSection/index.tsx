@@ -1,3 +1,5 @@
+"use client";
+
 import { contactCopy } from "@/copy/contact";
 import { profile, profileComputed } from "@/copy/profile";
 import { trackContactCtaClick } from "@/features/shared/analytics";

@@ -77,8 +77,8 @@ Run guidance:
 - Component entry file must be `index.tsx`.
 - Component folder contract files:
   - `styles.ts` (required)
-  - `types.ts` (required)
-  - `utils.ts` (required; keep pure helper/business logic here)
+  - `types.ts` (required when `index.tsx` imports from `./types`)
+  - `utils.ts` (required when `index.tsx` imports from `./utils`; keep pure helper/business logic here)
 - Tests should be colocated as `index.test.tsx` for behavior-bearing components.
 - If files grow too large, extract subcomponents before adding more sections.
 - Co-locate feature-only utilities near the component that uses them.

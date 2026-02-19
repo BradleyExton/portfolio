@@ -117,6 +117,7 @@ export const servicesCopy = {
     heading: "How delivery works",
     description:
       "A simple four-step flow focused on clear decisions, predictable execution, and a clean handoff.",
+    outputLabel: "You get:",
     steps: [
       {
         step: 1,

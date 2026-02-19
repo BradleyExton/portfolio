@@ -1,5 +1,4 @@
-import SiteFooter from "@/features/shared/layout/SiteFooter";
-import SiteHeader from "@/features/shared/layout/SiteHeader";
+import { PageShell } from "@/features/shared/layout/PageShell";
 import { AboutBeliefsSection } from "@/features/about/sections/AboutBeliefsSection";
 import { AboutCtaSection } from "@/features/about/sections/AboutCtaSection";
 import { AboutHeroSection } from "@/features/about/sections/AboutHeroSection";
@@ -10,17 +9,13 @@ import * as styles from "./styles";
 
 export default function AboutPage() {
   return (
-    <>
-      <SiteHeader />
-      <main id="main-content" className={styles.main}>
-        <AboutHeroSection />
-        <AboutStorySection />
-        <AboutBeliefsSection />
-        <AboutTechStackSection />
-        <AboutOutsideSection />
-        <AboutCtaSection />
-      </main>
-      <SiteFooter />
-    </>
+    <PageShell mainClassName={styles.main}>
+      <AboutHeroSection />
+      <AboutStorySection />
+      <AboutBeliefsSection />
+      <AboutTechStackSection />
+      <AboutOutsideSection />
+      <AboutCtaSection />
+    </PageShell>
   );
 }

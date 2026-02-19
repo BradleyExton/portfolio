@@ -33,5 +33,4 @@ export const techPill = "inline-flex items-center gap-2 rounded-full border bord
 export const techIcon = "h-[18px] w-[18px] shrink-0 text-content";
 export const textColumn = "max-w-3xl transition-all duration-1000 motion-safe:will-change-transform";
 export const visibleState = "translate-y-0 opacity-100";
-export const hiddenState = "translate-y-8 opacity-0";
 export const techPillsRow = "mt-16 flex flex-wrap gap-3 transition-all delay-500 duration-1000 motion-safe:will-change-transform";

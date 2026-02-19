@@ -10,7 +10,7 @@ Use this checklist for pull requests that modify frontend behavior or UI.
 ## Component Quality
 - [ ] Components remain modular and focused.
 - [ ] Oversized components were decomposed where needed.
-- [ ] Component folders follow contract (`index.tsx`, `styles.ts`, `types.ts`, `utils.ts`).
+- [ ] Component folders follow contract (`index.tsx`, `styles.ts`, and `types.ts`/`utils.ts` when imported by `index.tsx`).
 - [ ] Styles use semantic tokens (no hardcoded hex values in components).
 - [ ] User-facing copy is sourced from copy modules when practical.
 

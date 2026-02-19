@@ -1,7 +1,4 @@
-"use client";
-
-import SiteFooter from "@/features/shared/layout/SiteFooter";
-import SiteHeader from "@/features/shared/layout/SiteHeader";
+import { PageShell } from "@/features/shared/layout/PageShell";
 import { HomeAboutSnapshotSection } from "@/features/home/sections/HomeAboutSnapshotSection";
 import { HomeContactCtaSection } from "@/features/home/sections/HomeContactCtaSection";
 import { HomeExperienceSection } from "@/features/home/sections/HomeExperienceSection";
@@ -12,17 +9,13 @@ import * as styles from "./styles";
 
 export default function HomePageClient() {
   return (
-    <>
-      <SiteHeader />
-      <main id="main-content" className={styles.main}>
-        <HomeHeroSection />
-        <HomeAboutSnapshotSection />
-        <HomeExperienceSection />
-        <HomeServicesPreviewSection />
-        <HomeTestimonialsSection />
-        <HomeContactCtaSection />
-      </main>
-      <SiteFooter />
-    </>
+    <PageShell mainClassName={styles.main}>
+      <HomeHeroSection />
+      <HomeAboutSnapshotSection />
+      <HomeExperienceSection />
+      <HomeServicesPreviewSection />
+      <HomeTestimonialsSection />
+      <HomeContactCtaSection />
+    </PageShell>
   );
 }

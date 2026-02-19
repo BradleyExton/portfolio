@@ -361,7 +361,7 @@ export const mergeHeroParallaxLayerOffsets = (
   };
 };
 
-export const applyHeroParallaxTransforms = (
+const applyHeroParallaxTransforms = (
   elements: HeroParallaxLayerElements,
   offsets: HeroParallaxLayerOffsets,
 ): void => {
@@ -390,7 +390,7 @@ export const applyHeroParallaxTransforms = (
   }
 };
 
-export const clearHeroParallaxTransforms = (
+const clearHeroParallaxTransforms = (
   elements: HeroParallaxLayerElements,
 ): void => {
   if (elements.backgroundLayer) {
