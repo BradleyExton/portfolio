@@ -239,6 +239,20 @@ html {
   }
 }
 
+@keyframes timeline-entry-focus {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-brand-tint) 30%, transparent);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px color-mix(in srgb, var(--color-brand-tint) 18%, transparent);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
