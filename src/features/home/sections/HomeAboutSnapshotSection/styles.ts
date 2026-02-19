@@ -10,9 +10,9 @@ export const description = "mb-6 leading-relaxed text-content-muted";
 export const link = "group inline-flex items-center gap-2 font-medium text-brand transition-colors hover:text-brand-strong focus-visible:text-brand-strong";
 export const icon = "h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-focus-visible:translate-x-0.5";
 
-export const stackedCardList = "[view-timeline-axis:block] [view-timeline-name:--what-i-do-stack] [--card-height:clamp(32rem,84svh,40rem)] [--card-gap:0.75rem] [--card-top-offset:0.75rem] [--stack-sticky-top:5rem] [--card-peek-offset:0rem] grid grid-cols-1 [grid-template-rows:repeat(var(--numcards),var(--card-height))] gap-[var(--card-gap)] pb-[calc(var(--numcards)*var(--card-top-offset))] xl:[--card-top-offset:5.75rem] xl:[--card-height:26rem] xl:[--stack-sticky-top:5.5rem] xl:[--card-peek-offset:2rem] xl:pb-[calc(var(--card-top-offset)*2)]";
-export const stackedCardItem = "[--index0:calc(var(--index)-1)] [z-index:var(--index)] sticky [top:calc(var(--stack-sticky-top)+var(--index0)*var(--card-top-offset))] [transform:translateY(calc(var(--index0)*var(--card-peek-offset)))]";
-export const stackedCard = "h-full";
+export const stackedCardList = "[view-timeline-axis:block] [view-timeline-name:--what-i-do-stack] [--card-height:clamp(32rem,84svh,40rem)] [--card-gap:1.375rem] [--card-top-offset:0.75rem] [--stack-sticky-top:5rem] [--card-peek-offset:0rem] grid grid-cols-1 [grid-template-rows:repeat(var(--numcards),calc(var(--card-height)-(var(--card-top-offset)+var(--card-peek-offset))))] gap-[var(--card-gap)] pb-[calc(var(--numcards)*var(--card-top-offset)+1.5rem)] xl:[--card-gap:5rem] xl:[--card-top-offset:4rem] xl:[--card-height:26rem] xl:[--stack-sticky-top:5.5rem] xl:[--card-peek-offset:1.5rem] xl:pb-[calc((var(--numcards)-1)*(var(--card-top-offset)+var(--card-peek-offset))+5.5rem)]";
+export const stackedCardItem = "[--index0:calc(var(--index)-1)] [z-index:var(--index)] sticky top-[var(--stack-sticky-top)] [transform:translateY(calc(var(--index0)*(var(--card-top-offset)+var(--card-peek-offset))))]";
+export const stackedCard = "h-[var(--card-height)]";
 export const cardSurface = "relative h-full rounded-2xl border border-border-default bg-white p-5 shadow-sm transition-[transform,box-shadow] duration-300 motion-reduce:transition-none data-[active=true]:shadow-xl md:p-6";
 export const cardLayout = "grid h-full gap-4 md:gap-5 lg:gap-6 xl:grid-cols-[minmax(0,45%)_minmax(0,55%)] xl:items-center";
 export const cardContentColumn = "flex h-full min-w-0 flex-col";
