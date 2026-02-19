@@ -22,7 +22,7 @@ type UseTimelineMetricsResult = {
 };
 
 const INITIAL_TIMELINE_STATE: TimelineState = {
-  activeIndex: 0,
+  activeIndex: -1,
   progress: 0,
   pathDefinition: "",
   svgWidthPx: 1,
@@ -88,6 +88,10 @@ export function useTimelineMetrics({
       const rect = node.getBoundingClientRect();
       return rect.bottom + window.scrollY;
     });
+    const entryTopsAbsolute = entryNodes.map((node) => {
+      const rect = node.getBoundingClientRect();
+      return rect.top + window.scrollY;
+    });
     const milestoneCentersRelative = milestoneNodes.map<PathPoint>((node) => {
       const rect = node.getBoundingClientRect();
       return {
@@ -147,6 +151,16 @@ export function useTimelineMetrics({
     const svgHeightPx = Math.max(1, listRect.height);
 
     setTimelineState((previousState) => {
+      // A card is active only while the viewport anchor is inside its top/bottom checkpoints.
+      const activeEntryCheckpointIndex = entryTopsAbsolute.findIndex((entryTopAbsolute, index) => {
+        const entryBottomAbsolute = entryBottomsAbsolute[index];
+        if (entryBottomAbsolute === undefined) {
+          return false;
+        }
+
+        return absoluteAnchorY >= entryTopAbsolute
+          && absoluteAnchorY < (entryBottomAbsolute - PIXEL_EPSILON);
+      });
       const progressActiveIndex = checkpointProgress.reduce((resolvedIndex, checkpoint) => {
         if (progress + PROGRESS_EPSILON < checkpoint) {
           return resolvedIndex;
@@ -156,7 +170,11 @@ export function useTimelineMetrics({
       }, -1);
       const activeIndex = reducedMotion
         ? fallbackIndex
-        : Math.max(0, progressActiveIndex);
+        : (
+          entryNodes.length === 0
+            ? progressActiveIndex
+            : activeEntryCheckpointIndex
+        );
       const metricsUnchanged = (
         previousState.activeIndex === activeIndex
         && Math.abs(previousState.progress - progress) < PROGRESS_EPSILON
