@@ -59,7 +59,9 @@ describe("HomeAboutSnapshotSection", () => {
     render(<HomeAboutSnapshotSection />);
 
     const list = screen.getByRole("list", { name: "What I do capabilities" });
-    const topLevelItems = Array.from(list.children).filter((node) => node.tagName === "LI");
+    const topLevelItems = Array.from(list.children).filter(
+      (node) => node.tagName === "LI" && node.getAttribute("aria-hidden") !== "true",
+    );
     expect(topLevelItems).toHaveLength(homeCopy.whatIDoCapabilities.length);
   });
 

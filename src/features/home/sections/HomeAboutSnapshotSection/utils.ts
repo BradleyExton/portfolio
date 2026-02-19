@@ -18,13 +18,6 @@ const STACKED_CARD_COUNT_CLASSES = [
   "[--numcards:8]",
 ] as const;
 
-const CAPABILITY_ACCENT_CLASSES: Record<CapabilityId, string> = {
-  delivery: "[--cap-accent:var(--color-primary-500)] [--cap-border:var(--color-primary-200)] [--cap-wash:var(--color-primary-50)]",
-  frontend: "[--cap-accent:var(--color-info)] [--cap-border:var(--color-info-200)] [--cap-wash:var(--color-info-50)]",
-  platform: "[--cap-accent:var(--color-neutral-700)] [--cap-border:var(--color-neutral-300)] [--cap-wash:var(--color-neutral-100)]",
-  ai: "[--cap-accent:var(--color-accent-500)] [--cap-border:var(--color-accent-200)] [--cap-wash:var(--color-accent-50)]",
-};
-
 type CapabilityCardRect = {
   id: CapabilityId;
   top: number;
@@ -65,10 +58,6 @@ export const getStackedCardCountClass = (count: number): string => {
 
 export const getCapabilityIllustrationSrc = (id: CapabilityId): string => {
   return `/images/what-i-do/${id}.png`;
-};
-
-export const getCapabilityAccentClass = (id: CapabilityId): string => {
-  return CAPABILITY_ACCENT_CLASSES[id];
 };
 
 export const resolveActiveCapabilityId = ({

@@ -1,7 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import type { CapabilityId } from "./types";
 import {
-  getCapabilityAccentClass,
   getCapabilityIllustrationSrc,
   getStackedCardCountClass,
   getStackedCardIndexClass,
@@ -44,14 +43,6 @@ describe("HomeAboutSnapshotSection utils", () => {
     );
 
     consoleWarnSpy.mockRestore();
-  });
-
-  it("returns accent classes for each capability id", () => {
-    capabilityIds.forEach((capabilityId) => {
-      const accentClass = getCapabilityAccentClass(capabilityId);
-      expect(accentClass).toContain("--cap-accent");
-      expect(accentClass).toContain("--cap-wash");
-    });
   });
 
   it("resolves the first card as active when entering the section", () => {
