@@ -1,7 +1,4 @@
-"use client";
-
-import SiteFooter from "@/features/shared/layout/SiteFooter";
-import SiteHeader from "@/features/shared/layout/SiteHeader";
+import { PageShell } from "@/features/shared/layout/PageShell";
 import { ContactFormSection } from "@/features/contact/form/ContactFormSection";
 import { ContactHeroSection } from "@/features/contact/sections/ContactHeroSection";
 import { ContactLocationSection } from "@/features/contact/sections/ContactLocationSection";
@@ -18,20 +15,16 @@ export default function ContactPageClient({
   calcomUrl,
 }: ContactPageClientProps) {
   return (
-    <>
-      <SiteHeader />
-      <main id="main-content">
-        <ContactHeroSection />
-        <ContactOptionsSection calcomUrl={calcomUrl} />
-        <section className={styles.section}>
-          <div className={styles.ambientBackdrop} aria-hidden="true" />
-          <div className={styles.sectionContent}>
-            <ContactFormSection formspreeFormId={formspreeFormId} />
-          </div>
-        </section>
-        <ContactLocationSection />
-      </main>
-      <SiteFooter />
-    </>
+    <PageShell mainClassName={styles.main}>
+      <ContactHeroSection />
+      <ContactOptionsSection calcomUrl={calcomUrl} />
+      <section className={styles.section}>
+        <div className={styles.ambientBackdrop} aria-hidden="true" />
+        <div className={styles.sectionContent}>
+          <ContactFormSection formspreeFormId={formspreeFormId} />
+        </div>
+      </section>
+      <ContactLocationSection />
+    </PageShell>
   );
 }

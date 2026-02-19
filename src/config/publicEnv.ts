@@ -24,7 +24,7 @@ const toSafeHttpUrl = (value: string | null): string | null => {
   }
 };
 
-export type PublicEnv = {
+type PublicEnv = {
   formspreeFormId: string | null;
   calcomUrl: string | null;
   gaMeasurementId: string | null;

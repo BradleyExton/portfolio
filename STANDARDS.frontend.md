@@ -19,7 +19,7 @@ This project uses the following standards docs:
 Required for merge:
 - Workflow + verification commands from `AGENTS.frontend.md`
 - Design token and accessibility constraints from `DESIGN.frontend.md`
-- Component folder contract (`index.tsx`, `styles.ts`, `types.ts`, `utils.ts`) from `AGENTS.frontend.md`
+- Component folder contract (`index.tsx`, `styles.ts`, plus `types.ts`/`utils.ts` when imported by `index.tsx`) from `AGENTS.frontend.md`
 - PR checklist completion in `PR-CHECKLIST.frontend.md`
 
 Recommended:

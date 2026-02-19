@@ -34,7 +34,9 @@ export function ServicesProcessSection() {
                   <h4 className={styles.cardTitle}>{item.title}</h4>
                   <p className={styles.description}>{item.description}</p>
                   <p className={styles.output}>
-                    <span className={styles.outputLabel}>You get:</span>{" "}
+                    <span className={styles.outputLabel}>
+                      {servicesCopy.process.outputLabel}
+                    </span>{" "}
                     {item.output}
                   </p>
                 </div>

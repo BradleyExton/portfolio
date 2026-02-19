@@ -31,7 +31,7 @@ const detailsByServiceKey: Record<
   },
 };
 
-export const getServiceKeyFromTitle = (title: string): ServiceKey =>
+const getServiceKeyFromTitle = (title: string): ServiceKey =>
   titleToServiceKey[title] ?? "webApps";
 
 export const buildHomeServicePreviewItems = (

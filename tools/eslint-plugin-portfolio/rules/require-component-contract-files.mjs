@@ -8,14 +8,18 @@ const isComponentEntry = (filename) =>
     filename,
   );
 
-const REQUIRED_FILES = ["styles.ts", "types.ts", "utils.ts"];
+const ALWAYS_REQUIRED_FILES = ["styles.ts"];
+const CONDITIONAL_FILE_SPECS = {
+  types: "types.ts",
+  utils: "utils.ts",
+};
 
 export default {
   meta: {
     type: "problem",
     docs: {
       description:
-        "require component folders to include styles.ts, types.ts, and utils.ts",
+        "require component folders to include styles.ts and any contract files imported by the entrypoint",
     },
     schema: [],
     messages: {
@@ -32,8 +36,28 @@ export default {
     return {
       Program(node) {
         const componentDir = path.dirname(context.filename);
+        const importedContractFiles = new Set(ALWAYS_REQUIRED_FILES);
 
-        for (const requiredFile of REQUIRED_FILES) {
+        for (const statement of node.body) {
+          if (statement.type !== "ImportDeclaration") {
+            continue;
+          }
+
+          if (typeof statement.source.value !== "string") {
+            continue;
+          }
+
+          const source = statement.source.value;
+          if (source === "./types" || source === "./types.ts") {
+            importedContractFiles.add(CONDITIONAL_FILE_SPECS.types);
+          }
+
+          if (source === "./utils" || source === "./utils.ts") {
+            importedContractFiles.add(CONDITIONAL_FILE_SPECS.utils);
+          }
+        }
+
+        for (const requiredFile of importedContractFiles) {
           const fullPath = path.join(componentDir, requiredFile);
           if (!fs.existsSync(fullPath)) {
             context.report({
