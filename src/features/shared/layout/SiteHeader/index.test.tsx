@@ -4,13 +4,9 @@ import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 let mockedPathname = "/";
-let mockedNavFx: string | null = null;
 
 vi.mock("next/navigation", () => ({
   usePathname: () => mockedPathname,
-  useSearchParams: () => ({
-    get: (key: string) => (key === "navfx" ? mockedNavFx : null),
-  }),
 }));
 
 vi.mock("next/link", () => ({
@@ -34,7 +30,6 @@ import SiteHeader from "./index";
 describe("SiteHeader", () => {
   beforeEach(() => {
     mockedPathname = "/";
-    mockedNavFx = null;
   });
 
   it("uses hash links on home route", () => {
@@ -88,13 +83,5 @@ describe("SiteHeader", () => {
 
     await user.click(toggleButton);
     expect(toggleButton).toHaveAttribute("aria-expanded", "false");
-  });
-
-  it("uses pill hover variant when navfx=pill is set", () => {
-    mockedNavFx = "pill";
-    render(<SiteHeader />);
-
-    const aboutLink = screen.getAllByRole("link", { name: "About" })[0];
-    expect(aboutLink.className).toContain("after:bg-brand/12");
   });
 });
