@@ -9,9 +9,9 @@ const STACKED_CARD_INDEX_CLASSES = [
 
 const CAPABILITY_ACCENT_CLASSES: Record<CapabilityId, string> = {
   delivery: "[--cap-accent:var(--color-primary-500)] [--cap-border:var(--color-primary-200)] [--cap-wash:var(--color-primary-50)]",
-  frontend: "[--cap-accent:var(--color-info)] [--cap-border:#bfdbfe] [--cap-wash:#eff6ff]",
+  frontend: "[--cap-accent:var(--color-info)] [--cap-border:var(--color-info-200)] [--cap-wash:var(--color-info-50)]",
   platform: "[--cap-accent:var(--color-neutral-700)] [--cap-border:var(--color-neutral-300)] [--cap-wash:var(--color-neutral-100)]",
-  ai: "[--cap-accent:var(--color-accent-500)] [--cap-border:#fcd34d] [--cap-wash:#fffbeb]",
+  ai: "[--cap-accent:var(--color-accent-500)] [--cap-border:var(--color-accent-200)] [--cap-wash:var(--color-accent-50)]",
 };
 
 type CapabilityCardRect = {

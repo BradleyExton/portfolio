@@ -110,10 +110,21 @@ export function useActiveCapabilityId({
     };
 
     applyMotionPreference();
-    mediaQuery.addEventListener("change", applyMotionPreference);
-    return () => {
-      mediaQuery.removeEventListener("change", applyMotionPreference);
-    };
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", applyMotionPreference);
+      return () => {
+        mediaQuery.removeEventListener("change", applyMotionPreference);
+      };
+    }
+
+    if (typeof mediaQuery.addListener === "function") {
+      mediaQuery.addListener(applyMotionPreference);
+      return () => {
+        mediaQuery.removeListener(applyMotionPreference);
+      };
+    }
+
+    return undefined;
   }, []);
 
   useEffect(() => {
