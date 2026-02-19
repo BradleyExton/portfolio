@@ -108,16 +108,9 @@ export function useActiveCapabilityId({
     };
 
     applyMotionPreference();
-    if (typeof mediaQuery.addEventListener === "function") {
-      mediaQuery.addEventListener("change", applyMotionPreference);
-      return () => {
-        mediaQuery.removeEventListener("change", applyMotionPreference);
-      };
-    }
-
-    mediaQuery.addListener(applyMotionPreference);
+    mediaQuery.addEventListener("change", applyMotionPreference);
     return () => {
-      mediaQuery.removeListener(applyMotionPreference);
+      mediaQuery.removeEventListener("change", applyMotionPreference);
     };
   }, []);
 

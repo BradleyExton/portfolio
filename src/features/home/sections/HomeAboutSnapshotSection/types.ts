@@ -4,7 +4,6 @@ export type CapabilityId = "delivery" | "frontend" | "platform" | "ai";
 
 export type WhatIDoCapability = {
   id: CapabilityId;
-  nodeLabel: string;
   title: string;
   outcome: string;
   proofPoints: readonly [string, string];

@@ -73,7 +73,7 @@ export function HomeAboutSnapshotSection() {
                         >
                           <header className={styles.cardHeader}>
                             <div className={styles.cardHeadingGroup}>
-                              <p className={styles.cardIndex}>{`0${index + 1}`}</p>
+                              <p className={styles.cardIndex}>{String(index + 1).padStart(2, "0")}</p>
                               <div className={styles.cardTitleRow}>
                                 <h3 className={styles.cardTitle}>{capability.title}</h3>
                                 {capability.emphasis === "ai" && (

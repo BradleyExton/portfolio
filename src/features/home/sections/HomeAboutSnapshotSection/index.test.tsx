@@ -4,13 +4,14 @@ import { homeCopy } from "@/copy/home";
 import { HomeAboutSnapshotSection } from "./index";
 
 vi.mock("next/image", () => ({
-  default: ({ fill, ...props }: { fill?: boolean } & Record<string, unknown>) => {
-    void fill;
+  default: (props: { fill?: boolean } & Record<string, unknown>) => {
+    const imageProps = { ...props };
+    delete imageProps.fill;
     const altText = typeof props.alt === "string" ? props.alt : "";
 
     return (
       // eslint-disable-next-line @next/next/no-img-element
-      <img {...props} alt={altText} />
+      <img {...imageProps} alt={altText} />
     );
   },
 }));

@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 import type { CapabilityId } from "./types";
-import { getCapabilityIllustrationSrc, resolveActiveCapabilityId } from "./utils";
+import {
+  getCapabilityAccentClass,
+  getCapabilityIllustrationSrc,
+  getStackedCardIndexClass,
+  resolveActiveCapabilityId,
+} from "./utils";
 
 const capabilityIds: readonly CapabilityId[] = ["delivery", "frontend", "platform", "ai"];
 
@@ -8,6 +13,22 @@ describe("HomeAboutSnapshotSection utils", () => {
   it("returns deterministic illustration paths for capability ids", () => {
     capabilityIds.forEach((capabilityId) => {
       expect(getCapabilityIllustrationSrc(capabilityId)).toBe(`/images/what-i-do/${capabilityId}.png`);
+    });
+  });
+
+  it("returns stacked index classes and a safe fallback", () => {
+    expect(getStackedCardIndexClass(0)).toBe("[--index:1]");
+    expect(getStackedCardIndexClass(1)).toBe("[--index:2]");
+    expect(getStackedCardIndexClass(2)).toBe("[--index:3]");
+    expect(getStackedCardIndexClass(3)).toBe("[--index:4]");
+    expect(getStackedCardIndexClass(12)).toBe("[--index:1]");
+  });
+
+  it("returns accent classes for each capability id", () => {
+    capabilityIds.forEach((capabilityId) => {
+      const accentClass = getCapabilityAccentClass(capabilityId);
+      expect(accentClass).toContain("--cap-accent");
+      expect(accentClass).toContain("--cap-wash");
     });
   });
 

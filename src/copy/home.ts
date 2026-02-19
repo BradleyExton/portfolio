@@ -24,7 +24,6 @@ export const homeCopy = {
   whatIDoCapabilities: [
     {
       id: "delivery",
-      nodeLabel: "Delivery",
       title: "Product Delivery & Leadership",
       outcome: "Turn ambiguous goals into shippable plans teams can execute with confidence.",
       proofPoints: [
@@ -36,7 +35,6 @@ export const homeCopy = {
     },
     {
       id: "frontend",
-      nodeLabel: "Front-End",
       title: "Front-End Systems & Quality",
       outcome: "Build polished interfaces that stay fast, accessible, and maintainable as products scale.",
       proofPoints: [
@@ -48,7 +46,6 @@ export const homeCopy = {
     },
     {
       id: "platform",
-      nodeLabel: "Platform",
       title: "Platform, Integrations & Observability",
       outcome: "Design backend and cloud architecture that scales while improving reliability and product visibility.",
       proofPoints: [
@@ -60,7 +57,6 @@ export const homeCopy = {
     },
     {
       id: "ai",
-      nodeLabel: "AI",
       title: "AI Workflow & Automation",
       outcome:
         "Implement practical AI workflows that accelerate delivery without lowering quality. Recent stack: Codex, Claude Code, MCP Servers, and ChatGPT Integrations.",
