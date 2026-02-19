@@ -10,7 +10,12 @@ test("primary routes render", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "About Me" })).toBeVisible();
 
   await page.goto("/services");
-  await expect(page.getByRole("heading", { name: "Services" })).toBeVisible();
+  await expect(
+    page.getByRole("heading", {
+      level: 1,
+      name: /Senior full-stack execution for teams that need momentum/i,
+    }),
+  ).toBeVisible();
 
   await page.goto("/contact");
   await expect(page.getByRole("heading", { name: "Get In Touch" })).toBeVisible();
