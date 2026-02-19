@@ -17,6 +17,11 @@
   --color-accent-400: #fbbf24;
   --color-accent-500: #f59e0b;
   --color-accent-600: #d97706;
+  --color-accent-200: #fcd34d;
+  --color-accent-50: #fffbeb;
+
+  --color-info-200: #bfdbfe;
+  --color-info-50: #eff6ff;
 
   /* Neutrals - Slate */
   --color-neutral-50: #f8fafc;
@@ -183,6 +188,12 @@ html {
   50% {
     transform: scale(1.06);
     box-shadow: 0 0 0 8px color-mix(in srgb, var(--color-brand-tint) 36%, transparent);
+  }
+}
+
+@keyframes what-i-do-stack-scale {
+  to {
+    transform: scale(var(--target-scale));
   }
 }
 
