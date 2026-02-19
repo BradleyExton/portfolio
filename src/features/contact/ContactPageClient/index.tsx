@@ -24,7 +24,10 @@ export default function ContactPageClient({
         <ContactHeroSection />
         <ContactOptionsSection calcomUrl={calcomUrl} />
         <section className={styles.section}>
-          <ContactFormSection formspreeFormId={formspreeFormId} />
+          <div className={styles.ambientBackdrop} aria-hidden="true" />
+          <div className={styles.sectionContent}>
+            <ContactFormSection formspreeFormId={formspreeFormId} />
+          </div>
         </section>
         <ContactLocationSection />
       </main>
