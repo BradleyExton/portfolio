@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { commonCopy } from "@/copy/common";
 import { navigationCopy } from "@/copy/navigation";
@@ -12,10 +12,16 @@ import { buildHeaderNavItems, getHeaderContactHref, toggleMenu } from "./utils";
 export default function SiteHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const isHomePage = pathname === "/";
+  const navAnimationVariant = searchParams.get("navfx") === "pill" ? "pill" : "underline";
 
   const navItems = buildHeaderNavItems(isHomePage);
   const contactHref = getHeaderContactHref(isHomePage);
+  const desktopNavLinkClassName =
+    navAnimationVariant === "pill"
+      ? styles.desktopNavLinkPill
+      : styles.desktopNavLinkUnderline;
 
   return (
     <nav className={styles.nav} aria-label="Primary">
@@ -32,15 +38,17 @@ export default function SiteHeader() {
           </Link>
 
           <div className={styles.desktopNav}>
-            {navItems.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={styles.desktopNavLink}
-              >
-                {item.label}
-              </Link>
-            ))}
+            <div className={styles.desktopNavList}>
+              {navItems.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={desktopNavLinkClassName}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
             <Link
               href={contactHref}
               className={styles.ctaLink}
