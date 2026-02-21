@@ -74,7 +74,6 @@ export default function SiteFooter() {
                   href={link.href}
                   target={link.external ? "_blank" : undefined}
                   rel={link.external ? "noopener noreferrer" : undefined}
-                  aria-label={link.external ? `${link.label} (opens in a new tab)` : link.label}
                   className={
                     link.emphasis === "primary"
                       ? styles.connectPrimaryLink
@@ -84,7 +83,7 @@ export default function SiteFooter() {
                   {link.label}
                   {link.external ? (
                     <>
-                      <span className={styles.externalIndicator} aria-hidden>
+                      <span className={styles.externalIndicator} aria-hidden="true">
                         ↗
                       </span>
                       <span className="sr-only"> (opens in a new tab)</span>
