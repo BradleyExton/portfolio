@@ -1,11 +1,11 @@
-export const section = "bg-surface-muted px-6 py-16 md:py-20";
+export const section = "bg-surface-muted px-6 py-12 md:py-20";
 export const container = "mx-auto max-w-6xl";
 export const eyebrow = "mb-3 text-sm font-semibold uppercase tracking-wider text-brand";
-export const subheading = "mb-8 max-w-3xl text-3xl font-bold text-content font-[family-name:var(--font-space-grotesk)]";
-export const block = "grid gap-5 md:grid-cols-2 xl:grid-cols-3";
-export const card = "group relative overflow-hidden rounded-2xl border border-border-default bg-surface p-6 shadow-[0_16px_34px_-28px_color-mix(in_srgb,var(--color-brand-tint)_82%,transparent)] transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-0.5 hover:border-brand-tint hover:shadow-[0_26px_56px_-32px_color-mix(in_srgb,var(--color-brand)_34%,transparent)]";
+export const subheading = "mb-7 max-w-3xl text-2xl font-bold text-content font-[family-name:var(--font-space-grotesk)] md:mb-8 md:text-3xl";
+export const block = "grid gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-3";
+export const card = "group relative overflow-hidden rounded-2xl border border-border-default bg-surface p-5 shadow-[0_16px_34px_-28px_color-mix(in_srgb,var(--color-brand-tint)_82%,transparent)] transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-0.5 hover:border-brand-tint hover:shadow-[0_26px_56px_-32px_color-mix(in_srgb,var(--color-brand)_34%,transparent)] sm:p-6";
 export const cardHeader = "mb-3 flex items-center justify-between";
 export const cardIndex = "text-xs font-semibold uppercase tracking-[0.12em] text-brand";
 export const cardAccent = "h-2.5 w-2.5 rounded-full bg-brand-tint transition-colors duration-300 group-hover:bg-brand";
-export const cardTitle = "mb-2 text-xl font-bold text-content";
+export const cardTitle = "mb-2 text-lg font-bold text-content sm:text-xl";
 export const description = "leading-relaxed text-content-muted";
