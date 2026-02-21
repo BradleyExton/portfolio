@@ -11,6 +11,7 @@ type UseActiveCapabilityIdParams = {
 type UseActiveCapabilityIdResult = {
   activeCapabilityId: CapabilityId;
   reduceMotion: boolean;
+  showIllustrations: boolean;
   listRef: RefObject<HTMLOListElement | null>;
   setCardRef: (id: CapabilityId, node: HTMLDivElement | null) => void;
 };
@@ -47,6 +48,7 @@ export function useActiveCapabilityId({
   const defaultCapabilityId = useMemo<CapabilityId>(() => capabilityIds[0] ?? "delivery", [capabilityIds]);
   const [activeCapabilityId, setActiveCapabilityId] = useState<CapabilityId>(defaultCapabilityId);
   const [reduceMotion, setReduceMotion] = useState(false);
+  const [showIllustrations, setShowIllustrations] = useState(false);
 
   const setCardRef = useCallback((id: CapabilityId, node: HTMLDivElement | null) => {
     cardRefs.current[id] = node;
@@ -128,6 +130,34 @@ export function useActiveCapabilityId({
   }, []);
 
   useEffect(() => {
+    if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
+      return;
+    }
+
+    const mediaQuery = window.matchMedia("(min-width: 1280px)");
+    const applyIllustrationVisibility = () => {
+      setShowIllustrations(mediaQuery.matches);
+    };
+
+    applyIllustrationVisibility();
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", applyIllustrationVisibility);
+      return () => {
+        mediaQuery.removeEventListener("change", applyIllustrationVisibility);
+      };
+    }
+
+    if (typeof mediaQuery.addListener === "function") {
+      mediaQuery.addListener(applyIllustrationVisibility);
+      return () => {
+        mediaQuery.removeListener(applyIllustrationVisibility);
+      };
+    }
+
+    return undefined;
+  }, []);
+
+  useEffect(() => {
     if (typeof window === "undefined" || typeof window.IntersectionObserver === "undefined") {
       return;
     }
@@ -181,6 +211,7 @@ export function useActiveCapabilityId({
   return {
     activeCapabilityId,
     reduceMotion,
+    showIllustrations,
     listRef,
     setCardRef,
   };
