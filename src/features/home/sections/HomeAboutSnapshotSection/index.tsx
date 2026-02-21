@@ -111,6 +111,8 @@ export function HomeAboutSnapshotSection() {
                             alt=""
                             fill
                             sizes="(min-width: 1536px) 34vw, (min-width: 1280px) 38vw, 100vw"
+                            loading="lazy"
+                            fetchPriority="low"
                             className={styles.illustrationImage}
                           />
                         </div>

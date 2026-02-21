@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { homeCopy } from "@/copy/home";
 import * as styles from "./styles";
-import { setupHeroParallaxController } from "./utils";
 
 type HeroTechPill = (typeof homeCopy.techStackPills)[number];
 const steamWispClasses = [
@@ -71,16 +70,46 @@ export function HomeHeroSection() {
   const pillsLayerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    return setupHeroParallaxController({
-      sectionRef,
-      backgroundLayerRef,
-      steamLayerRef,
-      steamClusterRef,
-      topOrbLayerRef,
-      bottomOrbLayerRef,
-      contentLayerRef,
-      pillsLayerRef,
-    });
+    let teardown: () => void = () => {};
+    let isDisposed = false;
+
+    const activateParallax = async () => {
+      const { setupHeroParallaxController } = await import("./utils");
+      if (isDisposed) {
+        return;
+      }
+
+      teardown = setupHeroParallaxController({
+        sectionRef,
+        backgroundLayerRef,
+        steamLayerRef,
+        steamClusterRef,
+        topOrbLayerRef,
+        bottomOrbLayerRef,
+        contentLayerRef,
+        pillsLayerRef,
+      });
+    };
+
+    if (typeof window.requestIdleCallback === "function") {
+      const idleId = window.requestIdleCallback(() => {
+        void activateParallax();
+      }, { timeout: 1200 });
+      return () => {
+        isDisposed = true;
+        window.cancelIdleCallback(idleId);
+        teardown();
+      };
+    }
+
+    const timerId = window.setTimeout(() => {
+      void activateParallax();
+    }, 180);
+    return () => {
+      isDisposed = true;
+      window.clearTimeout(timerId);
+      teardown();
+    };
   }, []);
 
   return (
@@ -97,6 +126,8 @@ export function HomeHeroSection() {
               alt=""
               fill
               priority
+              sizes="100vw"
+              quality={70}
               className={styles.image}
             />
           </div>
