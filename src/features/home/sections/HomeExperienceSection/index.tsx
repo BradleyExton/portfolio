@@ -55,6 +55,9 @@ export function HomeExperienceSection() {
           <ol ref={listRef} className={styles.timelineList} aria-label="Career timeline">
             {experienceItems.map((job, index) => {
               const isActive = index === activeIndex;
+              const alwaysVisibleHighlights = job.highlights.slice(0, 2);
+              const additionalHighlights = job.highlights.slice(2);
+              const hasAdditionalHighlights = additionalHighlights.length > 0;
 
               return (
                 <li
@@ -104,9 +107,51 @@ export function HomeExperienceSection() {
 
                       <p className={styles.roleDescription}>{job.description}</p>
 
-                      <ul className={styles.highlightsList} aria-label={`${job.company} highlights`}>
-                        {job.highlights.map((highlight) => (
+                      <ul className={styles.highlightsListMobile} aria-label={`${job.company} highlights`}>
+                        {alwaysVisibleHighlights.map((highlight) => (
                           <li key={`${job.company}-${highlight}`} className={styles.highlightItem}>
+                            {highlight}
+                          </li>
+                        ))}
+                      </ul>
+                      {hasAdditionalHighlights && (
+                        <details className={styles.highlightsDetails}>
+                          <summary className={styles.highlightsSummary}>
+                            <span className={styles.highlightsSummaryLabel}>
+                              <span className="closed-label">More highlights</span>
+                              <span className="open-label">Less highlights</span>
+                            </span>
+                            <svg
+                              aria-hidden="true"
+                              className={styles.highlightsSummaryIcon}
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M19 9l-7 7-7-7"
+                              />
+                            </svg>
+                          </summary>
+                          <div className={styles.highlightsExpansion}>
+                            <div className={styles.highlightsExpansionInner}>
+                              <ul className={styles.highlightsListExpanded} aria-label={`${job.company} more highlights`}>
+                                {additionalHighlights.map((highlight) => (
+                                  <li key={`${job.company}-${highlight}`} className={styles.highlightItem}>
+                                    {highlight}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
+                        </details>
+                      )}
+                      <ul className={styles.highlightsListDesktop} aria-label={`${job.company} highlights`}>
+                        {job.highlights.map((highlight) => (
+                          <li key={`${job.company}-desktop-${highlight}`} className={styles.highlightItem}>
                             {highlight}
                           </li>
                         ))}
