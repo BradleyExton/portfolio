@@ -1,4 +1,4 @@
-export const section = "bg-gradient-to-br from-brand-weak via-surface to-surface-muted px-4 pb-12 pt-22 sm:px-6 sm:pb-16 sm:pt-28 md:pb-20 md:pt-32";
+export const section = "bg-gradient-to-br from-brand-weak via-surface to-surface-muted px-4 pb-12 pt-[5.5rem] sm:px-6 sm:pb-16 sm:pt-28 md:pb-20 md:pt-32";
 export const container = "mx-auto max-w-5xl";
 export const shell = "text-left";
 export const eyebrow = "mb-3 text-sm font-semibold uppercase tracking-wider text-brand";
