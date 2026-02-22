@@ -1,29 +1,22 @@
 import { homeCopy } from "@/copy/home";
-import { ScrollReveal } from "@/features/shared/motion/ScrollReveal";
 import * as styles from "./styles";
 
 export function HomeTestimonialsSection() {
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        <ScrollReveal>
-          <div className={styles.block}>
-            <p className={styles.eyebrow}>
-              {homeCopy.testimonials.eyebrow}
-            </p>
-            <h2 className={styles.subheading}>
-              {homeCopy.testimonials.heading}
-            </h2>
-          </div>
-        </ScrollReveal>
+        <div className={styles.block}>
+          <p className={styles.eyebrow}>
+            {homeCopy.testimonials.eyebrow}
+          </p>
+          <h2 className={styles.subheading}>
+            {homeCopy.testimonials.heading}
+          </h2>
+        </div>
 
         <div className={styles.grid}>
-          {homeCopy.testimonials.items.map((testimonial, index) => (
-            <ScrollReveal
-              key={testimonial.id}
-              className={styles.card}
-              delayMs={120 + index * 90}
-            >
+          {homeCopy.testimonials.items.map((testimonial) => (
+            <div key={testimonial.id} className={styles.card}>
               <div className={styles.row}>
                 {[...Array(5)].map((_, index) => (
                   <svg
@@ -51,7 +44,7 @@ export function HomeTestimonialsSection() {
                   <p className={styles.authorRole}>{testimonial.role}</p>
                 </div>
               </div>
-            </ScrollReveal>
+            </div>
           ))}
         </div>
       </div>

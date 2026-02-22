@@ -112,6 +112,8 @@ export function HomeAboutSnapshotSection() {
                               alt=""
                               fill
                               sizes="(min-width: 1536px) 34vw, 38vw"
+                              loading="lazy"
+                              fetchPriority="low"
                               className={styles.illustrationImage}
                             />
                           ) : null}

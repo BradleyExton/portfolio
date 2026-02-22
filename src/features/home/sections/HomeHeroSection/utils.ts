@@ -443,6 +443,8 @@ export const setupHeroParallaxController = (
   let currentPointer = createZeroVector();
   let lastFrameTimestamp = 0;
   let visibilityObserver: IntersectionObserver | null = null;
+  let hasScrollListener = false;
+  let hasPointerListeners = false;
 
   const getLayerElements = () => {
     return resolveLayerElements(refs);
@@ -537,6 +539,7 @@ export const setupHeroParallaxController = (
       prefersReducedMotion,
       finePointerQuery.matches,
     );
+    syncInteractionListeners();
 
     if (!pointerParallaxEnabled) {
       resetPointerState();
@@ -595,6 +598,43 @@ export const setupHeroParallaxController = (
     scheduleFrame();
   };
 
+  const setScrollListener = (enabled: boolean) => {
+    if (enabled && !hasScrollListener) {
+      window.addEventListener("scroll", handleScroll, { passive: true });
+      hasScrollListener = true;
+      return;
+    }
+
+    if (!enabled && hasScrollListener) {
+      window.removeEventListener("scroll", handleScroll);
+      hasScrollListener = false;
+    }
+  };
+
+  const setPointerListeners = (enabled: boolean) => {
+    if (enabled && !hasPointerListeners) {
+      section.addEventListener("pointerenter", handlePointerEnter);
+      section.addEventListener("pointermove", handlePointerMove);
+      section.addEventListener("pointerleave", handlePointerLeave);
+      section.addEventListener("pointercancel", handlePointerLeave);
+      hasPointerListeners = true;
+      return;
+    }
+
+    if (!enabled && hasPointerListeners) {
+      section.removeEventListener("pointerenter", handlePointerEnter);
+      section.removeEventListener("pointermove", handlePointerMove);
+      section.removeEventListener("pointerleave", handlePointerLeave);
+      section.removeEventListener("pointercancel", handlePointerLeave);
+      hasPointerListeners = false;
+    }
+  };
+
+  const syncInteractionListeners = () => {
+    setScrollListener(scrollParallaxEnabled);
+    setPointerListeners(pointerParallaxEnabled);
+  };
+
   if (typeof window.IntersectionObserver === "function") {
     visibilityObserver = new IntersectionObserver(
       (entries) => {
@@ -617,12 +657,7 @@ export const setupHeroParallaxController = (
     visibilityObserver.observe(section);
   }
 
-  window.addEventListener("scroll", handleScroll, { passive: true });
   window.addEventListener("resize", handleResize);
-  section.addEventListener("pointerenter", handlePointerEnter);
-  section.addEventListener("pointermove", handlePointerMove);
-  section.addEventListener("pointerleave", handlePointerLeave);
-  section.addEventListener("pointercancel", handlePointerLeave);
 
   const unsubscribeReducedMotion = subscribeMediaQueryChange(
     reducedMotionQuery,
@@ -640,12 +675,9 @@ export const setupHeroParallaxController = (
       window.cancelAnimationFrame(frameId);
     }
 
-    window.removeEventListener("scroll", handleScroll);
+    setScrollListener(false);
+    setPointerListeners(false);
     window.removeEventListener("resize", handleResize);
-    section.removeEventListener("pointerenter", handlePointerEnter);
-    section.removeEventListener("pointermove", handlePointerMove);
-    section.removeEventListener("pointerleave", handlePointerLeave);
-    section.removeEventListener("pointercancel", handlePointerLeave);
 
     unsubscribeReducedMotion();
     unsubscribeFinePointer();

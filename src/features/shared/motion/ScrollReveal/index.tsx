@@ -26,22 +26,6 @@ export function ScrollReveal({
       return;
     }
 
-    const sectionIsInViewport = (): boolean => {
-      const rect = node.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      const normalizedThreshold = Math.max(0, Math.min(threshold, 1));
-      const thresholdOffset = normalizedThreshold * rect.height;
-      // Reveal slightly earlier so content does not look faded while already peeking into view.
-      const bottomMarginOffset = viewportHeight * 0.02;
-
-      return (
-        rect.top <= viewportHeight - bottomMarginOffset - thresholdOffset
-        && rect.bottom >= thresholdOffset
-      );
-    };
-
-    setIsVisible(sectionIsInViewport());
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
