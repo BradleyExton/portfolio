@@ -68,6 +68,65 @@ describe("HomeAboutSnapshotSection", () => {
     expect(topLevelItems).toHaveLength(homeCopy.whatIDoCapabilities.length);
   });
 
+  it("applies mobile peek stack classes while preserving md/xl overrides", () => {
+    render(<HomeAboutSnapshotSection />);
+
+    const list = screen.getByRole("list", { name: "What I do capabilities" });
+    expect(list).toHaveClass("[--card-top-offset:0.875rem]");
+    expect(list).toHaveClass("[--card-peek-offset:4rem]");
+    expect(list).toHaveClass("overflow-visible");
+    expect(list).toHaveClass("md:[--card-peek-offset:0rem]");
+    expect(list).toHaveClass("md:pb-[calc(var(--numcards)*var(--card-top-offset)+1.5rem)]");
+    expect(list).toHaveClass("xl:[--card-peek-offset:1.5rem]");
+
+    const firstItem = list.querySelector("li");
+    expect(firstItem).not.toBeNull();
+    expect(firstItem as HTMLElement).toHaveClass("overflow-visible");
+
+    const firstCard = firstItem?.querySelector("article");
+    expect(firstCard).not.toBeNull();
+    expect(firstCard as HTMLElement).toHaveClass("overflow-visible");
+
+    const cardLayout = firstItem?.querySelector("article > div > div");
+    expect(cardLayout).not.toBeNull();
+
+    const layoutChildren = Array.from(cardLayout?.children ?? []);
+    const firstIllustrationPanel = layoutChildren[1] as HTMLElement | undefined;
+    expect(firstIllustrationPanel).toBeDefined();
+    expect(firstIllustrationPanel).toHaveClass("order-last");
+    expect(firstIllustrationPanel).toHaveClass("md:order-first");
+  });
+
+  it("keeps card content column before illustration in the layout DOM order", () => {
+    render(<HomeAboutSnapshotSection />);
+
+    const list = screen.getByRole("list", { name: "What I do capabilities" });
+    const topLevelItems = Array.from(list.children).filter(
+      (node) => node.tagName === "LI" && node.getAttribute("aria-hidden") !== "true",
+    );
+
+    topLevelItems.forEach((item, index) => {
+      const cardLayout = item.querySelector("article > div > div");
+      expect(cardLayout).not.toBeNull();
+
+      const layoutChildren = Array.from(cardLayout?.children ?? []);
+      expect(layoutChildren).toHaveLength(2);
+
+      const contentColumn = layoutChildren[0];
+      const illustrationPanel = layoutChildren[1] as HTMLElement | undefined;
+      const capability = homeCopy.whatIDoCapabilities[index];
+
+      expect(
+        within(contentColumn as HTMLElement).getByRole("heading", {
+          level: 3,
+          name: capability.title,
+        }),
+      ).toBeInTheDocument();
+      expect(illustrationPanel).toBeDefined();
+      expect(illustrationPanel).toHaveAttribute("aria-hidden", "true");
+    });
+  });
+
   it("renders every capability card with outcome, proof points, and chips", () => {
     render(<HomeAboutSnapshotSection />);
 
