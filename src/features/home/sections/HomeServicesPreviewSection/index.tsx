@@ -34,7 +34,7 @@ const illustrationByServiceKey: Record<
 const hrefByServiceKey: Record<ServiceKey, string> = {
   websites: "/services#websites",
   webApps: "/services#web-applications",
-  aiTools: "/services#ai-powered-tools",
+  aiTools: "/services#ai-tools",
 };
 
 export function HomeServicesPreviewSection() {
