@@ -17,7 +17,7 @@ const whatIDoCapabilities = homeCopy.whatIDoCapabilities satisfies readonly What
 const capabilityIds = whatIDoCapabilities.map((capability) => capability.id);
 
 export function HomeAboutSnapshotSection() {
-  const { activeCapabilityId, reduceMotion, listRef, setCardRef } = useActiveCapabilityId({
+  const { activeCapabilityId, reduceMotion, showIllustrations, listRef, setCardRef } = useActiveCapabilityId({
     capabilityIds,
   });
 
@@ -106,15 +106,17 @@ export function HomeAboutSnapshotSection() {
                           )}
                           aria-hidden="true"
                         >
-                          <Image
-                            src={getCapabilityIllustrationSrc(capability.id)}
-                            alt=""
-                            fill
-                            sizes="(min-width: 1536px) 34vw, (min-width: 1280px) 38vw, 100vw"
-                            loading="lazy"
-                            fetchPriority="low"
-                            className={styles.illustrationImage}
-                          />
+                          {showIllustrations ? (
+                            <Image
+                              src={getCapabilityIllustrationSrc(capability.id)}
+                              alt=""
+                              fill
+                              sizes="(min-width: 1536px) 34vw, 38vw"
+                              loading="lazy"
+                              fetchPriority="low"
+                              className={styles.illustrationImage}
+                            />
+                          ) : null}
                         </div>
                       </div>
                     </div>

@@ -1,4 +1,5 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { homeCopy } from "@/copy/home";
 import { profile } from "@/copy/profile";
@@ -20,6 +21,18 @@ class IntersectionObserverMock {
   unobserve = vi.fn();
   disconnect = vi.fn();
 }
+
+vi.mock("./useTimelineMetrics", () => ({
+  useTimelineMetrics: () => ({
+    activeIndex: 0,
+    reduceMotion: false,
+    sectionRef: { current: null },
+    listRef: { current: null },
+    pathSvgRef: { current: null },
+    pathTrackRef: { current: null },
+    pathFillRef: { current: null },
+  }),
+}));
 
 describe("HomeExperienceSection", () => {
   beforeEach(() => {
@@ -84,5 +97,38 @@ describe("HomeExperienceSection", () => {
     expect(link).toHaveAttribute("href", profile.links.linkedin);
     expect(link).toHaveAttribute("target", "_blank");
     expect(link).toHaveAttribute("rel", "noopener noreferrer");
+  });
+
+  it("renders disclosure controls for entries with more than two highlights", () => {
+    render(<HomeExperienceSection />);
+
+    const disclosureControls = screen.getAllByText("More highlights");
+    const entriesWithExtraHighlights = homeCopy.experience.items.filter((job) => {
+      return job.highlights.length > 2;
+    });
+
+    expect(disclosureControls).toHaveLength(entriesWithExtraHighlights.length);
+  });
+
+  it("toggles additional highlights with native details disclosure", async () => {
+    const user = userEvent.setup();
+    render(<HomeExperienceSection />);
+
+    const localLogicItem = screen.getByRole("heading", { name: "Local Logic" }).closest("article");
+    expect(localLogicItem).not.toBeNull();
+
+    const localLogicCard = localLogicItem as HTMLElement;
+    const hiddenHighlight = homeCopy.experience.items[0].highlights[2];
+    const details = localLogicCard.querySelector("details");
+    expect(details).not.toBeNull();
+    const disclosure = details as HTMLDetailsElement;
+    expect(within(disclosure).getByText(hiddenHighlight)).not.toBeVisible();
+
+    const toggle = disclosure.querySelector("summary");
+    expect(toggle).not.toBeNull();
+    await user.click(toggle as HTMLElement);
+    expect(disclosure.open).toBe(true);
+    expect(within(disclosure).getByText(hiddenHighlight)).toBeVisible();
+    expect(within(disclosure).getByText("Less highlights")).toBeVisible();
   });
 });

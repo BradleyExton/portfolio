@@ -127,3 +127,32 @@ test("contact error or unavailable states include text guidance", async ({
     page.getByText("Something went wrong. Please try again or email me directly."),
   ).toBeVisible();
 });
+
+test("mobile landing layout keeps key cards compact and nav targets tappable", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+
+  const firstExperienceCard = page.locator("#experience [data-timeline-entry='true']").first();
+  await firstExperienceCard.scrollIntoViewIfNeeded();
+  const firstExperienceCardHeight = await firstExperienceCard.evaluate((node) => {
+    return Math.round(node.getBoundingClientRect().height);
+  });
+  expect(firstExperienceCardHeight).toBeLessThanOrEqual(650);
+
+  const firstServiceCard = page.locator("#services a[aria-label^='View']").first();
+  await firstServiceCard.scrollIntoViewIfNeeded();
+  const firstServiceCardHeight = await firstServiceCard.evaluate((node) => {
+    return Math.round(node.getBoundingClientRect().height);
+  });
+  expect(firstServiceCardHeight).toBeLessThanOrEqual(460);
+
+  await page.getByRole("button", { name: "Toggle menu" }).click();
+  const mobileNavLinkHeights = await page.locator("#mobile-menu a").evaluateAll((links) => {
+    return links.map((link) => Math.round(link.getBoundingClientRect().height));
+  });
+  mobileNavLinkHeights.forEach((height) => {
+    expect(height).toBeGreaterThanOrEqual(44);
+  });
+});
