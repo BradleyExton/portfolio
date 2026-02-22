@@ -7,6 +7,7 @@ export const description = "mx-auto max-w-2xl text-sm text-content-muted sm:text
 export const grid = "grid gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-3";
 export const cardReveal = "h-full";
 export const card = "group flex h-full flex-col rounded-xl border border-border-default bg-surface p-4 shadow-sm transition-[border-color,box-shadow] duration-300 hover:border-border-default/80 hover:shadow-md sm:p-5";
+export const anchorOffset = "scroll-mt-28 md:scroll-mt-32";
 export const imageFrame = "mb-3 overflow-hidden rounded-lg bg-surface-muted";
 export const image = "aspect-[16/10] h-auto w-full object-cover transition-transform duration-500 motion-safe:group-hover:scale-[1.02] sm:aspect-[10/7]";
 export const cardRow = "mb-2 flex items-center justify-between gap-2";
