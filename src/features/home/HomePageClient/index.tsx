@@ -4,7 +4,6 @@ import { HomeContactCtaSection } from "@/features/home/sections/HomeContactCtaSe
 import { HomeExperienceSection } from "@/features/home/sections/HomeExperienceSection";
 import { HomeHeroSection } from "@/features/home/sections/HomeHeroSection";
 import { HomeServicesPreviewSection } from "@/features/home/sections/HomeServicesPreviewSection";
-import { HomeTestimonialsSection } from "@/features/home/sections/HomeTestimonialsSection";
 import * as styles from "./styles";
 
 export default function HomePageClient() {
@@ -14,7 +13,6 @@ export default function HomePageClient() {
       <HomeAboutSnapshotSection />
       <HomeExperienceSection />
       <HomeServicesPreviewSection />
-      <HomeTestimonialsSection />
       <HomeContactCtaSection />
     </PageShell>
   );
