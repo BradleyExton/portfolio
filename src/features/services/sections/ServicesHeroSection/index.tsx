@@ -17,8 +17,10 @@ export function ServicesHeroSection() {
           <p className={styles.availability}>
             <span className={styles.availabilityLabel}>
               {servicesCopy.hero.availabilityLabel}:
-            </span>{" "}
-            {servicesCopy.hero.availability}
+            </span>
+            <span className={styles.availabilityValue}>
+              {servicesCopy.hero.availability}
+            </span>
           </p>
         </ScrollReveal>
       </div>
