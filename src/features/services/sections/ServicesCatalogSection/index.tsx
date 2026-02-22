@@ -28,7 +28,7 @@ export function ServicesCatalogSection() {
               className={styles.cardReveal}
               delayMs={120 + index * 90}
             >
-              <article className={styles.card}>
+              <article id={service.id} className={`${styles.card} ${styles.anchorOffset}`}>
                 <div className={styles.imageFrame}>
                   <Image
                     src={service.illustration.src}

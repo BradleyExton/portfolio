@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { homeCopy } from "@/copy/home";
 import { HomeAboutSnapshotSection } from "./index";
@@ -16,8 +16,10 @@ vi.mock("next/image", () => ({
   },
 }));
 
+let isDesktopViewport = false;
+
 const matchMediaMock = vi.fn().mockImplementation((query: string) => ({
-  matches: false,
+  matches: query === "(min-width: 1280px)" ? isDesktopViewport : false,
   media: query,
   onchange: null,
   addEventListener: vi.fn(),
@@ -35,6 +37,7 @@ class IntersectionObserverMock {
 
 describe("HomeAboutSnapshotSection", () => {
   beforeEach(() => {
+    isDesktopViewport = false;
     vi.stubGlobal("matchMedia", matchMediaMock);
     vi.stubGlobal("IntersectionObserver", IntersectionObserverMock);
   });
@@ -110,7 +113,7 @@ describe("HomeAboutSnapshotSection", () => {
       expect(layoutChildren).toHaveLength(2);
 
       const contentColumn = layoutChildren[0];
-      const illustrationPanel = layoutChildren[1];
+      const illustrationPanel = layoutChildren[1] as HTMLElement | undefined;
       const capability = homeCopy.whatIDoCapabilities[index];
 
       expect(
@@ -119,7 +122,8 @@ describe("HomeAboutSnapshotSection", () => {
           name: capability.title,
         }),
       ).toBeInTheDocument();
-      expect(illustrationPanel?.querySelector("img")).not.toBeNull();
+      expect(illustrationPanel).toBeDefined();
+      expect(illustrationPanel).toHaveAttribute("aria-hidden", "true");
     });
   });
 
@@ -141,12 +145,22 @@ describe("HomeAboutSnapshotSection", () => {
     });
   });
 
-  it("renders deterministic illustration src paths for all capability cards", () => {
+  it("does not render capability illustrations on mobile viewports", () => {
     render(<HomeAboutSnapshotSection />);
 
     const list = screen.getByRole("list", { name: "What I do capabilities" });
+    expect(list.querySelectorAll("img")).toHaveLength(0);
+  });
+
+  it("renders deterministic illustration src paths on desktop viewports", async () => {
+    isDesktopViewport = true;
+    render(<HomeAboutSnapshotSection />);
+
+    const list = screen.getByRole("list", { name: "What I do capabilities" });
+    await waitFor(() => {
+      expect(list.querySelectorAll("img")).toHaveLength(homeCopy.whatIDoCapabilities.length);
+    });
     const images = list.querySelectorAll("img");
-    expect(images).toHaveLength(homeCopy.whatIDoCapabilities.length);
 
     homeCopy.whatIDoCapabilities.forEach((capability, index) => {
       expect(images[index]).toHaveAttribute("src", `/images/what-i-do/${capability.id}.png`);

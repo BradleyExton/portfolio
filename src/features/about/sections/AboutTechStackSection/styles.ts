@@ -1,9 +1,9 @@
-export const section = "bg-surface px-6 py-16 md:py-20";
+export const section = "bg-surface px-6 py-12 md:py-20";
 export const container = "mx-auto max-w-6xl";
 export const eyebrow = "mb-3 text-sm font-semibold uppercase tracking-wider text-brand";
-export const subheading = "mb-8 max-w-3xl text-3xl font-bold text-content font-[family-name:var(--font-space-grotesk)]";
-export const grid = "grid gap-5 md:grid-cols-2";
-export const card = "rounded-2xl border border-border-subtle bg-surface-muted p-6 shadow-[0_16px_34px_-30px_color-mix(in_srgb,var(--color-brand-tint)_80%,transparent)] transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-0.5 hover:border-brand-tint";
+export const subheading = "mb-7 max-w-3xl text-2xl font-bold text-content font-[family-name:var(--font-space-grotesk)] md:mb-8 md:text-3xl";
+export const grid = "grid gap-4 sm:gap-5 md:grid-cols-2";
+export const card = "rounded-2xl border border-border-subtle bg-surface-muted p-5 shadow-[0_16px_34px_-30px_color-mix(in_srgb,var(--color-brand-tint)_80%,transparent)] transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-0.5 hover:border-brand-tint sm:p-6";
 export const cardTitle = "mb-3 text-base font-semibold text-content";
 export const chipList = "flex flex-wrap gap-2.5";
 export const chip = "rounded-full border border-border-default bg-surface px-3 py-1 text-xs font-medium text-content-muted";

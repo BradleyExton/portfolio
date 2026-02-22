@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { homeCopy } from "@/copy/home";
-import { ScrollReveal } from "@/features/shared/motion/ScrollReveal";
 import type { HomeServicePreviewItem, ServiceKey } from "./types";
 import { buildHomeServicePreviewItems } from "./utils";
 import * as styles from "./styles";
@@ -34,7 +33,7 @@ const illustrationByServiceKey: Record<
 const hrefByServiceKey: Record<ServiceKey, string> = {
   websites: "/services#websites",
   webApps: "/services#web-applications",
-  aiTools: "/services#ai-powered-tools",
+  aiTools: "/services#ai-tools",
 };
 
 export function HomeServicesPreviewSection() {
@@ -42,33 +41,28 @@ export function HomeServicesPreviewSection() {
     <section id="services" className={styles.section}>
       <div aria-hidden="true" className={styles.ambientBackdrop} />
       <div className={styles.container}>
-        <ScrollReveal>
-          <div className={styles.block}>
-            <p className={styles.eyebrow}>
-              {homeCopy.servicesPreview.eyebrow}
-            </p>
-            <h2 className={styles.subheading}>
-              {homeCopy.servicesPreview.heading}
-            </h2>
-            <p className={styles.description}>
-              {homeCopy.servicesPreview.description}
-            </p>
-          </div>
-        </ScrollReveal>
+        <div className={styles.block}>
+          <p className={styles.eyebrow}>
+            {homeCopy.servicesPreview.eyebrow}
+          </p>
+          <h2 className={styles.subheading}>
+            {homeCopy.servicesPreview.heading}
+          </h2>
+          <p className={styles.description}>
+            {homeCopy.servicesPreview.description}
+          </p>
+        </div>
 
         <div className={styles.grid}>
-          {previewItems.map((service, index) => {
+          {previewItems.map((service) => {
             const illustration = illustrationByServiceKey[service.key];
             const href = hrefByServiceKey[service.key];
 
             return (
-              <ScrollReveal
-                key={service.title}
-                className={styles.cardWrap}
-                delayMs={120 + index * 90}
-              >
+              <div key={service.title} className={styles.cardWrap}>
                 <Link
                   href={href}
+                  prefetch={false}
                   className={styles.card}
                   aria-label={`View ${service.title} service details`}
                 >
@@ -79,7 +73,9 @@ export function HomeServicesPreviewSection() {
                       alt={illustration.alt}
                       width={176}
                       height={176}
-                      unoptimized
+                      sizes="(min-width: 1280px) 176px, (min-width: 768px) 22vw, 40vw"
+                      loading="lazy"
+                      fetchPriority="low"
                       className={styles.serviceImage}
                     />
                   </div>
@@ -95,32 +91,30 @@ export function HomeServicesPreviewSection() {
                     ))}
                   </ul>
                 </Link>
-              </ScrollReveal>
+              </div>
             );
           })}
         </div>
 
-        <ScrollReveal delayMs={180}>
-          <div className={styles.bottomCtaRow}>
-            <Link href="/services" className={styles.bottomCta}>
-              {homeCopy.servicesPreview.cta}
-              <svg
-                className={styles.bottomCtaIcon}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </Link>
-          </div>
-        </ScrollReveal>
+        <div className={styles.bottomCtaRow}>
+          <Link href="/services" className={styles.bottomCta}>
+            {homeCopy.servicesPreview.cta}
+            <svg
+              className={styles.bottomCtaIcon}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </Link>
+        </div>
       </div>
     </section>
   );

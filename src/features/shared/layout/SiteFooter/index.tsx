@@ -6,19 +6,22 @@ import * as styles from "./styles";
 
 const socialLinks = [
   {
+    label: "Send an Email",
+    href: profileComputed.mailto,
+    external: false,
+    emphasis: "primary",
+  },
+  {
     label: "LinkedIn",
     href: profile.links.linkedin,
     external: true,
+    emphasis: "secondary",
   },
   {
     label: "GitHub",
     href: profile.links.github,
     external: true,
-  },
-  {
-    label: "Email",
-    href: profileComputed.mailto,
-    external: false,
+    emphasis: "secondary",
   },
 ] as const;
 
@@ -41,7 +44,10 @@ export default function SiteFooter() {
             <h4 className={styles.cardTitle}>
               {navigationCopy.footerQuickLinksLabel}
             </h4>
-            <nav className={styles.nav}>
+            <nav
+              className={styles.nav}
+              aria-label="Footer quick links"
+            >
               {navigationCopy.footerLinks.map((item) => (
                 <Link
                   key={item.label}
@@ -58,16 +64,31 @@ export default function SiteFooter() {
             <h4 className={styles.cardTitle}>
               {navigationCopy.footerConnectLabel}
             </h4>
-            <nav className={styles.nav}>
+            <nav
+              className={styles.connectNav}
+              aria-label="Footer connect links"
+            >
               {socialLinks.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
                   target={link.external ? "_blank" : undefined}
                   rel={link.external ? "noopener noreferrer" : undefined}
-                  className={styles.navLink}
+                  className={
+                    link.emphasis === "primary"
+                      ? styles.connectPrimaryLink
+                      : styles.connectSecondaryLink
+                  }
                 >
                   {link.label}
+                  {link.external ? (
+                    <>
+                      <span className={styles.externalIndicator} aria-hidden="true">
+                        ↗
+                      </span>
+                      <span className="sr-only"> (opens in a new tab)</span>
+                    </>
+                  ) : null}
                 </a>
               ))}
             </nav>

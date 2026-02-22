@@ -3,7 +3,6 @@
 import { useMemo } from "react";
 import { homeCopy } from "@/copy/home";
 import { profile } from "@/copy/profile";
-import { ScrollReveal } from "@/features/shared/motion/ScrollReveal";
 import type { ExperienceTimelineItem } from "./types";
 import { useTimelineMetrics } from "./useTimelineMetrics";
 import * as styles from "./styles";
@@ -32,14 +31,12 @@ export function HomeExperienceSection() {
     <section id="experience" ref={sectionRef} className={styles.section}>
       <div aria-hidden="true" className={styles.ambientBackdrop} />
       <div className={styles.container}>
-        <ScrollReveal>
-          <p className={styles.eyebrow}>
-            {homeCopy.experience.eyebrow}
-          </p>
-          <h2 className={styles.subheading}>
-            {homeCopy.experience.heading}
-          </h2>
-        </ScrollReveal>
+        <p className={styles.eyebrow}>
+          {homeCopy.experience.eyebrow}
+        </p>
+        <h2 className={styles.subheading}>
+          {homeCopy.experience.heading}
+        </h2>
 
         <div className={styles.timelineWrapper}>
           <svg
@@ -62,7 +59,7 @@ export function HomeExperienceSection() {
               return (
                 <li
                   key={job.company}
-                  className={styles.timelineItem}
+                  className={getClassName(styles.timelineItem, styles.itemReveal)}
                   aria-current={isActive ? "step" : undefined}
                 >
                   <span
@@ -78,34 +75,33 @@ export function HomeExperienceSection() {
                     <span aria-hidden="true" className={styles.milestoneCore} />
                   </span>
 
-                  <ScrollReveal className={styles.itemReveal} delayMs={120 + index * 90}>
-                    <article
-                      data-timeline-entry="true"
-                      className={getClassName(
-                        styles.entry,
-                        isActive && styles.entryBorderActive,
-                        isActive && styles.entryActive,
-                      )}
-                    >
-                      <header className={styles.entryHeader}>
-                        <p className={styles.metaRow}>
-                          <span aria-hidden="true" className={styles.monogram}>
-                            {job.monogram}
+                  <article
+                    data-timeline-entry="true"
+                    className={getClassName(
+                      styles.entry,
+                      isActive && styles.entryBorderActive,
+                      isActive && styles.entryActive,
+                    )}
+                  >
+                    <header className={styles.entryHeader}>
+                      <p className={styles.metaRow}>
+                        <span aria-hidden="true" className={styles.monogram}>
+                          {job.monogram}
+                        </span>
+                        <span className={styles.timeline}>{job.period}</span>
+                      </p>
+                      <div className={styles.roleHeader}>
+                        <h3 className={styles.company}>{job.company}</h3>
+                        {job.current && (
+                          <span className={styles.badge}>
+                            {homeCopy.experience.currentLabel}
                           </span>
-                          <span className={styles.timeline}>{job.period}</span>
-                        </p>
-                        <div className={styles.roleHeader}>
-                          <h3 className={styles.company}>{job.company}</h3>
-                          {job.current && (
-                            <span className={styles.badge}>
-                              {homeCopy.experience.currentLabel}
-                            </span>
-                          )}
-                        </div>
-                        <p className={styles.text}>{job.role}</p>
-                      </header>
+                        )}
+                      </div>
+                      <p className={styles.text}>{job.role}</p>
+                    </header>
 
-                      <p className={styles.roleDescription}>{job.description}</p>
+                    <p className={styles.roleDescription}>{job.description}</p>
 
                       <ul className={styles.highlightsListMobile} aria-label={`${job.company} highlights`}>
                         {alwaysVisibleHighlights.map((highlight) => (
@@ -157,46 +153,43 @@ export function HomeExperienceSection() {
                         ))}
                       </ul>
 
-                      <ul className={styles.chipList} aria-label={`${job.company} technologies`}>
-                        {job.techChips.map((chip) => (
-                          <li key={`${job.company}-${chip}`} className={styles.chip}>
-                            {chip}
-                          </li>
-                        ))}
-                      </ul>
-                    </article>
-                  </ScrollReveal>
+                    <ul className={styles.chipList} aria-label={`${job.company} technologies`}>
+                      {job.techChips.map((chip) => (
+                        <li key={`${job.company}-${chip}`} className={styles.chip}>
+                          {chip}
+                        </li>
+                      ))}
+                    </ul>
+                  </article>
                 </li>
               );
             })}
           </ol>
         </div>
 
-        <ScrollReveal delayMs={180}>
-          <div className={styles.ctaRow}>
-            <a
-              href={profile.links.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.link}
+        <div className={styles.ctaRow}>
+          <a
+            href={profile.links.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.link}
+          >
+            {homeCopy.experience.cta}
+            <svg
+              className={styles.icon}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
-              {homeCopy.experience.cta}
-              <svg
-                className={styles.icon}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                />
-              </svg>
-            </a>
-          </div>
-        </ScrollReveal>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+              />
+            </svg>
+          </a>
+        </div>
       </div>
     </section>
   );
