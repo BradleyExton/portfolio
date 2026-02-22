@@ -24,7 +24,7 @@ export const cardTitleRow = "mt-1 flex flex-wrap items-center gap-2.5";
 export const cardTitle = "text-[1.375rem] font-bold leading-tight text-content md:text-2xl";
 export const emphasisBadge = "shrink-0 rounded-full border border-brand-tint bg-brand-soft px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-brand-strong";
 export const cardOutcome = "mb-4 text-[0.975rem] leading-7 text-content-muted";
-export const illustrationPanel = "relative order-first aspect-[16/9] w-full max-w-[42rem] overflow-hidden rounded-xl mx-auto xl:order-none xl:mx-0 xl:max-w-none xl:aspect-[16/9] xl:min-h-[17rem]";
+export const illustrationPanel = "relative hidden order-first aspect-[16/9] w-full max-w-[42rem] overflow-hidden rounded-xl mx-auto xl:block xl:order-none xl:mx-0 xl:max-w-none xl:aspect-[16/9] xl:min-h-[17rem]";
 export const illustrationPanelDesktopSwap = "xl:order-1";
 export const illustrationImage = "object-contain object-center";
 
