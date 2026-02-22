@@ -69,25 +69,29 @@ describe("HomeAboutSnapshotSection", () => {
     render(<HomeAboutSnapshotSection />);
 
     const list = screen.getByRole("list", { name: "What I do capabilities" });
-    expect(list.className).toContain("[--card-top-offset:0.875rem]");
-    expect(list.className).toContain("[--card-peek-offset:4rem]");
-    expect(list.className).toContain("overflow-visible");
-    expect(list.className).toContain("md:[--card-peek-offset:0rem]");
-    expect(list.className).toContain("md:pb-[calc(var(--numcards)*var(--card-top-offset)+1.5rem)]");
-    expect(list.className).toContain("xl:[--card-peek-offset:1.5rem]");
+    expect(list).toHaveClass("[--card-top-offset:0.875rem]");
+    expect(list).toHaveClass("[--card-peek-offset:4rem]");
+    expect(list).toHaveClass("overflow-visible");
+    expect(list).toHaveClass("md:[--card-peek-offset:0rem]");
+    expect(list).toHaveClass("md:pb-[calc(var(--numcards)*var(--card-top-offset)+1.5rem)]");
+    expect(list).toHaveClass("xl:[--card-peek-offset:1.5rem]");
 
     const firstItem = list.querySelector("li");
     expect(firstItem).not.toBeNull();
-    expect(firstItem?.className).toContain("overflow-visible");
+    expect(firstItem as HTMLElement).toHaveClass("overflow-visible");
 
     const firstCard = firstItem?.querySelector("article");
     expect(firstCard).not.toBeNull();
-    expect(firstCard?.className).toContain("overflow-visible");
+    expect(firstCard as HTMLElement).toHaveClass("overflow-visible");
 
-    const firstIllustrationPanel = firstItem?.querySelector("article > div > div > div:nth-child(2)");
-    expect(firstIllustrationPanel).not.toBeNull();
-    expect(firstIllustrationPanel?.className).toContain("order-last");
-    expect(firstIllustrationPanel?.className).toContain("md:order-first");
+    const cardLayout = firstItem?.querySelector("article > div > div");
+    expect(cardLayout).not.toBeNull();
+
+    const layoutChildren = Array.from(cardLayout?.children ?? []);
+    const firstIllustrationPanel = layoutChildren[1] as HTMLElement | undefined;
+    expect(firstIllustrationPanel).toBeDefined();
+    expect(firstIllustrationPanel).toHaveClass("order-last");
+    expect(firstIllustrationPanel).toHaveClass("md:order-first");
   });
 
   it("keeps card content column before illustration in the layout DOM order", () => {
