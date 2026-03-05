@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { homeCopy } from "@/copy/home";
+import { SectionIntro } from "@/features/shared/designSystem";
 import type { HomeServicePreviewItem, ServiceKey } from "./types";
 import { buildHomeServicePreviewItems } from "./utils";
 import * as styles from "./styles";
@@ -41,17 +42,16 @@ export function HomeServicesPreviewSection() {
     <section id="services" className={styles.section}>
       <div aria-hidden="true" className={styles.ambientBackdrop} />
       <div className={styles.container}>
-        <div className={styles.block}>
-          <p className={styles.eyebrow}>
-            {homeCopy.servicesPreview.eyebrow}
-          </p>
-          <h2 className={styles.subheading}>
-            {homeCopy.servicesPreview.heading}
-          </h2>
-          <p className={styles.description}>
-            {homeCopy.servicesPreview.description}
-          </p>
-        </div>
+        <SectionIntro
+          eyebrow={homeCopy.servicesPreview.eyebrow}
+          title={homeCopy.servicesPreview.heading}
+          description={homeCopy.servicesPreview.description}
+          align="center"
+          className={styles.block}
+          eyebrowClassName={styles.eyebrow}
+          titleClassName={styles.subheading}
+          descriptionClassName={styles.description}
+        />
 
         <div className={styles.grid}>
           {previewItems.map((service) => {

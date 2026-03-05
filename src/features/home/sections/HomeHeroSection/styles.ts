@@ -1,4 +1,6 @@
-export const section = "relative overflow-hidden px-6 pb-16 pt-28 md:pb-20 md:pt-32";
+import { spacing, typeScale } from "@/features/shared/designSystem";
+
+export const section = `${spacing.hero} relative overflow-hidden`;
 export const parallaxLayer = "pointer-events-none absolute inset-0 will-change-transform";
 export const backgroundImageViewport = "pointer-events-none absolute inset-0 flex justify-center";
 export const backgroundImageOverlay = "pointer-events-none relative h-full w-full max-w-[2200px] 2xl:[-webkit-mask-image:linear-gradient(to_right,transparent_0,black_7%,black_93%,transparent_100%)] 2xl:[mask-image:linear-gradient(to_right,transparent_0,black_7%,black_93%,transparent_100%)]";
@@ -18,13 +20,13 @@ export const steamWispSix = "h-[110px] w-[14px] [--steam-origin-x:-32px] [--stea
 export const steamWispSeven = "h-[126px] w-[16px] [--steam-origin-x:22px] [--steam-mid-x:2px] [--steam-drift-x:-10px] md:motion-safe:animate-[steam-rise-sway_6.7s_cubic-bezier(0.34,0.06,0.24,1)_-5.1s_infinite]";
 export const accentOrbTopRight = "absolute right-0 top-20 h-96 w-96 rounded-full bg-brand-tint/30 blur-3xl md:motion-safe:animate-[float-orb_16s_ease-in-out_infinite]";
 export const accentOrbBottomLeft = "absolute bottom-0 left-0 h-80 w-80 rounded-full bg-accent-soft/40 blur-3xl md:motion-safe:animate-[float-orb-reverse_18s_ease-in-out_infinite]";
-export const container = "relative mx-auto max-w-6xl";
+export const container = `relative ${spacing.container6}`;
 export const grid = "grid items-center";
 export const row = "mb-6 inline-flex items-center gap-2 rounded-full bg-brand-soft px-3 py-1.5 text-sm font-medium text-brand-strong";
 export const badge = "h-2 w-2 animate-pulse rounded-full bg-brand";
-export const title = "mb-6 text-5xl font-bold leading-tight text-content md:text-6xl lg:text-7xl font-[family-name:var(--font-space-grotesk)]";
+export const title = typeScale.heroTitle;
 export const labelText = "bg-gradient-to-r from-brand to-brand-contrast bg-clip-text text-transparent";
-export const description = "mb-8 max-w-xl text-xl leading-relaxed text-content-muted";
+export const description = `mb-8 max-w-xl ${typeScale.leadBody} md:text-xl`;
 export const ctaRow = "flex flex-wrap gap-3";
 export const ctaLink = "group inline-flex h-11 items-center gap-1.5 rounded-lg bg-surface-inverse px-5 text-sm font-medium leading-none text-content-inverse transition-[background-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-surface-inverse-alt hover:shadow-lg";
 export const icon = "relative top-px h-4 w-4 shrink-0 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-focus-visible:translate-x-0.5";

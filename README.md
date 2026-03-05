@@ -10,6 +10,7 @@ Use `STANDARDS.frontend.md` as the index and entrypoint. The standards set is:
 - `DESIGN.frontend.md`
 - `COPY.frontend.md`
 - `PR-CHECKLIST.frontend.md`
+- `docs/design-system.md`
 
 ## Tech Stack
 

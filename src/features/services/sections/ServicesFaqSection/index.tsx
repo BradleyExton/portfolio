@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { servicesCopy } from "@/copy/services";
+import { SectionIntro } from "@/features/shared/designSystem";
 import { ScrollReveal } from "@/features/shared/motion/ScrollReveal";
 import * as styles from "./styles";
 import type { OpenFaqIndex } from "./types";
@@ -14,12 +15,12 @@ export function ServicesFaqSection() {
     <section className={styles.section}>
       <div className={styles.container}>
         <ScrollReveal>
-          <p className={styles.eyebrow}>
-            {servicesCopy.faq.eyebrow}
-          </p>
-          <h2 className={styles.subheading}>
-            {servicesCopy.faq.heading}
-          </h2>
+          <SectionIntro
+            eyebrow={servicesCopy.faq.eyebrow}
+            title={servicesCopy.faq.heading}
+            eyebrowClassName={styles.eyebrow}
+            titleClassName={styles.subheading}
+          />
         </ScrollReveal>
 
         <div className={styles.block}>

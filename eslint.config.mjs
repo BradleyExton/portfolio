@@ -42,6 +42,8 @@ const eslintConfig = defineConfig([
       ],
       "portfolio/no-hardcoded-hex-colors-in-styles": "error",
       "portfolio/no-nonsemantic-color-tokens-in-styles": "error",
+      "portfolio/no-arbitrary-typography-in-styles": "error",
+      "portfolio/prefer-design-system-section-spacing": "error",
     },
   },
   // Override default ignores of eslint-config-next.

@@ -17,6 +17,9 @@ Intent:
 Guardrail:
 - Do not introduce ad hoc color systems, typography scales, or motion styles without updating this document.
 
+Design system reference:
+- `docs/design-system.md` (spacing + typography roles, primitives, and enforcement)
+
 ---
 
 ## 1) Canonical Design Tokens
@@ -56,8 +59,11 @@ Rules:
 ## 3) Layout System
 
 - Mobile-first responsive behavior.
-- Keep section spacing consistent (`py-16`, `py-20` patterns).
-- Use shared max-width containers (`max-w-4xl`, `max-w-6xl`).
+- Section spacing must use shared roles from `src/features/shared/designSystem/classes.ts`:
+  - `spacing.hero` for route hero sections
+  - `spacing.section` for standard sections
+- Container widths must use shared roles:
+  - `spacing.container6`, `spacing.container5`, `spacing.container4`
 - Avoid horizontal overflow and layout shift.
 
 ---
@@ -66,6 +72,9 @@ Rules:
 
 - Headings: Space Grotesk.
 - Body: Inter.
+- Typography should use shared roles in `typeScale` from `src/features/shared/designSystem/classes.ts`:
+  - `eyebrow`, `heroTitle`, `pageHeroTitle`, `sectionTitle`, `sectionDescription`, `leadBody`, `cardTitle`, `metaLabel`
+- Use `SectionIntro` (`src/features/shared/designSystem/SectionIntro/index.tsx`) for standard intro compositions (eyebrow/title/description).
 - Preserve high contrast between text and surfaces.
 - Keep paragraphs concise with readable line length.
 - Use strong section headings and clear CTA labels.

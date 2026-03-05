@@ -6,19 +6,22 @@ This project uses the following standards docs:
 - `DESIGN.frontend.md`
 - `COPY.frontend.md`
 - `PR-CHECKLIST.frontend.md`
+- `docs/design-system.md`
 
 ## Suggested adoption order
 
 1. Apply `AGENTS.frontend.md` workflow and verification commands on every task.
 2. Follow `DESIGN.frontend.md` tokens and visual rules for all UI changes.
-3. Move copy progressively into `copy.ts` modules per route/feature.
-4. Use `PR-CHECKLIST.frontend.md` in every PR.
+3. Follow `docs/design-system.md` for spacing/typography roles and intro primitives.
+4. Move copy progressively into `copy.ts` modules per route/feature.
+5. Use `PR-CHECKLIST.frontend.md` in every PR.
 
 ## Enforcement Matrix
 
 Required for merge:
 - Workflow + verification commands from `AGENTS.frontend.md`
 - Design token and accessibility constraints from `DESIGN.frontend.md`
+- Spacing and typography system constraints from `docs/design-system.md`
 - Component folder contract (`index.tsx`, `styles.ts`, plus `types.ts`/`utils.ts` when imported by `index.tsx`) from `AGENTS.frontend.md`
 - PR checklist completion in `PR-CHECKLIST.frontend.md`
 

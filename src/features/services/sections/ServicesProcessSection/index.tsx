@@ -1,4 +1,5 @@
 import { servicesCopy } from "@/copy/services";
+import { SectionIntro } from "@/features/shared/designSystem";
 import { ScrollReveal } from "@/features/shared/motion/ScrollReveal";
 import * as styles from "./styles";
 
@@ -7,15 +8,14 @@ export function ServicesProcessSection() {
     <section className={styles.section}>
       <div className={styles.container}>
         <ScrollReveal>
-          <p className={styles.eyebrow}>
-            {servicesCopy.process.eyebrow}
-          </p>
-          <h2 className={styles.subheading}>
-            {servicesCopy.process.heading}
-          </h2>
-          <p className={styles.intro}>
-            {servicesCopy.process.description}
-          </p>
+          <SectionIntro
+            eyebrow={servicesCopy.process.eyebrow}
+            title={servicesCopy.process.heading}
+            description={servicesCopy.process.description}
+            eyebrowClassName={styles.eyebrow}
+            titleClassName={styles.subheading}
+            descriptionClassName={styles.intro}
+          />
         </ScrollReveal>
 
         <div className={styles.block}>

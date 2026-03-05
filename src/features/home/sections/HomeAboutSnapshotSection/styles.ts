@@ -1,12 +1,14 @@
-export const section = "relative bg-surface px-6 py-16 md:py-20";
+import { spacing, typeScale } from "@/features/shared/designSystem";
+
+export const section = `${spacing.section} relative bg-surface`;
 export const ambientBackdrop = "pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_8%_0%,var(--color-brand-weak)_0%,transparent_62%),radial-gradient(120%_120%_at_92%_100%,var(--color-brand-soft)_0%,transparent_60%)] opacity-70";
-export const container = "relative mx-auto max-w-6xl";
+export const container = `relative ${spacing.container6}`;
 export const layoutFlow = "grid gap-5 md:gap-7";
 
 export const intro = "max-w-3xl";
-export const eyebrow = "mb-3 text-sm font-semibold uppercase tracking-wider text-brand";
-export const subheading = "mb-5 text-3xl font-bold text-content font-[family-name:var(--font-space-grotesk)]";
-export const description = "mb-6 leading-relaxed text-content-muted";
+export const eyebrow = typeScale.eyebrow;
+export const subheading = `${typeScale.sectionTitle} mb-5`;
+export const description = `mb-6 ${typeScale.sectionDescription}`;
 export const link = "group inline-flex items-center gap-2 font-medium text-brand transition-colors hover:text-brand-strong focus-visible:text-brand-strong";
 export const icon = "h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-focus-visible:translate-x-0.5";
 
@@ -19,16 +21,16 @@ export const cardContentColumn = "flex h-full min-w-0 flex-col";
 export const cardContentColumnDesktopSwap = "xl:order-2";
 export const cardHeader = "mb-4";
 export const cardHeadingGroup = "min-w-0 flex-1";
-export const cardIndex = "text-[11px] font-semibold uppercase tracking-[0.14em] text-brand md:text-xs";
+export const cardIndex = `${typeScale.metaLabel} text-brand`;
 export const cardTitleRow = "mt-1 flex flex-wrap items-center gap-2.5";
-export const cardTitle = "text-[1.375rem] font-bold leading-tight text-content md:text-2xl";
-export const emphasisBadge = "shrink-0 rounded-full border border-brand-tint bg-brand-soft px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-brand-strong";
-export const cardOutcome = "mb-4 text-[0.975rem] leading-7 text-content-muted";
+export const cardTitle = `${typeScale.cardTitle} text-xl leading-tight md:text-2xl`;
+export const emphasisBadge = `shrink-0 rounded-full border border-brand-tint bg-brand-soft px-2.5 py-1 ${typeScale.metaLabel} text-brand-strong`;
+export const cardOutcome = "mb-4 text-base leading-relaxed text-content-muted";
 export const illustrationPanel = "relative order-last aspect-[16/9] w-full max-w-[42rem] overflow-hidden rounded-xl mx-auto md:order-first xl:order-none xl:mx-0 xl:max-w-none xl:aspect-[16/9] xl:min-h-[17rem]";
 export const illustrationPanelDesktopSwap = "xl:order-1";
 export const illustrationImage = "object-contain object-center";
 
 export const proofList = "mb-4 space-y-2";
-export const proofItem = "relative pl-5 text-[0.95rem] leading-6 text-content-muted before:absolute before:left-0 before:top-2 before:h-2 before:w-2 before:rounded-full before:bg-brand-tint";
+export const proofItem = "relative pl-5 text-sm leading-relaxed text-content-muted before:absolute before:left-0 before:top-2 before:h-2 before:w-2 before:rounded-full before:bg-brand-tint sm:text-base";
 export const chipList = "mt-auto flex flex-wrap content-start gap-2.5 md:min-h-[4.5rem]";
-export const chip = "rounded-full border border-border-default bg-surface-muted px-3.5 py-1 text-[13px] font-medium text-content-muted";
+export const chip = "rounded-full border border-border-default bg-surface-muted px-3.5 py-1 text-sm font-medium text-content-muted";

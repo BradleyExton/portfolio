@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { homeCopy } from "@/copy/home";
+import { SectionIntro } from "@/features/shared/designSystem";
 import * as styles from "./styles";
 
 const HomeAboutSnapshotSection = dynamic(
@@ -34,9 +35,16 @@ export function HomeDeferredInteractiveSections() {
       return;
     }
 
+    const fallbackTimerId = window.setTimeout(() => {
+      setShouldRenderAbout(true);
+    }, 2200);
+
     if (typeof window.IntersectionObserver === "undefined") {
       const timerId = window.setTimeout(() => setShouldRenderAbout(true), 0);
-      return () => window.clearTimeout(timerId);
+      return () => {
+        window.clearTimeout(fallbackTimerId);
+        window.clearTimeout(timerId);
+      };
     }
 
     const node = aboutAnchorRef.current;
@@ -47,6 +55,7 @@ export function HomeDeferredInteractiveSections() {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0]?.isIntersecting) {
+          window.clearTimeout(fallbackTimerId);
           setShouldRenderAbout(true);
           observer.disconnect();
         }
@@ -55,7 +64,10 @@ export function HomeDeferredInteractiveSections() {
     );
 
     observer.observe(node);
-    return () => observer.disconnect();
+    return () => {
+      window.clearTimeout(fallbackTimerId);
+      observer.disconnect();
+    };
   }, [shouldRenderAbout]);
 
   useEffect(() => {
@@ -63,9 +75,16 @@ export function HomeDeferredInteractiveSections() {
       return;
     }
 
+    const fallbackTimerId = window.setTimeout(() => {
+      setShouldRenderExperience(true);
+    }, 2600);
+
     if (typeof window.IntersectionObserver === "undefined") {
       const timerId = window.setTimeout(() => setShouldRenderExperience(true), 0);
-      return () => window.clearTimeout(timerId);
+      return () => {
+        window.clearTimeout(fallbackTimerId);
+        window.clearTimeout(timerId);
+      };
     }
 
     const node = experienceAnchorRef.current;
@@ -76,6 +95,7 @@ export function HomeDeferredInteractiveSections() {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0]?.isIntersecting) {
+          window.clearTimeout(fallbackTimerId);
           setShouldRenderExperience(true);
           observer.disconnect();
         }
@@ -84,7 +104,10 @@ export function HomeDeferredInteractiveSections() {
     );
 
     observer.observe(node);
-    return () => observer.disconnect();
+    return () => {
+      window.clearTimeout(fallbackTimerId);
+      observer.disconnect();
+    };
   }, [shouldRenderExperience]);
 
   return (
@@ -94,9 +117,14 @@ export function HomeDeferredInteractiveSections() {
       ) : (
         <section id="about" ref={aboutAnchorRef} className={styles.placeholderAboutSection}>
           <div className={styles.placeholderContainer}>
-            <p className={styles.placeholderEyebrow}>{homeCopy.aboutSnapshot.eyebrow}</p>
-            <h2 className={styles.placeholderHeading}>{homeCopy.aboutSnapshot.heading}</h2>
-            <p className={styles.placeholderText}>{homeCopy.aboutSnapshot.description}</p>
+            <SectionIntro
+              eyebrow={homeCopy.aboutSnapshot.eyebrow}
+              title={homeCopy.aboutSnapshot.heading}
+              description={homeCopy.aboutSnapshot.description}
+              eyebrowClassName={styles.placeholderEyebrow}
+              titleClassName={styles.placeholderHeading}
+              descriptionClassName={styles.placeholderText}
+            />
             <div aria-hidden="true" className={styles.placeholderCard} />
           </div>
         </section>
@@ -111,9 +139,17 @@ export function HomeDeferredInteractiveSections() {
           className={styles.placeholderExperienceSection}
         >
           <div className={styles.placeholderContainer}>
-            <p className={styles.placeholderEyebrow}>{homeCopy.experience.eyebrow}</p>
-            <h2 className={styles.placeholderHeading}>{homeCopy.experience.heading}</h2>
-            <div aria-hidden="true" className={styles.placeholderTimeline} />
+            <SectionIntro
+              eyebrow={homeCopy.experience.eyebrow}
+              title={homeCopy.experience.heading}
+              eyebrowClassName={styles.placeholderEyebrow}
+              titleClassName={styles.placeholderHeading}
+            />
+            <div
+              aria-hidden="true"
+              data-placeholder-timeline="true"
+              className={styles.placeholderTimeline}
+            />
           </div>
         </section>
       )}

@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 import { homeCopy } from "@/copy/home";
 import { profile } from "@/copy/profile";
+import { SectionIntro } from "@/features/shared/designSystem";
 import type { ExperienceTimelineItem } from "./types";
 import { useTimelineMetrics } from "./useTimelineMetrics";
 import * as styles from "./styles";
@@ -31,12 +32,12 @@ export function HomeExperienceSection() {
     <section id="experience" ref={sectionRef} className={styles.section}>
       <div aria-hidden="true" className={styles.ambientBackdrop} />
       <div className={styles.container}>
-        <p className={styles.eyebrow}>
-          {homeCopy.experience.eyebrow}
-        </p>
-        <h2 className={styles.subheading}>
-          {homeCopy.experience.heading}
-        </h2>
+        <SectionIntro
+          eyebrow={homeCopy.experience.eyebrow}
+          title={homeCopy.experience.heading}
+          eyebrowClassName={styles.eyebrow}
+          titleClassName={styles.subheading}
+        />
 
         <div className={styles.timelineWrapper}>
           <svg

@@ -8,7 +8,7 @@ export function AboutStorySection() {
       <div className={styles.container}>
         <div className={styles.panel}>
           <ScrollReveal>
-            <h2 className={styles.eyebrow}>
+            <h2 className={styles.heading}>
               {aboutCopy.story.eyebrow}
             </h2>
           </ScrollReveal>

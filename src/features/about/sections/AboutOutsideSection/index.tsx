@@ -8,7 +8,7 @@ export function AboutOutsideSection() {
       <div className={styles.container}>
         <div className={styles.panel}>
           <ScrollReveal>
-            <h2 className={styles.eyebrow}>
+            <h2 className={styles.heading}>
               {aboutCopy.outsideOfCode.eyebrow}
             </h2>
             <p className={styles.description}>

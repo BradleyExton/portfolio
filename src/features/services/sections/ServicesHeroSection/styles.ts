@@ -1,9 +1,11 @@
-export const section = "bg-gradient-to-br from-brand-weak via-surface to-surface-muted px-4 pb-12 pt-[5.5rem] sm:px-6 sm:pb-16 sm:pt-28 md:pb-20 md:pt-32";
-export const container = "mx-auto max-w-5xl";
+import { spacing, typeScale } from "@/features/shared/designSystem";
+
+export const section = `${spacing.hero} bg-gradient-to-br from-brand-weak via-surface to-surface-muted`;
+export const container = spacing.container5;
 export const shell = "text-left";
-export const eyebrow = "mb-3 text-sm font-semibold uppercase tracking-wider text-brand";
-export const title = "mb-5 text-[1.95rem] leading-[1.07] font-bold tracking-tight text-content sm:text-[2.35rem] md:text-5xl font-[family-name:var(--font-space-grotesk)]";
-export const description = "max-w-3xl text-base leading-relaxed text-content-muted sm:text-lg";
+export const eyebrow = typeScale.eyebrow;
+export const title = typeScale.pageHeroTitle;
+export const description = `max-w-3xl ${typeScale.leadBody}`;
 export const availability = "mt-5 inline-flex max-w-full flex-col rounded-2xl bg-surface/70 px-3.5 py-2 text-sm leading-relaxed text-content-subtle sm:mt-6 sm:flex-row sm:items-center sm:gap-1 sm:rounded-full sm:py-1.5";
 export const availabilityLabel = "font-semibold text-content";
 export const availabilityValue = "break-words";

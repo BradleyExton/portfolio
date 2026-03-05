@@ -43,6 +43,30 @@
 
   --background: #ffffff;
   --foreground: #0f172a;
+
+  /* Design system reference tokens (spacing + typography roles) */
+  --ds-space-section-y-mobile: 3rem;
+  --ds-space-section-y-tablet: 4rem;
+  --ds-space-section-y-desktop: 5rem;
+  --ds-space-hero-pt-mobile: 6rem;
+  --ds-space-hero-pt-tablet: 7rem;
+  --ds-space-hero-pt-desktop: 8rem;
+  --ds-space-hero-pb-mobile: 3rem;
+  --ds-space-hero-pb-tablet: 4rem;
+  --ds-space-hero-pb-desktop: 5rem;
+
+  --ds-type-size-eyebrow: 0.875rem;
+  --ds-type-size-section-title-mobile: 1.5rem;
+  --ds-type-size-section-title-tablet: 1.875rem;
+  --ds-type-size-page-hero-mobile: 1.875rem;
+  --ds-type-size-page-hero-desktop: 3rem;
+  --ds-type-size-home-hero-mobile: 3rem;
+  --ds-type-size-home-hero-tablet: 3.75rem;
+  --ds-type-size-home-hero-desktop: 4.5rem;
+  --ds-type-size-body: 1rem;
+  --ds-type-size-body-sm: 0.875rem;
+  --ds-type-line-relaxed: 1.625;
+  --ds-type-line-tight: 1.2;
 }
 
 @theme inline {

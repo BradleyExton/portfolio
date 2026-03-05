@@ -3,6 +3,7 @@
 import { contactCopy } from "@/copy/contact";
 import { profile, profileComputed } from "@/copy/profile";
 import { trackContactCtaClick } from "@/features/shared/analytics";
+import { SectionIntro } from "@/features/shared/designSystem";
 import { ScrollReveal } from "@/features/shared/motion/ScrollReveal";
 import * as styles from "./styles";
 
@@ -37,8 +38,12 @@ export function ContactOptionsSection({ calcomUrl }: ContactOptionsSectionProps)
       <div className={styles.ambientBackdrop} aria-hidden="true" />
       <div className={styles.container}>
         <ScrollReveal className={styles.intro}>
-          <h2 className={styles.heading}>{contactCopy.options.heading}</h2>
-          <p className={styles.introDescription}>{contactCopy.options.description}</p>
+          <SectionIntro
+            title={contactCopy.options.heading}
+            description={contactCopy.options.description}
+            titleClassName={styles.heading}
+            descriptionClassName={styles.introDescription}
+          />
         </ScrollReveal>
 
         <div className={styles.grid}>

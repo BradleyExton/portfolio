@@ -1,7 +1,9 @@
-export const container = "mx-auto max-w-6xl";
+import { spacing, typeScale } from "@/features/shared/designSystem";
+
+export const container = spacing.container6;
 export const header = "mx-auto mb-6 max-w-3xl sm:mb-8";
-export const heading = "mb-2 text-balance text-xl font-bold tracking-tight text-content sm:mb-3 sm:text-2xl font-[family-name:var(--font-space-grotesk)]";
-export const intro = "max-w-[60ch] text-balance text-sm leading-relaxed text-content-muted sm:text-base";
+export const heading = `${typeScale.sectionTitle} mb-2 text-balance sm:mb-3`;
+export const intro = `max-w-[60ch] text-balance ${typeScale.sectionDescription}`;
 export const card = "mb-6 rounded-lg border border-danger-border bg-danger-soft p-4 text-danger-content";
 export const text = "font-semibold";
 export const unavailableDescription = "mt-1";
@@ -22,7 +24,7 @@ export const spinnerIcon = "h-5 w-5 animate-spin";
 export const spinnerTrack = "opacity-25";
 export const spinnerFill = "opacity-75";
 export const supportCard = "rounded-xl border border-brand-tint bg-gradient-to-br from-brand-weak to-surface p-4 shadow-[0_16px_30px_-26px_var(--color-brand)] sm:rounded-2xl sm:p-5 sm:shadow-none lg:sticky lg:top-24";
-export const supportHeading = "mb-2 text-xs font-semibold uppercase tracking-[0.1em] text-brand-strong sm:mb-3 sm:text-sm";
+export const supportHeading = `${typeScale.metaLabel} mb-2 text-brand-strong sm:mb-3 sm:text-sm`;
 export const supportList = "space-y-1.5 sm:space-y-2";
 export const supportItem = "text-sm leading-6 text-content-muted";
 export const supportDetail = "mt-3 text-sm font-medium text-content sm:mt-4";

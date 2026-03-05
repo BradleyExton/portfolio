@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { homeCopy } from "@/copy/home";
+import { SectionIntro } from "@/features/shared/designSystem";
 import type { WhatIDoCapability } from "./types";
 import {
   getCapabilityIllustrationSrc,
@@ -27,17 +28,20 @@ export function HomeAboutSnapshotSection() {
       <div className={styles.container}>
         <div className={styles.layoutFlow}>
           <div className={styles.intro}>
-            <div>
-              <p className={styles.eyebrow}>{homeCopy.aboutSnapshot.eyebrow}</p>
-              <h2 className={styles.subheading}>{homeCopy.aboutSnapshot.heading}</h2>
-              <p className={styles.description}>{homeCopy.aboutSnapshot.description}</p>
-              <Link href="/about" className={styles.link}>
-                {homeCopy.aboutSnapshot.cta}
-                <svg className={styles.icon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
-            </div>
+            <SectionIntro
+              eyebrow={homeCopy.aboutSnapshot.eyebrow}
+              title={homeCopy.aboutSnapshot.heading}
+              description={homeCopy.aboutSnapshot.description}
+              eyebrowClassName={styles.eyebrow}
+              titleClassName={styles.subheading}
+              descriptionClassName={styles.description}
+            />
+            <Link href="/about" className={styles.link}>
+              {homeCopy.aboutSnapshot.cta}
+              <svg className={styles.icon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
           </div>
 
           <div>

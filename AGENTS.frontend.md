@@ -113,6 +113,9 @@ Prefer `type` over `interface` unless declaration merging is required.
 ## 8) Styling and Theme Rules
 
 - Use semantic tokens defined in `src/app/globals.css` and `DESIGN.frontend.md`.
+- Follow `docs/design-system.md` for spacing and typography decisions.
+- Use shared spacing/type roles from `src/features/shared/designSystem/classes.ts` before introducing new utility combinations.
+- Use `SectionIntro` (`src/features/shared/designSystem/SectionIntro/index.tsx`) for standard intro structures (eyebrow/title/description).
 - Do not hardcode hex values in components.
 - Keep style behavior consistent across pages.
 

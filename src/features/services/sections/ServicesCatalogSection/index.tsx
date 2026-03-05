@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { servicesCopy } from "@/copy/services";
+import { SectionIntro } from "@/features/shared/designSystem";
 import { ScrollReveal } from "@/features/shared/motion/ScrollReveal";
 import * as styles from "./styles";
 import { getServiceNumber } from "./utils";
@@ -12,13 +13,15 @@ export function ServicesCatalogSection() {
     >
       <div className={styles.container}>
         <ScrollReveal className={styles.intro}>
-          <p className={styles.eyebrow}>{servicesCopy.catalog.eyebrow}</p>
-          <h2 id="services-catalog-heading" className={styles.heading}>
-            {servicesCopy.catalog.heading}
-          </h2>
-          <p className={styles.description}>
-            {servicesCopy.catalog.description}
-          </p>
+          <SectionIntro
+            eyebrow={servicesCopy.catalog.eyebrow}
+            title={<span id="services-catalog-heading">{servicesCopy.catalog.heading}</span>}
+            description={servicesCopy.catalog.description}
+            align="center"
+            eyebrowClassName={styles.eyebrow}
+            titleClassName={styles.heading}
+            descriptionClassName={styles.description}
+          />
         </ScrollReveal>
 
         <div className={styles.grid}>

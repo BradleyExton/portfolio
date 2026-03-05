@@ -11,6 +11,7 @@ import {
   trackContactFormSubmit,
   trackContactLeadGenerated,
 } from "@/features/shared/analytics";
+import { SectionIntro } from "@/features/shared/designSystem";
 import { ScrollReveal } from "@/features/shared/motion/ScrollReveal";
 import * as styles from "./styles";
 import type { ContactFormData, ContactFormSectionProps, SubmitStatus } from "./types";
@@ -59,8 +60,12 @@ export function ContactFormSection({ formspreeFormId }: ContactFormSectionProps)
   return (
     <div className={styles.container}>
       <ScrollReveal className={styles.header}>
-        <h2 className={styles.heading}>{contactCopy.form.heading}</h2>
-        <p className={styles.intro}>{contactCopy.form.intro}</p>
+        <SectionIntro
+          title={contactCopy.form.heading}
+          description={contactCopy.form.intro}
+          titleClassName={styles.heading}
+          descriptionClassName={styles.intro}
+        />
       </ScrollReveal>
 
       {!submitUrl && (

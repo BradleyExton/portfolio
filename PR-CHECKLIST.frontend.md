@@ -12,6 +12,9 @@ Use this checklist for pull requests that modify frontend behavior or UI.
 - [ ] Oversized components were decomposed where needed.
 - [ ] Component folders follow contract (`index.tsx`, `styles.ts`, and `types.ts`/`utils.ts` when imported by `index.tsx`).
 - [ ] Styles use semantic tokens (no hardcoded hex values in components).
+- [ ] Section spacing uses shared presets (`spacing.section` or `spacing.hero`).
+- [ ] Typography uses shared `typeScale` roles (no arbitrary `text-[...]`, `tracking-[...]`, `leading-[...]` content utilities).
+- [ ] `SectionIntro` is used for intro blocks that follow eyebrow/title/description structure.
 - [ ] User-facing copy is sourced from copy modules when practical.
 
 ## Accessibility and UX

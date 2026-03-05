@@ -1,18 +1,20 @@
 import { homeCopy } from "@/copy/home";
+import { SectionIntro } from "@/features/shared/designSystem";
 import * as styles from "./styles";
 
 export function HomeTestimonialsSection() {
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        <div className={styles.block}>
-          <p className={styles.eyebrow}>
-            {homeCopy.testimonials.eyebrow}
-          </p>
-          <h2 className={styles.subheading}>
-            {homeCopy.testimonials.heading}
-          </h2>
-        </div>
+        <SectionIntro
+          eyebrow={homeCopy.testimonials.eyebrow}
+          title={homeCopy.testimonials.heading}
+          align="center"
+          tone="inverse"
+          className={styles.block}
+          eyebrowClassName={styles.eyebrow}
+          titleClassName={styles.subheading}
+        />
 
         <div className={styles.grid}>
           {homeCopy.testimonials.items.map((testimonial) => (

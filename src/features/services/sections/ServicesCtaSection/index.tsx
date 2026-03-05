@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { servicesCopy } from "@/copy/services";
+import { SectionIntro } from "@/features/shared/designSystem";
 import { ScrollReveal } from "@/features/shared/motion/ScrollReveal";
 import * as styles from "./styles";
 
@@ -8,12 +9,14 @@ export function ServicesCtaSection() {
     <section className={styles.section}>
       <ScrollReveal>
         <div className={styles.container}>
-          <h2 className={styles.heading}>
-            {servicesCopy.cta.heading}
-          </h2>
-          <p className={styles.description}>
-            {servicesCopy.cta.description}
-          </p>
+          <SectionIntro
+            title={servicesCopy.cta.heading}
+            description={servicesCopy.cta.description}
+            align="center"
+            tone="inverse"
+            titleClassName={styles.heading}
+            descriptionClassName={styles.description}
+          />
           <Link
             href="/contact"
             className={styles.link}

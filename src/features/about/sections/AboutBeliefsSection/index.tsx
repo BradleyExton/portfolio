@@ -1,4 +1,5 @@
 import { aboutCopy } from "@/copy/about";
+import { SectionIntro } from "@/features/shared/designSystem";
 import { ScrollReveal } from "@/features/shared/motion/ScrollReveal";
 import * as styles from "./styles";
 
@@ -7,12 +8,12 @@ export function AboutBeliefsSection() {
     <section className={styles.section}>
       <div className={styles.container}>
         <ScrollReveal>
-          <p className={styles.eyebrow}>
-            {aboutCopy.beliefs.eyebrow}
-          </p>
-          <h2 className={styles.subheading}>
-            {aboutCopy.beliefs.heading}
-          </h2>
+          <SectionIntro
+            eyebrow={aboutCopy.beliefs.eyebrow}
+            title={aboutCopy.beliefs.heading}
+            eyebrowClassName={styles.eyebrow}
+            titleClassName={styles.subheading}
+          />
         </ScrollReveal>
 
         <div className={styles.block}>

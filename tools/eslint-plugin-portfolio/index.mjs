@@ -4,6 +4,8 @@ import requireComponentContractFiles from "./rules/require-component-contract-fi
 import noInlineStyleProp from "./rules/no-inline-style-prop.mjs";
 import noHardcodedHexColorsInStyles from "./rules/no-hardcoded-hex-colors-in-styles.mjs";
 import noNonsemanticColorTokensInStyles from "./rules/no-nonsemantic-color-tokens-in-styles.mjs";
+import noArbitraryTypographyInStyles from "./rules/no-arbitrary-typography-in-styles.mjs";
+import preferDesignSystemSectionSpacing from "./rules/prefer-design-system-section-spacing.mjs";
 
 const plugin = {
   rules: {
@@ -14,6 +16,8 @@ const plugin = {
     "no-inline-style-prop": noInlineStyleProp,
     "no-hardcoded-hex-colors-in-styles": noHardcodedHexColorsInStyles,
     "no-nonsemantic-color-tokens-in-styles": noNonsemanticColorTokensInStyles,
+    "no-arbitrary-typography-in-styles": noArbitraryTypographyInStyles,
+    "prefer-design-system-section-spacing": preferDesignSystemSectionSpacing,
   },
 };
 

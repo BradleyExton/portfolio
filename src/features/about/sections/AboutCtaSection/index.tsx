@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { aboutCopy } from "@/copy/about";
 import { profile, profileComputed } from "@/copy/profile";
+import { SectionIntro } from "@/features/shared/designSystem";
 import { ScrollReveal } from "@/features/shared/motion/ScrollReveal";
 import * as styles from "./styles";
 
@@ -9,12 +10,14 @@ export function AboutCtaSection() {
     <section className={styles.section}>
       <ScrollReveal>
         <div className={styles.container}>
-          <h2 className={styles.heading}>
-            {aboutCopy.cta.heading}
-          </h2>
-          <p className={styles.description}>
-            {aboutCopy.cta.description}
-          </p>
+          <SectionIntro
+            title={aboutCopy.cta.heading}
+            description={aboutCopy.cta.description}
+            align="center"
+            tone="inverse"
+            titleClassName={styles.heading}
+            descriptionClassName={styles.description}
+          />
           <div className={styles.row}>
             <a
               href={profileComputed.mailto}

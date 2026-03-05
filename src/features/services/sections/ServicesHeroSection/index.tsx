@@ -1,4 +1,5 @@
 import { servicesCopy } from "@/copy/services";
+import { SectionIntro } from "@/features/shared/designSystem";
 import { ScrollReveal } from "@/features/shared/motion/ScrollReveal";
 import * as styles from "./styles";
 
@@ -7,13 +8,15 @@ export function ServicesHeroSection() {
     <section className={styles.section}>
       <div className={styles.container}>
         <ScrollReveal className={styles.shell}>
-          <p className={styles.eyebrow}>{servicesCopy.hero.eyebrow}</p>
-          <h1 className={styles.title}>
-            {servicesCopy.hero.heading}
-          </h1>
-          <p className={styles.description}>
-            {servicesCopy.hero.description}
-          </p>
+          <SectionIntro
+            eyebrow={servicesCopy.hero.eyebrow}
+            title={servicesCopy.hero.heading}
+            description={servicesCopy.hero.description}
+            titleAs="h1"
+            eyebrowClassName={styles.eyebrow}
+            titleClassName={styles.title}
+            descriptionClassName={styles.description}
+          />
           <p className={styles.availability}>
             <span className={styles.availabilityLabel}>
               {servicesCopy.hero.availabilityLabel}:
