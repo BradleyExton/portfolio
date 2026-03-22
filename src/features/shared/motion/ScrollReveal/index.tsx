@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { cn } from "@/features/shared/designSystem/cn";
 import * as styles from "./styles";
 import type { ScrollRevealProps } from "./types";
-import { getRevealDelayClass, joinClassNames } from "./utils";
+import { getRevealDelayClass } from "./utils";
 
 export function ScrollReveal({
   children,
@@ -59,7 +60,7 @@ export function ScrollReveal({
   return (
     <div
       ref={elementRef}
-      className={joinClassNames(
+      className={cn(
         styles.base,
         getRevealDelayClass(delayMs),
         className,

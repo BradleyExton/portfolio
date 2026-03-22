@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
+import { useMediaQuery } from "@/features/shared/designSystem";
 import type { TimelineState } from "./types";
 import {
   computeTimelineProgress,
@@ -28,7 +29,6 @@ const INITIAL_TIMELINE_STATE: TimelineState = {
   svgWidthPx: 1,
   svgHeightPx: 1,
   isSectionInView: true,
-  reduceMotion: false,
 };
 
 const PROGRESS_EPSILON = 0.001;
@@ -61,8 +61,9 @@ export function useTimelineMetrics({
   const pathFillRef = useRef<SVGPathElement | null>(null);
   const frameRequestRef = useRef<number | null>(null);
   const [timelineState, setTimelineState] = useState<TimelineState>(INITIAL_TIMELINE_STATE);
+  const prefersReducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
 
-  const updateTimelineMetrics = useCallback((reduceMotionOverride?: boolean) => {
+  const updateTimelineMetrics = useCallback(() => {
     if (typeof window === "undefined") {
       return;
     }
@@ -103,7 +104,7 @@ export function useTimelineMetrics({
       const rect = node.getBoundingClientRect();
       return rect.bottom - listRect.top;
     });
-    const reducedMotion = reduceMotionOverride ?? timelineState.reduceMotion;
+    const reducedMotion = prefersReducedMotion;
     const fallbackIndex = currentRoleIndex >= 0 ? currentRoleIndex : 0;
     const endY = Math.max(
       milestoneCentersAbsolute[milestoneCentersAbsolute.length - 1],
@@ -195,16 +196,16 @@ export function useTimelineMetrics({
         svgHeightPx,
       };
     });
-  }, [currentRoleIndex, timelineState.reduceMotion]);
+  }, [currentRoleIndex, prefersReducedMotion]);
 
-  const scheduleMetricsUpdate = useCallback((reduceMotionOverride?: boolean) => {
+  const scheduleMetricsUpdate = useCallback(() => {
     if (typeof window === "undefined" || frameRequestRef.current !== null) {
       return;
     }
 
     frameRequestRef.current = window.requestAnimationFrame(() => {
       frameRequestRef.current = null;
-      updateTimelineMetrics(reduceMotionOverride);
+      updateTimelineMetrics();
     });
   }, [updateTimelineMetrics]);
 
@@ -264,39 +265,8 @@ export function useTimelineMetrics({
   ]);
 
   useEffect(() => {
-    if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
-      return;
-    }
-
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const applyMotionPreference = () => {
-      const shouldReduceMotion = mediaQuery.matches;
-      setTimelineState((previousState) => {
-        if (previousState.reduceMotion === shouldReduceMotion) {
-          return previousState;
-        }
-
-        return {
-          ...previousState,
-          reduceMotion: shouldReduceMotion,
-        };
-      });
-      scheduleMetricsUpdate(shouldReduceMotion);
-    };
-
-    applyMotionPreference();
-    if (typeof mediaQuery.addEventListener === "function") {
-      mediaQuery.addEventListener("change", applyMotionPreference);
-      return () => {
-        mediaQuery.removeEventListener("change", applyMotionPreference);
-      };
-    }
-
-    mediaQuery.addListener(applyMotionPreference);
-    return () => {
-      mediaQuery.removeListener(applyMotionPreference);
-    };
-  }, [scheduleMetricsUpdate]);
+    scheduleMetricsUpdate();
+  }, [prefersReducedMotion, scheduleMetricsUpdate]);
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -336,7 +306,7 @@ export function useTimelineMetrics({
     scheduleMetricsUpdate();
     const handleResize = () => scheduleMetricsUpdate();
     window.addEventListener("resize", handleResize);
-    if (!timelineState.isSectionInView || timelineState.reduceMotion) {
+    if (!timelineState.isSectionInView || prefersReducedMotion) {
       return () => {
         window.removeEventListener("resize", handleResize);
         if (frameRequestRef.current !== null) {
@@ -356,11 +326,11 @@ export function useTimelineMetrics({
         frameRequestRef.current = null;
       }
     };
-  }, [scheduleMetricsUpdate, timelineState.isSectionInView, timelineState.reduceMotion]);
+  }, [prefersReducedMotion, scheduleMetricsUpdate, timelineState.isSectionInView]);
 
   return {
     activeIndex: timelineState.activeIndex,
-    reduceMotion: timelineState.reduceMotion,
+    reduceMotion: prefersReducedMotion,
     sectionRef,
     listRef,
     pathSvgRef,

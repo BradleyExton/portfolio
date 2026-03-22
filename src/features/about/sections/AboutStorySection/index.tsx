@@ -1,4 +1,5 @@
 import { aboutCopy } from "@/copy/about";
+import { SectionIntro } from "@/features/shared/designSystem";
 import { ScrollReveal } from "@/features/shared/motion/ScrollReveal";
 import * as styles from "./styles";
 
@@ -8,9 +9,10 @@ export function AboutStorySection() {
       <div className={styles.container}>
         <div className={styles.panel}>
           <ScrollReveal>
-            <h2 className={styles.heading}>
-              {aboutCopy.story.eyebrow}
-            </h2>
+            <SectionIntro
+              title={aboutCopy.story.eyebrow}
+              titleClassName={styles.heading}
+            />
           </ScrollReveal>
           <div className={styles.block}>
             {aboutCopy.story.paragraphs.map((paragraph, index) => (

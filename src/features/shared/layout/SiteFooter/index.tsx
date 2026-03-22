@@ -2,28 +2,49 @@ import Link from "next/link";
 import { commonCopy } from "@/copy/common";
 import { navigationCopy } from "@/copy/navigation";
 import { profile, profileComputed } from "@/copy/profile";
+import {
+  ActionLink,
+  type ActionLinkProps,
+  ArrowUpRightIcon,
+} from "@/features/shared/designSystem";
 import * as styles from "./styles";
 
-const socialLinks = [
+type SocialLink = {
+  label: string;
+  href: string;
+  variant: NonNullable<ActionLinkProps["variant"]>;
+  size: NonNullable<ActionLinkProps["size"]>;
+  target?: ActionLinkProps["target"];
+  rel?: ActionLinkProps["rel"];
+  opensInNewTab?: boolean;
+};
+
+const socialLinks: readonly SocialLink[] = [
   {
     label: "Send an Email",
     href: profileComputed.mailto,
-    external: false,
-    emphasis: "primary",
+    variant: "brand",
+    size: "sm",
   },
   {
     label: "LinkedIn",
     href: profile.links.linkedin,
-    external: true,
-    emphasis: "secondary",
+    variant: "ghost",
+    size: "text",
+    target: "_blank",
+    rel: "noopener noreferrer",
+    opensInNewTab: true,
   },
   {
     label: "GitHub",
     href: profile.links.github,
-    external: true,
-    emphasis: "secondary",
+    variant: "ghost",
+    size: "text",
+    target: "_blank",
+    rel: "noopener noreferrer",
+    opensInNewTab: true,
   },
-] as const;
+];
 
 export default function SiteFooter() {
   return (
@@ -69,27 +90,20 @@ export default function SiteFooter() {
               aria-label="Footer connect links"
             >
               {socialLinks.map((link) => (
-                <a
+                <ActionLink
                   key={link.label}
                   href={link.href}
-                  target={link.external ? "_blank" : undefined}
-                  rel={link.external ? "noopener noreferrer" : undefined}
-                  className={
-                    link.emphasis === "primary"
-                      ? styles.connectPrimaryLink
-                      : styles.connectSecondaryLink
-                  }
+                  variant={link.variant}
+                  size={link.size}
+                  target={link.target}
+                  rel={link.rel}
+                  icon={link.opensInNewTab ? <ArrowUpRightIcon className={styles.externalIndicator} /> : null}
                 >
-                  {link.label}
-                  {link.external ? (
-                    <>
-                      <span className={styles.externalIndicator} aria-hidden="true">
-                        ↗
-                      </span>
-                      <span className="sr-only"> (opens in a new tab)</span>
-                    </>
-                  ) : null}
-                </a>
+                  <>
+                    <span>{link.label}</span>
+                    {link.opensInNewTab ? <span className="sr-only"> (opens in a new tab)</span> : null}
+                  </>
+                </ActionLink>
               ))}
             </nav>
           </div>

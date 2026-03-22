@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { homeCopy } from "@/copy/home";
-import { SectionIntro } from "@/features/shared/designSystem";
+import { ActionLink, ArrowRightIcon, SectionIntro } from "@/features/shared/designSystem";
 import type { HomeServicePreviewItem, ServiceKey } from "./types";
 import { buildHomeServicePreviewItems } from "./utils";
 import * as styles from "./styles";
@@ -97,23 +97,15 @@ export function HomeServicesPreviewSection() {
         </div>
 
         <div className={styles.bottomCtaRow}>
-          <Link href="/services" className={styles.bottomCta}>
+          <ActionLink
+            href="/services"
+            variant="inline"
+            size="text"
+            className={styles.bottomCta}
+            icon={<ArrowRightIcon className={styles.bottomCtaIcon} />}
+          >
             {homeCopy.servicesPreview.cta}
-            <svg
-              className={styles.bottomCtaIcon}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </Link>
+          </ActionLink>
         </div>
       </div>
     </section>

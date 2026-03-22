@@ -1,15 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { homeCopy } from "@/copy/home";
-import { SectionIntro } from "@/features/shared/designSystem";
+import { ActionLink, ArrowRightIcon, SectionIntro, cn } from "@/features/shared/designSystem";
 import type { WhatIDoCapability } from "./types";
 import {
   getCapabilityIllustrationSrc,
   getStackedCardCountClass,
   getStackedCardIndexClass,
-  joinClassNames,
 } from "./utils";
 import { useActiveCapabilityId } from "./useActiveCapabilityId";
 import * as styles from "./styles";
@@ -36,18 +34,21 @@ export function HomeAboutSnapshotSection() {
               titleClassName={styles.subheading}
               descriptionClassName={styles.description}
             />
-            <Link href="/about" className={styles.link}>
+            <ActionLink
+              href="/about"
+              variant="inline"
+              size="text"
+              className={styles.link}
+              icon={<ArrowRightIcon className={styles.icon} />}
+            >
               {homeCopy.aboutSnapshot.cta}
-              <svg className={styles.icon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
+            </ActionLink>
           </div>
 
           <div>
             <ol
               ref={listRef}
-              className={joinClassNames(
+              className={cn(
                 styles.stackedCardList,
                 getStackedCardCountClass(whatIDoCapabilities.length),
               )}
@@ -58,7 +59,7 @@ export function HomeAboutSnapshotSection() {
                 // Alternate illustration side on desktop for visual rhythm while preserving mobile order.
                 <li
                   key={capability.id}
-                  className={joinClassNames(styles.stackedCardItem, getStackedCardIndexClass(index))}
+                  className={cn(styles.stackedCardItem, getStackedCardIndexClass(index))}
                   data-active={capability.id === activeCapabilityId ? "true" : "false"}
                 >
                   <article className={styles.stackedCard}>
@@ -69,7 +70,7 @@ export function HomeAboutSnapshotSection() {
                     >
                       <div className={styles.cardLayout}>
                         <div
-                          className={joinClassNames(
+                          className={cn(
                             styles.cardContentColumn,
                             index % 2 === 1 && styles.cardContentColumnDesktopSwap,
                           )}
@@ -104,7 +105,7 @@ export function HomeAboutSnapshotSection() {
                         </div>
 
                         <div
-                          className={joinClassNames(
+                          className={cn(
                             styles.illustrationPanel,
                             index % 2 === 1 && styles.illustrationPanelDesktopSwap,
                           )}

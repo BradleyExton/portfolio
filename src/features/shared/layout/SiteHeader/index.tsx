@@ -6,6 +6,11 @@ import { useState } from "react";
 import { commonCopy } from "@/copy/common";
 import { navigationCopy } from "@/copy/navigation";
 import { profile } from "@/copy/profile";
+import {
+  ActionLink,
+  CloseIcon,
+  MenuIcon,
+} from "@/features/shared/designSystem";
 import * as styles from "./styles";
 import { buildHeaderNavItems, getHeaderContactHref, toggleMenu } from "./utils";
 
@@ -43,12 +48,9 @@ export default function SiteHeader() {
                 </Link>
               ))}
             </div>
-            <Link
-              href={contactHref}
-              className={styles.ctaLink}
-            >
+            <ActionLink href={contactHref}>
               {commonCopy.cta.getInTouch}
-            </Link>
+            </ActionLink>
           </div>
 
           <button
@@ -58,28 +60,7 @@ export default function SiteHeader() {
             aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
           >
-            <svg
-              className={styles.icon}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              {isMenuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
+            {isMenuOpen ? <CloseIcon className={styles.icon} /> : <MenuIcon className={styles.icon} />}
           </button>
         </div>
 
@@ -95,13 +76,13 @@ export default function SiteHeader() {
                 {item.label}
               </Link>
             ))}
-            <Link
+            <ActionLink
               href={contactHref}
-              className={styles.mobileCtaLink}
+              className="w-full"
               onClick={() => setIsMenuOpen(false)}
             >
               {navigationCopy.headerPrimaryLabel}
-            </Link>
+            </ActionLink>
           </div>
         )}
       </div>

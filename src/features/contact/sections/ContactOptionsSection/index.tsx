@@ -1,10 +1,19 @@
 "use client";
 
 import { contactCopy } from "@/copy/contact";
-import { profile, profileComputed } from "@/copy/profile";
 import { trackContactCtaClick } from "@/features/shared/analytics";
-import { SectionIntro } from "@/features/shared/designSystem";
+import {
+  ActionCard,
+  ActionLink,
+  ArrowRightIcon,
+  ArrowUpRightIcon,
+  CalendarIcon,
+  LinkedInIcon,
+  MailIcon,
+  SectionIntro,
+} from "@/features/shared/designSystem";
 import { ScrollReveal } from "@/features/shared/motion/ScrollReveal";
+import { getContactOptions } from "./getContactOptions";
 import * as styles from "./styles";
 
 type ContactOptionsSectionProps = {
@@ -12,25 +21,40 @@ type ContactOptionsSectionProps = {
 };
 
 export function ContactOptionsSection({ calcomUrl }: ContactOptionsSectionProps) {
-  const handleCallClick = () => {
-    trackContactCtaClick({
-      ctaType: "call",
-      destinationKind: calcomUrl ? "calendar" : "mailto",
-    });
-  };
+  const options = getContactOptions({
+    calcomUrl,
+    onCallClick: () => {
+      trackContactCtaClick({
+        ctaType: "call",
+        destinationKind: calcomUrl ? "calendar" : "mailto",
+      });
+    },
+    onEmailClick: () => {
+      trackContactCtaClick({
+        ctaType: "email",
+        destinationKind: "mailto",
+      });
+    },
+    onLinkedinClick: () => {
+      trackContactCtaClick({
+        ctaType: "linkedin",
+        destinationKind: "external",
+      });
+    },
+  });
 
-  const handleEmailClick = () => {
-    trackContactCtaClick({
-      ctaType: "email",
-      destinationKind: "mailto",
-    });
-  };
+  const getIcon = (kind: (typeof options)[number]["icon"], primary: boolean) => {
+    const className = primary ? styles.iconInverse : styles.icon;
 
-  const handleLinkedinClick = () => {
-    trackContactCtaClick({
-      ctaType: "linkedin",
-      destinationKind: "external",
-    });
+    if (kind === "call") {
+      return <CalendarIcon className={className} />;
+    }
+
+    if (kind === "linkedin") {
+      return <LinkedInIcon className={className} />;
+    }
+
+    return <MailIcon className={className} />;
   };
 
   return (
@@ -47,122 +71,40 @@ export function ContactOptionsSection({ calcomUrl }: ContactOptionsSectionProps)
         </ScrollReveal>
 
         <div className={styles.grid}>
-          <ScrollReveal className={styles.primaryCard} delayMs={120}>
-            <p className={styles.priorityBadge}>{contactCopy.options.call.badge}</p>
-            <div className={styles.primaryRow}>
-              <svg
-                className={styles.iconInverse}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+          {options.map((option, index) => (
+            <ScrollReveal key={option.key} delayMs={120 + index * 100}>
+              <ActionCard
+                className={option.variant === "primary" ? styles.primaryCard : styles.card}
+                badge={option.badge}
+                badgeClassName={styles.priorityBadge}
+                icon={getIcon(option.icon, option.variant === "primary")}
+                iconClassName={option.variant === "primary" ? styles.primaryRow : styles.row}
+                title={option.title}
+                description={option.description}
+                titleClassName={styles.subheading}
+                descriptionClassName={styles.description}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                />
-              </svg>
-            </div>
-            <h3 className={styles.subheading}>{contactCopy.options.call.title}</h3>
-            <p className={styles.description}>{contactCopy.options.call.description}</p>
-            <a
-              href={calcomUrl ?? profileComputed.mailto}
-              target={calcomUrl ? "_blank" : undefined}
-              rel={calcomUrl ? "noopener noreferrer" : undefined}
-              className={styles.primaryLink}
-              onClick={handleCallClick}
-            >
-              {calcomUrl
-                ? contactCopy.options.call.cta
-                : contactCopy.options.call.fallbackCta}
-              <svg
-                className={styles.linkIcon}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </a>
-          </ScrollReveal>
-
-          <ScrollReveal className={styles.card} delayMs={220}>
-            <div className={styles.row}>
-              <svg
-                className={styles.icon}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                />
-              </svg>
-            </div>
-            <h3 className={styles.subheading}>{contactCopy.options.email.title}</h3>
-            <p className={styles.description}>{contactCopy.options.email.description}</p>
-            <a
-              href={profileComputed.mailto}
-              className={styles.link}
-              onClick={handleEmailClick}
-            >
-              {profile.email}
-              <svg
-                className={styles.linkIcon}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </a>
-          </ScrollReveal>
-
-          <ScrollReveal className={styles.card} delayMs={320}>
-            <div className={styles.row}>
-              <svg className={styles.icon} fill="currentColor" viewBox="0 0 24 24">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-              </svg>
-            </div>
-            <h3 className={styles.subheading}>{contactCopy.options.linkedin.title}</h3>
-            <p className={styles.description}>{contactCopy.options.linkedin.description}</p>
-            <a
-              href={profile.links.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.link}
-              onClick={handleLinkedinClick}
-            >
-              {contactCopy.options.linkedin.cta}
-              <svg
-                className={styles.linkIcon}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                />
-              </svg>
-            </a>
-          </ScrollReveal>
+                <ActionLink
+                  href={option.href}
+                  target={option.external ? "_blank" : undefined}
+                  rel={option.external ? "noopener noreferrer" : undefined}
+                  variant={option.variant === "primary" ? "brand" : "inline"}
+                  size="sm"
+                  className={option.variant === "primary" ? styles.primaryLink : styles.link}
+                  onClick={option.onClick}
+                  icon={
+                    option.key === "linkedin" ? (
+                      <ArrowUpRightIcon className={styles.linkIcon} />
+                    ) : (
+                      <ArrowRightIcon className={styles.linkIcon} />
+                    )
+                  }
+                >
+                  {option.label}
+                </ActionLink>
+              </ActionCard>
+            </ScrollReveal>
+          ))}
         </div>
       </div>
     </section>

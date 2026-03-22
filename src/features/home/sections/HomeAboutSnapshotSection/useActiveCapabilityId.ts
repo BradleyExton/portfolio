@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState, type RefObject } from "react";
+import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
+import { useMediaQuery } from "@/features/shared/designSystem";
 import type { CapabilityId } from "./types";
 import { resolveActiveCapabilityId } from "./utils";
 
@@ -45,10 +46,10 @@ export function useActiveCapabilityId({
   const cardRefs = useRef<Partial<Record<CapabilityId, HTMLDivElement | null>>>({});
   const frameRef = useRef<number | null>(null);
   const isSectionVisibleRef = useRef(true);
-  const defaultCapabilityId = useMemo<CapabilityId>(() => capabilityIds[0] ?? "delivery", [capabilityIds]);
+  const defaultCapabilityId = capabilityIds[0] ?? "delivery";
   const [activeCapabilityId, setActiveCapabilityId] = useState<CapabilityId>(defaultCapabilityId);
-  const [reduceMotion, setReduceMotion] = useState(false);
-  const [showIllustrations, setShowIllustrations] = useState(false);
+  const reduceMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
+  const showIllustrations = useMediaQuery("(min-width: 1280px)");
 
   const setCardRef = useCallback((id: CapabilityId, node: HTMLDivElement | null) => {
     cardRefs.current[id] = node;
@@ -100,62 +101,6 @@ export function useActiveCapabilityId({
   useEffect(() => {
     setActiveCapabilityId(defaultCapabilityId);
   }, [defaultCapabilityId]);
-
-  useEffect(() => {
-    if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
-      return;
-    }
-
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const applyMotionPreference = () => {
-      setReduceMotion(mediaQuery.matches);
-    };
-
-    applyMotionPreference();
-    if (typeof mediaQuery.addEventListener === "function") {
-      mediaQuery.addEventListener("change", applyMotionPreference);
-      return () => {
-        mediaQuery.removeEventListener("change", applyMotionPreference);
-      };
-    }
-
-    if (typeof mediaQuery.addListener === "function") {
-      mediaQuery.addListener(applyMotionPreference);
-      return () => {
-        mediaQuery.removeListener(applyMotionPreference);
-      };
-    }
-
-    return undefined;
-  }, []);
-
-  useEffect(() => {
-    if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
-      return;
-    }
-
-    const mediaQuery = window.matchMedia("(min-width: 1280px)");
-    const applyIllustrationVisibility = () => {
-      setShowIllustrations(mediaQuery.matches);
-    };
-
-    applyIllustrationVisibility();
-    if (typeof mediaQuery.addEventListener === "function") {
-      mediaQuery.addEventListener("change", applyIllustrationVisibility);
-      return () => {
-        mediaQuery.removeEventListener("change", applyIllustrationVisibility);
-      };
-    }
-
-    if (typeof mediaQuery.addListener === "function") {
-      mediaQuery.addListener(applyIllustrationVisibility);
-      return () => {
-        mediaQuery.removeListener(applyIllustrationVisibility);
-      };
-    }
-
-    return undefined;
-  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined" || typeof window.IntersectionObserver === "undefined") {

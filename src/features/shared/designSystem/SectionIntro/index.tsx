@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { cn } from "../cn";
 import * as styles from "./styles";
 
 export type SectionIntroProps = {
@@ -13,9 +14,6 @@ export type SectionIntroProps = {
   titleClassName?: string;
   descriptionClassName?: string;
 };
-
-const joinClassNames = (...classNames: Array<string | undefined | false>): string =>
-  classNames.filter(Boolean).join(" ");
 
 export function SectionIntro({
   eyebrow,
@@ -34,10 +32,10 @@ export function SectionIntro({
   const isInverseTone = tone === "inverse";
 
   return (
-    <div className={joinClassNames(styles.root, isCenterAligned ? styles.alignCenter : styles.alignLeft, className)}>
+    <div className={cn(styles.root, isCenterAligned ? styles.alignCenter : styles.alignLeft, className)}>
       {eyebrow ? (
         <p
-          className={joinClassNames(
+          className={cn(
             styles.eyebrow,
             isInverseTone ? styles.eyebrowInverse : styles.eyebrowDefault,
             eyebrowClassName,
@@ -48,7 +46,7 @@ export function SectionIntro({
       ) : null}
 
       <TitleTag
-        className={joinClassNames(
+        className={cn(
           styles.title,
           isInverseTone ? styles.titleInverse : styles.titleDefault,
           titleClassName,
@@ -59,7 +57,7 @@ export function SectionIntro({
 
       {description ? (
         <p
-          className={joinClassNames(
+          className={cn(
             styles.description,
             isCenterAligned && styles.descriptionCenter,
             isInverseTone ? styles.descriptionInverse : styles.descriptionDefault,

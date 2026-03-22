@@ -24,10 +24,6 @@ type CapabilityCardRect = {
   bottom: number;
 };
 
-export const joinClassNames = (...classes: Array<string | false | undefined>): string => {
-  return classes.filter(Boolean).join(" ");
-};
-
 export const getStackedCardIndexClass = (index: number): string => {
   const indexClass = STACKED_CARD_INDEX_CLASSES[index];
   if (indexClass) {

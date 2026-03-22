@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import dynamic from "next/dynamic";
 import { homeCopy } from "@/copy/home";
 import { SectionIntro } from "@/features/shared/designSystem";
+import { useDeferredSectionVisibility } from "@/features/home/shared/useDeferredSectionVisibility";
 import * as styles from "./styles";
 
 const HomeAboutSnapshotSection = dynamic(
@@ -22,93 +23,17 @@ const HomeExperienceSection = dynamic(
   { ssr: false },
 );
 
-const PRELOAD_ROOT_MARGIN = "0px";
-
 export function HomeDeferredInteractiveSections() {
   const aboutAnchorRef = useRef<HTMLElement | null>(null);
   const experienceAnchorRef = useRef<HTMLElement | null>(null);
-  const [shouldRenderAbout, setShouldRenderAbout] = useState(false);
-  const [shouldRenderExperience, setShouldRenderExperience] = useState(false);
-
-  useEffect(() => {
-    if (shouldRenderAbout) {
-      return;
-    }
-
-    const fallbackTimerId = window.setTimeout(() => {
-      setShouldRenderAbout(true);
-    }, 2200);
-
-    if (typeof window.IntersectionObserver === "undefined") {
-      const timerId = window.setTimeout(() => setShouldRenderAbout(true), 0);
-      return () => {
-        window.clearTimeout(fallbackTimerId);
-        window.clearTimeout(timerId);
-      };
-    }
-
-    const node = aboutAnchorRef.current;
-    if (!node) {
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting) {
-          window.clearTimeout(fallbackTimerId);
-          setShouldRenderAbout(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: PRELOAD_ROOT_MARGIN, threshold: 0.2 },
-    );
-
-    observer.observe(node);
-    return () => {
-      window.clearTimeout(fallbackTimerId);
-      observer.disconnect();
-    };
-  }, [shouldRenderAbout]);
-
-  useEffect(() => {
-    if (shouldRenderExperience) {
-      return;
-    }
-
-    const fallbackTimerId = window.setTimeout(() => {
-      setShouldRenderExperience(true);
-    }, 2600);
-
-    if (typeof window.IntersectionObserver === "undefined") {
-      const timerId = window.setTimeout(() => setShouldRenderExperience(true), 0);
-      return () => {
-        window.clearTimeout(fallbackTimerId);
-        window.clearTimeout(timerId);
-      };
-    }
-
-    const node = experienceAnchorRef.current;
-    if (!node) {
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting) {
-          window.clearTimeout(fallbackTimerId);
-          setShouldRenderExperience(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: PRELOAD_ROOT_MARGIN, threshold: 0.2 },
-    );
-
-    observer.observe(node);
-    return () => {
-      window.clearTimeout(fallbackTimerId);
-      observer.disconnect();
-    };
-  }, [shouldRenderExperience]);
+  const shouldRenderAbout = useDeferredSectionVisibility({
+    targetRef: aboutAnchorRef,
+    fallbackDelayMs: 2200,
+  });
+  const shouldRenderExperience = useDeferredSectionVisibility({
+    targetRef: experienceAnchorRef,
+    fallbackDelayMs: 2600,
+  });
 
   return (
     <>

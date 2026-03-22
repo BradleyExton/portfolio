@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { homeCopy } from "@/copy/home";
+import { ArrowRightIcon } from "@/features/shared/designSystem";
 import * as styles from "./styles";
 
 type HeroTechPill = (typeof homeCopy.techStackPills)[number];
@@ -191,19 +192,7 @@ export function HomeHeroSection() {
                 className={styles.ctaLink}
               >
                 {homeCopy.hero.ctaPrimary}
-                <svg
-                  className={styles.icon}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
+                <ArrowRightIcon className={styles.icon} />
               </Link>
               <Link
                 href="#contact"

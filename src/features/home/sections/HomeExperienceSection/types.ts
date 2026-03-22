@@ -19,5 +19,4 @@ export type TimelineMetrics = {
 
 export type TimelineState = TimelineMetrics & {
   isSectionInView: boolean;
-  reduceMotion: boolean;
 };

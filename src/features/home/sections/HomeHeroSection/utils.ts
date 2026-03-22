@@ -1,3 +1,4 @@
+import { subscribeMediaQueryChange } from "@/features/shared/designSystem";
 import type {
   HeroParallaxLayerElements,
   HeroParallaxLayerOffsets,
@@ -150,27 +151,6 @@ const clearHeroSteamClusterAnchor = (
   steamCluster.style.right = "";
   steamCluster.style.bottom = "";
   steamCluster.style.transform = "";
-};
-
-const subscribeMediaQueryChange = (
-  mediaQueryList: MediaQueryList,
-  onChange: () => void,
-): (() => void) => {
-  const listener = () => {
-    onChange();
-  };
-
-  if (typeof mediaQueryList.addEventListener === "function") {
-    mediaQueryList.addEventListener("change", listener);
-    return () => {
-      mediaQueryList.removeEventListener("change", listener);
-    };
-  }
-
-  mediaQueryList.addListener(listener);
-  return () => {
-    mediaQueryList.removeListener(listener);
-  };
 };
 
 export const shouldEnableHeroScrollParallax = (

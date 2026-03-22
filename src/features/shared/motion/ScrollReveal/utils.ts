@@ -13,7 +13,3 @@ const revealDelayClassMap: Record<number, string> = {
 export const getRevealDelayClass = (delayMs: number): string => {
   return revealDelayClassMap[delayMs] ?? revealDelayClassMap[0];
 };
-
-export const joinClassNames = (...classes: Array<string | undefined>): string => {
-  return classes.filter(Boolean).join(" ");
-};
