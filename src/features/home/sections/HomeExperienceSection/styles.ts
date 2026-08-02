@@ -20,12 +20,15 @@ export const milestoneNodeReducedMotion = "motion-safe:animate-none";
 export const milestoneCore = "h-2.5 w-2.5 rounded-full bg-brand shadow-[0_0_0_2px_var(--color-surface)] md:h-3 md:w-3";
 export const entry = "relative isolate w-full rounded-2xl rounded-bl-none border border-border-subtle bg-surface/65 p-4 transition-[background-color,border-color,box-shadow] duration-300 before:pointer-events-none before:absolute before:inset-[-1px] before:rounded-2xl before:rounded-bl-none before:border-2 before:border-l-0 before:border-brand before:opacity-0 before:[clip-path:circle(0%_at_0px_0px)] before:transition-all before:duration-[1180ms] before:ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:before:transition-none md:p-7";
 export const entryActive = "bg-surface shadow-md motion-safe:animate-[timeline-entry-focus_780ms_cubic-bezier(0.22,1,0.36,1)_1]";
+// Persistent emphasis for the current role so the transient scroll-active
+// highlight never visually outranks it.
+export const entryCurrent = "border-brand-tint bg-surface/80";
 export const entryBorderActive = "border-l-transparent before:opacity-100 before:[clip-path:circle(180%_at_0px_0px)]";
 export const entryHeader = "mb-4";
 export const metaRow = "mb-2 flex items-center gap-3 text-sm text-content-faint";
 export const roleHeader = "mb-2 flex flex-wrap items-center gap-2";
 export const company = "text-2xl font-bold text-content";
-export const badge = "rounded-full bg-brand-soft px-2 py-0.5 text-xs font-medium text-brand-strong";
+export const badge = "rounded-full bg-brand px-2.5 py-0.5 text-xs font-semibold text-content-inverse";
 export const text = "font-semibold text-brand";
 export const timeline = "whitespace-nowrap text-sm font-medium text-content-faint";
 export const roleDescription = "mb-3 leading-relaxed text-content-subtle md:mb-4";

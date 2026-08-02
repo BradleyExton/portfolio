@@ -24,6 +24,7 @@ export function ExperienceTimelineItem({
         data-timeline-entry="true"
         className={cn(
           styles.entry,
+          job.current && styles.entryCurrent,
           isActive && styles.entryBorderActive,
           isActive && styles.entryActive,
         )}
