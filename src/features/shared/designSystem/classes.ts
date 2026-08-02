@@ -28,4 +28,7 @@ export const typeScale = {
   leadBodyInverse: "text-base leading-relaxed text-brand-muted sm:text-lg",
   cardTitle: "mb-2 text-lg font-semibold text-content sm:text-xl",
   metaLabel: "text-xs font-semibold uppercase tracking-wide text-content-faint",
+  // Single treatment for topic-tag pills so adjacent sections don't rank the
+  // same semantic element at different visual weights.
+  tagPill: "rounded-full border border-border-default bg-surface-muted px-3 py-1 text-xs font-medium text-content-muted",
 } as const;

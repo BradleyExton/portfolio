@@ -33,4 +33,4 @@ export const proofList = "mb-4 space-y-2.5";
 export const proofItem = "flex gap-2.5 text-sm leading-relaxed text-content-muted sm:text-base";
 export const proofIcon = "mt-0.5 h-4 w-4 shrink-0 text-brand sm:mt-1";
 export const chipList = "mt-auto flex flex-wrap content-start gap-2 md:min-h-[4.5rem]";
-export const chip = "rounded-full border border-border-default bg-surface-muted px-3 py-1 text-xs font-medium text-content-muted";
+export const chip = typeScale.tagPill;
