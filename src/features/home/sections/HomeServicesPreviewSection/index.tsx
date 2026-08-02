@@ -19,15 +19,15 @@ const illustrationByServiceKey: Record<
 > = {
   websites: {
     alt: "Website service illustration",
-    src: "/images/services/website-illustration.png",
+    src: "/images/services/website-illustration.svg",
   },
   webApps: {
     alt: "Web application service illustration",
-    src: "/images/services/web-application-illustration.png",
+    src: "/images/services/web-application-illustration.svg",
   },
   aiTools: {
     alt: "AI tools service illustration",
-    src: "/images/services/ai-tools-illustration.png",
+    src: "/images/services/ai-tools-illustration.svg",
   },
 };
 

@@ -28,7 +28,7 @@ export const servicesCopy = {
       price: "Starting at $1,500",
       timeline: "2-4 weeks",
       illustration: {
-        src: "/images/services/website-illustration.png",
+        src: "/images/services/website-illustration.svg",
         alt: "Abstract illustration representing a high-converting marketing website",
       },
       deliverables: [
@@ -59,7 +59,7 @@ export const servicesCopy = {
       price: "Starting at $3,000",
       timeline: "4-8 weeks",
       illustration: {
-        src: "/images/services/web-application-illustration.png",
+        src: "/images/services/web-application-illustration.svg",
         alt: "Abstract illustration representing a custom web application workflow",
       },
       deliverables: [
@@ -90,7 +90,7 @@ export const servicesCopy = {
       price: "Custom pricing",
       timeline: "3-6 weeks",
       illustration: {
-        src: "/images/services/ai-tools-illustration.png",
+        src: "/images/services/ai-tools-illustration.svg",
         alt: "Abstract illustration representing AI workflows and integrations",
       },
       deliverables: [

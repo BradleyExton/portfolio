@@ -53,7 +53,7 @@ export const getStackedCardCountClass = (count: number): string => {
 };
 
 export const getCapabilityIllustrationSrc = (id: CapabilityId): string => {
-  return `/images/what-i-do/${id}.png`;
+  return `/images/what-i-do/${id}.svg`;
 };
 
 export const resolveActiveCapabilityId = ({

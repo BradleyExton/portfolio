@@ -12,7 +12,7 @@ const capabilityIds: readonly CapabilityId[] = ["delivery", "frontend", "platfor
 describe("HomeAboutSnapshotSection utils", () => {
   it("returns deterministic illustration paths for capability ids", () => {
     capabilityIds.forEach((capabilityId) => {
-      expect(getCapabilityIllustrationSrc(capabilityId)).toBe(`/images/what-i-do/${capabilityId}.png`);
+      expect(getCapabilityIllustrationSrc(capabilityId)).toBe(`/images/what-i-do/${capabilityId}.svg`);
     });
   });
 

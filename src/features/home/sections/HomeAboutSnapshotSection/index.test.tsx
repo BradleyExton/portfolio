@@ -170,7 +170,7 @@ describe("HomeAboutSnapshotSection", () => {
     const images = list.querySelectorAll("img");
 
     homeCopy.whatIDoCapabilities.forEach((capability, index) => {
-      expect(images[index]).toHaveAttribute("src", `/images/what-i-do/${capability.id}.png`);
+      expect(images[index]).toHaveAttribute("src", `/images/what-i-do/${capability.id}.svg`);
     });
   });
 
