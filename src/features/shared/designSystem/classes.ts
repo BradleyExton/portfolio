@@ -17,6 +17,15 @@ export const typeScale = {
     "mb-4 text-balance text-2xl font-bold text-content font-[family-name:var(--font-space-grotesk)] sm:text-3xl",
   sectionDescription: "max-w-[62ch] text-sm leading-relaxed text-content-muted sm:text-base",
   leadBody: "text-base leading-relaxed text-content-muted sm:text-lg",
+  // Inverse variants for dark brand surfaces (CTA bands). These exist because
+  // appending a color utility after a token that already sets one is an
+  // unresolved conflict — the winner depends on generated CSS order, not
+  // author order. Use these instead of overriding token colors.
+  sectionTitleInverse:
+    "mb-4 text-balance text-2xl font-bold text-content-inverse font-[family-name:var(--font-space-grotesk)] sm:text-3xl",
+  sectionDescriptionInverse:
+    "max-w-[62ch] text-sm leading-relaxed text-brand-muted sm:text-base",
+  leadBodyInverse: "text-base leading-relaxed text-brand-muted sm:text-lg",
   cardTitle: "mb-2 text-lg font-semibold text-content sm:text-xl",
   metaLabel: "text-xs font-semibold uppercase tracking-wide text-content-faint",
 } as const;

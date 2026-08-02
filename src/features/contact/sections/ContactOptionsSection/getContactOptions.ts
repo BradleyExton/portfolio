@@ -20,7 +20,9 @@ export const getContactOptions = ({
     {
       key: "call" as const,
       variant: "primary" as const,
-      badge: contactCopy.options.call.badge,
+      // Only advertise "Fastest path" when booking is actually available;
+      // without a calendar URL the card falls back to a mailto link.
+      badge: calcomUrl ? contactCopy.options.call.badge : undefined,
       icon: "call" as const,
       title: contactCopy.options.call.title,
       description: contactCopy.options.call.description,
