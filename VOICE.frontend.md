@@ -109,3 +109,21 @@ On-voice lines. New copy should sound like these:
   Implied rule: closers should be short and direct, not "whether X, Y, or Z" lists.
 - References chosen (by Claude, accepted by Bradley): Josh Comeau for employer surfaces,
   Basecamp plain talk for services surfaces.
+
+### 2026-08-02 — plain-language pass (round 2)
+- Home aboutSnapshot: picked "plainer, same facts" over the resume-speak original ("acting as a
+  key technical owner across Product, Design, Data, Platform, and Support") and over the tightest
+  variant. Implied rule: no resume-speak on marketing surfaces; but don't over-compress either.
+- Services hero: picked "Senior help for your website, app, or AI project." over
+  "Senior full-stack execution for teams that need momentum." Implied rule: no consultant
+  vocabulary on services surfaces (execution, momentum).
+- Services catalog: picked "Services / Three ways to work together." over
+  "Service Pillars / Choose the engagement model that matches your stage." Same implied rule
+  (pillars, engagement model).
+- Belief card: picked "code the next developer can pick up without a tour guide" over the
+  "Future you will thank you" cliché.
+- Unprompted small fix, shown after the fact: "productized systems" became "custom software"
+  in the web-applications outcome (same consultant-vocabulary rule).
+- Pattern across all four picks: the plainest variant won every time. Promotion candidate:
+  add consultant vocabulary (execution, momentum, engagement model, pillars, productized) to
+  the §3 watchlist.

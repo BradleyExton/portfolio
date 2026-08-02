@@ -1,15 +1,15 @@
 export const servicesCopy = {
   hero: {
     eyebrow: "Services",
-    heading: "Senior full-stack execution for teams that need momentum.",
+    heading: "Senior help for your website, app, or AI project.",
     description:
-      "I take on a limited number of projects each quarter for teams that want high-quality execution without agency overhead.",
+      "I take on a few projects each quarter. You work directly with me, no agency overhead, and get senior engineering from first call to launch.",
     availabilityLabel: "Availability",
     availability: "Currently booking selective projects for Spring 2026.",
   },
   catalog: {
-    eyebrow: "Service Pillars",
-    heading: "Choose the engagement model that matches your stage.",
+    eyebrow: "Services",
+    heading: "Three ways to work together.",
     description:
       "Each engagement includes clear planning, transparent updates, and a practical handoff.",
     timelineLabel: "Typical timeline",
@@ -86,7 +86,7 @@ export const servicesCopy = {
       description:
         "Custom internal or customer apps built around how your team actually works.",
       outcome:
-        "Replace manual workflows with productized systems that improve speed, visibility, and reliability.",
+        "Replace manual workflows with custom software that improves speed, visibility, and reliability.",
       price: "Starting at $3,000",
       timeline: "4-8 weeks",
       illustration: {

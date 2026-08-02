@@ -30,7 +30,7 @@ export const aboutCopy = {
       {
         title: "Code should solve problems, not create them.",
         description:
-          "I write clean, maintainable code because I've inherited enough messy codebases to know the difference. Future you (or the next developer) will thank you.",
+          "I've inherited enough messy codebases to know the difference. I write code the next developer can pick up without a tour guide.",
       },
       {
         title: "Modern tools exist for a reason.",

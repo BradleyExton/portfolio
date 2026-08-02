@@ -16,7 +16,7 @@ export const homeCopy = {
     eyebrow: "What I Do",
     heading: "Senior full-stack delivery, accelerated with AI workflows",
     description:
-      "I lead end-to-end delivery for a customer-facing reporting platform at Local Logic, acting as a key technical owner across Product, Design, Data, Platform, and Support. I partner closely with stakeholders to translate requirements into PRDs, technical specs, and clear Jira execution plans, then carry work through Figma iteration, implementation, testing, and production launch. Over the last year, I've also built AI workflows and automations that improve delivery speed and cross-team productivity without lowering quality.",
+      "I lead delivery of Local Logic's customer-facing reporting platform end to end: from PRD and technical spec through Figma iteration, implementation, testing, and launch. Over the last year I've also built the AI workflows and automations the team uses to ship faster without dropping quality.",
     cta: "More about me",
   },
   whatIDoCapabilities: [
