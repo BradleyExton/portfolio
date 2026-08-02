@@ -15,6 +15,14 @@ const HomeAboutSnapshotSection = dynamic(
   { ssr: false },
 );
 
+const HomeHowIWorkSection = dynamic(
+  () =>
+    import("@/features/home/sections/HomeHowIWorkSection").then(
+      (module) => module.HomeHowIWorkSection,
+    ),
+  { ssr: false },
+);
+
 const HomeExperienceSection = dynamic(
   () =>
     import("@/features/home/sections/HomeExperienceSection").then(
@@ -25,10 +33,15 @@ const HomeExperienceSection = dynamic(
 
 export function HomeDeferredInteractiveSections() {
   const aboutAnchorRef = useRef<HTMLElement | null>(null);
+  const howIWorkAnchorRef = useRef<HTMLElement | null>(null);
   const experienceAnchorRef = useRef<HTMLElement | null>(null);
   const shouldRenderAbout = useDeferredSectionVisibility({
     targetRef: aboutAnchorRef,
     fallbackDelayMs: 2200,
+  });
+  const shouldRenderHowIWork = useDeferredSectionVisibility({
+    targetRef: howIWorkAnchorRef,
+    fallbackDelayMs: 2400,
   });
   const shouldRenderExperience = useDeferredSectionVisibility({
     targetRef: experienceAnchorRef,
@@ -46,6 +59,28 @@ export function HomeDeferredInteractiveSections() {
               eyebrow={homeCopy.aboutSnapshot.eyebrow}
               title={homeCopy.aboutSnapshot.heading}
               description={homeCopy.aboutSnapshot.description}
+              eyebrowClassName={styles.placeholderEyebrow}
+              titleClassName={styles.placeholderHeading}
+              descriptionClassName={styles.placeholderText}
+            />
+            <div aria-hidden="true" className={styles.placeholderCard} />
+          </div>
+        </section>
+      )}
+
+      {shouldRenderHowIWork ? (
+        <HomeHowIWorkSection />
+      ) : (
+        <section
+          id="how-i-work"
+          ref={howIWorkAnchorRef}
+          className={styles.placeholderHowIWorkSection}
+        >
+          <div className={styles.placeholderContainer}>
+            <SectionIntro
+              eyebrow={homeCopy.howIWork.eyebrow}
+              title={homeCopy.howIWork.heading}
+              description={homeCopy.howIWork.description}
               eyebrowClassName={styles.placeholderEyebrow}
               titleClassName={styles.placeholderHeading}
               descriptionClassName={styles.placeholderText}
