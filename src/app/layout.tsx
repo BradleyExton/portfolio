@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-import { siteMetadata } from "@/copy/metadata";
+import { personStructuredData, siteMetadata } from "@/copy/metadata";
 import { publicEnv } from "@/config/publicEnv";
 import UnderConstruction from "@/components/UnderConstruction";
 
@@ -32,6 +32,12 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${spaceGrotesk.variable} bg-surface-muted font-sans text-content antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personStructuredData),
+          }}
+        />
         {shouldTrackAnalytics && gaMeasurementId ? (
           <>
             <Script

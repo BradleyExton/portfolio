@@ -5,14 +5,21 @@ const defaultDescription =
   "AI-native full-stack engineer based in Barrie, Ontario with 10+ years shipping production web applications. Building with AI agents, custom skills, and orchestrated workflows on React, Node.js, and Python.";
 
 export const siteMetadata: Metadata = {
+  metadataBase: new URL(profile.links.website),
   title: `${profile.fullName} | ${profile.title}`,
   description: defaultDescription,
   keywords: [
-    "web developer",
+    "AI-native engineer",
     "full-stack developer",
+    "AI agents",
+    "agent orchestration",
+    "context engineering",
+    "Claude Code",
+    "MCP",
     "React",
-    "Node.js",
+    "Next.js",
     "TypeScript",
+    "Python",
     "Barrie",
     "Ontario",
     "freelance",
@@ -36,6 +43,22 @@ export const siteMetadata: Metadata = {
     follow: true,
   },
 };
+
+export const personStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profile.fullName,
+  jobTitle: profile.title,
+  email: profile.email,
+  url: profile.links.website,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Barrie",
+    addressRegion: "ON",
+    addressCountry: "CA",
+  },
+  sameAs: [profile.links.linkedin, profile.links.github],
+} as const;
 
 export const homeMetadata: Metadata = {
   title: `${profile.fullName} | ${profile.title}`,
