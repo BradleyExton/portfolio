@@ -62,6 +62,39 @@ export const homeCopy = {
       techChips: ["FastAPI", "Express", "AWS Lambda", "DynamoDB", "SAML/OIDC", "Mixpanel", "Sentry"],
     },
   ],
+  howIWork: {
+    eyebrow: "How I Work",
+    heading: "Spec first, agents in parallel, gates before merge",
+    description:
+      "AI-native is a workflow, and this is mine. Every project moves through the same four stages, whether it is a feature at Local Logic or a client build.",
+    closing: "One engineer, shipping at the pace of a team. The workflow is the reason.",
+    stages: [
+      {
+        id: "spec",
+        name: "Write the spec",
+        body: "Every piece of work starts as a written spec: what we are building, what done means, and what the agents need to know before they touch code. A precise spec.md is the difference between an agent that ships and an agent that guesses.",
+        chips: ["spec.md", "PRDs", "acceptance criteria"],
+      },
+      {
+        id: "context",
+        name: "Engineer the context",
+        body: "Agents are only as good as what they can see. I maintain agent.md standards, reusable skills, and MCP servers so every agent session starts with the codebase conventions, the right tools, and the guardrails already loaded.",
+        chips: ["agent.md", "skills", "MCP servers", "context engineering"],
+      },
+      {
+        id: "agents",
+        name: "Run the agents",
+        body: "Implementation goes to agent teams: Claude Code and Codex working the spec, often across parallel worktrees. I stay on the decisions agents cannot make, which are architecture, tradeoffs, and when to stop.",
+        chips: ["Claude Code", "Codex", "orchestration", "parallel worktrees"],
+      },
+      {
+        id: "gates",
+        name: "Hold the gates",
+        body: "Agent output is a draft until it clears the gates: lint, typecheck, tests, and build on every change, then a line-by-line review of the diff before merge. The gates are what make the speed safe.",
+        chips: ["verify gates", "code review", "automated tests", "CI"],
+      },
+    ],
+  },
   experience: {
     eyebrow: "Experience",
     heading: "Where I've Worked",
