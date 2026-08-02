@@ -2,9 +2,9 @@ export const homeCopy = {
   hero: {
     badge: "Available for opportunities",
     heading: {
-      prefix: "AI-Native",
-      highlight: "Full-Stack",
-      suffix: "Engineer",
+      prefix: "",
+      highlight: "AI-Native",
+      suffix: "Full-Stack Engineer",
     },
     description:
       "I'm Bradley — an engineer in Barrie, Ontario with 10+ years shipping production web applications. Today I build with AI agent teams: designing the skills, orchestration, and context engineering that let one engineer deliver like a full team.",

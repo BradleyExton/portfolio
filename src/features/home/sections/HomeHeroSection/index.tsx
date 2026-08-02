@@ -201,7 +201,7 @@ export function HomeHeroSection() {
             </div>
 
             <h1 className={styles.title}>
-              {homeCopy.hero.heading.prefix}{" "}
+              {homeCopy.hero.heading.prefix && `${homeCopy.hero.heading.prefix} `}
               <span className={styles.labelText}>
                 {homeCopy.hero.heading.highlight}
               </span>{" "}
