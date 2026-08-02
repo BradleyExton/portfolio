@@ -104,14 +104,16 @@ export function HomeAboutSnapshotSection() {
                           </ul>
                         </div>
 
-                        <div
-                          className={cn(
-                            styles.illustrationPanel,
-                            index % 2 === 1 && styles.illustrationPanelDesktopSwap,
-                          )}
-                          aria-hidden="true"
-                        >
-                          {showIllustrations ? (
+                        {showIllustrations ? (
+                          // Only render the panel when illustrations are shown; below xl the
+                          // empty aspect-ratio box would reserve dead space inside each card.
+                          <div
+                            className={cn(
+                              styles.illustrationPanel,
+                              index % 2 === 1 && styles.illustrationPanelDesktopSwap,
+                            )}
+                            aria-hidden="true"
+                          >
                             <Image
                               src={getCapabilityIllustrationSrc(capability.id)}
                               alt=""
@@ -121,8 +123,8 @@ export function HomeAboutSnapshotSection() {
                               fetchPriority="low"
                               className={styles.illustrationImage}
                             />
-                          ) : null}
-                        </div>
+                          </div>
+                        ) : null}
                       </div>
                     </div>
                   </article>

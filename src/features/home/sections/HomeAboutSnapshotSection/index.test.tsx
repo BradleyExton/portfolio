@@ -91,19 +91,21 @@ describe("HomeAboutSnapshotSection", () => {
     expect(cardLayout).not.toBeNull();
 
     const layoutChildren = Array.from(cardLayout?.children ?? []);
-    const firstIllustrationPanel = layoutChildren[1] as HTMLElement | undefined;
-    expect(firstIllustrationPanel).toBeDefined();
-    expect(firstIllustrationPanel).toHaveClass("order-last");
-    expect(firstIllustrationPanel).toHaveClass("md:order-first");
+    expect(layoutChildren).toHaveLength(1);
   });
 
-  it("keeps card content column before illustration in the layout DOM order", () => {
+  it("keeps card content column before illustration in the layout DOM order on desktop", async () => {
+    isDesktopViewport = true;
     render(<HomeAboutSnapshotSection />);
 
     const list = screen.getByRole("list", { name: "What I do capabilities" });
     const topLevelItems = Array.from(list.children).filter(
       (node) => node.tagName === "LI" && node.getAttribute("aria-hidden") !== "true",
     );
+
+    await waitFor(() => {
+      expect(list.querySelectorAll("img")).toHaveLength(homeCopy.whatIDoCapabilities.length);
+    });
 
     topLevelItems.forEach((item, index) => {
       const cardLayout = item.querySelector("article > div > div");
@@ -145,11 +147,16 @@ describe("HomeAboutSnapshotSection", () => {
     });
   });
 
-  it("does not render capability illustrations on mobile viewports", () => {
+  it("does not render capability illustrations or empty panels on mobile viewports", () => {
     render(<HomeAboutSnapshotSection />);
 
     const list = screen.getByRole("list", { name: "What I do capabilities" });
     expect(list.querySelectorAll("img")).toHaveLength(0);
+    // The aspect-ratio panel must not render below xl — it would reserve
+    // dead space inside each card.
+    list.querySelectorAll("article > div > div").forEach((cardLayout) => {
+      expect(cardLayout.children).toHaveLength(1);
+    });
   });
 
   it("renders deterministic illustration src paths on desktop viewports", async () => {
