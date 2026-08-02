@@ -26,7 +26,6 @@ export const cardHeadingGroup = "min-w-0 flex-1";
 export const cardIndex = `${typeScale.metaLabel} text-brand`;
 export const cardTitleRow = "mt-1 flex flex-wrap items-center gap-2.5";
 export const cardTitle = `${typeScale.cardTitle} text-xl leading-tight md:text-2xl`;
-export const emphasisBadge = `shrink-0 rounded-full border border-brand-tint bg-brand-soft px-2.5 py-1 ${typeScale.metaLabel} text-brand-strong`;
 export const cardOutcome = "mb-4 text-base leading-relaxed text-content-muted";
 export const illustrationPanel = "relative aspect-[16/9] w-full min-h-[17rem] overflow-hidden rounded-xl";
 export const illustrationPanelDesktopSwap = "xl:order-1";

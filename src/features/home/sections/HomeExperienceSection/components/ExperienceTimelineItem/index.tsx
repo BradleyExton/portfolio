@@ -30,9 +30,6 @@ export function ExperienceTimelineItem({
       >
         <header className={styles.entryHeader}>
           <p className={styles.metaRow}>
-            <span aria-hidden="true" className={styles.monogram}>
-              {job.monogram}
-            </span>
             <span className={styles.timeline}>{job.period}</span>
           </p>
           <div className={styles.roleHeader}>

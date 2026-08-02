@@ -174,10 +174,10 @@ describe("HomeAboutSnapshotSection", () => {
     });
   });
 
-  it("renders a visible ai emphasis badge", () => {
+  it("does not render an ai emphasis badge on capability cards", () => {
     render(<HomeAboutSnapshotSection />);
 
-    expect(screen.getByText(homeCopy.aboutSnapshot.aiFocusLabel)).toBeInTheDocument();
+    expect(screen.queryByText("AI Workflow")).not.toBeInTheDocument();
   });
 
   it("does not render the removed ai toolbelt rail", () => {

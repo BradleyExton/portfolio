@@ -15,17 +15,17 @@ const detailsByServiceKey: Record<
   Omit<HomeServicePreviewItem, "key" | "title" | "description">
 > = {
   websites: {
-    outcome: "Reduce friction and drive more qualified inquiries.",
+    outcome: "Turn your website into a sales channel, not a brochure.",
     deliveryHint: "Typical build: 2 to 3 weeks",
     tags: ["Marketing Pages", "Content-Editable", "SEO Foundation"],
   },
   webApps: {
-    outcome: "Reduce busywork and drive more reliable execution.",
+    outcome: "Replace manual workflows with reliable, visible systems.",
     deliveryHint: "Typical build: 4 to 8 weeks",
     tags: ["Workflow Automation", "Secure Auth", "Reporting"],
   },
   aiTools: {
-    outcome: "Reduce manual effort and drive more team leverage.",
+    outcome: "Automate repetitive execution with safe, observable workflows.",
     deliveryHint: "Typical build: scope-based",
     tags: ["Assistants", "Integrations", "Process Intelligence"],
   },

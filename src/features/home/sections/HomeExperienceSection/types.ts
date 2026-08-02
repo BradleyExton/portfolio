@@ -4,7 +4,6 @@ export type ExperienceTimelineItem = {
   description: string;
   highlights: readonly string[];
   period: string;
-  monogram: string;
   techChips: readonly string[];
   current: boolean;
 };

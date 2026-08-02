@@ -19,7 +19,6 @@ export const homeCopy = {
     description:
       "I lead end-to-end delivery for a customer-facing reporting platform at Local Logic, acting as a key technical owner across Product, Design, Data, Platform, and Support. I partner closely with stakeholders to translate requirements into PRDs, technical specs, and clear Jira execution plans, then carry work through Figma iteration, implementation, testing, and production launch. Over the last year, I've also built AI workflows and automations that improve delivery speed and cross-team productivity without lowering quality.",
     cta: "More about me",
-    aiFocusLabel: "AI Workflow",
   },
   whatIDoCapabilities: [
     {
@@ -31,7 +30,6 @@ export const homeCopy = {
         "Lead cross-functional delivery from Figma iteration through implementation, testing, release coordination, and production launch.",
       ],
       techChips: ["Product Discovery", "PRDs", "Technical Specs", "Jira Planning", "Cross-Functional Leadership"],
-      emphasis: "core",
     },
     {
       id: "frontend",
@@ -42,7 +40,6 @@ export const homeCopy = {
         "Own a layered quality strategy across unit, component, and end-to-end testing while evolving maintainable theming patterns.",
       ],
       techChips: ["React", "Next.js", "TypeScript", "Vitest", "Jest", "Playwright"],
-      emphasis: "core",
     },
     {
       id: "platform",
@@ -53,7 +50,6 @@ export const homeCopy = {
         "Delivered Stripe and Salesforce integrations while expanding Mixpanel and Sentry instrumentation to reduce recurring production issues.",
       ],
       techChips: ["FastAPI", "Express", "AWS Lambda", "DynamoDB", "SAML/OIDC", "Mixpanel", "Sentry"],
-      emphasis: "core",
     },
     {
       id: "ai",
@@ -65,7 +61,6 @@ export const homeCopy = {
         "Defined reusable AI standards (spec.md and agent.md) plus automations for Sentry triage, PR readiness, and docs updates.",
       ],
       techChips: ["Codex", "Claude Code", "MCP Servers", "ChatGPT Integrations", "AI Standards"],
-      emphasis: "ai",
     },
   ],
   experience: {
@@ -87,7 +82,6 @@ export const homeCopy = {
           "Shared technical context through documentation, AI tooling presentations, and onboarding support while driving standards automation for sustainable team velocity.",
         ],
         period: "2022 - Present",
-        monogram: "LL",
         techChips: ["Next.js", "React", "Python", "FastAPI", "AWS", "Lambda", "DynamoDB", "Sentry"],
         current: true,
       },
@@ -101,7 +95,6 @@ export const homeCopy = {
           "Managed release cycles end-to-end, coordinating stakeholders, deployment, and post-release monitoring.",
         ],
         period: "Dec 2021 - Feb 2023",
-        monogram: "RR",
         techChips: ["Angular", "React", "Next.js", "React Native"],
         current: false,
       },
@@ -115,7 +108,6 @@ export const homeCopy = {
           "Integrated analytics and CMS workflows so product teams could iterate on content without engineering bottlenecks.",
         ],
         period: "Oct 2019 - Dec 2021",
-        monogram: "OD",
         techChips: ["React", "GatsbyJS", "SEO", "GDPR"],
         current: false,
       },
@@ -129,7 +121,6 @@ export const homeCopy = {
           "Built dashboard and hardware integration features that streamlined onboarding and store-side operations.",
         ],
         period: "May 2016 - Oct 2019",
-        monogram: "WM",
         techChips: ["React", "Meteor", "Node.js", "Data Visualization"],
         current: false,
       },
@@ -145,21 +136,21 @@ export const homeCopy = {
       {
         title: "Websites",
         description:
-          "Launch marketing pages that are fast, clear, and easy to update.",
+          "Conversion-focused marketing sites that feel premium, load fast, and are easy to manage.",
         price: "Starting at $1,500",
         icon: "🌐",
       },
       {
         title: "Web Applications",
         description:
-          "Build internal tools that are fast, clear, and easy to use.",
+          "Custom internal or customer apps built around how your team actually works.",
         price: "Starting at $3,000",
         icon: "⚡",
       },
       {
         title: "AI-Powered Tools",
         description:
-          "Deploy AI workflows that are fast, clear, and easy to adopt.",
+          "Practical AI workflows integrated into your existing operations without brittle complexity.",
         price: "Custom pricing",
         icon: "🤖",
       },

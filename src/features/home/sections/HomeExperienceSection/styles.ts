@@ -23,7 +23,6 @@ export const entryActive = "bg-surface shadow-md motion-safe:animate-[timeline-e
 export const entryBorderActive = "border-l-transparent before:opacity-100 before:[clip-path:circle(180%_at_0px_0px)]";
 export const entryHeader = "mb-4";
 export const metaRow = "mb-2 flex items-center gap-3 text-sm text-content-faint";
-export const monogram = "font-mono text-xs font-semibold uppercase tracking-wider text-brand-strong";
 export const roleHeader = "mb-2 flex flex-wrap items-center gap-2";
 export const company = "text-2xl font-bold text-content";
 export const badge = "rounded-full bg-brand-soft px-2 py-0.5 text-xs font-medium text-brand-strong";

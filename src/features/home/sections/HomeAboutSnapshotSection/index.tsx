@@ -80,11 +80,6 @@ export function HomeAboutSnapshotSection() {
                               <p className={styles.cardIndex}>{String(index + 1).padStart(2, "0")}</p>
                               <div className={styles.cardTitleRow}>
                                 <h3 className={styles.cardTitle}>{capability.title}</h3>
-                                {capability.emphasis === "ai" && (
-                                  <span className={styles.emphasisBadge}>
-                                    {homeCopy.aboutSnapshot.aiFocusLabel}
-                                  </span>
-                                )}
                               </div>
                             </div>
                           </header>

@@ -1,6 +1,10 @@
 @import "tailwindcss";
 
 :root {
+  /* The site ships a single light theme; declare it so browsers don't
+     auto-darken form controls/scrollbars for dark-preference users. */
+  color-scheme: light;
+
   /* Primary - Emerald Tech */
   --color-primary-50: #ecfdf5;
   --color-primary-100: #d1fae5;

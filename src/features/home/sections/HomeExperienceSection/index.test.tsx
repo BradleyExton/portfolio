@@ -55,11 +55,10 @@ describe("HomeExperienceSection", () => {
     expect(list.querySelectorAll(":scope > li")).toHaveLength(homeCopy.experience.items.length);
   });
 
-  it("renders monograms, highlights, and technology chips for each role", () => {
+  it("renders highlights and technology chips for each role", () => {
     render(<HomeExperienceSection />);
 
     homeCopy.experience.items.forEach((job) => {
-      expect(screen.getByText(job.monogram)).toBeInTheDocument();
       job.highlights.forEach((highlight) => {
         expect(screen.getAllByText(highlight).length).toBeGreaterThan(0);
       });
