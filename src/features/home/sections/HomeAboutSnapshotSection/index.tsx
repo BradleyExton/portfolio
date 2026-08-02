@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { homeCopy } from "@/copy/home";
-import { ActionLink, ArrowRightIcon, SectionIntro, cn } from "@/features/shared/designSystem";
+import { ActionLink, ArrowRightIcon, CheckCircleIcon, SectionIntro, cn } from "@/features/shared/designSystem";
 import type { WhatIDoCapability } from "./types";
 import {
   getCapabilityIllustrationSrc,
@@ -76,19 +76,18 @@ export function HomeAboutSnapshotSection() {
                           )}
                         >
                           <header className={styles.cardHeader}>
-                            <div className={styles.cardHeadingGroup}>
-                              <p className={styles.cardIndex}>{String(index + 1).padStart(2, "0")}</p>
-                              <div className={styles.cardTitleRow}>
-                                <h3 className={styles.cardTitle}>{capability.title}</h3>
-                              </div>
-                            </div>
+                            <p aria-hidden="true" className={styles.cardIndex}>{String(index + 1).padStart(2, "0")}</p>
+                            <h3 className={styles.cardTitle}>{capability.title}</h3>
                           </header>
 
                           <p className={styles.cardOutcome}>{capability.outcome}</p>
 
                           <ul className={styles.proofList} aria-label={`${capability.title} proof points`}>
                             {capability.proofPoints.map((proofPoint) => (
-                              <li key={`${capability.id}-${proofPoint}`} className={styles.proofItem}>{proofPoint}</li>
+                              <li key={`${capability.id}-${proofPoint}`} className={styles.proofItem}>
+                                <CheckCircleIcon className={styles.proofIcon} />
+                                <span>{proofPoint}</span>
+                              </li>
                             ))}
                           </ul>
 

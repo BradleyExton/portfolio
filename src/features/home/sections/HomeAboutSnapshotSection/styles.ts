@@ -17,21 +17,20 @@ export const stackedCardItem = "[--index0:calc(var(--index)-1)] [z-index:var(--i
 // min-h instead of a fixed height below xl: text-only cards grow with their
 // content, so a clamp that undershoots can't clip chips under the next card.
 export const stackedCard = "min-h-[var(--card-height)] overflow-visible xl:h-[var(--card-height)]";
-export const cardSurface = "relative h-full rounded-2xl border border-border-default bg-surface p-5 shadow-sm transition-[transform,box-shadow] duration-300 motion-reduce:transition-none data-[active=true]:shadow-xl md:p-6";
-export const cardLayout = "grid h-full gap-4 md:gap-5 lg:gap-6 xl:grid-cols-[minmax(0,45%)_minmax(0,55%)] xl:items-center";
+export const cardSurface = "relative h-full rounded-2xl border border-border-default bg-surface p-5 shadow-sm transition-[transform,box-shadow,border-color] duration-300 motion-reduce:transition-none data-[active=true]:border-brand-tint data-[active=true]:shadow-xl md:p-6 xl:p-8";
+export const cardLayout = "grid h-full gap-4 md:gap-5 lg:gap-6 xl:grid-cols-[minmax(0,45%)_minmax(0,55%)] xl:items-center xl:gap-8";
 export const cardContentColumn = "flex h-full min-w-0 flex-col";
 export const cardContentColumnDesktopSwap = "xl:order-2";
-export const cardHeader = "mb-4";
-export const cardHeadingGroup = "min-w-0 flex-1";
-export const cardIndex = `${typeScale.metaLabel} text-brand`;
-export const cardTitleRow = "mt-1 flex flex-wrap items-center gap-2.5";
-export const cardTitle = `${typeScale.cardTitle} text-xl leading-tight md:text-2xl`;
+export const cardHeader = "mb-4 flex items-center gap-3 border-b border-border-subtle pb-4";
+export const cardIndex = "inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-brand-tint bg-brand-weak text-sm font-bold text-brand font-[family-name:var(--font-space-grotesk)]";
+export const cardTitle = `${typeScale.cardTitle} mb-0 min-w-0 text-xl leading-tight md:text-2xl`;
 export const cardOutcome = "mb-4 text-base leading-relaxed text-content-muted";
-export const illustrationPanel = "relative aspect-[16/9] w-full min-h-[17rem] overflow-hidden rounded-xl";
+export const illustrationPanel = "relative aspect-[16/9] w-full min-h-[17rem] overflow-hidden rounded-xl border border-border-subtle bg-gradient-to-br from-brand-weak/60 via-surface to-surface-muted";
 export const illustrationPanelDesktopSwap = "xl:order-1";
-export const illustrationImage = "object-contain object-center";
+export const illustrationImage = "object-contain object-center p-4 xl:p-5";
 
-export const proofList = "mb-4 space-y-2";
-export const proofItem = "relative pl-5 text-sm leading-relaxed text-content-muted before:absolute before:left-0 before:top-2 before:h-2 before:w-2 before:rounded-full before:bg-brand-tint sm:text-base";
-export const chipList = "mt-auto flex flex-wrap content-start gap-2.5 md:min-h-[4.5rem]";
-export const chip = "rounded-full border border-border-default bg-surface-muted px-3.5 py-1 text-sm font-medium text-content-muted";
+export const proofList = "mb-4 space-y-2.5";
+export const proofItem = "flex gap-2.5 text-sm leading-relaxed text-content-muted sm:text-base";
+export const proofIcon = "mt-0.5 h-4 w-4 shrink-0 text-brand sm:mt-1";
+export const chipList = "mt-auto flex flex-wrap content-start gap-2 md:min-h-[4.5rem]";
+export const chip = "rounded-full border border-border-default bg-surface-muted px-3 py-1 text-xs font-medium text-content-muted";
