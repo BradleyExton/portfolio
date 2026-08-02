@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   clamp01,
   computeTimelineProgress,
+  getStartYearShort,
   getViewportAnchorY,
 } from "./utils";
 
@@ -61,6 +62,12 @@ describe("HomeExperienceSection utils", () => {
         endY: 500,
       }),
     ).toBe(1);
+  });
+
+  it("extracts the short start year for the card watermark", () => {
+    expect(getStartYearShort("Dec 2021 - Feb 2023")).toBe("21");
+    expect(getStartYearShort("2022 - Present")).toBe("22");
+    expect(getStartYearShort("Present")).toBeNull();
   });
 
 });

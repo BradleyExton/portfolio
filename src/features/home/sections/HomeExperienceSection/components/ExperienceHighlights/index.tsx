@@ -4,21 +4,25 @@ import * as styles from "./styles";
 type ExperienceHighlightsProps = {
   company: string;
   highlights: readonly string[];
+  inverse?: boolean;
 };
 
 export function ExperienceHighlights({
   company,
   highlights,
+  inverse = false,
 }: ExperienceHighlightsProps) {
   const alwaysVisibleHighlights = highlights.slice(0, 2);
   const additionalHighlights = highlights.slice(2);
   const hasAdditionalHighlights = additionalHighlights.length > 0;
+  const highlightItemClassName = inverse ? styles.highlightItemCurrent : styles.highlightItem;
+  const summaryClassName = inverse ? styles.highlightsSummaryCurrent : styles.highlightsSummary;
 
   return (
     <>
       <ul className={styles.highlightsListMobile} aria-label={`${company} highlights`}>
         {alwaysVisibleHighlights.map((highlight) => (
-          <li key={`${company}-${highlight}`} className={styles.highlightItem}>
+          <li key={`${company}-${highlight}`} className={highlightItemClassName}>
             {highlight}
           </li>
         ))}
@@ -26,7 +30,7 @@ export function ExperienceHighlights({
 
       {hasAdditionalHighlights ? (
         <details className={styles.highlightsDetails}>
-          <summary className={styles.highlightsSummary}>
+          <summary className={summaryClassName}>
             <span className={styles.highlightsSummaryLabel}>
               <span className="closed-label">More highlights</span>
               <span className="open-label">Less highlights</span>
@@ -40,7 +44,7 @@ export function ExperienceHighlights({
                 aria-label={`${company} more highlights`}
               >
                 {additionalHighlights.map((highlight) => (
-                  <li key={`${company}-${highlight}`} className={styles.highlightItem}>
+                  <li key={`${company}-${highlight}`} className={highlightItemClassName}>
                     {highlight}
                   </li>
                 ))}
@@ -52,7 +56,7 @@ export function ExperienceHighlights({
 
       <ul className={styles.highlightsListDesktop} aria-label={`${company} highlights`}>
         {highlights.map((highlight) => (
-          <li key={`${company}-desktop-${highlight}`} className={styles.highlightItem}>
+          <li key={`${company}-desktop-${highlight}`} className={highlightItemClassName}>
             {highlight}
           </li>
         ))}

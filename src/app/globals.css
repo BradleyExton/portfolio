@@ -248,6 +248,40 @@ html {
   }
 }
 
+/* Registered so the conic angle interpolates; without @property support the
+   ring falls back to a static gradient at 0deg. */
+@property --wire-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes timeline-wire-spin {
+  to {
+    --wire-angle: 360deg;
+  }
+}
+
+@keyframes timeline-signal-travel {
+  0% {
+    top: -12%;
+    opacity: 0;
+  }
+
+  12% {
+    opacity: 1;
+  }
+
+  88% {
+    opacity: 1;
+  }
+
+  100% {
+    top: 112%;
+    opacity: 0;
+  }
+}
+
 @keyframes what-i-do-stack-scale {
   to {
     transform: scale(var(--target-scale));
@@ -287,6 +321,20 @@ html {
   .page-transition-enter {
     animation: page-enter 420ms cubic-bezier(0.22, 1, 0.36, 1);
     will-change: transform, opacity;
+  }
+
+  /* Ring-only mask for the timeline wire border. Hand-authored because the
+     mask shorthand resets mask-composite when utility ordering splits them. */
+  .timeline-wire-mask {
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+  }
+
+  @supports not ((mask-composite: exclude) or (-webkit-mask-composite: xor)) {
+    .timeline-wire-mask {
+      display: none;
+    }
   }
 
   .text-balance {
