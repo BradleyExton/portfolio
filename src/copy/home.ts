@@ -7,8 +7,8 @@ export const homeCopy = {
       suffix: "Full-Stack Engineer",
     },
     description:
-      "I'm Bradley — an engineer in Barrie, Ontario with 10+ years shipping production web applications. Today I build with AI agent teams: designing the skills, orchestration, and context engineering that let one engineer deliver like a full team.",
-    ctaPrimary: "View My Work",
+      "I'm Bradley — an engineer in Barrie, Ontario with 10+ years shipping production web applications. Today I build with AI agent teams: designing the agent skills, orchestration, and context engineering that let one engineer deliver like a full team.",
+    ctaPrimary: "See My Experience",
     ctaSecondary: "Get In Touch",
     yearsExperience: "10+",
     yearsExperienceLabel: "Years Exp.",
@@ -187,8 +187,8 @@ export const homeCopy = {
     "React",
     "Next.js",
     "TypeScript",
-    "Node.js",
     "Python",
-    "Tailwind CSS",
+    "Claude Code",
+    "MCP Servers",
   ],
 } as const;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { homeCopy } from "@/copy/home";
@@ -48,11 +48,23 @@ function TechPillIcon({ tech }: { tech: HeroTechPill }) {
     );
   }
 
-  if (tech === "Node.js") {
+  if (tech === "Claude Code") {
     return (
       <svg viewBox="0 0 24 24" aria-hidden="true" className={styles.techIcon}>
-        <path d="M12 2.5L20 7V17L12 21.5L4 17V7L12 2.5Z" fill="none" stroke="currentColor" strokeWidth="1.8" />
-        <text x="12" y="15.35" fill="currentColor" fontSize="8.5" fontWeight="800" textAnchor="middle">N</text>
+        <rect x="2.75" y="4.25" width="18.5" height="15.5" rx="2.5" fill="none" stroke="currentColor" strokeWidth="1.8" />
+        <path d="M6.75 9.5L9.75 12L6.75 14.5" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" />
+        <path d="M12.25 15H16.75" fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="1.8" />
+      </svg>
+    );
+  }
+
+  if (tech === "MCP Servers") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true" className={styles.techIcon}>
+        <rect x="3.25" y="4.25" width="17.5" height="6.5" rx="1.75" fill="none" stroke="currentColor" strokeWidth="1.8" />
+        <rect x="3.25" y="13.25" width="17.5" height="6.5" rx="1.75" fill="none" stroke="currentColor" strokeWidth="1.8" />
+        <circle cx="7" cy="7.5" r="1" fill="currentColor" />
+        <circle cx="7" cy="16.5" r="1" fill="currentColor" />
       </svg>
     );
   }
@@ -67,17 +79,6 @@ function TechPillIcon({ tech }: { tech: HeroTechPill }) {
         <path
           fill="currentColor"
           d="M12.087 24c6.092 0 5.712-2.656 5.712-2.656l-.007-2.752h-5.814v-.826h8.123s3.9.445 3.9-5.735c0-6.18-3.404-5.96-3.404-5.96h-2.03v2.867s.109 3.42-3.35 3.42H9.451s-3.24-.052-3.24 3.148v5.292S5.72 24 12.087 24zm3.206-1.85c-.579 0-1.046-.47-1.046-1.052 0-.581.467-1.051 1.046-1.051.578 0 1.046.47 1.046 1.051 0 .582-.468 1.052-1.046 1.052z"
-        />
-      </svg>
-    );
-  }
-
-  if (tech === "Tailwind CSS") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true" className={styles.techIcon}>
-        <path
-          fill="currentColor"
-          d="M12 6c-2.67 0-4.33 1.33-5 4 1-1.33 2.17-1.83 3.5-1.5.76.19 1.31.74 1.91 1.35.98.98 2.11 2.15 4.59 2.15 2.67 0 4.33-1.33 5-4-1 1.33-2.17 1.83-3.5 1.5-.76-.19-1.31-.74-1.91-1.35C15.61 7.17 14.48 6 12 6zM7 12c-2.67 0-4.33 1.33-5 4 1-1.33 2.17-1.83 3.5-1.5.76.19 1.31.74 1.91 1.35.98.98 2.11 2.15 4.59 2.15 2.67 0 4.33-1.33 5-4-1 1.33-2.17 1.83-3.5 1.5-.76-.19-1.31-.74-1.91-1.35C10.61 13.17 9.48 12 7 12z"
         />
       </svg>
     );
@@ -193,7 +194,7 @@ export function HomeHeroSection() {
         <div className={styles.grid}>
           <div
             ref={contentLayerRef}
-            className={`${styles.textColumn} ${styles.visibleState}`}
+            className={styles.textColumn}
           >
             <div className={styles.row}>
               <span className={styles.badge} />
@@ -205,7 +206,16 @@ export function HomeHeroSection() {
               <span className={styles.labelText}>
                 {homeCopy.hero.heading.highlight}
               </span>{" "}
-              {homeCopy.hero.heading.suffix}
+              {homeCopy.hero.heading.suffix.split(" ").map((word, index) => (
+                <Fragment key={word}>
+                  {index > 0 && " "}
+                  {word.includes("-") ? (
+                    <span className={styles.nowrapWord}>{word}</span>
+                  ) : (
+                    word
+                  )}
+                </Fragment>
+              ))}
             </h1>
 
             <p className={styles.description}>
@@ -232,7 +242,7 @@ export function HomeHeroSection() {
 
         <div
           ref={pillsLayerRef}
-          className={`${styles.techPillsRow} ${styles.visibleState}`}
+          className={styles.techPillsRow}
         >
           {homeCopy.techStackPills.map((tech) => (
             <span
