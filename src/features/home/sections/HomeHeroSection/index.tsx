@@ -195,11 +195,6 @@ export function HomeHeroSection() {
             ref={contentLayerRef}
             className={`${styles.textColumn} ${styles.visibleState}`}
           >
-            <div className={styles.row}>
-              <span className={styles.badge} />
-              {homeCopy.hero.badge}
-            </div>
-
             <h1 className={styles.title}>
               {homeCopy.hero.heading.prefix && `${homeCopy.hero.heading.prefix} `}
               <span className={styles.labelText}>

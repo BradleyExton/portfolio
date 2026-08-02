@@ -9,10 +9,6 @@ export function AboutHeroSection() {
       <div className={styles.container}>
         <ScrollReveal>
           <div className={styles.content}>
-            <p className={styles.badgeRow}>
-              <span className={styles.badgeDot} />
-              {aboutCopy.hero.badge}
-            </p>
             <h1 className={styles.title}>
               {aboutCopy.hero.heading}
             </h1>

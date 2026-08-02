@@ -6,9 +6,6 @@ export const commonCopy = {
     bookCall: "Book a Call",
     viewLinkedIn: "View LinkedIn",
   },
-  status: {
-    available: "Available for opportunities",
-  },
   legal: {
     allRightsReserved: "All rights reserved.",
   },

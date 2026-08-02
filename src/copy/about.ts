@@ -1,6 +1,5 @@
 export const aboutCopy = {
   hero: {
-    badge: "Available for opportunities",
     heading: "About Me",
     description:
       "I'm an AI-native full-stack engineer based in Barrie, Ontario. I've spent 10+ years building web applications at companies from early-stage startups to established tech platforms — and the last year rebuilding how I work around AI agents.",

@@ -1,6 +1,5 @@
 export const homeCopy = {
   hero: {
-    badge: "Available for opportunities",
     heading: {
       prefix: "",
       highlight: "AI-Native",
