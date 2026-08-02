@@ -3,9 +3,9 @@ export const aboutCopy = {
     badge: "Available for opportunities",
     heading: "About Me",
     description:
-      "I'm a senior full-stack developer based in Barrie, Ontario. I've spent the last 9+ years building web applications at companies ranging from early-stage startups to established tech platforms.",
+      "I'm a senior full-stack developer based in Barrie, Ontario. I've spent the last 10+ years building web applications at companies ranging from early-stage startups to established tech platforms.",
     highlights: [
-      "9+ years experience",
+      "10+ years experience",
       "Barrie, Ontario",
       "Full-stack delivery",
     ],

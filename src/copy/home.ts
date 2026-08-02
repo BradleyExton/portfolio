@@ -2,15 +2,15 @@ export const homeCopy = {
   hero: {
     badge: "Available for opportunities",
     heading: {
-      prefix: "Senior",
+      prefix: "AI-Native",
       highlight: "Full-Stack",
-      suffix: "Developer",
+      suffix: "Engineer",
     },
     description:
-      "I'm Bradley — a developer based in Barrie, Ontario with 9+ years of experience building web applications, from early-stage startups to scale-ups. I specialize in React, Node.js, and modern JavaScript.",
+      "I'm Bradley — an engineer in Barrie, Ontario with 10+ years shipping production web applications. Today I build with AI agent teams: designing the skills, orchestration, and context engineering that let one engineer deliver like a full team.",
     ctaPrimary: "View My Work",
     ctaSecondary: "Get In Touch",
-    yearsExperience: "9+",
+    yearsExperience: "10+",
     yearsExperienceLabel: "Years Exp.",
   },
   aboutSnapshot: {

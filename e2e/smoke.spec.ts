@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 test("primary routes render", async ({ page }) => {
   await page.goto("/");
   await expect(
-    page.getByRole("heading", { level: 1, name: "Senior Full-Stack Developer" }),
+    page.getByRole("heading", { level: 1, name: "AI-Native Full-Stack Engineer" }),
   ).toBeVisible();
 
   await page.goto("/about");
