@@ -1,4 +1,5 @@
 <svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg" role="img">
+<style>.lift{animation:lift 4s ease-in-out infinite}.tw1{animation:tw 2.4s ease-in-out infinite}.tw2{animation:tw 2.4s ease-in-out -1.2s infinite}@keyframes lift{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}@keyframes tw{0%,100%{opacity:.3}50%{opacity:1}}@media (prefers-reduced-motion:reduce){.lift,.tw1,.tw2{animation:none}}</style>
 <g transform="translate(268,34)">
 <polygon points="0,-14 294.4,156 112.6,261 -181.9,91" fill="#ecfdf5"/><polygon points="-181.9,91 -181.9,105 112.6,275 112.6,261" fill="#d1fae5"/><polygon points="294.4,156 294.4,170 112.6,275 112.6,261" fill="#a7f3d0"/>
 <polygon points="34.6,30 102.2,69 -38.1,150 -105.7,111" fill="#d1fae5"/>
@@ -9,13 +10,13 @@
 <polygon points="187.1,118 254.6,157 240.8,165 173.2,126" fill="#34d399"/>
 <polygon points="19.1,45 57.2,67 19.1,89 -19.1,67" fill="#ffffff"/><polygon points="-19.1,67 -19.1,75 19.1,97 19.1,89" fill="#e0eae5"/><polygon points="57.2,67 57.2,75 19.1,97 19.1,89" fill="#c9d8d0"/>
 <polygon points="-26,77 12.1,99 -26,121 -64.1,99" fill="#ffffff"/><polygon points="-64.1,99 -64.1,107 -26,129 -26,121" fill="#e0eae5"/><polygon points="12.1,99 12.1,107 -26,129 -26,121" fill="#c9d8d0"/>
-<polygon points="76.2,94 117.8,118 76.2,142 34.6,118" fill="#fbbf24"/><polygon points="34.6,118 34.6,130 76.2,154 76.2,142" fill="#f59e0b"/><polygon points="117.8,118 117.8,130 76.2,154 76.2,142" fill="#d97706"/>
+<g class="lift"><polygon points="76.2,94 117.8,118 76.2,142 34.6,118" fill="#fbbf24"/><polygon points="34.6,118 34.6,130 76.2,154 76.2,142" fill="#f59e0b"/><polygon points="117.8,118 117.8,130 76.2,154 76.2,142" fill="#d97706"/></g>
 <polygon points="27.7,134 62.4,154 27.7,174 -6.9,154" fill="#ffffff"/><polygon points="-6.9,154 -6.9,162 27.7,182 27.7,174" fill="#e0eae5"/><polygon points="62.4,154 62.4,162 27.7,182 27.7,174" fill="#c9d8d0"/>
 <polygon points="168,133 209.6,157 168,181 126.4,157" fill="#10b981"/><polygon points="126.4,157 126.4,167 168,191 168,181" fill="#059669"/><polygon points="209.6,157 209.6,167 168,191 168,181" fill="#047857"/>
 <ellipse cx="168" cy="157" rx="17" ry="9.8" fill="#047857"/><ellipse cx="168" cy="149" rx="17" ry="9.8" fill="#059669"/><path d="M157 149l7 5 14-11" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 <polygon points="109.1,163 147.2,185 109.1,207 71,185" fill="#6ee7b7"/><polygon points="71,185 71,195 109.1,217 109.1,207" fill="#34d399"/><polygon points="147.2,185 147.2,195 109.1,217 109.1,207" fill="#10b981"/>
-<polygon points="0,0 8.7,5 0,10 -8.7,5" transform="translate(-24,66)" fill="#6ee7b7"/>
-<polygon points="0,0 8.7,5 0,10 -8.7,5" transform="translate(-10,74)" fill="#6ee7b7"/>
+<polygon points="0,0 8.7,5 0,10 -8.7,5" transform="translate(-24,66)" fill="#6ee7b7" class="tw1"/>
+<polygon points="0,0 8.7,5 0,10 -8.7,5" transform="translate(-10,74)" fill="#6ee7b7" class="tw2"/>
 <polygon points="-145.5,-30 -50.2,25 -57.2,29 -152.4,-26" fill="#f1f6f3"/><polygon points="-50.2,25 -57.2,29 -57.2,147 -50.2,143" fill="#e0eae5"/><g transform="matrix(0.866,0.5,0,1,-152.4,92)"><rect x="0" y="-118" width="110" height="118" rx="4" fill="#f8faf9"/><rect x="12" y="-104" width="48" height="11" rx="5" fill="#10b981"/><rect x="12" y="-80" width="86" height="7" rx="3.5" fill="#c9d8d0"/><rect x="12" y="-66" width="68" height="7" rx="3.5" fill="#c9d8d0"/><rect x="12" y="-52" width="78" height="7" rx="3.5" fill="#c9d8d0"/><rect x="12" y="-34" width="10" height="10" rx="3" fill="#10b981"/><rect x="28" y="-32" width="40" height="7" rx="3.5" fill="#c9d8d0"/></g>
 <polygon points="0,0 13,7.5 0,15 -13,7.5" transform="translate(240,10)" fill="#6ee7b7"/>
 <polygon points="0,0 13,7.5 0,15 -13,7.5" transform="translate(-160,40)" fill="#a7f3d0"/>

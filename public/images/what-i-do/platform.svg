@@ -1,4 +1,5 @@
 <svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg" role="img">
+<style>.pulse{animation:pulse 2.8s linear infinite}.bob{animation:bob 3.6s ease-in-out infinite}@keyframes pulse{0%{transform:translate(0,0);opacity:0}12%{opacity:1}88%{opacity:1}100%{transform:translate(44px,25px);opacity:0}}@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}@media (prefers-reduced-motion:reduce){.pulse{animation:none;opacity:0}.bob{animation:none}}</style>
 <g transform="translate(268,34)">
 <polygon points="0,-14 294.4,156 112.6,261 -181.9,91" fill="#ecfdf5"/><polygon points="-181.9,91 -181.9,105 112.6,275 112.6,261" fill="#d1fae5"/><polygon points="294.4,156 294.4,170 112.6,275 112.6,261" fill="#a7f3d0"/>
 <polygon points="-28.6,80.5 21.7,109.5 16.5,112.5 -33.8,83.5" fill="#a7f3d0"/>
@@ -7,6 +8,7 @@
 <polygon points="32.9,147 38.1,150 15.6,163 10.4,160" fill="#a7f3d0"/>
 <polygon points="15.6,163 41.6,178 36.4,181 10.4,166" fill="#a7f3d0"/>
 <polygon points="3.5,130 8.7,133 -20.8,150 -26,147" fill="#a7f3d0"/>
+<g transform="translate(-28,81)"><polygon points="0,0 6,3.5 0,6.9 -6,3.5" fill="#34d399" class="pulse"/></g>
 <ellipse cx="-32.9" cy="149" rx="26" ry="15" fill="#c9d8d0"/>
 <ellipse cx="-32.9" cy="140" rx="26" ry="15" fill="#e0eae5"/>
 <ellipse cx="-32.9" cy="131" rx="26" ry="15" fill="#f8faf9"/>
@@ -18,7 +20,7 @@
 <polygon points="131.6,174 145.5,182 131.6,190 117.8,182" fill="#ffffff"/><polygon points="117.8,182 117.8,198 131.6,206 131.6,190" fill="#e0eae5"/><polygon points="145.5,182 145.5,198 131.6,206 131.6,190" fill="#c9d8d0"/>
 <polygon points="149,170 162.8,178 149,186 135.1,178" fill="#6ee7b7"/><polygon points="135.1,178 135.1,208 149,216 149,186" fill="#34d399"/><polygon points="162.8,178 162.8,208 149,216 149,186" fill="#10b981"/>
 <polygon points="166.3,164 180.1,172 166.3,180 152.4,172" fill="#10b981"/><polygon points="152.4,172 152.4,218 166.3,226 166.3,180" fill="#059669"/><polygon points="180.1,172 180.1,218 166.3,226 166.3,180" fill="#047857"/>
-<polygon points="0,0 10,5.8 0,11.5 -10,5.8" transform="translate(48,78)" fill="#6ee7b7"/>
+<g transform="translate(48,78)"><polygon points="0,0 10,5.8 0,11.5 -10,5.8" fill="#6ee7b7" class="bob"/></g>
 <polygon points="0,0 13,7.5 0,15 -13,7.5" transform="translate(-160,60)" fill="#a7f3d0"/>
 </g>
 </svg>

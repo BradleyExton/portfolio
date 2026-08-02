@@ -1,4 +1,5 @@
 <svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg" role="img">
+<style>.cur{animation:blink 1.2s steps(1) infinite}.bob{animation:bob 3.4s ease-in-out infinite}.tw1{animation:tw 2.6s ease-in-out infinite}.tw2{animation:tw 2.6s ease-in-out -1.3s infinite}@keyframes blink{0%,55%{opacity:1}56%,100%{opacity:0}}@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}@keyframes tw{0%,100%{opacity:.25}50%{opacity:1}}@media (prefers-reduced-motion:reduce){.cur,.bob,.tw1,.tw2{animation:none}}</style>
 <g transform="translate(268,50)">
 <polygon points="0,-14 294.4,156 112.6,261 -181.9,91" fill="#ecfdf5"/><polygon points="-181.9,91 -181.9,105 112.6,275 112.6,261" fill="#d1fae5"/><polygon points="294.4,156 294.4,170 112.6,275 112.6,261" fill="#a7f3d0"/>
 <polygon points="53.7,81 58.9,84 22.5,105 17.3,102" fill="#a7f3d0"/>
@@ -8,7 +9,7 @@
 <polygon points="178.4,155 200.9,168 195.7,171 173.2,158" fill="#a7f3d0"/>
 <polygon points="117.8,184 123,187 76.2,214 71,211" fill="#a7f3d0"/>
 <polygon points="81.4,211 103.9,224 98.7,227 76.2,214" fill="#a7f3d0"/>
-<polygon points="-31.2,-58 69.3,0 62.4,4 -38.1,-54" fill="#f1f6f3"/><polygon points="69.3,0 62.4,4 62.4,96 69.3,92" fill="#e0eae5"/><g transform="matrix(0.866,0.5,0,1,-38.1,38)"><rect x="0" y="-92" width="116" height="92" rx="4" fill="#064e3b"/><rect x="10" y="-76" width="48" height="7" rx="3.5" fill="#34d399"/><rect x="10" y="-60" width="64" height="7" rx="3.5" fill="#a7f3d0"/><rect x="10" y="-44" width="40" height="7" rx="3.5" fill="#6ee7b7"/><rect x="10" y="-24" width="56" height="9" rx="4.5" fill="#ecfdf5"/><rect x="72" y="-24" width="8" height="9" rx="2" fill="#34d399"/></g>
+<polygon points="-31.2,-58 69.3,0 62.4,4 -38.1,-54" fill="#f1f6f3"/><polygon points="69.3,0 62.4,4 62.4,96 69.3,92" fill="#e0eae5"/><g transform="matrix(0.866,0.5,0,1,-38.1,38)"><rect x="0" y="-92" width="116" height="92" rx="4" fill="#064e3b"/><rect x="10" y="-76" width="48" height="7" rx="3.5" fill="#34d399"/><rect x="10" y="-60" width="64" height="7" rx="3.5" fill="#a7f3d0"/><rect x="10" y="-44" width="40" height="7" rx="3.5" fill="#6ee7b7"/><rect x="10" y="-24" width="56" height="9" rx="4.5" fill="#ecfdf5"/><rect x="72" y="-24" width="8" height="9" rx="2" fill="#34d399" class="cur"/></g>
 <polygon points="-74.5,93 -55.4,104 -74.5,115 -93.5,104" fill="#d1fae5"/>
 <polygon points="-67.5,123 -55.4,130 -67.5,137 -79.7,130" fill="#d1fae5"/>
 <polygon points="12.1,85 46.8,105 12.1,125 -22.5,105" fill="#ffffff"/><polygon points="-22.5,105 -22.5,115 12.1,135 12.1,125" fill="#e0eae5"/><polygon points="46.8,105 46.8,115 12.1,135 12.1,125" fill="#c9d8d0"/>
@@ -18,9 +19,9 @@
 <polygon points="213.9,150.5 245.1,168.5 213.9,186.5 182.7,168.5" fill="#6ee7b7"/><polygon points="182.7,168.5 182.7,178.5 213.9,196.5 213.9,186.5" fill="#34d399"/><polygon points="245.1,168.5 245.1,178.5 213.9,196.5 213.9,186.5" fill="#10b981"/>
 <polygon points="167.1,181.5 198.3,199.5 167.1,217.5 136,199.5" fill="#6ee7b7"/><polygon points="136,199.5 136,209.5 167.1,227.5 167.1,217.5" fill="#34d399"/><polygon points="198.3,199.5 198.3,209.5 167.1,227.5 167.1,217.5" fill="#10b981"/>
 <polygon points="118.6,207.5 149.8,225.5 118.6,243.5 87.5,225.5" fill="#6ee7b7"/><polygon points="87.5,225.5 87.5,235.5 118.6,253.5 118.6,243.5" fill="#34d399"/><polygon points="149.8,225.5 149.8,235.5 118.6,253.5 118.6,243.5" fill="#10b981"/>
-<polygon points="0,0 12,6.9 0,13.8 -12,6.9" transform="translate(92,96)" fill="#fbbf24"/>
-<polygon points="0,0 6,3.5 0,6.9 -6,3.5" transform="translate(118,118)" fill="#6ee7b7"/>
-<polygon points="0,0 5,2.9 0,5.8 -5,2.9" transform="translate(70,116)" fill="#6ee7b7"/>
+<g transform="translate(92,96)"><polygon points="0,0 12,6.9 0,13.8 -12,6.9" fill="#fbbf24" class="bob"/></g>
+<polygon points="0,0 6,3.5 0,6.9 -6,3.5" transform="translate(118,118)" fill="#6ee7b7" class="tw1"/>
+<polygon points="0,0 5,2.9 0,5.8 -5,2.9" transform="translate(70,116)" fill="#6ee7b7" class="tw2"/>
 <polygon points="0,0 13,7.5 0,15 -13,7.5" transform="translate(-160,40)" fill="#a7f3d0"/>
 <polygon points="0,0 13,7.5 0,15 -13,7.5" transform="translate(244,8)" fill="#6ee7b7"/>
 </g>
