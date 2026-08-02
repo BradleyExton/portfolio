@@ -7,7 +7,7 @@ import type {
 const titleToServiceKey: Record<string, ServiceKey> = {
   Websites: "websites",
   "Web Applications": "webApps",
-  "AI-Powered Tools": "aiTools",
+  "AI Workflows": "aiTools",
 };
 
 const detailsByServiceKey: Record<

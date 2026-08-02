@@ -21,6 +21,17 @@ export const homeCopy = {
   },
   whatIDoCapabilities: [
     {
+      id: "ai",
+      title: "AI Workflow & Automation",
+      outcome:
+        "Implement practical AI workflows that accelerate delivery without lowering quality. Recent stack: Codex, Claude Code, MCP Servers, and ChatGPT Integrations.",
+      proofPoints: [
+        "Built custom agent and MCP workflows for engineering and business-facing tasks that speed delivery.",
+        "Defined reusable AI standards (spec.md and agent.md) plus automations for Sentry triage, PR readiness, and docs updates.",
+      ],
+      techChips: ["Codex", "Claude Code", "MCP Servers", "ChatGPT Integrations", "AI Standards"],
+    },
+    {
       id: "delivery",
       title: "Product Delivery & Leadership",
       outcome: "Turn ambiguous goals into shippable plans teams can execute with confidence.",
@@ -49,17 +60,6 @@ export const homeCopy = {
         "Delivered Stripe and Salesforce integrations while expanding Mixpanel and Sentry instrumentation to reduce recurring production issues.",
       ],
       techChips: ["FastAPI", "Express", "AWS Lambda", "DynamoDB", "SAML/OIDC", "Mixpanel", "Sentry"],
-    },
-    {
-      id: "ai",
-      title: "AI Workflow & Automation",
-      outcome:
-        "Implement practical AI workflows that accelerate delivery without lowering quality. Recent stack: Codex, Claude Code, MCP Servers, and ChatGPT Integrations.",
-      proofPoints: [
-        "Built custom agent and MCP workflows for engineering and business-facing tasks that speed delivery.",
-        "Defined reusable AI standards (spec.md and agent.md) plus automations for Sentry triage, PR readiness, and docs updates.",
-      ],
-      techChips: ["Codex", "Claude Code", "MCP Servers", "ChatGPT Integrations", "AI Standards"],
     },
   ],
   experience: {
@@ -133,6 +133,13 @@ export const homeCopy = {
     cta: "See all services",
     items: [
       {
+        title: "AI Workflows",
+        description:
+          "AI agents and automations wired into how your business already operates.",
+        price: "Custom pricing",
+        icon: "🤖",
+      },
+      {
         title: "Websites",
         description:
           "Conversion-focused marketing sites that feel premium, load fast, and are easy to manage.",
@@ -145,13 +152,6 @@ export const homeCopy = {
           "Custom internal or customer apps built around how your team actually works.",
         price: "Starting at $3,000",
         icon: "⚡",
-      },
-      {
-        title: "AI-Powered Tools",
-        description:
-          "Practical AI workflows integrated into your existing operations without brittle complexity.",
-        price: "Custom pricing",
-        icon: "🤖",
       },
     ],
   },

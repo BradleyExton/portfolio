@@ -19,6 +19,37 @@ export const servicesCopy = {
   },
   services: [
     {
+      id: "ai-tools",
+      title: "AI Workflows & Integrations",
+      description:
+        "AI agents and automations wired into how your business already operates — built by an engineer who ships with them every day.",
+      outcome:
+        "Hand repetitive work to reliable automations and speed up decisions with AI that's safe, observable, and yours.",
+      price: "Custom pricing",
+      timeline: "3-6 weeks",
+      illustration: {
+        src: "/images/services/ai-tools-illustration.svg",
+        alt: "Abstract illustration representing AI workflows and integrations",
+      },
+      deliverables: [
+        "Use-case mapping and ROI prioritization",
+        "Workflow automation and AI orchestration",
+        "Internal assistants or chat interfaces",
+        "Integrations with existing systems",
+        "Guardrails, monitoring, and fallback flows",
+      ],
+      stack: [
+        "Claude & OpenAI APIs",
+        "Agent orchestration",
+        "MCP servers",
+        "Observability tooling",
+      ],
+      bestFor:
+        "Teams with repetitive manual workflows, fragmented tools, or support-heavy processes that need smarter automation.",
+      proof:
+        "I ship production software with AI agent teams daily — the same guardrails, review gates, and observability go into every workflow I hand off.",
+    },
+    {
       id: "websites",
       title: "Marketing Websites",
       description:
@@ -79,37 +110,6 @@ export const servicesCopy = {
         "Teams that have outgrown spreadsheets and patchwork SaaS workflows, and need software tailored to operations.",
       proof:
         "Clear scope boundaries, iterative delivery checkpoints, and maintainable architecture decisions.",
-    },
-    {
-      id: "ai-tools",
-      title: "AI Workflows & Integrations",
-      description:
-        "Practical AI workflows integrated into existing operations without brittle complexity.",
-      outcome:
-        "Automate repetitive execution and accelerate decision speed with safe, observable AI workflows.",
-      price: "Custom pricing",
-      timeline: "3-6 weeks",
-      illustration: {
-        src: "/images/services/ai-tools-illustration.svg",
-        alt: "Abstract illustration representing AI workflows and integrations",
-      },
-      deliverables: [
-        "Use-case mapping and ROI prioritization",
-        "Workflow automation and AI orchestration",
-        "Internal assistants or chat interfaces",
-        "Integrations with existing systems",
-        "Guardrails, monitoring, and fallback flows",
-      ],
-      stack: [
-        "OpenAI APIs",
-        "Agent workflows",
-        "MCP integrations",
-        "Observability tooling",
-      ],
-      bestFor:
-        "Teams with repetitive manual workflows, fragmented tools, or support-heavy processes that need smarter automation.",
-      proof:
-        "Production-minded integration patterns with clear guardrails, logging, and human override pathways.",
     },
   ],
   process: {
