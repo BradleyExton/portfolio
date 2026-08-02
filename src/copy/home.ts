@@ -6,7 +6,7 @@ export const homeCopy = {
       suffix: "Full-Stack Engineer",
     },
     description:
-      "I'm Bradley — an engineer in Barrie, Ontario with 10+ years shipping production web applications. Today I build with AI agent teams: designing the skills, orchestration, and context engineering that let one engineer deliver like a full team.",
+      "I'm Bradley, an engineer in Barrie, Ontario. I've shipped production web apps for 10 years. These days most of my code is written by AI agents I design and direct, and it lets me deliver like a full team.",
     ctaPrimary: "View My Work",
     ctaSecondary: "Get In Touch",
     yearsExperience: "10+",
@@ -195,7 +195,7 @@ export const homeCopy = {
       {
         id: 1,
         quote:
-          "Bradley built exactly what we needed — no fluff, no delays. Professional and efficient.",
+          "Bradley built exactly what we needed. No fluff, no delays. Professional and efficient.",
         name: "S. Patel",
         role: "Founder, Toronto Startup",
       },
@@ -211,7 +211,7 @@ export const homeCopy = {
   contactCta: {
     heading: "Let's Connect",
     description:
-      "Whether you're hiring, have a project in mind, or just want to chat about tech — I'd love to hear from you.",
+      "Hiring, or have a project in mind? Send me a note. I answer everything.",
     ctaPrimary: "Send Me an Email",
     ctaSecondary: "Book a Call",
   },

@@ -22,7 +22,7 @@ export const servicesCopy = {
       id: "ai-tools",
       title: "AI Workflows & Integrations",
       description:
-        "AI agents and automations wired into how your business already operates — built by an engineer who ships with them every day.",
+        "AI agents and automations wired into how your business already operates, built by an engineer who ships with them every day.",
       outcome:
         "Hand repetitive work to reliable automations and speed up decisions with AI that's safe, observable, and yours.",
       price: "Custom pricing",
@@ -47,7 +47,7 @@ export const servicesCopy = {
       bestFor:
         "Teams with repetitive manual workflows, fragmented tools, or support-heavy processes that need smarter automation.",
       proof:
-        "I ship production software with AI agent teams daily — the same guardrails, review gates, and observability go into every workflow I hand off.",
+        "I ship production software with AI agent teams daily. The same guardrails, review gates, and observability go into every workflow I hand off.",
     },
     {
       id: "websites",

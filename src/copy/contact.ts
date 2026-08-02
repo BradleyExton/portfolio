@@ -2,7 +2,7 @@ export const contactCopy = {
   hero: {
     heading: "Get In Touch",
     description:
-      "Whether you're hiring, have a project in mind, or just want to connect — I'd love to hear from you.",
+      "Hiring, or have a project in mind? Send me a note. I answer everything.",
   },
   options: {
     heading: "Choose your preferred channel",
