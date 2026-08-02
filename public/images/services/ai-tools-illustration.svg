@@ -7,7 +7,7 @@
 <polygon points="41.6,110 79.7,132 41.6,154 3.5,132" fill="#ffffff"/><polygon points="3.5,132 3.5,142 41.6,164 41.6,154" fill="#e0eae5"/><polygon points="79.7,132 79.7,142 41.6,164 41.6,154" fill="#c9d8d0"/>
 <polygon points="0,0 8.7,5 0,10 -8.7,5" transform="translate(76.2,139.7)" fill="#6ee7b7"/><polygon points="0,0 8.7,5 0,10 -8.7,5" transform="translate(91.8,145.3)" fill="#6ee7b7"/>
 <polygon points="124.7,138 166.3,162 124.7,186 83.1,162" fill="#10b981"/><polygon points="83.1,162 83.1,180 124.7,204 124.7,186" fill="#059669"/><polygon points="166.3,162 166.3,180 124.7,204 124.7,186" fill="#047857"/>
-<polygon points="0,0 15.6,9 0,18 -15.6,9" transform="translate(124,124)" fill="#fbbf24"/>
+<polygon points="0,0 15.6,9 0,18 -15.6,9" transform="translate(124,116)" fill="#fbbf24"/>
 <polygon points="0,0 9.5,5.5 0,11 -9.5,5.5" transform="translate(150,112)" fill="#6ee7b7"/>
 <polygon points="0,0 13,7.5 0,15 -13,7.5" transform="translate(-140,46)" fill="#a7f3d0"/>
 </g>
