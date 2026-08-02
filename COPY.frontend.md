@@ -65,6 +65,10 @@ export const experienceLabel = (params: { years: number }) =>
 
 ## 5) Tone and UX Writing
 
+Voice, vocabulary, and AI-tell rules live in `VOICE.frontend.md` (the voice contract). It is
+binding for all user-facing copy; `npm run lint:copy` enforces its mechanical tier and runs as
+part of `npm run verify`.
+
 - Tone: confident, clear, and practical.
 - Keep sentences concise and specific.
 - Prefer action-oriented labels (`Book a Call`, `Send Message`).

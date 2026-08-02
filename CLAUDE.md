@@ -13,6 +13,7 @@ Start with `STANDARDS.frontend.md`, then follow:
 - `AGENTS.frontend.md`
 - `DESIGN.frontend.md`
 - `COPY.frontend.md`
+- `VOICE.frontend.md` (voice contract for user-facing copy; enforced by `npm run lint:copy`)
 - `PR-CHECKLIST.frontend.md`
 
 ## Commands
