@@ -9,6 +9,7 @@ export function HomeContactCtaSection() {
       id="contact"
       className={styles.section}
     >
+      <div aria-hidden="true" className={styles.ambientGlow} />
       <div className={styles.container}>
         <h2 className={styles.heading}>
           {homeCopy.contactCta.heading}

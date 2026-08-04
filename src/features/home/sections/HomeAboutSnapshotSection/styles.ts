@@ -17,12 +17,12 @@ export const stackedCardItem = "[--index0:calc(var(--index)-1)] [z-index:var(--i
 // min-h instead of a fixed height below xl: text-only cards grow with their
 // content, so a clamp that undershoots can't clip chips under the next card.
 export const stackedCard = "min-h-[var(--card-height)] overflow-visible xl:h-[var(--card-height)]";
-export const cardSurface = "relative h-full rounded-2xl border border-border-default bg-surface p-5 shadow-sm transition-[transform,box-shadow,border-color] duration-300 motion-reduce:transition-none data-[active=true]:border-brand-tint data-[active=true]:shadow-xl md:p-6 xl:p-8";
+export const cardSurface = "group/card relative h-full rounded-2xl border border-border-default bg-surface p-5 shadow-sm transition-[transform,box-shadow,border-color] duration-300 motion-reduce:transition-none data-[active=true]:border-brand-tint data-[active=true]:shadow-xl md:p-6 xl:p-8";
 export const cardLayout = "grid h-full gap-4 md:gap-5 lg:gap-6 xl:grid-cols-[minmax(0,45%)_minmax(0,55%)] xl:items-center xl:gap-8";
 export const cardContentColumn = "flex h-full min-w-0 flex-col";
 export const cardContentColumnDesktopSwap = "xl:order-2";
 export const cardHeader = "mb-4 flex items-center gap-3 border-b border-border-subtle pb-4";
-export const cardIndex = "inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-brand-tint bg-brand-weak text-sm font-bold text-brand font-[family-name:var(--font-space-grotesk)]";
+export const cardIndex = "inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-brand-tint bg-brand-weak text-sm font-bold text-brand font-[family-name:var(--font-space-grotesk)] transition-colors duration-300 group-data-[active=true]/card:border-brand group-data-[active=true]/card:bg-brand group-data-[active=true]/card:text-content-inverse";
 export const cardTitle = `${typeScale.cardTitle} mb-0 min-w-0 text-xl leading-tight md:text-2xl`;
 export const cardOutcome = "mb-4 text-base leading-relaxed text-content-muted";
 export const illustrationPanel = "relative aspect-[16/9] w-full min-h-[17rem] overflow-hidden rounded-xl border border-border-subtle bg-gradient-to-br from-brand-weak/60 via-surface to-surface-muted";

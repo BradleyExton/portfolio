@@ -62,10 +62,12 @@ export const highlightItem = "relative pl-5 text-sm leading-relaxed text-content
 export const highlightItemCurrent = "relative pl-5 text-sm leading-relaxed text-content-inverse-muted before:absolute before:left-0 before:top-[0.5em] before:h-[3px] before:w-3.5 before:rounded-full before:bg-accent-soft";
 export const highlightsSummaryCurrent = "inline-flex cursor-pointer list-none items-center gap-1 pl-5 py-0.5 text-xs font-medium tracking-wide text-content-inverse-muted transition-colors hover:text-content-inverse focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-contrast [&::-webkit-details-marker]:hidden";
 export const chipList = "flex flex-wrap gap-2";
-export const chip = `${typeScale.metaLabel} rounded-full border border-border-default bg-surface px-3 py-1.5 transition-[transform,border-color,background-color,color] duration-200 motion-safe:hover:-translate-y-0.5 hover:border-brand-contrast hover:bg-brand-weak hover:text-brand`;
-// Dark-card chips restate the metaLabel typography with inverse-safe emerald
+// Light-card chips share the sitewide tagPill treatment (plus the timeline's
+// hover interactions) so adjacent sections rank tags at the same visual weight.
+export const chip = `${typeScale.tagPill} transition-[transform,border-color,background-color,color] duration-200 motion-safe:hover:-translate-y-0.5 hover:border-brand-contrast hover:bg-brand-weak hover:text-brand`;
+// Dark-card chips restate the tagPill typography with inverse-safe emerald
 // text instead of extending it, avoiding a same-specificity color clash.
-export const chipCurrent = "rounded-full border border-brand-contrast/35 bg-brand/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-brand-contrast transition-colors duration-200 hover:bg-brand/20";
+export const chipCurrent = "rounded-full border border-brand-contrast/35 bg-brand/10 px-3 py-1 text-xs font-medium text-brand-contrast transition-colors duration-200 hover:bg-brand/20";
 export const ctaRow = "mt-10";
 export const link = "group inline-flex items-center gap-2 font-medium text-content-muted transition-colors hover:text-brand";
 export const icon = "h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-focus-visible:translate-x-0.5";
