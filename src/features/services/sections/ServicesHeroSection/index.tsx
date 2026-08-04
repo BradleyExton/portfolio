@@ -19,11 +19,14 @@ export function ServicesHeroSection() {
             descriptionClassName={styles.description}
           />
           <p className={styles.availability}>
-            <span className={styles.availabilityLabel}>
-              {servicesCopy.hero.availabilityLabel}:
-            </span>
-            <span className={styles.availabilityValue}>
-              {servicesCopy.hero.availability}
+            <span className={styles.availabilityDot} aria-hidden="true" />
+            <span className={styles.availabilityText}>
+              <span className={styles.availabilityLabel}>
+                {servicesCopy.hero.availabilityLabel}:
+              </span>
+              <span className={styles.availabilityValue}>
+                {servicesCopy.hero.availability}
+              </span>
             </span>
           </p>
         </ScrollReveal>

@@ -49,7 +49,7 @@ export function ServicesCatalogSection() {
                 <h3 className={styles.subheading}>{service.title}</h3>
                 <p className={styles.cardDescription}>{service.description}</p>
                 <ul className={styles.featureList}>
-                  {service.deliverables.slice(0, 2).map((deliverable) => (
+                  {service.deliverables.slice(0, 3).map((deliverable) => (
                     <li key={deliverable}>
                       {deliverable}
                     </li>

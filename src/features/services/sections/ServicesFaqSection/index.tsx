@@ -32,7 +32,7 @@ export function ServicesFaqSection() {
             return (
               <ScrollReveal
                 key={faq.question}
-                className={styles.card}
+                className={isOpen ? styles.cardOpen : styles.card}
                 delayMs={120 + index * 80}
               >
                 <button
@@ -44,20 +44,24 @@ export function ServicesFaqSection() {
                   id={buttonId}
                 >
                   <span className={styles.labelText}>{faq.question}</span>
-                  <svg
-                    className={isOpen ? `${styles.chevronIcon} ${styles.chevronExpanded}` : styles.chevronIcon}
+                  <span
+                    className={isOpen ? styles.chevronBubbleOpen : styles.chevronBubble}
                     aria-hidden="true"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
+                    <svg
+                      className={isOpen ? `${styles.chevronIcon} ${styles.chevronExpanded}` : styles.chevronIcon}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </span>
                 </button>
                 <div
                   id={panelId}
