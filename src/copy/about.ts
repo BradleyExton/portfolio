@@ -11,7 +11,8 @@ export const aboutCopy = {
     ],
   },
   story: {
-    eyebrow: "My Story",
+    eyebrow: "My story",
+    heading: "How I got here",
     paragraphs: [
       "I got into programming because I wanted to build things, not just use them. After studying Computer Programming at Conestoga College, I landed my first dev job at Weedmaps in 2016. I started as a junior and grew into an intermediate role over 3.5 years, learning what it takes to ship real products to real users.",
       "From there, I moved through roles at RenoRun (scaling a logistics platform across North America) and Local Logic (building location intelligence tools). Each company taught me something different: how to move fast at a startup, how to scale systems, and how to collaborate with product and design teams to build features people actually use.",
@@ -59,9 +60,10 @@ export const aboutCopy = {
       "AI & Automation":
         "Claude Code, Codex, Gemini, Custom Agents & Orchestration, Skills & Plugins, MCP Servers, Context Engineering, Eval & Feedback Loops, Automation Runbooks",
     },
+    aiNote: "Most of my day-to-day building runs through this stack.",
   },
   outsideOfCode: {
-    eyebrow: "Outside of Code",
+    eyebrow: "Outside of code",
     description:
       "When I'm not building software, you'll find me in Barrie enjoying the outdoors, keeping up with the latest in tech, or working on side projects that scratch a creative itch. I'm always happy to chat, whether it's about a potential project, a job opportunity, or just to talk shop about web development.",
   },

@@ -9,3 +9,8 @@ export const card = "rounded-2xl border border-border-subtle bg-surface-muted p-
 export const cardTitle = `${typeScale.cardTitle} mb-3`;
 export const chipList = "flex flex-wrap gap-2.5";
 export const chip = "rounded-full border border-border-default bg-surface px-3 py-1 text-xs font-medium text-content-muted";
+
+export const featureCard = "rounded-2xl border border-brand-tint bg-gradient-to-br from-brand-weak via-surface to-surface p-5 shadow-[0_16px_34px_-30px_color-mix(in_srgb,var(--color-brand)_45%,transparent)] transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_48px_-30px_color-mix(in_srgb,var(--color-brand)_40%,transparent)] sm:p-6 md:col-span-2";
+export const featureTitle = `${typeScale.cardTitle} mb-1`;
+export const featureNote = "mb-4 text-sm leading-relaxed text-content-muted";
+export const featureChip = "rounded-full border border-brand-tint bg-surface px-3 py-1 text-xs font-medium text-brand-strong";

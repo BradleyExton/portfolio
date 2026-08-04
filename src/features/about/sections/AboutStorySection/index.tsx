@@ -2,35 +2,26 @@ import { aboutCopy } from "@/copy/about";
 import { SectionIntro } from "@/features/shared/designSystem";
 import { ScrollReveal } from "@/features/shared/motion/ScrollReveal";
 import * as styles from "./styles";
+import { getStoryParagraphClass } from "./utils";
 
 export function AboutStorySection() {
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        <div className={styles.panel}>
-          <ScrollReveal>
-            <SectionIntro
-              title={aboutCopy.story.eyebrow}
-              titleClassName={styles.heading}
-            />
-          </ScrollReveal>
-          <div className={styles.block}>
-            {aboutCopy.story.paragraphs.map((paragraph, index) => (
-              <ScrollReveal
-                key={paragraph}
-                className={styles.paragraphReveal}
-                delayMs={90 + index * 70}
-              >
-                <p
-                  className={
-                    `${styles.paragraph} ${index === 0 ? styles.paragraphLead : ""} ${index < aboutCopy.story.paragraphs.length - 1 ? styles.paragraphSpacing : ""}`
-                  }
-                >
-                  {paragraph}
-                </p>
-              </ScrollReveal>
-            ))}
-          </div>
+        <ScrollReveal>
+          <SectionIntro
+            eyebrow={aboutCopy.story.eyebrow}
+            title={aboutCopy.story.heading}
+            eyebrowClassName={styles.eyebrow}
+            titleClassName={styles.heading}
+          />
+        </ScrollReveal>
+        <div className={styles.block}>
+          {aboutCopy.story.paragraphs.map((paragraph, index) => (
+            <ScrollReveal key={paragraph} delayMs={90 + index * 70}>
+              <p className={getStoryParagraphClass(index)}>{paragraph}</p>
+            </ScrollReveal>
+          ))}
         </div>
       </div>
     </section>
