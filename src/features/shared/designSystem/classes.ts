@@ -10,11 +10,11 @@ export const spacing = {
 export const typeScale = {
   eyebrow: "mb-3 text-sm font-semibold uppercase tracking-wider text-brand",
   heroTitle:
-    "mb-6 text-5xl font-bold leading-tight text-content font-[family-name:var(--font-space-grotesk)] md:text-6xl lg:text-7xl",
+    "mb-6 text-5xl font-bold leading-tight tracking-tight text-content font-[family-name:var(--font-space-grotesk)] md:text-6xl lg:text-7xl",
   pageHeroTitle:
     "mb-5 text-balance text-3xl font-bold leading-tight tracking-tight text-content font-[family-name:var(--font-space-grotesk)] sm:text-4xl md:text-5xl",
   sectionTitle:
-    "mb-4 text-balance text-2xl font-bold text-content font-[family-name:var(--font-space-grotesk)] sm:text-3xl",
+    "mb-4 text-balance text-2xl font-bold tracking-tight text-content font-[family-name:var(--font-space-grotesk)] sm:text-3xl",
   sectionDescription: "max-w-[62ch] text-sm leading-relaxed text-content-muted sm:text-base",
   leadBody: "text-base leading-relaxed text-content-muted sm:text-lg",
   // Inverse variants for dark brand surfaces (CTA bands). These exist because
@@ -22,7 +22,7 @@ export const typeScale = {
   // unresolved conflict — the winner depends on generated CSS order, not
   // author order. Use these instead of overriding token colors.
   sectionTitleInverse:
-    "mb-4 text-balance text-2xl font-bold text-content-inverse font-[family-name:var(--font-space-grotesk)] sm:text-3xl",
+    "mb-4 text-balance text-2xl font-bold tracking-tight text-content-inverse font-[family-name:var(--font-space-grotesk)] sm:text-3xl",
   sectionDescriptionInverse:
     "max-w-[62ch] text-sm leading-relaxed text-brand-muted sm:text-base",
   leadBodyInverse: "text-base leading-relaxed text-brand-muted sm:text-lg",
@@ -31,4 +31,11 @@ export const typeScale = {
   // Single treatment for topic-tag pills so adjacent sections don't rank the
   // same semantic element at different visual weights.
   tagPill: "rounded-full border border-border-default bg-surface-muted px-3 py-1 text-xs font-medium text-content-muted",
+} as const;
+
+// Shared page-hero surface treatment so route heroes read as one family.
+// Applied as an absolutely positioned backdrop layer inside a relative hero section.
+export const surfaces = {
+  heroAmbient:
+    "pointer-events-none absolute inset-0 bg-[radial-gradient(115%_120%_at_3%_0%,var(--color-brand-weak)_0%,transparent_58%),radial-gradient(95%_110%_at_95%_100%,var(--color-brand-soft)_0%,transparent_55%),linear-gradient(to_bottom_right,var(--color-surface),var(--color-surface-muted))]",
 } as const;

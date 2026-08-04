@@ -1,10 +1,10 @@
-import { spacing, typeScale } from "@/features/shared/designSystem";
+import { spacing, surfaces, typeScale } from "@/features/shared/designSystem";
 
 export const section = `${spacing.hero} relative overflow-hidden`;
-export const ambientBackdrop = "pointer-events-none absolute inset-0 bg-[radial-gradient(115%_120%_at_3%_0%,var(--color-brand-weak)_0%,transparent_58%),radial-gradient(95%_110%_at_95%_100%,var(--color-brand-soft)_0%,transparent_55%),linear-gradient(to_bottom_right,var(--color-surface),var(--color-surface-muted))]";
+export const ambientBackdrop = surfaces.heroAmbient;
 export const container = `relative ${spacing.container6}`;
-export const content = "max-w-4xl rounded-2xl border border-border-subtle bg-surface/86 p-5 shadow-[0_24px_65px_-40px_color-mix(in_srgb,var(--color-brand-tint)_70%,transparent)] backdrop-blur-sm sm:p-6 md:p-8";
+export const content = "max-w-4xl";
 export const title = `${typeScale.pageHeroTitle} mb-4 md:mb-5`;
 export const description = `mb-5 max-w-3xl ${typeScale.leadBody} md:mb-6 md:text-xl`;
 export const metaRow = "flex flex-wrap gap-2";
-export const metaItem = "rounded-full border border-border-default bg-surface px-3 py-1.5 text-sm font-medium text-content-muted shadow-sm";
+export const metaItem = "rounded-full border border-border-default bg-surface/80 px-3 py-1.5 text-sm font-medium text-content-muted shadow-sm";

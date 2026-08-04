@@ -12,3 +12,6 @@ export const button = "inline-flex h-11 w-11 items-center justify-center rounded
 export const icon = "h-6 w-6 text-content";
 export const block = "mx-auto max-w-6xl space-y-4 border-t border-border-default bg-surface py-4 motion-safe:animate-[menu-enter_220ms_cubic-bezier(0.22,1,0.36,1)] md:hidden";
 export const mobileNavLink = "flex min-h-[44px] items-center rounded-md px-1 py-2 text-sm font-medium text-content-muted transition-colors hover:text-brand";
+export const desktopNavLinkCurrent =
+  "text-content after:scale-x-100 group-hover:opacity-100";
+export const mobileNavLinkCurrent = "font-semibold text-brand";

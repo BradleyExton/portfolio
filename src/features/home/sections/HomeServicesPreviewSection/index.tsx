@@ -46,7 +46,6 @@ export function HomeServicesPreviewSection() {
           eyebrow={homeCopy.servicesPreview.eyebrow}
           title={homeCopy.servicesPreview.heading}
           description={homeCopy.servicesPreview.description}
-          align="center"
           className={styles.block}
           eyebrowClassName={styles.eyebrow}
           titleClassName={styles.subheading}

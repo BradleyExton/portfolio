@@ -2,10 +2,10 @@ import { spacing, typeScale } from "@/features/shared/designSystem";
 
 export const section = `${spacing.section} bg-surface`;
 export const container = spacing.container5;
-export const intro = `${spacing.introBlock} text-center`;
+export const intro = "mb-7 max-w-3xl md:mb-10";
 export const eyebrow = typeScale.eyebrow;
 export const heading = typeScale.sectionTitle;
-export const description = `mx-auto max-w-2xl ${typeScale.sectionDescription}`;
+export const description = typeScale.sectionDescription;
 export const grid = "grid gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-3";
 export const cardReveal = "h-full";
 export const card = "group flex h-full flex-col rounded-xl border border-border-default bg-surface p-4 shadow-sm transition-[border-color,box-shadow] duration-300 hover:border-border-default/80 hover:shadow-md sm:p-5";

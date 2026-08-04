@@ -7,6 +7,10 @@ export const buildHeaderNavItems = (isHomePage: boolean): SiteNavItem[] =>
     href: isHomePage ? item.homeHref : item.routeHref,
   }));
 
+// Anchor hrefs ("#experience", "/#experience") never mark a current page.
+export const isCurrentNavItem = (href: string, pathname: string): boolean =>
+  !href.includes("#") && pathname === href;
+
 export const getHeaderContactHref = (isHomePage: boolean): string =>
   isHomePage ? "#contact" : "/contact";
 

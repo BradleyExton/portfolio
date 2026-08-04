@@ -97,7 +97,7 @@ export const homeCopy = {
   },
   experience: {
     eyebrow: "Experience",
-    heading: "Where I've Worked",
+    heading: "Where I've worked",
     cta: "View full experience on LinkedIn",
     currentLabel: "Current",
     items: [
@@ -160,7 +160,7 @@ export const homeCopy = {
   },
   servicesPreview: {
     eyebrow: "Services",
-    heading: "Available for Select Projects",
+    heading: "Available for select projects",
     description:
       "I take on a small number of projects for local businesses and startups.",
     cta: "See all services",
@@ -190,7 +190,7 @@ export const homeCopy = {
   },
   testimonials: {
     eyebrow: "Testimonials",
-    heading: "What People Are Saying",
+    heading: "What people are saying",
     items: [
       {
         id: 1,
@@ -209,7 +209,7 @@ export const homeCopy = {
     ],
   },
   contactCta: {
-    heading: "Let's Connect",
+    heading: "Let's connect",
     description:
       "Hiring, or have a project in mind? Send me a note. I answer everything.",
     ctaPrimary: "Send Me an Email",

@@ -38,6 +38,13 @@ Rules:
 - Every exported `*section` style constant must compose `spacing.section` or `spacing.hero`.
 - Do not add custom per-route section spacing without updating this document.
 
+## Surface Roles
+
+- `surfaces.heroAmbient`: the shared route-hero backdrop (brand radial gradients over a
+  surface gradient). Route heroes (`/about`, `/services`, `/contact`) render it as an
+  absolutely positioned layer inside a `relative overflow-hidden` hero section so all
+  secondary-page heroes read as one family. The home hero keeps its own photo treatment.
+
 ## Typography Roles
 
 Use shared roles in `typeScale` for content hierarchy.
@@ -54,6 +61,12 @@ Use shared roles in `typeScale` for content hierarchy.
 Rules:
 - Prefer role classes over arbitrary typography utilities.
 - Do not use `text-[...]`, `tracking-[...]`, or `leading-[...]` for content typography in `styles.ts` files.
+- Display roles (`heroTitle`, `pageHeroTitle`, `sectionTitle`) carry `tracking-tight`; do not add
+  ad hoc letter-spacing elsewhere.
+- Section and page headings use sentence case ("Where I've worked"). Proper nouns, product names,
+  and action labels ("Get In Touch" buttons) keep their own casing.
+- Section intros are left-aligned by default. Centered intros are reserved for full-width bands
+  (CTA sections, testimonials).
 
 ## Reusable Intro Primitive
 

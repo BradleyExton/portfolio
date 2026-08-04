@@ -1,7 +1,8 @@
-import { spacing, typeScale } from "@/features/shared/designSystem";
+import { spacing, surfaces, typeScale } from "@/features/shared/designSystem";
 
-export const section = `${spacing.hero} bg-gradient-to-br from-brand-weak via-surface to-surface-muted`;
-export const container = spacing.container5;
+export const section = `${spacing.hero} relative overflow-hidden`;
+export const ambientBackdrop = surfaces.heroAmbient;
+export const container = `relative ${spacing.container5}`;
 export const shell = "text-left";
 export const eyebrow = typeScale.eyebrow;
 export const title = typeScale.pageHeroTitle;

@@ -12,7 +12,7 @@ export {
   MailIcon,
   MenuIcon,
 } from "./icons";
-export { spacing, typeScale } from "./classes";
+export { spacing, surfaces, typeScale } from "./classes";
 export { SectionIntro } from "./SectionIntro";
 export type { SectionIntroProps } from "./SectionIntro";
 export { subscribeMediaQueryChange, useMediaQuery } from "./useMediaQuery";

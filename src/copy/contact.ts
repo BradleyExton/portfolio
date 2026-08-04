@@ -1,6 +1,7 @@
 export const contactCopy = {
   hero: {
-    heading: "Get In Touch",
+    eyebrow: "Contact",
+    heading: "Get in touch",
     description:
       "Hiring, or have a project in mind? Send me a note. I answer everything.",
   },

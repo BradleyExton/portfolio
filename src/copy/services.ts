@@ -8,7 +8,7 @@ export const servicesCopy = {
     availability: "Currently booking selective projects for Spring 2026.",
   },
   catalog: {
-    eyebrow: "Services",
+    eyebrow: "What I offer",
     heading: "Three ways to work together.",
     description:
       "Each engagement includes clear planning, transparent updates, and a practical handoff.",
@@ -155,7 +155,7 @@ export const servicesCopy = {
   },
   faq: {
     eyebrow: "FAQ",
-    heading: "Common Questions",
+    heading: "Common questions",
     items: [
       {
         question: "How long does a project take?",

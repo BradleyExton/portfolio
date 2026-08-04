@@ -11,8 +11,14 @@ import {
   CloseIcon,
   MenuIcon,
 } from "@/features/shared/designSystem";
+import { cn } from "@/features/shared/designSystem/cn";
 import * as styles from "./styles";
-import { buildHeaderNavItems, getHeaderContactHref, toggleMenu } from "./utils";
+import {
+  buildHeaderNavItems,
+  getHeaderContactHref,
+  isCurrentNavItem,
+  toggleMenu,
+} from "./utils";
 
 export default function SiteHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -38,15 +44,22 @@ export default function SiteHeader() {
 
           <div className={styles.desktopNav}>
             <div className={styles.desktopNavList}>
-              {navItems.map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className={styles.desktopNavLink}
-                >
-                  {item.label}
-                </Link>
-              ))}
+              {navItems.map((item) => {
+                const isCurrent = isCurrentNavItem(item.href, pathname);
+                return (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    aria-current={isCurrent ? "page" : undefined}
+                    className={cn(
+                      styles.desktopNavLink,
+                      isCurrent && styles.desktopNavLinkCurrent,
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
             </div>
             <ActionLink href={contactHref}>
               {commonCopy.cta.getInTouch}
@@ -66,16 +79,23 @@ export default function SiteHeader() {
 
         {isMenuOpen && (
           <div id="mobile-menu" className={styles.block}>
-            {navItems.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={styles.mobileNavLink}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const isCurrent = isCurrentNavItem(item.href, pathname);
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  aria-current={isCurrent ? "page" : undefined}
+                  className={cn(
+                    styles.mobileNavLink,
+                    isCurrent && styles.mobileNavLinkCurrent,
+                  )}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
             <ActionLink
               href={contactHref}
               className="w-full"

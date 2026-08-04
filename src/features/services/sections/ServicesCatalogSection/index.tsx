@@ -17,7 +17,6 @@ export function ServicesCatalogSection() {
             eyebrow={servicesCopy.catalog.eyebrow}
             title={<span id="services-catalog-heading">{servicesCopy.catalog.heading}</span>}
             description={servicesCopy.catalog.description}
-            align="center"
             eyebrowClassName={styles.eyebrow}
             titleClassName={styles.heading}
             descriptionClassName={styles.description}

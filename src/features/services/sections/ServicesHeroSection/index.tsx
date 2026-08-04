@@ -6,6 +6,7 @@ import * as styles from "./styles";
 export function ServicesHeroSection() {
   return (
     <section className={styles.section}>
+      <div className={styles.ambientBackdrop} aria-hidden="true" />
       <div className={styles.container}>
         <ScrollReveal className={styles.shell}>
           <SectionIntro
