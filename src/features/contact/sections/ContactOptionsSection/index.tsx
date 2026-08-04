@@ -72,7 +72,11 @@ export function ContactOptionsSection({ calcomUrl }: ContactOptionsSectionProps)
 
         <div className={styles.grid}>
           {options.map((option, index) => (
-            <ScrollReveal key={option.key} delayMs={120 + index * 100}>
+            <ScrollReveal
+              key={option.key}
+              delayMs={120 + index * 100}
+              className={styles.gridItem}
+            >
               <ActionCard
                 className={option.variant === "primary" ? styles.primaryCard : styles.card}
                 badge={option.badge}
@@ -88,7 +92,7 @@ export function ContactOptionsSection({ calcomUrl }: ContactOptionsSectionProps)
                   href={option.href}
                   target={option.external ? "_blank" : undefined}
                   rel={option.external ? "noopener noreferrer" : undefined}
-                  variant={option.variant === "primary" ? "brand" : "inline"}
+                  variant={option.variant === "primary" ? "brand" : "outline"}
                   size="sm"
                   className={option.variant === "primary" ? styles.primaryLink : styles.link}
                   onClick={option.onClick}

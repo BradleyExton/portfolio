@@ -2,7 +2,7 @@ import type { FormEvent, ReactNode } from "react";
 import { contactCopy } from "@/copy/contact";
 import { errorCopy } from "@/copy/errors";
 import { profileComputed } from "@/copy/profile";
-import { CheckCircleIcon } from "@/features/shared/designSystem";
+import { CheckCircleIcon, ChevronDownIcon } from "@/features/shared/designSystem";
 import * as styles from "./styles";
 import type { ContactFormData, SubmitStatus } from "../ContactFormSection/types";
 
@@ -65,13 +65,16 @@ export function ContactFormSupportCard() {
   return (
     <aside className={styles.supportCard} aria-label={contactCopy.form.supportHeading}>
       <h3 className={styles.supportHeading}>{contactCopy.form.supportHeading}</h3>
-      <ul className={styles.supportList}>
-        {contactCopy.form.supportSteps.map((step) => (
+      <ol className={styles.supportList}>
+        {contactCopy.form.supportSteps.map((step, index) => (
           <li key={step} className={styles.supportItem}>
-            {step}
+            <span className={styles.supportStepNumber} aria-hidden="true">
+              {index + 1}
+            </span>
+            <span>{step}</span>
           </li>
         ))}
-      </ul>
+      </ol>
       <p className={styles.supportDetail}>{contactCopy.form.supportDetail}</p>
     </aside>
   );
@@ -156,23 +159,26 @@ export function ContactFormFields({
         </ContactFormField>
 
         <ContactFormField htmlFor="topic" label={contactCopy.form.topicLabel} hint={contactCopy.form.topicHint}>
-          <select
-            id="topic"
-            name="topic"
-            required
-            value={formData.topic}
-            onFocus={onFieldFocus}
-            onChange={(event) => onFieldChange("topic", event.target.value)}
-            className={styles.fieldControl}
-            disabled={disabled}
-          >
-            <option value="">{contactCopy.form.topicDefault}</option>
-            {contactCopy.form.topics.map((topic) => (
-              <option key={topic.value} value={topic.value}>
-                {topic.label}
-              </option>
-            ))}
-          </select>
+          <div className={styles.selectWrap}>
+            <select
+              id="topic"
+              name="topic"
+              required
+              value={formData.topic}
+              onFocus={onFieldFocus}
+              onChange={(event) => onFieldChange("topic", event.target.value)}
+              className={styles.selectControl}
+              disabled={disabled}
+            >
+              <option value="">{contactCopy.form.topicDefault}</option>
+              {contactCopy.form.topics.map((topic) => (
+                <option key={topic.value} value={topic.value}>
+                  {topic.label}
+                </option>
+              ))}
+            </select>
+            <ChevronDownIcon className={styles.selectIcon} aria-hidden="true" />
+          </div>
         </ContactFormField>
 
         <ContactFormField htmlFor="message" label={contactCopy.form.messageLabel} hint={contactCopy.form.messageHint}>

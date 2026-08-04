@@ -4,6 +4,14 @@ export const contactCopy = {
     heading: "Get in touch",
     description:
       "Hiring, or have a project in mind? Send me a note. I answer everything.",
+    meta: {
+      availabilityLabel: "Availability",
+      availabilityValue: "Open to full-time roles and freelance projects",
+      responseLabel: "Response time",
+      responseValue: "Within 1-2 business days",
+      locationLabel: "Location",
+      locationValue: "Barrie, Ontario (Eastern Time)",
+    },
   },
   options: {
     heading: "Choose your preferred channel",
@@ -24,7 +32,8 @@ export const contactCopy = {
     },
     linkedin: {
       title: "Connect on LinkedIn",
-      description: "Let's connect professionally.",
+      description:
+        "See my full work history, then send a connection request or a message.",
       cta: "View Profile",
     },
   },
