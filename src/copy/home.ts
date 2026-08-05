@@ -18,6 +18,7 @@ export const homeCopy = {
     description:
       "I lead delivery of Local Logic's customer-facing reporting platform end to end: from PRD and technical spec through Figma iteration, implementation, testing, and launch. Over the last year I've also built the AI workflows and automations the team uses to ship faster without dropping quality.",
     cta: "More about me",
+    portraitAlt: "Bradley Exton",
   },
   whatIDoCapabilities: [
     {

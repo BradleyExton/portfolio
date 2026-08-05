@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { homeCopy } from "@/copy/home";
 import { ActionLink, ArrowRightIcon, CheckCircleIcon, SectionIntro, cn } from "@/features/shared/designSystem";
 import { IsoIllustration } from "./IsoIllustration";
@@ -25,23 +26,42 @@ export function HomeAboutSnapshotSection() {
       <div className={styles.container}>
         <div className={styles.layoutFlow}>
           <div className={styles.intro}>
-            <SectionIntro
-              eyebrow={homeCopy.aboutSnapshot.eyebrow}
-              title={homeCopy.aboutSnapshot.heading}
-              description={homeCopy.aboutSnapshot.description}
-              eyebrowClassName={styles.eyebrow}
-              titleClassName={styles.subheading}
-              descriptionClassName={styles.description}
-            />
-            <ActionLink
-              href="/about"
-              variant="inline"
-              size="text"
-              className={styles.link}
-              icon={<ArrowRightIcon className={styles.icon} />}
-            >
-              {homeCopy.aboutSnapshot.cta}
-            </ActionLink>
+            <div className={styles.introRow}>
+              <div className={styles.portraitColumn}>
+                <span className={styles.portraitRing} aria-hidden="true" />
+                <div className={styles.portraitFrame}>
+                  <Image
+                    src="/images/headshot.png"
+                    alt={homeCopy.aboutSnapshot.portraitAlt}
+                    width={800}
+                    height={800}
+                    sizes="(min-width: 640px) 7rem, 6rem"
+                    className={styles.portraitImage}
+                  />
+                </div>
+                <span className={styles.portraitNode} aria-hidden="true" />
+              </div>
+
+              <div className={styles.introText}>
+                <SectionIntro
+                  eyebrow={homeCopy.aboutSnapshot.eyebrow}
+                  title={homeCopy.aboutSnapshot.heading}
+                  description={homeCopy.aboutSnapshot.description}
+                  eyebrowClassName={styles.eyebrow}
+                  titleClassName={styles.subheading}
+                  descriptionClassName={styles.description}
+                />
+                <ActionLink
+                  href="/about"
+                  variant="inline"
+                  size="text"
+                  className={styles.link}
+                  icon={<ArrowRightIcon className={styles.icon} />}
+                >
+                  {homeCopy.aboutSnapshot.cta}
+                </ActionLink>
+              </div>
+            </div>
           </div>
 
           <div>

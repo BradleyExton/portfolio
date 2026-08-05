@@ -5,7 +5,19 @@ export const ambientBackdrop = "pointer-events-none absolute inset-0 bg-[radial-
 export const container = `relative ${spacing.container6}`;
 export const layoutFlow = "grid gap-5 md:gap-7";
 
-export const intro = "max-w-3xl";
+export const intro = "max-w-4xl";
+// Compact sibling of the About-page portrait: same circle-and-node language,
+// dialled down so it introduces the section without competing with it.
+export const introRow = "flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-7";
+export const introText = "min-w-0 max-w-3xl";
+export const portraitColumn = "relative shrink-0";
+export const portraitRing =
+  "pointer-events-none absolute -inset-2 rounded-full border border-brand-tint/70";
+export const portraitFrame =
+  "relative h-24 w-24 overflow-hidden rounded-full border border-border-default bg-[linear-gradient(to_bottom_right,var(--color-brand-weak),var(--color-brand-soft))] shadow-[0_12px_28px_-14px_rgba(6,78,59,0.45)] sm:h-28 sm:w-28";
+export const portraitImage = "h-full w-full object-cover object-center";
+export const portraitNode =
+  "pointer-events-none absolute bottom-2 left-0 h-2.5 w-2.5 rounded-full bg-accent-soft shadow-[0_0_0_4px_var(--color-surface),0_0_0_6px_var(--color-brand-tint)]";
 export const eyebrow = typeScale.eyebrow;
 export const subheading = `${typeScale.sectionTitle} mb-5`;
 export const description = `mb-6 ${typeScale.sectionDescription}`;

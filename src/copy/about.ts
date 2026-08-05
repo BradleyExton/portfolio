@@ -9,6 +9,7 @@ export const aboutCopy = {
       "Barrie, Ontario",
       "AI-agent-driven delivery",
     ],
+    portraitAlt: "Bradley Exton",
   },
   story: {
     eyebrow: "My story",
