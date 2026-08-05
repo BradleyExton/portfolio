@@ -1,20 +1,7 @@
 import { render, screen, within } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import { homeCopy } from "@/copy/home";
 import { HomeHowIWorkSection } from "./index";
-
-vi.mock("next/image", () => ({
-  default: (props: { fill?: boolean } & Record<string, unknown>) => {
-    const imageProps = { ...props };
-    delete imageProps.fill;
-    const altText = typeof props.alt === "string" ? props.alt : "";
-
-    return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img {...imageProps} alt={altText} />
-    );
-  },
-}));
 
 describe("HomeHowIWorkSection", () => {
   it("renders section heading, description, and closing line", () => {
@@ -47,14 +34,29 @@ describe("HomeHowIWorkSection", () => {
     }
   });
 
-  it("renders one decorative illustration per stage from the how-i-work set", () => {
+  it("labels each pipeline station with its stage name", () => {
+    render(<HomeHowIWorkSection />);
+
+    for (const stage of homeCopy.howIWork.stages) {
+      expect(screen.getByText(stage.station)).toBeInTheDocument();
+    }
+  });
+
+  it("keeps the horizontally scrolling track reachable by keyboard", () => {
+    render(<HomeHowIWorkSection />);
+
+    expect(screen.getByRole("list", { name: "How I work stages" })).toHaveAttribute(
+      "tabindex",
+      "0",
+    );
+  });
+
+  it("hides the decorative station markers and rails from assistive tech", () => {
     const { container } = render(<HomeHowIWorkSection />);
 
-    const sources = Array.from(container.querySelectorAll("img")).map((image) =>
-      image.getAttribute("src"),
-    );
-    expect(sources).toEqual(
-      homeCopy.howIWork.stages.map((stage) => `/images/how-i-work/${stage.id}.svg`),
-    );
+    const markerRows = container.querySelectorAll('[aria-hidden="true"]');
+    const markerText = Array.from(markerRows).map((node) => node.textContent);
+    expect(markerText).toContain("01");
+    expect(markerText).toContain("✓");
   });
 });

@@ -235,6 +235,14 @@ html {
   }
 }
 
+/* Shifts the dashed rail by exactly one tile (14px dash + 12px gap) so the
+   How I Work pipeline loops without a visible seam. */
+@keyframes pipeline-flow {
+  to {
+    background-position: 26px 0;
+  }
+}
+
 @keyframes timeline-node-pulse {
   0%,
   100% {

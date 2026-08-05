@@ -1,14 +1,11 @@
-import type { HowIWorkStageId } from "./types";
-
-const STAGE_ILLUSTRATIONS: Record<HowIWorkStageId, string> = {
-  spec: "/images/how-i-work/spec.svg",
-  context: "/images/how-i-work/context.svg",
-  agents: "/images/how-i-work/agents.svg",
-  gates: "/images/how-i-work/gates.svg",
-};
-
-export const getStageIllustrationSrc = (stageId: HowIWorkStageId): string =>
-  STAGE_ILLUSTRATIONS[stageId];
-
 export const formatStageIndex = (index: number): string =>
   String(index + 1).padStart(2, "0");
+
+export const isFinalStage = (index: number, total: number): boolean =>
+  total > 0 && index === total - 1;
+
+// The last station reads as the pipeline's output rather than another step, so
+// its marker is a check instead of a number. Markers are decorative; the stage
+// name carries the meaning for assistive tech.
+export const getStageMarker = (index: number, total: number): string =>
+  isFinalStage(index, total) ? "✓" : formatStageIndex(index);

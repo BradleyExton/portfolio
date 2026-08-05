@@ -1,18 +1,33 @@
 import { describe, expect, it } from "vitest";
-import { formatStageIndex, getStageIllustrationSrc } from "./utils";
-
-describe("getStageIllustrationSrc", () => {
-  it("maps each stage id to its how-i-work illustration", () => {
-    expect(getStageIllustrationSrc("spec")).toBe("/images/how-i-work/spec.svg");
-    expect(getStageIllustrationSrc("context")).toBe("/images/how-i-work/context.svg");
-    expect(getStageIllustrationSrc("agents")).toBe("/images/how-i-work/agents.svg");
-    expect(getStageIllustrationSrc("gates")).toBe("/images/how-i-work/gates.svg");
-  });
-});
+import { formatStageIndex, getStageMarker, isFinalStage } from "./utils";
 
 describe("formatStageIndex", () => {
   it("zero-pads the one-based stage number", () => {
     expect(formatStageIndex(0)).toBe("01");
     expect(formatStageIndex(3)).toBe("04");
+  });
+});
+
+describe("isFinalStage", () => {
+  it("is true only for the last index in the track", () => {
+    expect(isFinalStage(0, 4)).toBe(false);
+    expect(isFinalStage(2, 4)).toBe(false);
+    expect(isFinalStage(3, 4)).toBe(true);
+  });
+
+  it("is false when there are no stages", () => {
+    expect(isFinalStage(-1, 0)).toBe(false);
+  });
+});
+
+describe("getStageMarker", () => {
+  it("numbers every station except the terminal one", () => {
+    expect(getStageMarker(0, 4)).toBe("01");
+    expect(getStageMarker(1, 4)).toBe("02");
+    expect(getStageMarker(2, 4)).toBe("03");
+  });
+
+  it("marks the terminal station with a check", () => {
+    expect(getStageMarker(3, 4)).toBe("✓");
   });
 });
