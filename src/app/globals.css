@@ -357,6 +357,18 @@ html {
   }
 }
 
+@keyframes scroll-view-rise {
+  from {
+    opacity: 0;
+    transform: translateY(2.25rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes timeline-entry-focus {
   0% {
     box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-brand-tint) 30%, transparent);
@@ -451,5 +463,47 @@ html {
   [data-active="true"] .iso-scene .iso-loop-tw,
   [data-active="true"] .iso-scene .iso-loop-blink {
     animation-play-state: running;
+  }
+
+  /* Scroll-driven animations (Prototype A). Progress comes from the scroll
+     timeline, not a duration, so the global reduced-motion duration override
+     cannot neutralize these; gate them on no-preference instead. The
+     @supports guard keeps non-supporting browsers on the static layout —
+     without it, `forwards` animations would jump straight to their end state. */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      /* Buried cards in the what-i-do deck recede as the next card covers
+         them. Runs against the list's named view-timeline; --index/--numcards
+         are inherited from the stacked list markup. */
+      .stack-depth-scale {
+        --reverse-index0: calc(var(--numcards) - var(--index));
+        --target-scale: calc(1 - 0.05 * var(--reverse-index0));
+        transform-origin: 50% 0%;
+        animation: what-i-do-stack-scale linear forwards;
+        animation-timeline: --what-i-do-stack;
+        animation-range: exit-crossing calc(var(--index0) / var(--numcards) * 100%)
+          exit-crossing calc(var(--index) / var(--numcards) * 100%);
+      }
+
+      .scroll-view-rise {
+        animation: scroll-view-rise linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 85%;
+      }
+
+      .scroll-view-stagger > * {
+        animation: scroll-view-rise linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 60%;
+      }
+
+      .scroll-view-stagger > *:nth-child(2) {
+        animation-range: entry 12% entry 75%;
+      }
+
+      .scroll-view-stagger > *:nth-child(3) {
+        animation-range: entry 24% entry 90%;
+      }
+    }
   }
 }

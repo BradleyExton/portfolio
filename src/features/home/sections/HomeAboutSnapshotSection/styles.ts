@@ -17,7 +17,7 @@ export const stackedCardItem = "[--index0:calc(var(--index)-1)] [z-index:var(--i
 // min-h instead of a fixed height below xl: text-only cards grow with their
 // content, so a clamp that undershoots can't clip chips under the next card.
 export const stackedCard = "min-h-[var(--card-height)] overflow-visible xl:h-[var(--card-height)]";
-export const cardSurface = "group/card relative h-full rounded-2xl border border-border-default bg-surface p-5 shadow-sm transition-[transform,box-shadow,border-color] duration-300 motion-reduce:transition-none data-[active=true]:border-brand-tint data-[active=true]:shadow-xl md:p-6 xl:p-8";
+export const cardSurface = "group/card stack-depth-scale relative h-full rounded-2xl border border-border-default bg-surface p-5 shadow-sm transition-[box-shadow,border-color] duration-300 motion-reduce:transition-none data-[active=true]:border-brand-tint data-[active=true]:shadow-xl md:p-6 xl:p-8";
 export const cardLayout = "grid h-full gap-4 md:gap-5 lg:gap-6 xl:grid-cols-[minmax(0,45%)_minmax(0,55%)] xl:items-center xl:gap-8";
 export const cardContentColumn = "flex h-full min-w-0 flex-col";
 export const cardContentColumnDesktopSwap = "xl:order-2";
