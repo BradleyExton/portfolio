@@ -1,6 +1,5 @@
 export const commonCopy = {
   cta: {
-    viewWork: "View My Work",
     getInTouch: "Get In Touch",
     sendEmail: "Send Me an Email",
     bookCall: "Book a Call",

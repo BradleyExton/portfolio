@@ -7,7 +7,7 @@ export const homeCopy = {
     },
     description:
       "I'm Bradley, an engineer in Barrie, Ontario. I've shipped production web apps for 10 years. These days most of my code is written by AI agents I design and direct, and it lets me deliver like a full team.",
-    ctaPrimary: "View My Work",
+    ctaPrimary: "See How I Work",
     ctaSecondary: "Get In Touch",
     yearsExperience: "10+",
     yearsExperienceLabel: "Years Exp.",
@@ -16,7 +16,7 @@ export const homeCopy = {
     eyebrow: "What I Do",
     heading: "Senior full-stack delivery, accelerated with AI workflows",
     description:
-      "I lead delivery of Local Logic's customer-facing reporting platform end to end: from PRD and technical spec through Figma iteration, implementation, testing, and launch. Over the last year I've also built the AI workflows and automations the team uses to ship faster without dropping quality.",
+      "I lead delivery end to end: PRD and technical spec, design iteration, implementation, testing, and launch. At Local Logic that means owning a customer-facing reporting platform, plus building the AI workflows and automations the team uses to ship faster without dropping quality.",
     cta: "More about me",
     portraitAlt: "Bradley Exton",
   },
@@ -190,26 +190,6 @@ export const homeCopy = {
           "Custom internal or customer apps built around how your team actually works.",
         price: "Starting at $3,000",
         icon: "⚡",
-      },
-    ],
-  },
-  testimonials: {
-    eyebrow: "Testimonials",
-    heading: "What people are saying",
-    items: [
-      {
-        id: 1,
-        quote:
-          "Bradley built exactly what we needed. No fluff, no delays. Professional and efficient.",
-        name: "S. Patel",
-        role: "Founder, Toronto Startup",
-      },
-      {
-        id: 2,
-        quote:
-          "Professional, responsive, and genuinely cared about the outcome. Would highly recommend.",
-        name: "M. Chen",
-        role: "Owner, Barrie Local Business",
       },
     ],
   },

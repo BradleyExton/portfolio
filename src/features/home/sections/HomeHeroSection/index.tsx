@@ -209,7 +209,7 @@ export function HomeHeroSection() {
 
             <div className={styles.ctaRow}>
               <Link
-                href="#experience"
+                href="#how-i-work"
                 className={styles.ctaLink}
               >
                 {homeCopy.hero.ctaPrimary}
