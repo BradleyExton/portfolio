@@ -13,7 +13,7 @@ test("primary routes render", async ({ page }) => {
   await expect(
     page.getByRole("heading", {
       level: 1,
-      name: /Senior full-stack execution for teams that need momentum/i,
+      name: /Senior help for your website, app, or AI project/i,
     }),
   ).toBeVisible();
 
