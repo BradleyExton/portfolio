@@ -1,11 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { homeCopy } from "@/copy/home";
 import { ActionLink, ArrowRightIcon, CheckCircleIcon, SectionIntro, cn } from "@/features/shared/designSystem";
+import { IsoIllustration } from "./IsoIllustration";
 import type { WhatIDoCapability } from "./types";
 import {
-  getCapabilityIllustrationSrc,
   getStackedCardCountClass,
   getStackedCardIndexClass,
 } from "./utils";
@@ -108,15 +107,7 @@ export function HomeAboutSnapshotSection() {
                             )}
                             aria-hidden="true"
                           >
-                            <Image
-                              src={getCapabilityIllustrationSrc(capability.id)}
-                              alt=""
-                              fill
-                              sizes="(min-width: 1536px) 34vw, 38vw"
-                              loading="lazy"
-                              fetchPriority="low"
-                              className={styles.illustrationImage}
-                            />
+                            <IsoIllustration capabilityId={capability.id} />
                           </div>
                         ) : null}
                       </div>

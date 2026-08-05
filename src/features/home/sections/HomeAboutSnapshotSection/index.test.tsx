@@ -104,7 +104,9 @@ describe("HomeAboutSnapshotSection", () => {
     );
 
     await waitFor(() => {
-      expect(list.querySelectorAll("img")).toHaveLength(homeCopy.whatIDoCapabilities.length);
+      expect(list.querySelectorAll("[data-illustration]")).toHaveLength(
+        homeCopy.whatIDoCapabilities.length,
+      );
     });
 
     topLevelItems.forEach((item, index) => {
@@ -151,7 +153,7 @@ describe("HomeAboutSnapshotSection", () => {
     render(<HomeAboutSnapshotSection />);
 
     const list = screen.getByRole("list", { name: "What I do capabilities" });
-    expect(list.querySelectorAll("img")).toHaveLength(0);
+    expect(list.querySelectorAll("[data-illustration]")).toHaveLength(0);
     // The aspect-ratio panel must not render below xl — it would reserve
     // dead space inside each card.
     list.querySelectorAll("article > div > div").forEach((cardLayout) => {
@@ -159,18 +161,21 @@ describe("HomeAboutSnapshotSection", () => {
     });
   });
 
-  it("renders deterministic illustration src paths on desktop viewports", async () => {
+  it("renders a deterministic inline illustration scene per capability on desktop viewports", async () => {
     isDesktopViewport = true;
     render(<HomeAboutSnapshotSection />);
 
     const list = screen.getByRole("list", { name: "What I do capabilities" });
     await waitFor(() => {
-      expect(list.querySelectorAll("img")).toHaveLength(homeCopy.whatIDoCapabilities.length);
+      expect(list.querySelectorAll("[data-illustration]")).toHaveLength(
+        homeCopy.whatIDoCapabilities.length,
+      );
     });
-    const images = list.querySelectorAll("img");
+    const scenes = list.querySelectorAll("[data-illustration]");
 
     homeCopy.whatIDoCapabilities.forEach((capability, index) => {
-      expect(images[index]).toHaveAttribute("src", `/images/what-i-do/${capability.id}.svg`);
+      expect(scenes[index]).toHaveAttribute("data-illustration", capability.id);
+      expect(scenes[index].querySelector("svg")).not.toBeNull();
     });
   });
 
