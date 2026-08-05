@@ -1,7 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { homeCopy } from "@/copy/home";
-import { ActionLink, ArrowRightIcon, SectionIntro } from "@/features/shared/designSystem";
+import { ActionLink, ArrowRightIcon, SectionIntro, cn } from "@/features/shared/designSystem";
 import type { HomeServicePreviewItem, ServiceKey } from "./types";
 import { buildHomeServicePreviewItems } from "./utils";
 import * as styles from "./styles";
@@ -66,7 +66,7 @@ export function HomeServicesPreviewSection() {
                   aria-label={`View ${service.title} service details`}
                 >
                   <div className={styles.glow} />
-                  <div className={styles.illustrationWrap}>
+                  <div className={cn(styles.illustrationWrap, styles.morphTargetByServiceKey[service.key])}>
                     <Image
                       src={illustration.src}
                       alt={illustration.alt}

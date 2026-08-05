@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import Script from "next/script";
+import { ViewTransitions } from "next-view-transitions";
 import "./globals.css";
 import { siteMetadata } from "@/copy/metadata";
 import { publicEnv } from "@/config/publicEnv";
@@ -28,29 +29,31 @@ export default function RootLayout({
   const shouldTrackAnalytics = process.env.NODE_ENV === "production" && Boolean(gaMeasurementId);
 
   return (
-    <html lang="en" className="scroll-smooth">
-      <body
-        className={`${inter.variable} ${spaceGrotesk.variable} bg-surface-muted font-sans text-content antialiased`}
-      >
-        {shouldTrackAnalytics && gaMeasurementId ? (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}
-              strategy="afterInteractive"
-            />
-            <Script id="ga4-init" strategy="afterInteractive">
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){window.dataLayer.push(arguments);}
-                window.gtag = gtag;
-                gtag("js", new Date());
-                gtag("config", "${gaMeasurementId}", { send_page_view: true });
-              `}
-            </Script>
-          </>
-        ) : null}
-        {isUnderConstruction ? <UnderConstruction /> : children}
-      </body>
-    </html>
+    <ViewTransitions>
+      <html lang="en" className="scroll-smooth">
+        <body
+          className={`${inter.variable} ${spaceGrotesk.variable} bg-surface-muted font-sans text-content antialiased`}
+        >
+          {shouldTrackAnalytics && gaMeasurementId ? (
+            <>
+              <Script
+                src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}
+                strategy="afterInteractive"
+              />
+              <Script id="ga4-init" strategy="afterInteractive">
+                {`
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){window.dataLayer.push(arguments);}
+                  window.gtag = gtag;
+                  gtag("js", new Date());
+                  gtag("config", "${gaMeasurementId}", { send_page_view: true });
+                `}
+              </Script>
+            </>
+          ) : null}
+          {isUnderConstruction ? <UnderConstruction /> : children}
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }

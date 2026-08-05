@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { servicesCopy } from "@/copy/services";
-import { SectionIntro } from "@/features/shared/designSystem";
+import { SectionIntro, cn } from "@/features/shared/designSystem";
 import { ScrollReveal } from "@/features/shared/motion/ScrollReveal";
 import * as styles from "./styles";
 import { getServiceNumber } from "./utils";
@@ -31,7 +31,7 @@ export function ServicesCatalogSection() {
               delayMs={120 + index * 90}
             >
               <article id={service.id} className={`${styles.card} ${styles.anchorOffset}`}>
-                <div className={styles.imageFrame}>
+                <div className={cn(styles.imageFrame, styles.imageFrameMorphById[service.id])}>
                   <Image
                     src={service.illustration.src}
                     alt={service.illustration.alt}

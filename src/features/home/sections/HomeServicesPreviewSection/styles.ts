@@ -1,4 +1,5 @@
 import { spacing, typeScale } from "@/features/shared/designSystem";
+import type { ServiceKey } from "./types";
 
 export const section = `${spacing.section} relative overflow-hidden bg-surface-muted`;
 export const ambientBackdrop = "pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_8%_0%,var(--color-brand-weak)_0%,transparent_58%),radial-gradient(120%_120%_at_92%_100%,var(--color-brand-soft)_0%,transparent_62%)] opacity-70";
@@ -12,6 +13,13 @@ export const cardWrap = "h-full";
 export const card = "group relative isolate block h-full overflow-hidden rounded-2xl border border-border-subtle bg-surface/95 p-5 shadow-sm transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-brand-tint hover:shadow-xl focus-visible:-translate-y-0.5 focus-visible:border-brand-tint focus-visible:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand md:p-6";
 export const glow = "pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-brand-weak opacity-45 blur-2xl transition-opacity duration-300 group-hover:opacity-90";
 export const illustrationWrap = "mb-4 flex items-center justify-center md:mb-5";
+// Shared view-transition-name with the services catalog card frames so the
+// preview illustration morphs into the destination card on navigation.
+export const morphTargetByServiceKey: Record<ServiceKey, string> = {
+  websites: "[view-transition-name:svc-illo-websites]",
+  webApps: "[view-transition-name:svc-illo-web-applications]",
+  aiTools: "[view-transition-name:svc-illo-ai-tools]",
+};
 export const serviceImage = "h-36 w-36 object-contain transition-transform duration-300 group-hover:scale-[1.03] sm:h-40 sm:w-40 md:h-52 md:w-52";
 export const cardTitle = `${typeScale.cardTitle} mb-1 md:mb-2`;
 export const text = "mb-3 text-sm leading-relaxed text-content-muted md:mb-4";
