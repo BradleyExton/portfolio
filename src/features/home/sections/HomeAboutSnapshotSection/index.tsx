@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { homeCopy } from "@/copy/home";
-import { ActionLink, ArrowRightIcon, CheckCircleIcon, SectionIntro, cn } from "@/features/shared/designSystem";
+import { ActionLink, ArrowRightIcon, CheckCircleIcon, cn } from "@/features/shared/designSystem";
 import { IsoIllustration } from "./IsoIllustration";
 import type { WhatIDoCapability } from "./types";
 import {
@@ -21,49 +21,61 @@ export function HomeAboutSnapshotSection() {
   });
 
   return (
-    <section id="about" className={styles.section}>
-      <div aria-hidden="true" className={styles.ambientBackdrop} />
-      <div className={styles.container}>
-        <div className={styles.layoutFlow}>
-          <div className={styles.intro}>
-            <div className={styles.introRow}>
-              <div className={styles.portraitColumn}>
-                <span className={styles.portraitRing} aria-hidden="true" />
-                <div className={styles.portraitFrame}>
-                  <Image
-                    src="/images/headshot.png"
-                    alt={homeCopy.aboutSnapshot.portraitAlt}
-                    width={800}
-                    height={800}
-                    sizes="(min-width: 640px) 7rem, 6rem"
-                    className={styles.portraitImage}
-                  />
-                </div>
-                <span className={styles.portraitNode} aria-hidden="true" />
-              </div>
-
-              <div className={styles.introText}>
-                <SectionIntro
-                  eyebrow={homeCopy.aboutSnapshot.eyebrow}
-                  title={homeCopy.aboutSnapshot.heading}
-                  description={homeCopy.aboutSnapshot.description}
-                  eyebrowClassName={styles.eyebrow}
-                  titleClassName={styles.subheading}
-                  descriptionClassName={styles.description}
-                />
-                <ActionLink
-                  href="/about"
-                  variant="inline"
-                  size="text"
-                  className={styles.link}
-                  icon={<ArrowRightIcon className={styles.icon} />}
-                >
-                  {homeCopy.aboutSnapshot.cta}
-                </ActionLink>
-              </div>
+    <section id="about" className={styles.shell}>
+      <div className={styles.introBand}>
+        <div aria-hidden="true" className={styles.introGlow} />
+        <div className={styles.introContainer}>
+          <div>
+            <p className={styles.eyebrow}>{homeCopy.aboutSnapshot.eyebrow}</p>
+            <h2 className={styles.subheading}>{homeCopy.aboutSnapshot.heading}</h2>
+            <p className={styles.description}>{homeCopy.aboutSnapshot.description}</p>
+            <div className={styles.ctaRow}>
+              <ActionLink
+                href="/about"
+                variant="surface"
+                size="md"
+                icon={<ArrowRightIcon className={styles.icon} />}
+              >
+                {homeCopy.aboutSnapshot.cta}
+              </ActionLink>
             </div>
           </div>
 
+          <div className={styles.portraitColumn}>
+            <span className={styles.portraitRing} aria-hidden="true" />
+            <span className={styles.portraitArc} aria-hidden="true" />
+            <div className={styles.portraitFrame}>
+              <Image
+                src="/images/headshot.png"
+                alt={homeCopy.aboutSnapshot.portraitAlt}
+                width={800}
+                height={800}
+                sizes="(min-width: 640px) 13rem, 10rem"
+                className={styles.portraitImage}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.ticker} aria-hidden="true">
+          <div className={styles.tickerTrack}>
+            {[0, 1].map((half) => (
+              <div key={half} className={styles.tickerGroup}>
+                {homeCopy.aboutSnapshot.tickerItems.map((item) => (
+                  <span key={`${half}-${item}`} className={styles.tickerItem}>
+                    {item}
+                    <span className={styles.tickerStar}>✦</span>
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.cardsRegion}>
+        <div aria-hidden="true" className={styles.ambientBackdrop} />
+        <div className={styles.container}>
           <div>
             <ol
               ref={listRef}

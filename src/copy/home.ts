@@ -19,6 +19,16 @@ export const homeCopy = {
       "I lead delivery end to end: PRD and technical spec, design iteration, implementation, testing, and launch. At Local Logic that means owning a customer-facing reporting platform, plus building the AI workflows and automations the team uses to ship faster without dropping quality.",
     cta: "More about me",
     portraitAlt: "Bradley Exton",
+    tickerItems: [
+      "PRD & Spec",
+      "Design Iteration",
+      "Implementation",
+      "Testing",
+      "Launch",
+      "AI Workflows",
+      "MCP Servers",
+      "Automation",
+    ],
   },
   whatIDoCapabilities: [
     {

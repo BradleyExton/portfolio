@@ -296,6 +296,18 @@ html {
   }
 }
 
+/* Seamless capability ticker in the What I Do intro band: the track holds two
+   identical halves, so a -50% translate loops without a visible jump. */
+@keyframes about-ticker {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 /* Inline iso-illustration system (Prototype B). Keyframes live here, not in
    the SVGs: inlined <style> blocks are document-global, so per-file keyframes
    would collide once several illustrations mount at once. */
