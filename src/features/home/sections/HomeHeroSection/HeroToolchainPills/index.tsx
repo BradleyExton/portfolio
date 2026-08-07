@@ -28,7 +28,7 @@ export function HeroToolchainPills() {
           key={tech}
           className={`${styles.tile} ${styles.stackTileMotion[index] ?? ""}`}
         >
-          <span className={styles.glyphFrame}>
+          <span className={styles.stackGlyphFrame}>
             <IsoToolGlyph tool={tech} />
           </span>
           <span className={styles.stackLabel}>{tech}</span>

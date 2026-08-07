@@ -1,7 +1,13 @@
+// 72px is the widest label ("MCP Servers" measures 69px at 11px) rounded up,
+// so every tile is the same width and the glyphs land on one 76px pitch.
 export const tile =
   "flex flex-col items-center gap-1.5 transition-transform duration-300 motion-safe:hover:-translate-y-1 md:w-[72px]";
 
 export const glyphFrame = "relative";
+// The stack row is the supporting cast: Next.js in particular is drawn in the
+// near-black neutrals, which made it the highest-contrast mark in the strip and
+// pulled the eye past the four AI tools it is meant to sit behind.
+export const stackGlyphFrame = "relative opacity-85";
 export const aiHalo =
   "pointer-events-none absolute inset-1.5 -z-10 rounded-full bg-brand-tint/50 blur-md";
 

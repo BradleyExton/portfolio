@@ -96,9 +96,12 @@ export function IsoToolGlyph({ tool }: { tool: string }) {
   if (tool === "Next.js") {
     return (
       <Svg>
+        {/* One step off the darkest neutrals. neutral-900 is the heading
+            colour, so at full depth this cube out-contrasted every other mark
+            in the strip, including the four AI tools ranked above it. */}
         <polygon points={CUBE_TOP} fill="var(--color-neutral-100)" />
-        <polygon points={CUBE_LEFT} fill="var(--color-neutral-800)" />
-        <polygon points={CUBE_RIGHT} fill="var(--color-neutral-900)" />
+        <polygon points={CUBE_LEFT} fill="var(--color-neutral-700)" />
+        <polygon points={CUBE_RIGHT} fill="var(--color-neutral-800)" />
         <g fill="none" stroke="var(--color-surface)" strokeWidth="1.5" strokeLinecap="round" transform={RIGHT_FACE}>
           <path d="M3.5 8.8V3.2L8.8 8.8V3.2" strokeLinejoin="round" />
         </g>
