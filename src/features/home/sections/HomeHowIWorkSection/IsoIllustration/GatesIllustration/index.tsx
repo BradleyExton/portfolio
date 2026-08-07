@@ -1,0 +1,72 @@
+import { BradFigure } from "../BradFigure";
+import * as styles from "./styles";
+
+// Inlined from public/images/how-i-work/gates.svg; loop keyframes live in
+// globals.css so several inline scenes can mount without keyframe collisions.
+export function GatesIllustration() {
+  return (
+    <svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg" className={styles.svg}>
+      <g transform="translate(268,34)">
+        <g className={styles.pieces[0]}>
+          <polygon points="0,-14 294.4,156 112.6,261 -181.9,91" fill="#ecfdf5" />
+          <polygon points="-181.9,91 -181.9,105 112.6,275 112.6,261" fill="#d1fae5" />
+          <polygon points="294.4,156 294.4,170 112.6,275 112.6,261" fill="#a7f3d0" />
+        </g>
+        <g className={styles.pieces[1]}>
+          <polygon points="-62.4,42 197.4,192 166.3,210 -93.5,60" fill="#d1fae5" />
+          <polygon points="-67.1,44.8 192.7,194.8 197,192.3 -62.8,42.3" fill="#a7f3d0" />
+        </g>
+        <g className={styles.pieces[2]}>
+          <polygon points="-57.2,37 -27.7,54 -57.2,71 -86.6,54" fill="#ffffff" />
+          <polygon points="-86.6,54 -86.6,63 -57.2,80 -57.2,71" fill="#e0eae5" />
+          <polygon points="-27.7,54 -27.7,63 -57.2,80 -57.2,71" fill="#c9d8d0" />
+          <polygon points="-20.8,58 8.7,75 -20.8,92 -50.2,75" fill="#ffffff" />
+          <polygon points="-50.2,75 -50.2,84 -20.8,101 -20.8,92" fill="#e0eae5" />
+          <polygon points="8.7,75 8.7,84 -20.8,101 -20.8,92" fill="#c9d8d0" />
+          <polygon points="13.9,77 43.3,94 13.9,111 -15.6,94" fill="#6ee7b7" />
+          <polygon points="-15.6,94 -15.6,104 13.9,121 13.9,111" fill="#34d399" />
+          <polygon points="43.3,94 43.3,104 13.9,121 13.9,111" fill="#10b981" />
+          <g transform="translate(13.9,57)">
+            <polygon points="0,0 11,6.3 0,12.7 -11,6.3" fill="#fbbf24" className={styles.bobDiamond} />
+          </g>
+        </g>
+        <g className={styles.pieces[3]}>
+          <polygon points="62.4,49 74.5,56 62.4,63 50.2,56" fill="#ffffff" />
+          <polygon points="50.2,56 50.2,100 62.4,107 62.4,63" fill="#e0eae5" />
+          <polygon points="74.5,56 74.5,100 62.4,107 62.4,63" fill="#c9d8d0" />
+          <polygon points="62.4,50 72.7,56 62.4,62 52,56" fill="#6ee7b7" className={styles.twinkleA} />
+          <polygon points="10.4,79 22.5,86 10.4,93 -1.7,86" fill="#ffffff" />
+          <polygon points="-1.7,86 -1.7,130 10.4,137 10.4,93" fill="#e0eae5" />
+          <polygon points="22.5,86 22.5,130 10.4,137 10.4,93" fill="#c9d8d0" />
+          <polygon points="10.4,80 20.8,86 10.4,92 0,86" fill="#6ee7b7" className={styles.twinkleB} />
+          <polygon points="131.6,89 143.8,96 131.6,103 119.5,96" fill="#ffffff" />
+          <polygon points="119.5,96 119.5,140 131.6,147 131.6,103" fill="#e0eae5" />
+          <polygon points="143.8,96 143.8,140 131.6,147 131.6,103" fill="#c9d8d0" />
+          <polygon points="131.6,90 142,96 131.6,102 121.2,96" fill="#6ee7b7" className={styles.twinkleB} />
+          <polygon points="79.7,119 91.8,126 79.7,133 67.5,126" fill="#ffffff" />
+          <polygon points="67.5,126 67.5,170 79.7,177 79.7,133" fill="#e0eae5" />
+          <polygon points="91.8,126 91.8,170 79.7,177 79.7,133" fill="#c9d8d0" />
+          <polygon points="79.7,120 90.1,126 79.7,132 69.3,126" fill="#6ee7b7" className={styles.twinkleA} />
+        </g>
+        <g className={styles.pieces[4]}>
+          <g transform="translate(105.7,145)">
+            <polygon points="0,0 6,3.5 0,6.9 -6,3.5" fill="#34d399" className={styles.packet} />
+          </g>
+        </g>
+        <g className={styles.pieces[5]}>
+          <polygon points="151.6,149.5 189.7,171.5 151.6,193.5 113.4,171.5" fill="#10b981" />
+          <polygon points="113.4,171.5 113.4,183.5 151.6,205.5 151.6,193.5" fill="#059669" />
+          <polygon points="189.7,171.5 189.7,183.5 151.6,205.5 151.6,193.5" fill="#047857" />
+          <polygon points="151.6,161.5 168.9,171.5 151.6,181.5 134.2,171.5" fill="#a7f3d0" />
+        </g>
+        <g className={styles.pieces[6]}>
+          <polygon points="0,0 13,7.5 0,15 -13,7.5" fill="#a7f3d0" transform="translate(-160,40)" />
+          <polygon points="0,0 13,7.5 0,15 -13,7.5" fill="#6ee7b7" transform="translate(244,8)" />
+        </g>
+        <g className={styles.pieces[7]}>
+          <BradFigure pose="gates" transform="translate(-62,156) scale(0.72,0.72) translate(0,-159)" />
+        </g>
+      </g>
+    </svg>
+  );
+}

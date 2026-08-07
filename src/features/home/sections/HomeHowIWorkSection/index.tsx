@@ -1,7 +1,8 @@
 import { homeCopy } from "@/copy/home";
 import { SectionIntro } from "@/features/shared/designSystem";
+import { IsoIllustration } from "./IsoIllustration";
 import type { HowIWorkStage } from "./types";
-import { getStageMarker, isFinalStage } from "./utils";
+import { getStageMarker, isFinalStage, isStageReversed } from "./utils";
 import * as styles from "./styles";
 
 const howIWorkStages = homeCopy.howIWork.stages satisfies readonly HowIWorkStage[];
@@ -21,13 +22,18 @@ export function HomeHowIWorkSection() {
           descriptionClassName={styles.description}
         />
 
-        <ol className={styles.stageList} aria-label="How I work stages" tabIndex={0}>
+        <ol className={styles.stageList} aria-label="How I work stages">
           {howIWorkStages.map((stage, index) => {
             const isFinal = isFinalStage(index, stageCount);
+            const reversed = isStageReversed(index);
 
             return (
-              <li key={stage.id} className={styles.stageItem}>
-                <div aria-hidden="true" className={styles.nodeRow}>
+              <li key={stage.id} data-active="true" className={styles.stageRow}>
+                <div className={reversed ? styles.mediaColReversed : styles.mediaCol}>
+                  <IsoIllustration stageId={stage.id} />
+                </div>
+
+                <div aria-hidden="true" className={styles.spineCol}>
                   <span className={index === 0 ? styles.railEnd : styles.rail} />
                   <span className={isFinal ? styles.nodeFinal : styles.node}>
                     {getStageMarker(index, stageCount)}
@@ -35,19 +41,23 @@ export function HomeHowIWorkSection() {
                   <span className={isFinal ? styles.railEnd : styles.rail} />
                 </div>
 
-                <p className={isFinal ? styles.stationLabelFinal : styles.stationLabel}>
-                  {stage.station}
-                </p>
-                <h3 className={styles.stageName}>{stage.name}</h3>
-                <p className={styles.stageBody}>{stage.body}</p>
-
-                <ul className={styles.chipList} aria-label={`${stage.name} artifacts`}>
-                  {stage.chips.map((chip) => (
-                    <li key={`${stage.id}-${chip}`} className={styles.chip}>
-                      {chip}
-                    </li>
-                  ))}
-                </ul>
+                <div className={reversed ? styles.textColReversed : styles.textCol}>
+                  <p className={isFinal ? styles.stationLabelFinal : styles.stationLabel}>
+                    {stage.station}
+                  </p>
+                  <h3 className={styles.stageName}>{stage.name}</h3>
+                  <p className={styles.stageBody}>{stage.body}</p>
+                  <ul
+                    className={reversed ? styles.chipListReversed : styles.chipList}
+                    aria-label={`${stage.name} artifacts`}
+                  >
+                    {stage.chips.map((chip) => (
+                      <li key={`${stage.id}-${chip}`} className={styles.chip}>
+                        {chip}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </li>
             );
           })}

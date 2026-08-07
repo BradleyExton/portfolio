@@ -42,13 +42,14 @@ describe("HomeHowIWorkSection", () => {
     }
   });
 
-  it("keeps the horizontally scrolling track reachable by keyboard", () => {
-    render(<HomeHowIWorkSection />);
+  it("renders an iso illustration for every stage", () => {
+    const { container } = render(<HomeHowIWorkSection />);
 
-    expect(screen.getByRole("list", { name: "How I work stages" })).toHaveAttribute(
-      "tabindex",
-      "0",
-    );
+    for (const stage of homeCopy.howIWork.stages) {
+      expect(
+        container.querySelector(`[data-illustration="${stage.id}"] svg`),
+      ).toBeInTheDocument();
+    }
   });
 
   it("hides the decorative station markers and rails from assistive tech", () => {

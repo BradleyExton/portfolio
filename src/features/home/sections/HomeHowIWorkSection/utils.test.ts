@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { formatStageIndex, getStageMarker, isFinalStage } from "./utils";
+import { formatStageIndex, getStageMarker, isFinalStage, isStageReversed } from "./utils";
 
 describe("formatStageIndex", () => {
   it("zero-pads the one-based stage number", () => {
@@ -29,5 +29,14 @@ describe("getStageMarker", () => {
 
   it("marks the terminal station with a check", () => {
     expect(getStageMarker(3, 4)).toBe("✓");
+  });
+});
+
+describe("isStageReversed", () => {
+  it("reverses only the odd rows so the track zigzags", () => {
+    expect(isStageReversed(0)).toBe(false);
+    expect(isStageReversed(1)).toBe(true);
+    expect(isStageReversed(2)).toBe(false);
+    expect(isStageReversed(3)).toBe(true);
   });
 });

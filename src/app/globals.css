@@ -362,8 +362,30 @@ html {
   }
 
   100% {
-    transform: translate(44px, 25px);
+    transform: translate(var(--iso-pulse-x, 44px), var(--iso-pulse-y, 25px));
     opacity: 0;
+  }
+}
+
+@keyframes iso-slide {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(var(--iso-slide-x, 24.2px), var(--iso-slide-y, 14px));
+  }
+}
+
+@keyframes iso-sway {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(var(--iso-sway-deg, -7deg));
   }
 }
 
@@ -553,7 +575,19 @@ html {
      original reduced-motion treatment. */
   .iso-scene .iso-loop-pulse {
     opacity: 0;
-    animation: iso-packet-travel 2.8s linear infinite;
+    animation: iso-packet-travel var(--iso-pulse-duration, 2.8s) linear
+      var(--iso-pulse-delay, 0s) infinite;
+    animation-play-state: paused;
+  }
+
+  .iso-scene .iso-loop-slide {
+    animation: iso-slide var(--iso-slide-duration, 3.8s) ease-in-out
+      var(--iso-slide-delay, 0s) infinite;
+    animation-play-state: paused;
+  }
+
+  .iso-scene .iso-loop-sway {
+    animation: iso-sway var(--iso-sway-duration, 2.8s) ease-in-out infinite;
     animation-play-state: paused;
   }
 
@@ -576,7 +610,9 @@ html {
   [data-active="true"] .iso-scene .iso-loop-pulse,
   [data-active="true"] .iso-scene .iso-loop-bob,
   [data-active="true"] .iso-scene .iso-loop-tw,
-  [data-active="true"] .iso-scene .iso-loop-blink {
+  [data-active="true"] .iso-scene .iso-loop-blink,
+  [data-active="true"] .iso-scene .iso-loop-slide,
+  [data-active="true"] .iso-scene .iso-loop-sway {
     animation-play-state: running;
   }
 

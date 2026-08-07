@@ -9,3 +9,7 @@ export const isFinalStage = (index: number, total: number): boolean =>
 // name carries the meaning for assistive tech.
 export const getStageMarker = (index: number, total: number): string =>
   isFinalStage(index, total) ? "✓" : formatStageIndex(index);
+
+// Odd rows swap the illustration to the other side of the spine so the track
+// zigzags down the page.
+export const isStageReversed = (index: number): boolean => index % 2 === 1;
