@@ -32,15 +32,20 @@ export const title = typeScale.heroTitle;
 // hero carries far less luminance contrast than the near-black rest of the
 // line, so in grayscale the highlighted phrase read as the de-emphasized one.
 export const labelText = "bg-gradient-to-r from-brand-deep to-brand-deeper bg-clip-text text-transparent";
-export const description = `mb-8 max-w-xl ${typeScale.leadBody} md:text-xl`;
+// mb-9 against the heading's mb-5: the paragraph now binds up to the heading
+// and breaks down to the CTA, instead of sitting equidistant between them.
+export const description = `mb-9 max-w-xl ${typeScale.leadBody} md:text-xl`;
 export const ctaRow = "flex flex-wrap gap-3";
-export const ctaLink = "group inline-flex h-11 items-center gap-1.5 rounded-lg bg-brand px-5 text-sm font-medium leading-none text-content-inverse shadow-md shadow-brand-tint transition-[background-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-brand-strong hover:shadow-lg active:translate-y-0 active:shadow-md focus-visible:outline-brand";
+// h-12/15px, not h-11/14px. The lead paragraph above runs at 20px, so 14px
+// button text made the primary action the smallest type in the block it is
+// supposed to lead.
+export const ctaLink = "group inline-flex h-12 items-center gap-1.5 rounded-lg bg-brand px-6 text-[15px] font-medium leading-none text-content-inverse shadow-md shadow-brand-tint transition-[background-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-brand-strong hover:shadow-lg active:translate-y-0 active:shadow-md focus-visible:outline-brand";
 export const icon = "relative top-px h-4 w-4 shrink-0 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-focus-visible:translate-x-0.5";
 // Outlined counterpart to the solid primary. The old border-default hairline
 // on a near-white hero left this button invisible under a squint test, so the
 // pair read as one CTA; a brand-weight outline keeps it clearly secondary
 // while still registering as a control.
-export const link = "group inline-flex h-11 items-center gap-1.5 rounded-lg border border-brand/70 bg-surface/90 px-5 text-sm font-semibold leading-none text-brand-strong backdrop-blur-sm transition-[background-color,border-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-brand-strong hover:bg-surface hover:shadow-md active:translate-y-0 active:shadow-sm focus-visible:outline-brand";
+export const link = "group inline-flex h-12 items-center gap-1.5 rounded-lg border border-brand/70 bg-surface/90 px-6 text-[15px] font-semibold leading-none text-brand-strong backdrop-blur-sm transition-[background-color,border-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-brand-strong hover:bg-surface hover:shadow-md active:translate-y-0 active:shadow-sm focus-visible:outline-brand";
 export const textColumn = "max-w-3xl transition-all duration-1000 motion-safe:will-change-transform";
 export const visibleState = "translate-y-0 opacity-100";
 /* Two layouts, because a wrapping flex row cannot hold an even beat. Each tile

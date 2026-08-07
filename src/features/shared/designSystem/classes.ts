@@ -9,8 +9,12 @@ export const spacing = {
 
 export const typeScale = {
   eyebrow: "mb-3 text-sm font-semibold uppercase tracking-wider text-brand",
+  // mb-5, not mb-6: the 72px line box carries ~12px of empty leading below the
+  // descenders, so a 24px margin opened a larger optical gap to the lead
+  // paragraph than the paragraph had to the CTA row, and the heading read as
+  // detached from the sentence that explains it.
   heroTitle:
-    "mb-6 text-5xl font-bold leading-tight tracking-tight text-content font-[family-name:var(--font-space-grotesk)] md:text-6xl lg:text-7xl",
+    "mb-5 text-5xl font-bold leading-tight tracking-tight text-content font-[family-name:var(--font-space-grotesk)] md:text-6xl lg:text-7xl",
   pageHeroTitle:
     "mb-5 text-balance text-3xl font-bold leading-tight tracking-tight text-content font-[family-name:var(--font-space-grotesk)] sm:text-4xl md:text-5xl",
   // Section titles sit one full step below the home hero (72px) and one full
