@@ -152,16 +152,15 @@ export function useTimelineMetrics({
     const svgHeightPx = Math.max(1, listRect.height);
 
     setTimelineState((previousState) => {
-      // A card is active only while the viewport anchor is inside its top/bottom checkpoints.
-      const activeEntryCheckpointIndex = entryTopsAbsolute.findIndex((entryTopAbsolute, index) => {
-        const entryBottomAbsolute = entryBottomsAbsolute[index];
-        if (entryBottomAbsolute === undefined) {
-          return false;
-        }
-
-        return absoluteAnchorY >= entryTopAbsolute
-          && absoluteAnchorY < (entryBottomAbsolute - PIXEL_EPSILON);
-      });
+      // Focus sticks to the last card whose top the viewport anchor has passed,
+      // so the lift stays on one card instead of dropping out in the gaps
+      // between entries.
+      const activeEntryCheckpointIndex = entryTopsAbsolute.reduce(
+        (resolvedIndex, entryTopAbsolute, index) => {
+          return absoluteAnchorY >= entryTopAbsolute ? index : resolvedIndex;
+        },
+        -1,
+      );
       const progressActiveIndex = checkpointProgress.reduce((resolvedIndex, checkpoint) => {
         if (progress + PROGRESS_EPSILON < checkpoint) {
           return resolvedIndex;

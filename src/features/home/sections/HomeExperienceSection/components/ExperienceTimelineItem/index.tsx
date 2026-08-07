@@ -36,33 +36,33 @@ export function ExperienceTimelineItem({
 
   return (
     <li className={cn(styles.timelineItem, styles.itemReveal)} aria-current={isActive ? "step" : undefined}>
-      <ExperienceMilestone job={job} isActive={isActive} reduceMotion={reduceMotion} />
+      <ExperienceMilestone isActive={isActive} reduceMotion={reduceMotion} />
 
       <article
         ref={entryRef}
         data-timeline-entry="true"
-        onPointerMove={job.current ? undefined : handleSpotlightMove}
+        onPointerMove={handleSpotlightMove}
         className={cn(
           styles.entry,
-          job.current ? styles.entryCurrent : styles.entrySpotlight,
-          isActive && styles.entryBorderActive,
-          isActive && styles.entryActive,
+          styles.entrySpotlight,
+          job.current && styles.entryCurrent,
+          isActive && styles.entryLifted,
         )}
       >
+        <span aria-hidden="true" className={styles.wireRing} />
         {job.current ? (
           <span aria-hidden="true" className={styles.signalPulseClip}>
             <span className={styles.signalPulse} />
           </span>
-        ) : (
-          <>
-            <span aria-hidden="true" className={styles.wireRing} />
-            {startYearShort ? (
-              <span aria-hidden="true" className={styles.watermark}>
-                &rsquo;{startYearShort}
-              </span>
-            ) : null}
-          </>
-        )}
+        ) : null}
+        {startYearShort ? (
+          <span
+            aria-hidden="true"
+            className={cn(styles.watermark, job.current && styles.watermarkCurrent)}
+          >
+            &rsquo;{startYearShort}
+          </span>
+        ) : null}
 
         <header className={styles.entryHeader}>
           <p className={styles.metaRow}>
