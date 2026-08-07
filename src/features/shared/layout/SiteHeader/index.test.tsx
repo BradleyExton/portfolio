@@ -84,4 +84,44 @@ describe("SiteHeader", () => {
     await user.click(toggleButton);
     expect(toggleButton).toHaveAttribute("aria-expanded", "false");
   });
+
+  it("locks body scroll only while the mobile menu is open", async () => {
+    const user = userEvent.setup();
+    render(<SiteHeader />);
+
+    const toggleButton = screen.getByRole("button", { name: "Toggle menu" });
+    expect(document.body.style.overflow).toBe("");
+
+    await user.click(toggleButton);
+    expect(document.body.style.overflow).toBe("hidden");
+
+    await user.click(toggleButton);
+    expect(document.body.style.overflow).toBe("");
+  });
+
+  it("closes the mobile menu on Escape and restores focus to the toggle", async () => {
+    const user = userEvent.setup();
+    render(<SiteHeader />);
+
+    const toggleButton = screen.getByRole("button", { name: "Toggle menu" });
+    await user.click(toggleButton);
+    expect(toggleButton).toHaveAttribute("aria-expanded", "true");
+
+    await user.keyboard("{Escape}");
+    expect(toggleButton).toHaveAttribute("aria-expanded", "false");
+    expect(toggleButton).toHaveFocus();
+    expect(document.body.style.overflow).toBe("");
+  });
+
+  it("keeps mobile menu links out of the tab order while closed", async () => {
+    const user = userEvent.setup();
+    render(<SiteHeader />);
+
+    const menu = document.getElementById("mobile-menu");
+    const panel = menu?.querySelector("[inert]");
+    expect(panel).not.toBeNull();
+
+    await user.click(screen.getByRole("button", { name: "Toggle menu" }));
+    expect(menu?.querySelector("[inert]")).toBeNull();
+  });
 });

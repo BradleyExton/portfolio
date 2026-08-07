@@ -15,3 +15,9 @@ export const getHeaderContactHref = (isHomePage: boolean): string =>
   isHomePage ? "#contact" : "/contact";
 
 export const toggleMenu = (isMenuOpen: boolean): boolean => !isMenuOpen;
+
+// Rows past the last authored delay share it rather than dropping the stagger.
+export const getMenuRevealDelay = (
+  delays: readonly string[],
+  index: number,
+): string => delays[Math.min(index, delays.length - 1)] ?? "";
