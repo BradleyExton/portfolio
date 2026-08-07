@@ -132,11 +132,9 @@ const applyHeroSteamClusterAnchor = (
     + HERO_STEAM_CLUSTER_OFFSET.y
   );
 
-  steamCluster.style.left = toPixelOffset(anchorX);
-  steamCluster.style.top = toPixelOffset(anchorY);
-  steamCluster.style.right = "auto";
-  steamCluster.style.bottom = "auto";
-  steamCluster.style.transform = "translate3d(-50%, -100%, 0)";
+  // Anchor with a transform rather than left/top: the cluster keeps its static
+  // layout box, so re-anchoring on load and resize never registers as layout shift.
+  steamCluster.style.transform = `translate3d(calc(${toPixelOffset(anchorX)} - 50%), calc(${toPixelOffset(anchorY)} - 100%), 0)`;
 };
 
 const clearHeroSteamClusterAnchor = (
@@ -146,10 +144,6 @@ const clearHeroSteamClusterAnchor = (
     return;
   }
 
-  steamCluster.style.left = "";
-  steamCluster.style.top = "";
-  steamCluster.style.right = "";
-  steamCluster.style.bottom = "";
   steamCluster.style.transform = "";
 };
 
