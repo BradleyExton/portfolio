@@ -219,6 +219,15 @@ describe("HomeAboutSnapshotSection", () => {
     });
   });
 
+  it("does not restate the delivery pipeline stages in the orbit ring", () => {
+    render(<HomeAboutSnapshotSection />);
+
+    expect(homeCopy.aboutSnapshot.tickerItems).toHaveLength(7);
+    ["PRD & Spec", "Implementation", "Code Review", "Launch"].forEach((stage) => {
+      expect(screen.queryByText(stage)).not.toBeInTheDocument();
+    });
+  });
+
   it("does not render prototype comparison controls", () => {
     render(<HomeAboutSnapshotSection />);
 

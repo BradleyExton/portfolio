@@ -19,14 +19,18 @@ export const homeCopy = {
       "I lead delivery end to end: PRD and technical spec, design iteration, implementation, testing, and launch. At Local Logic that means owning a customer-facing reporting platform, plus building the AI workflows and automations the team uses to ship faster without dropping quality.",
     cta: "More about me",
     portraitAlt: "Bradley Exton",
+    // Seven items, and it must stay seven: the ring cycles this list across the
+    // 21 slots in --ring-count, so any length that does not divide 21 evenly
+    // leaves a visible seam where the cycle restarts.
     tickerItems: [
-      "PRD & Spec",
-      "Design Iteration",
-      "Implementation",
-      "Testing",
-      "Code Review",
-      "Launch",
-      "Automation",
+      "Web Apps",
+      "AI Workflows",
+      "Dashboards",
+      "Integrations",
+      // The ring uppercases every slot, so avoid mixed-case acronyms here.
+      "Serverless",
+      "Theming Systems",
+      "Automations",
     ],
   },
   whatIDoCapabilities: [
