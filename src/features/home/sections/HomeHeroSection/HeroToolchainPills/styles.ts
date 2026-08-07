@@ -1,5 +1,5 @@
 export const tile =
-  "flex flex-col items-center gap-1.5 transition-transform duration-300 motion-safe:hover:-translate-y-1";
+  "flex flex-col items-center gap-1.5 transition-transform duration-300 motion-safe:hover:-translate-y-1 md:w-[72px]";
 
 export const glyphFrame = "relative";
 export const aiHalo =
@@ -10,7 +10,11 @@ export const aiHalo =
 export const aiLabel = "text-[11px] font-medium text-brand-strong";
 export const stackLabel = "text-[11px] font-normal text-content-subtle";
 
-export const divider = "mb-5 hidden self-end text-sm text-accent-soft sm:block";
+// h-12 matches the glyph box, so the mark centres on the row of cubes. It used
+// to hang off the bottom of the row, stranded in the gap between the glyphs and
+// their captions with nothing to align to.
+export const divider =
+  "hidden h-12 w-4 items-center justify-center text-sm text-accent-soft md:inline-flex";
 
 /* Staggered entrance, one tile after another. */
 export const aiTileMotion = [

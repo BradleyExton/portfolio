@@ -43,4 +43,14 @@ export const icon = "relative top-px h-4 w-4 shrink-0 transition-transform durat
 export const link = "group inline-flex h-11 items-center gap-1.5 rounded-lg border border-brand/70 bg-surface/90 px-5 text-sm font-semibold leading-none text-brand-strong backdrop-blur-sm transition-[background-color,border-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-brand-strong hover:bg-surface hover:shadow-md active:translate-y-0 active:shadow-sm focus-visible:outline-brand";
 export const textColumn = "max-w-3xl transition-all duration-1000 motion-safe:will-change-transform";
 export const visibleState = "translate-y-0 opacity-100";
-export const techPillsRow = "mt-12 flex flex-wrap items-end gap-x-4 gap-y-5 sm:gap-x-5 sm:gap-y-6 motion-safe:will-change-transform";
+/* Two layouts, because a wrapping flex row cannot hold an even beat. Each tile
+   is only as wide as its own label, so the glyphs marched at 78/72/83/68/72px
+   instead of a single pitch. Below md the tiles sit in a grid; at md and up
+   they are fixed-width flex items, which is the same thing by other means once
+   the whole strip fits on one line.
+
+   Five columns needs a 69px cell for "MCP Servers", so it only turns on at
+   390px; below that the strip drops to four, which also lands the four AI
+   tools on a row of their own. The 420px cap keeps the 5-column pitch near the
+   76px the flex row uses, instead of stretching to 144px at 767. */
+export const techPillsRow = "mt-14 grid max-w-[420px] grid-cols-4 items-start gap-y-6 motion-safe:will-change-transform min-[390px]:grid-cols-5 md:flex md:max-w-none md:flex-wrap md:gap-x-1";
