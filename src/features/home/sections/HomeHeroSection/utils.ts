@@ -27,11 +27,12 @@ const HERO_STEAM_CLUSTER_OFFSET = {
   x: -50,
   y: 8,
 };
-/* Bounding-box origin of the monitor screen quad in the hero photo; the
-   HeroScreenAgent terminal maps onto the quad relative to this point. */
+/* Bounding-box origin of the monitor screen quad in the hero photo, measured
+   from the image's own luminance edges; the HeroScreenAgent terminal maps
+   onto the quad relative to this point. */
 const HERO_SCREEN_ANCHOR_POINT = {
-  x: 962,
-  y: 430,
+  x: 953,
+  y: 422,
 };
 
 const clamp = (value: number, min: number, max: number): number => {

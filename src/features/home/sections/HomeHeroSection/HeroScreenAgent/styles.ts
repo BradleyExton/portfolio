@@ -5,17 +5,19 @@
    palette vars directly, matching the iso-illustration tier: this is scenery
    inside a photo, not themeable UI surface. */
 
-export const stage = "relative h-[270px] w-[320px]";
+export const stage = "relative h-[292px] w-[336px]";
 
 export const glow =
   "absolute -inset-5 rounded-[24px] bg-[radial-gradient(70%_60%_at_50%_45%,color-mix(in_srgb,var(--color-primary-400)_30%,transparent)_0%,transparent_70%)] blur-2xl";
 
 /* The monitor screen in the hero photo is a perspective quad; this matrix3d
-   maps the flat 320x270 terminal onto it, relative to the cluster anchor
-   utils.ts places at the quad's bounding-box origin (962, 430) in image
-   space. Recompute the matrix if the hero photo changes. */
+   maps the flat 336x292 terminal onto the glass, relative to the cluster
+   anchor utils.ts places at the quad's bounding-box origin (953, 422) in
+   image space. The quad corners were measured from the photo's luminance
+   edges and inset 2px so the terminal never laps onto the bezel. Recompute
+   the matrix if the hero photo changes. */
 export const frame =
-  "absolute left-0 top-0 h-[270px] w-[320px] origin-top-left overflow-hidden rounded-[5px] bg-[color-mix(in_srgb,var(--color-neutral-900)_92%,transparent)] shadow-[inset_0_0_30px_rgba(0,0,0,0.6)] [transform:matrix3d(0.75116677,-0.1875,0,-0.0007776,0.00378718,0.78516712,0,0.00008347,0,0,1,0,0,60,0,1)]";
+  "absolute left-0 top-0 h-[292px] w-[336px] origin-top-left overflow-hidden bg-[color-mix(in_srgb,var(--color-neutral-900)_55%,transparent)] [transform:matrix3d(0.71359285,-0.20178053,0,-0.00078048,-0.01128586,0.74714096,0,0.00001034,0,0,1,0,4.8,69.2,0,1)]";
 
 export const sheen =
   "pointer-events-none absolute inset-0 [background:radial-gradient(130%_90%_at_16%_0%,color-mix(in_srgb,var(--color-primary-400)_12%,transparent)_0%,transparent_58%)]";
