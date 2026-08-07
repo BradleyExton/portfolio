@@ -1,14 +1,16 @@
 export const tile =
-  "flex flex-col items-center gap-2.5 transition-transform duration-300 motion-safe:hover:-translate-y-1.5";
+  "flex flex-col items-center gap-1.5 transition-transform duration-300 motion-safe:hover:-translate-y-1";
 
 export const glyphFrame = "relative";
 export const aiHalo =
-  "pointer-events-none absolute inset-2 -z-10 rounded-full bg-brand-tint/60 blur-lg";
+  "pointer-events-none absolute inset-1.5 -z-10 rounded-full bg-brand-tint/50 blur-md";
 
-export const aiLabel = "text-xs font-semibold text-brand-strong";
-export const stackLabel = "text-xs font-medium text-content-muted";
+// Labels are captions for the glyphs, not a third tier of headings. Dropping
+// them to 11px and off bold keeps the whole strip below the CTA row.
+export const aiLabel = "text-[11px] font-medium text-brand-strong";
+export const stackLabel = "text-[11px] font-normal text-content-subtle";
 
-export const divider = "mb-7 hidden self-end text-base text-accent-soft sm:block";
+export const divider = "mb-5 hidden self-end text-sm text-accent-soft sm:block";
 
 /* Staggered entrance, one tile after another. */
 export const aiTileMotion = [
