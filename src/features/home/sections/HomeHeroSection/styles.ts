@@ -28,7 +28,11 @@ export const steamWispFive = "h-[122px] w-[15px] [--steam-origin-x:30px] [--stea
 export const steamWispSix = "h-[110px] w-[14px] [--steam-origin-x:-32px] [--steam-mid-x:-3px] [--steam-drift-x:11px] md:motion-safe:animate-[steam-rise-plume_7.2s_ease-in-out_-2.8s_infinite]";
 export const steamWispSeven = "h-[126px] w-[16px] [--steam-origin-x:22px] [--steam-mid-x:2px] [--steam-drift-x:-10px] md:motion-safe:animate-[steam-rise-sway_6.7s_cubic-bezier(0.34,0.06,0.24,1)_-5.1s_infinite]";
 export const accentOrbTopRight = "absolute right-0 top-20 h-96 w-96 rounded-full bg-brand-tint/30 blur-3xl md:motion-safe:animate-[float-orb_16s_ease-in-out_infinite]";
-export const accentOrbBottomLeft = "absolute bottom-0 left-0 h-80 w-80 rounded-full bg-accent-soft/40 blur-3xl md:motion-safe:animate-[float-orb-reverse_18s_ease-in-out_infinite]";
+// Pushed into the corner and thinned out. At bottom-0/left-0 with /40 the
+// 320px orb plus its 64px blur centred on the CTA row and the AI tiles, so the
+// warm accent read as a stain across the whole lower left rather than a glow
+// off the corner, and it dulled the emerald tool labels sitting on it.
+export const accentOrbBottomLeft = "absolute -bottom-32 -left-32 h-72 w-72 rounded-full bg-accent-soft/25 blur-3xl md:motion-safe:animate-[float-orb-reverse_18s_ease-in-out_infinite]";
 export const container = `relative ${spacing.container6}`;
 export const grid = "grid items-center";
 export const title = typeScale.heroTitle;
