@@ -10,7 +10,11 @@ export const overlay = "absolute inset-0 bg-gradient-to-br from-brand-weak/95 vi
    the terminal recedes into the veiled photo instead of floating on top. */
 export const screenLayer = "pointer-events-none absolute inset-0 z-[1] flex justify-center opacity-35";
 export const screenViewport = "pointer-events-none relative h-full w-full max-w-[2200px]";
-export const screenCluster = "invisible absolute left-0 top-0 hidden h-[292px] w-[336px] origin-top-left sm:block";
+/* lg and up only. The terminal is anchored to the photo's monitor, and below
+   1024px the photo's cover crop walks that monitor left far enough that the
+   lead paragraph runs across the glass (measured: 125px of overlap at 768,
+   77px at 834, first clear at 1024). */
+export const screenCluster = "invisible absolute left-0 top-0 hidden h-[292px] w-[336px] origin-top-left lg:block";
 export const steamLayer = "pointer-events-none absolute inset-0 z-[2] flex justify-center";
 export const steamViewport = "pointer-events-none relative h-full w-full max-w-[2200px]";
 export const steamCluster = "absolute hidden h-[210px] w-[134px] sm:block";
