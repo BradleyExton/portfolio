@@ -13,8 +13,11 @@ export const introGlow =
 export const introContainer =
   "relative mx-auto grid max-w-6xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,8fr)_minmax(0,4fr)]";
 export const eyebrow = "mb-4 text-sm font-semibold uppercase tracking-wider text-accent-soft";
+// Sized to the shared section-title rank (30/36px) rather than its own 48px:
+// this is a peer of "Where I've worked" and "Available for select projects",
+// and outranking them made the page read as having two heading levels.
 export const subheading =
-  "text-balance text-3xl font-bold leading-[1.05] tracking-tight text-content-inverse font-[family-name:var(--font-space-grotesk)] sm:text-4xl lg:text-5xl";
+  "text-balance text-3xl font-bold leading-[1.05] tracking-tight text-content-inverse font-[family-name:var(--font-space-grotesk)] sm:text-4xl";
 export const description = "mt-6 max-w-[58ch] text-sm leading-relaxed text-content-inverse-muted sm:text-base";
 export const ctaRow = "mt-8";
 export const icon = "h-4 w-4";
