@@ -52,8 +52,11 @@ export const stackedCardItem = "[--index0:calc(var(--index)-1)] [z-index:var(--i
 // min-h instead of a fixed height below xl: text-only cards grow with their
 // content, so a clamp that undershoots can't clip chips under the next card.
 export const stackedCard = "min-h-[var(--card-height)] overflow-visible xl:h-[var(--card-height)]";
-export const cardSurface = "group/card stack-depth-scale relative h-full rounded-2xl border border-border-default bg-surface p-5 shadow-sm transition-[box-shadow,border-color] duration-300 motion-reduce:transition-none data-[active=true]:border-brand-tint data-[active=true]:shadow-xl md:p-6 xl:p-8";
-export const cardLayout = "grid h-full gap-4 md:gap-5 lg:gap-6 xl:grid-cols-[minmax(0,45%)_minmax(0,55%)] xl:items-center xl:gap-8";
+// overflow-hidden lets the below-xl watermark bleed past the corner and get
+// clipped by the card radius instead of escaping the surface; xl has no
+// watermark and keeps its original overflow behaviour.
+export const cardSurface = "group/card stack-depth-scale relative h-full overflow-hidden rounded-2xl border border-border-default bg-surface p-5 shadow-sm transition-[box-shadow,border-color] duration-300 motion-reduce:transition-none data-[active=true]:border-brand-tint data-[active=true]:shadow-xl md:p-6 xl:overflow-visible xl:p-8";
+export const cardLayout = "relative z-10 grid h-full gap-4 md:gap-5 lg:gap-6 xl:grid-cols-[minmax(0,45%)_minmax(0,55%)] xl:items-center xl:gap-8";
 export const cardContentColumn = "flex h-full min-w-0 flex-col";
 export const cardContentColumnDesktopSwap = "xl:order-2";
 export const cardHeader = "mb-4 flex items-center gap-3 border-b border-border-subtle pb-4";
@@ -62,6 +65,19 @@ export const cardTitle = `${typeScale.cardTitle} mb-0 min-w-0 text-xl leading-ti
 export const cardOutcome = "mb-4 text-base leading-relaxed text-content-muted";
 export const illustrationPanel = "relative aspect-[16/9] w-full min-h-[17rem] overflow-hidden rounded-xl border border-border-subtle bg-gradient-to-br from-brand-weak/60 via-surface to-surface-muted";
 export const illustrationPanelDesktopSwap = "xl:order-1";
+
+// Below xl the scene has no column of its own, so it becomes a corner
+// watermark. It hangs off the top-right because the stack buries each card's
+// lower half under the next one: the header band is the only region every card
+// keeps on screen. The tint sits underneath because the scenes are built from
+// near-white faces that would otherwise disappear against the card surface.
+export const illustrationWatermarkTint =
+  "pointer-events-none absolute -right-16 -top-16 z-0 h-72 w-72 rounded-full bg-brand-weak opacity-75 blur-2xl";
+// Two-axis mask (composited as an intersection): full strength against the
+// right edge, gone by the time it reaches the copy column, and faded out below
+// the header band so the proof points stay on clean surface.
+export const illustrationWatermark =
+  "pointer-events-none absolute -right-14 -top-10 z-0 aspect-[16/9] w-[30rem] opacity-60 [-webkit-mask-composite:source-in] [-webkit-mask-image:linear-gradient(to_left,black_18%,transparent_78%),linear-gradient(to_bottom,black_60%,transparent_100%)] [mask-composite:intersect] [mask-image:linear-gradient(to_left,black_18%,transparent_78%),linear-gradient(to_bottom,black_60%,transparent_100%)] sm:w-[34rem]";
 export const illustrationImage = "object-contain object-center p-4 xl:p-5";
 
 export const proofList = "mb-4 space-y-2.5";

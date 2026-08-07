@@ -159,6 +159,18 @@ export function HomeAboutSnapshotSection() {
                           </div>
                         ) : null}
                       </div>
+
+                      {showIllustrations ? null : (
+                        // Below xl there is no illustration column, so the same
+                        // scene becomes a ghosted corner watermark. It sits
+                        // after the layout in the DOM but paints behind it.
+                        <>
+                          <div className={styles.illustrationWatermarkTint} aria-hidden="true" />
+                          <div className={styles.illustrationWatermark} aria-hidden="true">
+                            <IsoIllustration capabilityId={capability.id} variant="watermark" />
+                          </div>
+                        </>
+                      )}
                     </div>
                   </article>
                 </li>

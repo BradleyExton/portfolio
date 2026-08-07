@@ -12,15 +12,18 @@ const illustrationByCapabilityId: Record<CapabilityId, () => React.JSX.Element> 
   platform: PlatformIllustration,
 };
 
+type IsoIllustrationVariant = keyof typeof styles.sceneByVariant;
+
 type IsoIllustrationProps = {
   capabilityId: CapabilityId;
+  variant?: IsoIllustrationVariant;
 };
 
-export function IsoIllustration({ capabilityId }: IsoIllustrationProps) {
+export function IsoIllustration({ capabilityId, variant = "panel" }: IsoIllustrationProps) {
   const Illustration = illustrationByCapabilityId[capabilityId];
 
   return (
-    <div className={styles.scene} data-illustration={capabilityId}>
+    <div className={styles.sceneByVariant[variant]} data-illustration={capabilityId}>
       <Illustration />
     </div>
   );

@@ -149,15 +149,29 @@ describe("HomeAboutSnapshotSection", () => {
     });
   });
 
-  it("does not render capability illustrations or empty panels on mobile viewports", () => {
+  it("renders each capability scene as an out-of-flow watermark on mobile viewports", () => {
     render(<HomeAboutSnapshotSection />);
 
     const list = screen.getByRole("list", { name: "What I do capabilities" });
-    expect(list.querySelectorAll("[data-illustration]")).toHaveLength(0);
-    // The aspect-ratio panel must not render below xl — it would reserve
-    // dead space inside each card.
-    list.querySelectorAll("article > div > div").forEach((cardLayout) => {
-      expect(cardLayout.children).toHaveLength(1);
+    expect(list.querySelectorAll("[data-illustration]")).toHaveLength(
+      homeCopy.whatIDoCapabilities.length,
+    );
+
+    Array.from(list.children).forEach((item, index) => {
+      // The aspect-ratio panel must not render below xl — it would reserve
+      // dead space inside each card. The watermark is positioned instead, so
+      // the layout grid still holds only the content column.
+      const cardLayout = item.querySelector("article > div > div");
+      expect(cardLayout?.children).toHaveLength(1);
+
+      const scene = item.querySelector("[data-illustration]");
+      expect(scene).toHaveAttribute(
+        "data-illustration",
+        homeCopy.whatIDoCapabilities[index].id,
+      );
+      expect(scene?.parentElement).toHaveAttribute("aria-hidden", "true");
+      // No .iso-scene wrapper below xl: the watermark stays static.
+      expect(scene).not.toHaveClass("iso-scene");
     });
   });
 

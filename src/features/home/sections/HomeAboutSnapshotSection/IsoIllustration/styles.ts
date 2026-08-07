@@ -2,6 +2,16 @@
 // globals.css; activation is driven by data-active on the card surface.
 export const scene = "iso-scene absolute inset-0 p-4 xl:p-5";
 
+// Watermark wrapper deliberately omits .iso-scene: a scene that assembles and
+// then loops forever behind body copy reads as distraction, not detail. The
+// parent owns placement, so this only fills the space it is given.
+export const watermarkScene = "h-full w-full";
+
+export const sceneByVariant = {
+  panel: scene,
+  watermark: watermarkScene,
+} as const;
+
 // Piece classes stagger the assemble animation; --iso-piece feeds the
 // animation-delay calc in globals.css.
 export const pieces = [
