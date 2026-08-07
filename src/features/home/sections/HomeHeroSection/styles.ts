@@ -28,12 +28,19 @@ export const accentOrbBottomLeft = "absolute bottom-0 left-0 h-80 w-80 rounded-f
 export const container = `relative ${spacing.container6}`;
 export const grid = "grid items-center";
 export const title = typeScale.heroTitle;
-export const labelText = "bg-gradient-to-r from-brand to-brand-strong bg-clip-text text-transparent";
+// Deep end of the emerald ramp, not the mid: primary-600 against the light
+// hero carries far less luminance contrast than the near-black rest of the
+// line, so in grayscale the highlighted phrase read as the de-emphasized one.
+export const labelText = "bg-gradient-to-r from-brand-deep to-brand-deeper bg-clip-text text-transparent";
 export const description = `mb-8 max-w-xl ${typeScale.leadBody} md:text-xl`;
 export const ctaRow = "flex flex-wrap gap-3";
 export const ctaLink = "group inline-flex h-11 items-center gap-1.5 rounded-lg bg-brand px-5 text-sm font-medium leading-none text-content-inverse shadow-md shadow-brand-tint transition-[background-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-brand-strong hover:shadow-lg active:translate-y-0 active:shadow-md focus-visible:outline-brand";
 export const icon = "relative top-px h-4 w-4 shrink-0 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-focus-visible:translate-x-0.5";
-export const link = "group inline-flex h-11 items-center gap-1.5 rounded-lg border border-border-default bg-surface/90 px-5 text-sm font-medium leading-none text-content backdrop-blur-sm transition-[background-color,border-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-brand-tint hover:bg-surface hover:shadow-md active:translate-y-0 active:shadow-sm focus-visible:outline-brand";
+// Outlined counterpart to the solid primary. The old border-default hairline
+// on a near-white hero left this button invisible under a squint test, so the
+// pair read as one CTA; a brand-weight outline keeps it clearly secondary
+// while still registering as a control.
+export const link = "group inline-flex h-11 items-center gap-1.5 rounded-lg border border-brand/70 bg-surface/90 px-5 text-sm font-semibold leading-none text-brand-strong backdrop-blur-sm transition-[background-color,border-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-brand-strong hover:bg-surface hover:shadow-md active:translate-y-0 active:shadow-sm focus-visible:outline-brand";
 export const textColumn = "max-w-3xl transition-all duration-1000 motion-safe:will-change-transform";
 export const visibleState = "translate-y-0 opacity-100";
-export const techPillsRow = "mt-14 flex flex-wrap items-end gap-x-4 gap-y-6 sm:gap-x-6 sm:gap-y-8 motion-safe:will-change-transform";
+export const techPillsRow = "mt-12 flex flex-wrap items-end gap-x-4 gap-y-5 sm:gap-x-5 sm:gap-y-6 motion-safe:will-change-transform";

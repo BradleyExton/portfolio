@@ -1,4 +1,6 @@
-export const glyph = "h-14 w-14 shrink-0 sm:h-[72px] sm:w-[72px]";
+// Deliberately smaller than the CTA row above it. At 72px the nine saturated
+// cubes were the densest cluster in the hero and outranked the primary action.
+export const glyph = "h-10 w-10 shrink-0 sm:h-12 sm:w-12";
 
 /* Micro-animations reused from the iso illustration system (globals.css). */
 export const blink = "motion-safe:animate-[iso-blink_1.2s_steps(1)_infinite]";
