@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { homeCopy } from "@/copy/home";
@@ -142,10 +142,15 @@ export function HomeHeroSection() {
           >
             <h1 className={styles.title}>
               {homeCopy.hero.heading.prefix && `${homeCopy.hero.heading.prefix} `}
-              <span className={styles.labelText}>
+              <span className={`${styles.labelText} ${styles.titleWord}`}>
                 {homeCopy.hero.heading.highlight}
               </span>{" "}
-              {homeCopy.hero.heading.suffix}
+              {homeCopy.hero.heading.suffix.split(" ").map((word, index) => (
+                <Fragment key={word}>
+                  {index > 0 && " "}
+                  <span className={styles.titleWord}>{word}</span>
+                </Fragment>
+              ))}
             </h1>
 
             <p className={styles.description}>

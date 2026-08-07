@@ -28,6 +28,10 @@ export const accentOrbBottomLeft = "absolute bottom-0 left-0 h-80 w-80 rounded-f
 export const container = `relative ${spacing.container6}`;
 export const grid = "grid items-center";
 export const title = typeScale.heroTitle;
+// Each word is its own unbreakable unit so the line never splits on the hyphen
+// inside "AI-Native" or "Full-Stack". At 390px the heading was breaking as
+// "AI-Native Full-" / "Stack Engineer".
+export const titleWord = "whitespace-nowrap";
 // Deep end of the emerald ramp, not the mid: primary-600 against the light
 // hero carries far less luminance contrast than the near-black rest of the
 // line, so in grayscale the highlighted phrase read as the de-emphasized one.
