@@ -95,6 +95,7 @@
   --color-brand-muted: var(--color-primary-100);
 
   --color-accent-soft: var(--color-accent-400);
+  --color-accent-strong: var(--color-accent-600);
 
   /* Border + state tokens */
   --color-border-default: var(--color-neutral-200);
