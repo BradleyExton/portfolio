@@ -206,12 +206,17 @@ describe("HomeAboutSnapshotSection", () => {
     expect(screen.queryByRole("list", { name: "AI toolbelt" })).not.toBeInTheDocument();
   });
 
-  it("keeps a short ai tools one-liner in the ai card outcome", () => {
+  // The AI workflow story belongs to the How I Work section alone. A capability
+  // card that names the same agent tooling puts it on the page twice.
+  it("does not restate the how i work agent tooling on a capability card", () => {
     render(<HomeAboutSnapshotSection />);
 
     expect(
-      screen.getByText(/Recent stack: Claude Code, Codex, Gemini CLI, and MCP Servers\./),
-    ).toBeInTheDocument();
+      screen.queryByRole("heading", { level: 3, name: "AI Workflow & Automation" }),
+    ).not.toBeInTheDocument();
+    ["Claude Code", "Codex", "Gemini CLI", "MCP Servers"].forEach((tool) => {
+      expect(screen.queryByText(tool)).not.toBeInTheDocument();
+    });
   });
 
   it("does not render prototype comparison controls", () => {

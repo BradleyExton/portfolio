@@ -31,17 +31,6 @@ export const homeCopy = {
   },
   whatIDoCapabilities: [
     {
-      id: "ai",
-      title: "AI Workflow & Automation",
-      outcome:
-        "Implement practical AI workflows that accelerate delivery without lowering quality. Recent stack: Claude Code, Codex, Gemini CLI, and MCP Servers.",
-      proofPoints: [
-        "Built custom agent and MCP workflows for engineering and business-facing tasks that speed delivery.",
-        "Defined reusable AI standards (spec.md and agent.md) plus automations for Sentry triage, PR readiness, and docs updates.",
-      ],
-      techChips: ["Claude Code", "Codex", "Gemini CLI", "MCP Servers", "AI Standards"],
-    },
-    {
       id: "delivery",
       title: "Product Delivery & Leadership",
       outcome: "Turn ambiguous goals into shippable plans teams can execute with confidence.",
@@ -90,7 +79,7 @@ export const homeCopy = {
         id: "context",
         station: "Setup",
         name: "Engineer the context",
-        body: "Agents are only as good as what they can see. I maintain agent.md standards, reusable skills, and MCP servers so every agent session starts with the codebase conventions, the right tools, and the guardrails already loaded.",
+        body: "Agents are only as good as what they can see. I maintain agent.md standards, reusable skills, and MCP servers so every agent session starts with the codebase conventions, the right tools, and the guardrails already loaded. The same standards drive automations for Sentry triage, PR readiness, and docs updates.",
         chips: ["agent.md", "skills", "MCP servers", "context engineering"],
       },
       {

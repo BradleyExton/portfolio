@@ -7,7 +7,7 @@ import {
   resolveActiveCapabilityId,
 } from "./utils";
 
-const capabilityIds: readonly CapabilityId[] = ["delivery", "frontend", "platform", "ai"];
+const capabilityIds: readonly CapabilityId[] = ["delivery", "frontend", "platform"];
 
 describe("HomeAboutSnapshotSection utils", () => {
   it("returns deterministic illustration paths for capability ids", () => {

@@ -1,5 +1,5 @@
 
-export type CapabilityId = "delivery" | "frontend" | "platform" | "ai";
+export type CapabilityId = "delivery" | "frontend" | "platform";
 
 export type WhatIDoCapability = {
   id: CapabilityId;
