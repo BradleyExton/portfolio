@@ -34,12 +34,12 @@ export const homeCopy = {
       id: "ai",
       title: "AI Workflow & Automation",
       outcome:
-        "Implement practical AI workflows that accelerate delivery without lowering quality. Recent stack: Codex, Claude Code, MCP Servers, and ChatGPT Integrations.",
+        "Implement practical AI workflows that accelerate delivery without lowering quality. Recent stack: Claude Code, Codex, Gemini CLI, and MCP Servers.",
       proofPoints: [
         "Built custom agent and MCP workflows for engineering and business-facing tasks that speed delivery.",
         "Defined reusable AI standards (spec.md and agent.md) plus automations for Sentry triage, PR readiness, and docs updates.",
       ],
-      techChips: ["Codex", "Claude Code", "MCP Servers", "ChatGPT Integrations", "AI Standards"],
+      techChips: ["Claude Code", "Codex", "Gemini CLI", "MCP Servers", "AI Standards"],
     },
     {
       id: "delivery",
@@ -210,15 +210,7 @@ export const homeCopy = {
     ctaSecondary: "Book a Call",
   },
   heroToolchain: {
-    aiPills: ["Claude Code", "Codex", "ChatGPT", "MCP Servers"],
-    stackPills: [
-      "React",
-      "Next.js",
-      "TypeScript",
-      "Node.js",
-      "Python",
-      "Tailwind CSS",
-      "Playwright",
-    ],
+    aiPills: ["Claude Code", "Codex", "Gemini CLI", "MCP Servers"],
+    stackPills: ["React", "Next.js", "TypeScript", "Node.js", "Python"],
   },
 } as const;

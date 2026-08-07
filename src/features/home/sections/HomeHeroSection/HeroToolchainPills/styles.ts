@@ -27,6 +27,4 @@ export const stackTileMotion = [
   "motion-safe:animate-[hero-chip-rise_0.6s_cubic-bezier(0.22,1,0.36,1)_0.75s_both]",
   "motion-safe:animate-[hero-chip-rise_0.6s_cubic-bezier(0.22,1,0.36,1)_0.81s_both]",
   "motion-safe:animate-[hero-chip-rise_0.6s_cubic-bezier(0.22,1,0.36,1)_0.87s_both]",
-  "motion-safe:animate-[hero-chip-rise_0.6s_cubic-bezier(0.22,1,0.36,1)_0.93s_both]",
-  "motion-safe:animate-[hero-chip-rise_0.6s_cubic-bezier(0.22,1,0.36,1)_0.99s_both]",
 ];

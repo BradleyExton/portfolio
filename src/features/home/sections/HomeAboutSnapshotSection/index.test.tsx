@@ -196,7 +196,7 @@ describe("HomeAboutSnapshotSection", () => {
     render(<HomeAboutSnapshotSection />);
 
     expect(
-      screen.getByText(/Recent stack: Codex, Claude Code, MCP Servers, and ChatGPT Integrations\./),
+      screen.getByText(/Recent stack: Claude Code, Codex, Gemini CLI, and MCP Servers\./),
     ).toBeInTheDocument();
   });
 

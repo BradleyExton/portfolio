@@ -9,7 +9,6 @@ const CUBE_LEFT = "7,11.5 18,18 18,30 7,23.5";
 const CUBE_RIGHT = "29,11.5 18,18 18,30 29,23.5";
 const RIGHT_FACE = "matrix(0.866,-0.5,0,1,18,18)";
 const LEFT_FACE = "matrix(0.866,0.5,0,1,7,11.5)";
-const TOP_FACE = "matrix(0.846,0.5,0.846,-0.5,7,11.5)";
 
 function Svg({ children }: { children: React.ReactNode }) {
   return (
@@ -49,18 +48,18 @@ export function IsoToolGlyph({ tool }: { tool: string }) {
     );
   }
 
-  if (tool === "ChatGPT") {
+  if (tool === "Gemini CLI") {
     return (
       <Svg>
         <polygon points={CUBE_TOP} fill="var(--color-primary-100)" />
-        <polygon points={CUBE_LEFT} fill="var(--color-primary-200)" />
-        <polygon points={CUBE_RIGHT} fill="var(--color-primary-300)" />
-        <g fill="var(--color-primary-700)" transform={RIGHT_FACE}>
-          <circle cx="3" cy="6" r="1" />
-          <circle cx="6.3" cy="6" r="1" />
-          <circle cx="9.6" cy="6" r="1" />
+        <polygon points={CUBE_LEFT} fill="var(--color-primary-300)" />
+        <polygon points={CUBE_RIGHT} fill="var(--color-primary-400)" />
+        <g fill="none" stroke="var(--color-surface)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" transform={RIGHT_FACE}>
+          <path d="M2.6 3.4L5.9 5.7L2.6 8" />
+          <path d="M7.2 8.6H9.8" />
         </g>
-        <path d="M28 2.6c.5 2.6 1.6 3.7 4.2 4.2-2.6.5-3.7 1.6-4.2 4.2-.5-2.6-1.6-3.7-4.2-4.2 2.6-.5 3.7-1.6 4.2-4.2z" fill="var(--color-accent-500)" className={styles.twinkleA} />
+        <path d="M27.5 2c.45 2.35 1.45 3.35 3.8 3.8-2.35.45-3.35 1.45-3.8 3.8-.45-2.35-1.45-3.35-3.8-3.8 2.35-.45 3.35-1.45 3.8-3.8z" fill="var(--color-accent-500)" className={styles.twinkleA} />
+        <path d="M32 10.1c.23 1.17.73 1.67 1.9 1.9-1.17.23-1.67.73-1.9 1.9-.23-1.17-.73-1.67-1.9-1.9 1.17-.23 1.67-.73 1.9-1.9z" fill="var(--color-accent-400)" className={styles.twinkleB} />
       </Svg>
     );
   }
@@ -138,20 +137,6 @@ export function IsoToolGlyph({ tool }: { tool: string }) {
         <path d="M24 22.5h-7a4 4 0 01-4-4V16h9.5a4 4 0 014-4v6.5a4 4 0 01-2.5 4z" fill="var(--color-accent-500)" />
         <circle cx="13.4" cy="9.4" r="1.05" fill="var(--color-surface)" />
         <circle cx="22.6" cy="19.6" r="1.05" fill="var(--color-surface)" />
-      </Svg>
-    );
-  }
-
-  if (tool === "Tailwind CSS") {
-    return (
-      <Svg>
-        <polygon points={CUBE_TOP} fill="var(--color-primary-50)" />
-        <polygon points={CUBE_LEFT} fill="var(--color-primary-200)" />
-        <polygon points={CUBE_RIGHT} fill="var(--color-primary-300)" />
-        <g fill="none" stroke="var(--color-primary-500)" strokeWidth="1.7" strokeLinecap="round" transform={TOP_FACE}>
-          <path d="M2.5 7.5Q4.5 4.5 6.5 6.5T10.5 5.5" />
-          <path d="M2.5 10.5Q4.5 7.5 6.5 9.5T10.5 8.5" />
-        </g>
       </Svg>
     );
   }
