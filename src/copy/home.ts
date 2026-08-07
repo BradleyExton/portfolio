@@ -210,12 +210,16 @@ export const homeCopy = {
     ctaPrimary: "Send Me an Email",
     ctaSecondary: "Book a Call",
   },
-  techStackPills: [
-    "React",
-    "Next.js",
-    "TypeScript",
-    "Node.js",
-    "Python",
-    "Tailwind CSS",
-  ],
+  heroToolchain: {
+    aiPills: ["Claude Code", "Codex", "ChatGPT", "MCP Servers"],
+    stackPills: [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Node.js",
+      "Python",
+      "Tailwind CSS",
+      "Playwright",
+    ],
+  },
 } as const;
