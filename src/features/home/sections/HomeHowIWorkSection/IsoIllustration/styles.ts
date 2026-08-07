@@ -1,6 +1,9 @@
 // Scene wrapper: .iso-scene scopes the assemble/loop behavior defined in
 // globals.css; activation is driven by data-active on the stage row.
-export const scene = "iso-scene";
+// The scenes are built from near-white faces, so on the inverted band they
+// sit at full contrast and out-shout the stage names beside them. A light
+// veil seats them into the band without giving up legibility.
+export const scene = "iso-scene opacity-90";
 
 // Piece classes stagger the assemble animation; --iso-piece feeds the
 // animation-delay calc in globals.css.

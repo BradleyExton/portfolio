@@ -1,8 +1,10 @@
 import { spacing, typeScale } from "@/features/shared/designSystem";
 import type { ServiceKey } from "./types";
 
-export const section = `${spacing.section} relative overflow-hidden bg-surface-muted`;
-export const ambientBackdrop = "pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_8%_0%,var(--color-brand-weak)_0%,transparent_58%),radial-gradient(120%_120%_at_92%_100%,var(--color-brand-soft)_0%,transparent_62%)] opacity-70";
+// brand-weak rather than surface-muted: against the white Experience section
+// above it, #f8faf9 was a 1% step and read as the same surface continuing.
+export const section = `${spacing.section} relative overflow-hidden bg-brand-weak`;
+export const ambientBackdrop = "pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_8%_0%,var(--color-brand-soft)_0%,transparent_58%),radial-gradient(120%_120%_at_92%_100%,var(--color-brand-tint)_0%,transparent_62%)] opacity-60";
 export const container = `relative ${spacing.container6}`;
 export const block = "mb-10 max-w-3xl md:mb-12";
 export const eyebrow = typeScale.eyebrow;

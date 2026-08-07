@@ -50,9 +50,9 @@ export function HomeDeferredInteractiveSections() {
               eyebrow={homeCopy.howIWork.eyebrow}
               title={homeCopy.howIWork.heading}
               description={homeCopy.howIWork.description}
-              eyebrowClassName={styles.placeholderEyebrow}
-              titleClassName={styles.placeholderHeading}
-              descriptionClassName={styles.placeholderText}
+              eyebrowClassName={styles.placeholderEyebrowInverse}
+              titleClassName={styles.placeholderHeadingInverse}
+              descriptionClassName={styles.placeholderTextInverse}
             />
             <div aria-hidden="true" className={styles.placeholderCard} />
           </div>

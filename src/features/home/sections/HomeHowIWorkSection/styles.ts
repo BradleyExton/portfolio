@@ -1,7 +1,12 @@
 import { spacing, typeScale } from "@/features/shared/designSystem";
 
-export const section = `${spacing.section} relative overflow-hidden bg-surface-muted`;
-export const ambientBackdrop = "pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_10%_0%,var(--color-brand-weak)_0%,transparent_58%),radial-gradient(120%_120%_at_90%_100%,var(--color-brand-soft)_0%,transparent_62%)] opacity-70";
+// The one inverted band between the two white halves of the page. Everything
+// from the What I Do cards to the contact CTA used to sit on #fff or #f8faf9,
+// so seven viewports passed with no value change. This section carries the
+// positioning argument, so it is the one that earns the contrast, and the
+// pale iso scenes finally have a ground to read against.
+export const section = `${spacing.section} relative overflow-hidden bg-[linear-gradient(165deg,var(--color-brand-deep),var(--color-brand-deeper)_58%,var(--color-brand-deep))]`;
+export const ambientBackdrop = "pointer-events-none absolute inset-0 bg-[radial-gradient(85%_65%_at_12%_0%,color-mix(in_srgb,var(--color-brand-contrast)_14%,transparent)_0%,transparent_62%),radial-gradient(75%_60%_at_88%_100%,color-mix(in_srgb,var(--color-accent-soft)_10%,transparent)_0%,transparent_58%)]";
 export const container = `relative ${spacing.container6}`;
 export const heading = "mb-5";
 export const description = "mb-10 md:mb-12";
@@ -21,28 +26,34 @@ export const mediaColReversed = `${mediaColBase} lg:col-start-3`;
 // negative margins so adjacent rail segments meet between rows.
 export const spineCol = "hidden lg:col-start-2 lg:row-start-1 lg:-my-4 lg:flex lg:flex-col lg:items-center lg:self-stretch";
 const railBase = "w-[3px] flex-1 rounded-full";
-export const rail = `${railBase} bg-[repeating-linear-gradient(180deg,var(--color-brand-tint)_0_14px,transparent_14px_26px)]`;
+export const rail = `${railBase} bg-[repeating-linear-gradient(180deg,color-mix(in_srgb,var(--color-brand-contrast)_45%,transparent)_0_14px,transparent_14px_26px)]`;
 export const railEnd = railBase;
 
-const nodeBase = "relative z-10 my-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-surface-inverse font-heading text-lg font-bold";
+// The nodes are wayfinding, not content. On the old light ground the solid
+// dark squares with a double ring were the loudest thing in the section and
+// outranked the stage names; here they sit just above the band value with a
+// thin ring, so the eye lands on the copy first.
+const nodeBase = "relative z-10 my-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-deeper/80 font-heading text-lg font-bold";
 // Ring colors are replacements rather than additions: stacking a second color
 // utility on the same property is decided by generated CSS order, not
 // authoring order, so the terminal station restates the full treatment.
-export const node = `${nodeBase} text-brand-contrast shadow-[0_0_0_6px_var(--color-surface-muted),0_0_0_8px_var(--color-brand-tint)]`;
-export const nodeFinal = `${nodeBase} text-accent-soft shadow-[0_0_0_6px_var(--color-surface-muted),0_0_0_8px_var(--color-accent-soft)]`;
+export const node = `${nodeBase} text-brand-contrast ring-1 ring-brand-contrast/40`;
+export const nodeFinal = `${nodeBase} text-accent-soft ring-1 ring-accent-soft/55`;
 
 const textColBase = "flex flex-col items-center text-center lg:row-start-1 lg:self-center";
 export const textCol = `${textColBase} lg:col-start-3 lg:items-start lg:text-left`;
 export const textColReversed = `${textColBase} lg:col-start-1 lg:items-end lg:text-right`;
 
 const stationLabelBase = "mb-3 rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wider";
-export const stationLabel = `${stationLabelBase} border-brand-tint bg-brand-weak text-brand-strong`;
-export const stationLabelFinal = `${stationLabelBase} border-transparent bg-surface-inverse text-accent-soft`;
+export const stationLabel = `${stationLabelBase} border-brand-contrast/40 bg-brand-contrast/10 text-brand-contrast`;
+export const stationLabelFinal = `${stationLabelBase} border-accent-soft/50 bg-accent-soft/12 text-accent-soft`;
 
-export const stageName = typeScale.cardTitle;
-export const stageBody = "mb-4 max-w-prose text-sm leading-relaxed text-content-muted";
+// One step up from cardTitle's 18/20px. These are the four beats of the
+// workflow argument and were previously the smallest headings on the page.
+export const stageName = "mb-2 text-xl font-semibold text-content-inverse font-[family-name:var(--font-space-grotesk)] sm:text-2xl";
+export const stageBody = "mb-4 max-w-prose text-sm leading-relaxed text-content-inverse-muted";
 export const chipList = "flex flex-wrap justify-center gap-2 lg:justify-start";
 export const chipListReversed = "flex flex-wrap justify-center gap-2 lg:justify-end";
-export const chip = typeScale.tagPill;
+export const chip = typeScale.tagPillInverse;
 
-export const closing = "mt-12 text-balance text-center text-lg font-semibold text-content font-heading sm:text-xl md:mt-14";
+export const closing = "mt-12 text-balance text-center text-lg font-semibold text-content-inverse font-heading sm:text-xl md:mt-14";
