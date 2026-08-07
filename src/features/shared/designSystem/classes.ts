@@ -34,7 +34,11 @@ export const typeScale = {
     "max-w-[62ch] text-sm leading-relaxed text-brand-muted sm:text-base",
   leadBodyInverse: "text-base leading-relaxed text-brand-muted sm:text-lg",
   cardTitle: "mb-2 text-lg font-semibold text-content sm:text-xl",
-  metaLabel: "text-xs font-semibold uppercase tracking-wide text-content-faint",
+  // content-muted, not content-faint. Meta labels carry information (dates,
+  // build windows, tag runs), and faint (#8fa99b) lands at 2.2:1 on brand-weak
+  // and 2.3:1 on white — below AA at any size. Faint stays for placeholder
+  // text and the dark-surface footer, where it has contrast to spare.
+  metaLabel: "text-xs font-semibold uppercase tracking-wide text-content-muted",
   // Single treatment for topic-tag pills so adjacent sections don't rank the
   // same semantic element at different visual weights.
   tagPill: "rounded-full border border-border-default bg-surface-muted px-3 py-1 text-xs font-medium text-content-muted",

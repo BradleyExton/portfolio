@@ -8,7 +8,9 @@ import { spacing, typeScale } from "@/features/shared/designSystem";
 export const section = `${spacing.section} relative overflow-hidden bg-[linear-gradient(165deg,var(--color-brand-deep),var(--color-brand-deeper)_58%,var(--color-brand-deep))]`;
 export const ambientBackdrop = "pointer-events-none absolute inset-0 bg-[radial-gradient(85%_65%_at_12%_0%,color-mix(in_srgb,var(--color-brand-contrast)_14%,transparent)_0%,transparent_62%),radial-gradient(75%_60%_at_88%_100%,color-mix(in_srgb,var(--color-accent-soft)_10%,transparent)_0%,transparent_58%)]";
 export const container = `relative ${spacing.container6}`;
-export const heading = "mb-5";
+// No title margin override: SectionIntro's own mb-4 is the gap every other
+// section on this page uses, and stacking mb-5 on top of it left the winner
+// to generated CSS order rather than authoring order.
 export const description = "mb-10 md:mb-12";
 
 // The track is a vertical pipeline: each stage is a full-width row with the

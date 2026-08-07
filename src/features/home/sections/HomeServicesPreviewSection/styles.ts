@@ -42,7 +42,9 @@ export const titleArrow = "text-brand opacity-0 transition-all duration-200 grou
 // The outcome is the load-bearing line in each row, so it sits one step above
 // body copy rather than trailing a description.
 export const outcome = "mb-3 max-w-[52ch] text-base leading-snug text-content md:text-lg";
-export const meta = "text-xs font-medium uppercase tracking-wide text-content-faint";
+// content-muted: this run names what each service actually covers, and at
+// content-faint it sat at 2.2:1 on the brand-weak band.
+export const meta = "text-xs font-medium uppercase tracking-wide text-content-muted";
 // Below md the timeline column collapses into the row body. It gets its own
 // labelled line rather than joining the tag run, where it just read as a
 // fourth tag.

@@ -12,13 +12,21 @@ export const introGlow =
   "pointer-events-none absolute inset-0 bg-[radial-gradient(70%_90%_at_85%_20%,color-mix(in_srgb,var(--color-accent-soft)_14%,transparent)_0%,transparent_60%)]";
 export const introContainer =
   "relative mx-auto grid max-w-6xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,8fr)_minmax(0,4fr)]";
-export const eyebrow = "mb-4 text-sm font-semibold uppercase tracking-wider text-accent-soft";
+// brand-contrast, matching the How I Work band and the deferred placeholder's
+// inverse eyebrow. Amber made the page's two inverted bands label the same
+// element in two different colors, so the eyebrow read as a status marker
+// rather than a section tag. mb-3 is the sitewide eyebrow gap.
+export const eyebrow = "mb-3 text-sm font-semibold uppercase tracking-wider text-brand-contrast";
 // Sized to the shared section-title rank (30/36px) rather than its own 48px:
 // this is a peer of "Where I've worked" and "Available for select projects",
 // and outranking them made the page read as having two heading levels.
+// Leading is left at the 40px default the other section titles use; the old
+// leading-[1.05] set this one heading 2px tighter at the same rank.
 export const subheading =
-  "text-balance text-3xl font-bold leading-[1.05] tracking-tight text-content-inverse font-[family-name:var(--font-space-grotesk)] sm:text-4xl";
-export const description = "mt-6 max-w-[58ch] text-sm leading-relaxed text-content-inverse-muted sm:text-base";
+  "text-balance text-3xl font-bold tracking-tight text-content-inverse font-[family-name:var(--font-space-grotesk)] sm:text-4xl";
+// mt-4 to match the 16px title-to-description gap every other section on the
+// page uses. This block was the only one at 24.
+export const description = "mt-4 max-w-[58ch] text-sm leading-relaxed text-content-inverse-muted sm:text-base";
 export const ctaRow = "mt-8";
 export const icon = "h-4 w-4";
 
@@ -86,8 +94,12 @@ export const illustrationWatermarkTint =
 // Two-axis mask (composited as an intersection): full strength against the
 // right edge, gone by the time it reaches the copy column, and faded out below
 // the header band so the proof points stay on clean surface.
+// Both ramps end earlier than they used to (78% -> 55% across, 100% -> 62%
+// down) and the layer sits at 45% rather than 60%. At 390px the old stops put
+// the scene's saturated amber block at ~31% strength directly behind the
+// outcome paragraph; the copy column now sits in the tail of both ramps.
 export const illustrationWatermark =
-  "pointer-events-none absolute -right-14 -top-10 z-0 aspect-[16/9] w-[30rem] opacity-60 [-webkit-mask-composite:source-in] [-webkit-mask-image:linear-gradient(to_left,black_18%,transparent_78%),linear-gradient(to_bottom,black_60%,transparent_100%)] [mask-composite:intersect] [mask-image:linear-gradient(to_left,black_18%,transparent_78%),linear-gradient(to_bottom,black_60%,transparent_100%)] sm:w-[34rem]";
+  "pointer-events-none absolute -right-14 -top-10 z-0 aspect-[16/9] w-[30rem] opacity-45 [-webkit-mask-composite:source-in] [-webkit-mask-image:linear-gradient(to_left,black_18%,transparent_55%),linear-gradient(to_bottom,black_20%,transparent_62%)] [mask-composite:intersect] [mask-image:linear-gradient(to_left,black_18%,transparent_55%),linear-gradient(to_bottom,black_20%,transparent_62%)] sm:w-[34rem]";
 export const illustrationImage = "object-contain object-center p-4 xl:p-5";
 
 export const proofList = "mb-4 space-y-2.5";

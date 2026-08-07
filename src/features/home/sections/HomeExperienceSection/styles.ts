@@ -30,28 +30,36 @@ export const entryCurrent = "border-transparent shadow-lg bg-[radial-gradient(12
 export const entrySpotlight = "after:pointer-events-none after:absolute after:inset-0 after:rounded-2xl after:rounded-bl-none after:bg-[radial-gradient(420px_circle_at_var(--spot-x,50%)_var(--spot-y,50%),color-mix(in_srgb,var(--color-brand-contrast)_10%,transparent),transparent_65%)] after:opacity-0 after:transition-opacity after:duration-300 hover:after:opacity-100 motion-reduce:after:hidden";
 // Animated emerald-to-amber current running around the cards. The mask keeps
 // only the 1px ring so the translucent card body stays untinted.
-export const wireRing = "timeline-wire-mask pointer-events-none absolute inset-[-1px] rounded-2xl rounded-bl-none p-px bg-[conic-gradient(from_var(--wire-angle,0deg),var(--color-brand)_0%,var(--color-brand-contrast)_20%,var(--color-accent-soft)_38%,var(--color-brand)_55%,var(--color-border-default)_80%,var(--color-brand)_100%)] motion-safe:animate-[timeline-wire-spin_8s_linear_infinite]";
+// The conic gradient only reads as a travelling current while it rotates. With
+// the animation off it froze at 0deg, parking a fixed emerald/amber/grey
+// patchwork on every card edge — an amber corner on one card, a grey run on
+// the next. motion-reduce swaps the whole gradient for a flat brand-tint ring
+// so the cards keep an edge without the stalled rainbow.
+export const wireRing = "timeline-wire-mask pointer-events-none absolute inset-[-1px] rounded-2xl rounded-bl-none p-px bg-[conic-gradient(from_var(--wire-angle,0deg),var(--color-brand)_0%,var(--color-brand-contrast)_20%,var(--color-accent-soft)_38%,var(--color-brand)_55%,var(--color-border-default)_80%,var(--color-brand)_100%)] motion-safe:animate-[timeline-wire-spin_8s_linear_infinite] motion-reduce:bg-none motion-reduce:bg-brand-tint";
 export const watermark = "pointer-events-none select-none absolute right-5 top-2 font-heading text-6xl font-bold leading-none tracking-tight text-transparent [-webkit-text-stroke:1.5px_var(--color-border-default)] md:right-7 md:text-8xl";
 export const watermarkCurrent = "[-webkit-text-stroke:1.5px_color-mix(in_srgb,var(--color-content-inverse)_22%,transparent)]";
 export const signalPulseClip = "pointer-events-none absolute inset-0 overflow-hidden rounded-2xl rounded-bl-none";
 export const signalPulse = "absolute left-0 top-0 h-9 w-[3px] rounded-full bg-[linear-gradient(to_bottom,transparent,var(--color-brand-contrast),transparent)] motion-safe:animate-[timeline-signal-travel_4.5s_ease-in-out_infinite] motion-reduce:hidden";
 export const entryHeader = "mb-4";
-export const metaRow = "mb-2 flex items-center gap-3 text-sm text-content-faint";
+export const metaRow = "mb-2 flex items-center gap-3 text-sm text-content-subtle";
 export const roleHeader = "mb-2 flex flex-wrap items-center gap-x-3 gap-y-2";
-export const company = "text-2xl font-bold text-content";
-export const companyCurrent = "text-2xl font-bold text-content-inverse";
+// font-semibold, not font-bold. These are h3s, the same rank as the What I Do
+// card titles and the How I Work stage names, and 700 here against 600 there
+// made the timeline read as a heavier heading level than its neighbours.
+export const company = "text-2xl font-semibold text-content";
+export const companyCurrent = "text-2xl font-semibold text-content-inverse";
 export const badge = "rounded-full bg-accent-soft px-2.5 py-0.5 text-xs font-semibold text-content";
 export const text = "font-semibold text-brand";
 // Amber role line on the emerald current card, replacing (not stacking on) the
 // emerald `text` class to avoid same-specificity cascade fights.
 export const textCurrent = "font-semibold text-accent-soft";
-export const timeline = "whitespace-nowrap text-sm font-medium text-content-faint";
+export const timeline = "whitespace-nowrap text-sm font-medium text-content-subtle";
 export const timelineCurrent = "whitespace-nowrap text-sm font-medium text-brand-tint";
 export const roleDescription = "mb-3 leading-relaxed text-content-subtle md:mb-4";
 export const roleDescriptionCurrent = "mb-3 leading-relaxed text-content-inverse-muted md:mb-4";
 export const highlightsListMobile = "mb-2 space-y-1.5 md:hidden";
 export const highlightsDetails = "mb-4 md:hidden [&_.open-label]:hidden [&[open]_.open-label]:inline [&[open]_.closed-label]:hidden [&[open]_.chevron]:rotate-180 [&[open]_.highlights-panel]:[grid-template-rows:1fr] [&[open]_.highlights-panel]:opacity-100";
-export const highlightsSummary = "inline-flex cursor-pointer list-none items-center gap-1 pl-5 py-0.5 text-xs font-medium tracking-wide text-content-faint transition-colors hover:text-content-muted focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand [&::-webkit-details-marker]:hidden";
+export const highlightsSummary = "inline-flex cursor-pointer list-none items-center gap-1 pl-5 py-0.5 text-xs font-medium tracking-wide text-content-subtle transition-colors hover:text-content focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand [&::-webkit-details-marker]:hidden";
 export const highlightsSummaryCurrent = "inline-flex cursor-pointer list-none items-center gap-1 pl-5 py-0.5 text-xs font-medium tracking-wide text-content-inverse-muted transition-colors hover:text-content-inverse focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-contrast [&::-webkit-details-marker]:hidden";
 export const highlightsSummaryLabel = "inline-flex items-center";
 export const highlightsSummaryIcon = "chevron h-3.5 w-3.5 shrink-0 transition-transform duration-200";

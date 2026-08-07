@@ -47,12 +47,11 @@ export function HomeDeferredInteractiveSections() {
         >
           <div className={styles.placeholderContainer}>
             <SectionIntro
+              align="center"
+              tone="inverse"
               eyebrow={homeCopy.howIWork.eyebrow}
               title={homeCopy.howIWork.heading}
               description={homeCopy.howIWork.description}
-              eyebrowClassName={styles.placeholderEyebrowInverse}
-              titleClassName={styles.placeholderHeadingInverse}
-              descriptionClassName={styles.placeholderTextInverse}
             />
             <div aria-hidden="true" className={styles.placeholderCard} />
           </div>
@@ -71,8 +70,6 @@ export function HomeDeferredInteractiveSections() {
             <SectionIntro
               eyebrow={homeCopy.experience.eyebrow}
               title={homeCopy.experience.heading}
-              eyebrowClassName={styles.placeholderEyebrow}
-              titleClassName={styles.placeholderHeading}
             />
             <div
               aria-hidden="true"

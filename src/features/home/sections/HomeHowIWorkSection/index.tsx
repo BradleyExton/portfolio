@@ -19,7 +19,6 @@ export function HomeHowIWorkSection() {
           eyebrow={homeCopy.howIWork.eyebrow}
           title={homeCopy.howIWork.heading}
           description={homeCopy.howIWork.description}
-          titleClassName={styles.heading}
           descriptionClassName={styles.description}
         />
 
