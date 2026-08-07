@@ -15,6 +15,7 @@ export function HomeHowIWorkSection() {
       <div className={styles.container}>
         <SectionIntro
           align="center"
+          tone="inverse"
           eyebrow={homeCopy.howIWork.eyebrow}
           title={homeCopy.howIWork.heading}
           description={homeCopy.howIWork.description}
