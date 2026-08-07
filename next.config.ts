@@ -10,6 +10,9 @@ const nextConfig: NextConfig = {
   },
   images: {
     qualities: [70, 75],
+    // Optimized variants are keyed by src + width + quality, so a long TTL is safe:
+    // changing an image changes its request URL.
+    minimumCacheTTL: 60 * 60 * 24 * 30,
   },
 };
 

@@ -153,6 +153,7 @@ export function HomeHeroSection() {
               alt=""
               fill
               priority
+              fetchPriority="high"
               sizes="100vw"
               quality={70}
               className={styles.image}
