@@ -6,7 +6,9 @@ export const backgroundImageViewport = "pointer-events-none absolute inset-0 fle
 export const backgroundImageOverlay = "pointer-events-none relative h-full w-full max-w-[2200px] 2xl:[-webkit-mask-image:linear-gradient(to_right,transparent_0,black_7%,black_93%,transparent_100%)] 2xl:[mask-image:linear-gradient(to_right,transparent_0,black_7%,black_93%,transparent_100%)]";
 export const image = "object-cover object-[70%_center] md:object-[72%_center] xl:object-bottom lg:motion-safe:animate-[hero-breathe_24s_ease-in-out_infinite]";
 export const overlay = "absolute inset-0 bg-gradient-to-br from-brand-weak/95 via-surface/90 to-surface-muted/86";
-export const screenLayer = "pointer-events-none absolute inset-0 z-[1] flex justify-center";
+/* Above the gradient overlay for legibility, but faded as a whole layer so
+   the terminal recedes into the veiled photo instead of floating on top. */
+export const screenLayer = "pointer-events-none absolute inset-0 z-[1] flex justify-center opacity-55";
 export const screenViewport = "pointer-events-none relative h-full w-full max-w-[2200px]";
 export const screenCluster = "invisible absolute left-0 top-0 hidden h-[270px] w-[320px] origin-top-left sm:block";
 export const steamLayer = "pointer-events-none absolute inset-0 z-[2] flex justify-center";
