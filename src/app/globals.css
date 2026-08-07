@@ -332,6 +332,25 @@ html {
   }
 }
 
+/* Rings leaving the portrait rim on hover. The 1.42 cap is deliberate: the
+   widest ring has to dissolve before it reaches the neighbouring text column
+   on the narrowest desktop split of the About intro band. */
+@keyframes portrait-ripple {
+  from {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+
+  80% {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(1.42);
+  }
+}
+
 /* Inline iso-illustration system (Prototype B). Keyframes live here, not in
    the SVGs: inlined <style> blocks are document-global, so per-file keyframes
    would collide once several illustrations mount at once. */

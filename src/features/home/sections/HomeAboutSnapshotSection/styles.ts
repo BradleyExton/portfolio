@@ -22,12 +22,19 @@ export const description = "mt-6 max-w-[58ch] text-sm leading-relaxed text-conte
 export const ctaRow = "mt-8";
 export const icon = "h-4 w-4";
 
-export const portraitColumn = "relative mx-auto lg:justify-self-center";
+export const portraitColumn = "group relative mx-auto lg:justify-self-center";
 export const portraitRing = "pointer-events-none absolute -inset-3 rounded-full border border-content-inverse/20";
 export const portraitArc =
-  "pointer-events-none absolute -inset-3 rounded-full border-2 border-transparent border-t-accent-soft";
+  "pointer-events-none absolute -inset-3 rounded-full border-2 border-transparent border-t-accent-soft transition-transform duration-[1800ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:rotate-[200deg]";
+// Three rings leave the rim on a one-second stagger. They start invisible, so
+// the keyframes own the whole visible life of a pulse.
+const portraitPulseBase =
+  "pointer-events-none absolute -inset-3 rounded-full border border-content-inverse/30 opacity-0";
+export const portraitPulse = `${portraitPulseBase} motion-safe:group-hover:animate-[portrait-ripple_3s_ease-out_infinite]`;
+export const portraitPulseMid = `${portraitPulseBase} motion-safe:group-hover:animate-[portrait-ripple_3s_ease-out_1s_infinite]`;
+export const portraitPulseLate = `${portraitPulseBase} motion-safe:group-hover:animate-[portrait-ripple_3s_ease-out_2s_infinite]`;
 export const portraitFrame =
-  "relative h-40 w-40 overflow-hidden rounded-full border-2 border-content-inverse/30 shadow-[0_24px_48px_-16px_rgba(0,0,0,0.5)] sm:h-52 sm:w-52";
+  "relative h-40 w-40 overflow-hidden rounded-full border-2 border-content-inverse/30 shadow-[0_24px_48px_-16px_rgba(0,0,0,0.5)] transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03] sm:h-52 sm:w-52";
 export const portraitImage = "h-full w-full object-cover object-top";
 
 // Capability words ride a rotating 3D cylinder aligned to the intro's content

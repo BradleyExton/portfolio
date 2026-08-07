@@ -52,6 +52,9 @@ export function HomeAboutSnapshotSection() {
           </div>
 
           <div className={styles.portraitColumn}>
+            <span className={styles.portraitPulse} aria-hidden="true" />
+            <span className={styles.portraitPulseMid} aria-hidden="true" />
+            <span className={styles.portraitPulseLate} aria-hidden="true" />
             <span className={styles.portraitRing} aria-hidden="true" />
             <span className={styles.portraitArc} aria-hidden="true" />
             <div className={styles.portraitFrame}>
