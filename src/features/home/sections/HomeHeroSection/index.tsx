@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { homeCopy } from "@/copy/home";
 import { ArrowRightIcon } from "@/features/shared/designSystem";
+import { HeroScreenAgent } from "./HeroScreenAgent";
 import { HeroToolchainPills } from "./HeroToolchainPills";
 import * as styles from "./styles";
 
@@ -23,6 +24,8 @@ export function HomeHeroSection() {
   const backgroundLayerRef = useRef<HTMLDivElement | null>(null);
   const steamLayerRef = useRef<HTMLDivElement | null>(null);
   const steamClusterRef = useRef<HTMLDivElement | null>(null);
+  const screenLayerRef = useRef<HTMLDivElement | null>(null);
+  const screenClusterRef = useRef<HTMLDivElement | null>(null);
   const topOrbLayerRef = useRef<HTMLDivElement | null>(null);
   const bottomOrbLayerRef = useRef<HTMLDivElement | null>(null);
   const contentLayerRef = useRef<HTMLDivElement | null>(null);
@@ -43,6 +46,8 @@ export function HomeHeroSection() {
         backgroundLayerRef,
         steamLayerRef,
         steamClusterRef,
+        screenLayerRef,
+        screenClusterRef,
         topOrbLayerRef,
         bottomOrbLayerRef,
         contentLayerRef,
@@ -94,6 +99,13 @@ export function HomeHeroSection() {
         </div>
       </div>
       <div className={styles.overlay} />
+      <div ref={screenLayerRef} className={styles.screenLayer} aria-hidden="true">
+        <div className={styles.screenViewport}>
+          <div ref={screenClusterRef} className={styles.screenCluster}>
+            <HeroScreenAgent />
+          </div>
+        </div>
+      </div>
       <div ref={steamLayerRef} className={styles.steamLayer} aria-hidden="true">
         <div className={styles.steamViewport}>
           <div ref={steamClusterRef} className={styles.steamCluster}>

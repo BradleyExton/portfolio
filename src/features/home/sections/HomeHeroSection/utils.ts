@@ -27,6 +27,12 @@ const HERO_STEAM_CLUSTER_OFFSET = {
   x: -50,
   y: 8,
 };
+/* Bounding-box origin of the monitor screen quad in the hero photo; the
+   HeroScreenAgent terminal maps onto the quad relative to this point. */
+const HERO_SCREEN_ANCHOR_POINT = {
+  x: 962,
+  y: 430,
+};
 
 const clamp = (value: number, min: number, max: number): number => {
   return Math.min(Math.max(value, min), max);
@@ -77,6 +83,8 @@ const resolveLayerElements = (
     backgroundLayer: refs.backgroundLayerRef.current,
     steamLayer: refs.steamLayerRef.current,
     steamCluster: refs.steamClusterRef.current,
+    screenLayer: refs.screenLayerRef.current,
+    screenCluster: refs.screenClusterRef.current,
     topOrbLayer: refs.topOrbLayerRef.current,
     bottomOrbLayer: refs.bottomOrbLayerRef.current,
     contentLayer: refs.contentLayerRef.current,
@@ -93,23 +101,25 @@ const getHeroBackgroundObjectPosition = (
   };
 };
 
-const applyHeroSteamClusterAnchor = (
-  steamCluster: HTMLDivElement | null,
-): void => {
-  if (!steamCluster) {
-    return;
+type HeroCoverGeometry = {
+  coverScale: number;
+  offsetX: number;
+  offsetY: number;
+};
+
+const getHeroCoverGeometry = (
+  cluster: HTMLDivElement,
+): HeroCoverGeometry | null => {
+  const viewport = cluster.parentElement as HTMLDivElement | null;
+  if (!viewport) {
+    return null;
   }
 
-  const steamViewport = steamCluster.parentElement as HTMLDivElement | null;
-  if (!steamViewport) {
-    return;
-  }
-
-  const viewportWidth = steamViewport.clientWidth;
-  const viewportHeight = steamViewport.clientHeight;
+  const viewportWidth = viewport.clientWidth;
+  const viewportHeight = viewport.clientHeight;
 
   if (viewportWidth <= 0 || viewportHeight <= 0) {
-    return;
+    return null;
   }
 
   const objectPosition = getHeroBackgroundObjectPosition(window.innerWidth);
@@ -119,22 +129,79 @@ const applyHeroSteamClusterAnchor = (
   );
   const renderedWidth = HERO_BACKGROUND_IMAGE_WIDTH * coverScale;
   const renderedHeight = HERO_BACKGROUND_IMAGE_HEIGHT * coverScale;
-  const offsetX = (viewportWidth - renderedWidth) * objectPosition.x;
-  const offsetY = (viewportHeight - renderedHeight) * objectPosition.y;
+
+  return {
+    coverScale,
+    offsetX: (viewportWidth - renderedWidth) * objectPosition.x,
+    offsetY: (viewportHeight - renderedHeight) * objectPosition.y,
+  };
+};
+
+const applyHeroSteamClusterAnchor = (
+  steamCluster: HTMLDivElement | null,
+): void => {
+  if (!steamCluster) {
+    return;
+  }
+
+  const geometry = getHeroCoverGeometry(steamCluster);
+  if (!geometry) {
+    return;
+  }
+
   const anchorX = (
-    offsetX
-    + HERO_STEAM_SOURCE_POINT.x * coverScale
+    geometry.offsetX
+    + HERO_STEAM_SOURCE_POINT.x * geometry.coverScale
     + HERO_STEAM_CLUSTER_OFFSET.x
   );
   const anchorY = (
-    offsetY
-    + HERO_STEAM_SOURCE_POINT.y * coverScale
+    geometry.offsetY
+    + HERO_STEAM_SOURCE_POINT.y * geometry.coverScale
     + HERO_STEAM_CLUSTER_OFFSET.y
   );
 
   // Anchor with a transform rather than left/top: the cluster keeps its static
   // layout box, so re-anchoring on load and resize never registers as layout shift.
   steamCluster.style.transform = `translate3d(calc(${toPixelOffset(anchorX)} - 50%), calc(${toPixelOffset(anchorY)} - 100%), 0)`;
+};
+
+const applyHeroScreenClusterAnchor = (
+  screenCluster: HTMLDivElement | null,
+): void => {
+  if (!screenCluster) {
+    return;
+  }
+
+  const geometry = getHeroCoverGeometry(screenCluster);
+  if (!geometry) {
+    return;
+  }
+
+  const anchorX = (
+    geometry.offsetX
+    + HERO_SCREEN_ANCHOR_POINT.x * geometry.coverScale
+  );
+  const anchorY = (
+    geometry.offsetY
+    + HERO_SCREEN_ANCHOR_POINT.y * geometry.coverScale
+  );
+
+  /* Unlike the steam cluster, the terminal must also scale with the photo's
+     cover crop so it stays glued to the monitor. Kept invisible until the
+     first anchor pass so it never flashes unpositioned at the viewport edge. */
+  screenCluster.style.transform = `translate3d(${toPixelOffset(anchorX)}, ${toPixelOffset(anchorY)}, 0) scale(${geometry.coverScale.toFixed(4)})`;
+  screenCluster.style.visibility = "visible";
+};
+
+const clearHeroScreenClusterAnchor = (
+  screenCluster: HTMLDivElement | null,
+): void => {
+  if (!screenCluster) {
+    return;
+  }
+
+  screenCluster.style.transform = "";
+  screenCluster.style.visibility = "";
 };
 
 const clearHeroSteamClusterAnchor = (
@@ -347,6 +414,12 @@ const applyHeroParallaxTransforms = (
     elements.steamLayer.style.transform = `translate3d(${toPixelOffset(offsets.steam.x)}, ${toPixelOffset(offsets.steam.y)}, 0)`;
   }
 
+  // The screen terminal sits on the same visual plane as the photo and steam,
+  // so it shares the steam offsets rather than defining its own.
+  if (elements.screenLayer) {
+    elements.screenLayer.style.transform = `translate3d(${toPixelOffset(offsets.steam.x)}, ${toPixelOffset(offsets.steam.y)}, 0)`;
+  }
+
   if (elements.topOrbLayer) {
     elements.topOrbLayer.style.transform = `translate3d(${toPixelOffset(offsets.topOrb.x)}, ${toPixelOffset(offsets.topOrb.y)}, 0)`;
   }
@@ -373,6 +446,10 @@ const clearHeroParallaxTransforms = (
 
   if (elements.steamLayer) {
     elements.steamLayer.style.transform = "";
+  }
+
+  if (elements.screenLayer) {
+    elements.screenLayer.style.transform = "";
   }
 
   if (elements.topOrbLayer) {
@@ -502,6 +579,7 @@ export const setupHeroParallaxController = (
   const refreshCapabilities = () => {
     const layerElements = getLayerElements();
     applyHeroSteamClusterAnchor(layerElements.steamCluster);
+    applyHeroScreenClusterAnchor(layerElements.screenCluster);
 
     const prefersReducedMotion = reducedMotionQuery.matches;
     scrollParallaxEnabled = shouldEnableHeroScrollParallax(
@@ -659,5 +737,6 @@ export const setupHeroParallaxController = (
     const layerElements = getLayerElements();
     clearHeroParallaxTransforms(layerElements);
     clearHeroSteamClusterAnchor(layerElements.steamCluster);
+    clearHeroScreenClusterAnchor(layerElements.screenCluster);
   };
 };

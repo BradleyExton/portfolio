@@ -209,6 +209,18 @@ export const homeCopy = {
     ctaPrimary: "Send Me an Email",
     ctaSecondary: "Book a Call",
   },
+  heroScreen: {
+    windowTitle: "claude · agent session",
+    command: "claude run overnight.md",
+    lines: [
+      { text: "Reading spec.md", meta: "" },
+      { text: "Editing checkout.ts", meta: "+64 -12" },
+      { text: "Running tests", meta: "128 passed" },
+      { text: "lint · typecheck · build", meta: "clean" },
+      { text: "Opening pull request", meta: "#214" },
+    ],
+    done: "Shipped while you were away",
+  },
   heroToolchain: {
     aiPills: ["Claude Code", "Codex", "Gemini CLI", "MCP Servers"],
     stackPills: ["React", "Next.js", "TypeScript", "Node.js", "Python"],
