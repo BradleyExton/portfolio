@@ -18,6 +18,34 @@ const STACKED_CARD_COUNT_CLASSES = [
   "[--numcards:8]",
 ] as const;
 
+// One class per seat on the capability ring. Length must stay in step with
+// --ring-count in globals.css, or the last words overlap the first.
+const RING_SLOT_CLASSES = [
+  "[--slot:0]",
+  "[--slot:1]",
+  "[--slot:2]",
+  "[--slot:3]",
+  "[--slot:4]",
+  "[--slot:5]",
+  "[--slot:6]",
+  "[--slot:7]",
+  "[--slot:8]",
+  "[--slot:9]",
+  "[--slot:10]",
+  "[--slot:11]",
+  "[--slot:12]",
+  "[--slot:13]",
+  "[--slot:14]",
+  "[--slot:15]",
+  "[--slot:16]",
+  "[--slot:17]",
+  "[--slot:18]",
+  "[--slot:19]",
+  "[--slot:20]",
+] as const;
+
+export const RING_SLOT_COUNT = RING_SLOT_CLASSES.length;
+
 type CapabilityCardRect = {
   id: CapabilityId;
   top: number;
@@ -50,6 +78,20 @@ export const getStackedCardCountClass = (count: number): string => {
   }
 
   return "[--numcards:4]";
+};
+
+export const getRingSlotClass = (index: number): string => {
+  const slotClass = RING_SLOT_CLASSES[index];
+  if (slotClass) {
+    return slotClass;
+  }
+
+  if (process.env.NODE_ENV !== "production") {
+    // Guardrail if the ticker copy grows past the seats defined on the ring.
+    console.warn(`[HomeAboutSnapshotSection] Missing ring slot class for index: ${index}`);
+  }
+
+  return "[--slot:0]";
 };
 
 export const getCapabilityIllustrationSrc = (id: CapabilityId): string => {

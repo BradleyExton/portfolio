@@ -27,20 +27,18 @@ export const portraitFrame =
   "relative h-40 w-40 overflow-hidden rounded-full border-2 border-content-inverse/30 shadow-[0_24px_48px_-16px_rgba(0,0,0,0.5)] sm:h-52 sm:w-52";
 export const portraitImage = "h-full w-full object-cover object-top";
 
-// Ticker aligns to the same content column as the intro instead of bleeding
-// full-width; the pill frame keeps its border crisp while the inner viewport
-// masks items so they fade in/out at the edges rather than hard-clipping.
+// Capability words ride a rotating 3D cylinder aligned to the intro's content
+// column, so they turn away and drop out at the sides instead of running the
+// full width of the screen. Geometry lives in the about-ring-* utilities.
 export const ticker = "relative mx-auto mt-12 w-full max-w-6xl px-4 sm:px-6 md:mt-16";
-export const tickerFrame =
-  "overflow-hidden rounded-full border border-content-inverse/15 bg-content-inverse/[0.04]";
-export const tickerViewport =
-  "py-4 [mask-image:linear-gradient(to_right,transparent_0%,black_12%,black_88%,transparent_100%)]";
-export const tickerTrack = "flex w-max animate-[about-ticker_28s_linear_infinite] motion-reduce:animate-none";
-export const tickerGroup = "flex shrink-0 items-center";
-export const tickerItem =
-  "flex items-center gap-6 pr-6 text-sm font-semibold uppercase tracking-widest text-content-inverse/70";
-export const tickerStar =
-  "inline-block animate-[about-ticker-star_7s_linear_infinite] text-accent-soft motion-reduce:animate-none";
+// Narrow screens see a shallower slice of the arc, so words reach the edge
+// less foreshortened; a wider fade there keeps them from cutting off mid-word.
+export const ringViewport =
+  "about-ring-viewport relative h-14 overflow-hidden [mask-image:linear-gradient(to_right,transparent_0%,black_28%,black_72%,transparent_100%)] sm:[mask-image:linear-gradient(to_right,transparent_0%,black_18%,black_82%,transparent_100%)]";
+export const ringDepth = "about-ring-depth absolute inset-0";
+export const ring = "about-ring absolute inset-0";
+export const ringSlot =
+  "about-ring-slot text-center text-[0.6875rem] font-semibold uppercase tracking-[0.2em] whitespace-nowrap text-content-inverse/75 sm:text-sm";
 
 export const cardsRegion = `${spacing.section} relative`;
 export const ambientBackdrop = "pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_8%_0%,var(--color-brand-weak)_0%,transparent_62%),radial-gradient(120%_120%_at_92%_100%,var(--color-brand-soft)_0%,transparent_60%)] opacity-70";

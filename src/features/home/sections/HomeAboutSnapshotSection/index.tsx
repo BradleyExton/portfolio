@@ -6,6 +6,8 @@ import { ActionLink, ArrowRightIcon, CheckCircleIcon, cn } from "@/features/shar
 import { IsoIllustration } from "./IsoIllustration";
 import type { WhatIDoCapability } from "./types";
 import {
+  RING_SLOT_COUNT,
+  getRingSlotClass,
   getStackedCardCountClass,
   getStackedCardIndexClass,
 } from "./utils";
@@ -14,6 +16,13 @@ import * as styles from "./styles";
 
 const whatIDoCapabilities = homeCopy.whatIDoCapabilities satisfies readonly WhatIDoCapability[];
 const capabilityIds = whatIDoCapabilities.map((capability) => capability.id);
+
+// Every seat on the ring needs a word, so the copy list cycles to fill it.
+const { tickerItems } = homeCopy.aboutSnapshot;
+const ringWords = Array.from(
+  { length: RING_SLOT_COUNT },
+  (_unused, index) => tickerItems[index % tickerItems.length] as string,
+);
 
 export function HomeAboutSnapshotSection() {
   const { activeCapabilityId, reduceMotion, showIllustrations, listRef, setCardRef } = useActiveCapabilityId({
@@ -58,18 +67,16 @@ export function HomeAboutSnapshotSection() {
         </div>
 
         <div className={styles.ticker} aria-hidden="true">
-          <div className={styles.tickerFrame}>
-            <div className={styles.tickerViewport}>
-              <div className={styles.tickerTrack}>
-                {[0, 1].map((half) => (
-                  <div key={half} className={styles.tickerGroup}>
-                    {homeCopy.aboutSnapshot.tickerItems.map((item) => (
-                      <span key={`${half}-${item}`} className={styles.tickerItem}>
-                        {item}
-                        <span className={styles.tickerStar}>✦</span>
-                      </span>
-                    ))}
-                  </div>
+          <div className={styles.ringViewport}>
+            <div className={styles.ringDepth}>
+              <div className={styles.ring}>
+                {ringWords.map((word, index) => (
+                  <span
+                    key={`${index}-${word}`}
+                    className={cn(styles.ringSlot, getRingSlotClass(index))}
+                  >
+                    {word}
+                  </span>
                 ))}
               </div>
             </div>

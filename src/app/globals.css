@@ -308,25 +308,16 @@ html {
   }
 }
 
-/* Seamless capability ticker in the What I Do intro band: the track holds two
-   identical halves, so a -50% translate loops without a visible jump. */
-@keyframes about-ticker {
+/* Capability ring in the What I Do intro band. Slots sit on a cylinder, so a
+   full -360deg turn returns every word to its starting slot and loops without
+   a seam. */
+@keyframes about-ring-spin {
   from {
-    transform: translateX(0);
+    transform: rotateY(0deg);
   }
 
   to {
-    transform: translateX(-50%);
-  }
-}
-
-@keyframes about-ticker-star {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
+    transform: rotateY(-360deg);
   }
 }
 
@@ -450,6 +441,61 @@ html {
   .page-transition-enter {
     animation: page-enter 420ms cubic-bezier(0.22, 1, 0.36, 1);
     will-change: transform, opacity;
+  }
+
+  /* Capability words on a rotating 3D cylinder. Radius is derived from slot
+     width and count rather than the container, so words never overlap on the
+     arc; the viewport just windows the front of the ring. At the widest sizes
+     the ring is narrower than its column, so words turn fully edge-on and
+     vanish before reaching the content margin. */
+  /* 21 seats is three full passes of the 7 ticker words, so the ring has no
+     seam where the copy list restarts. Perspective is tuned against the
+     radius: projected half-width is P*R/(P+R), which lands the vanishing
+     point just inside the column's edge fade. */
+  .about-ring-viewport {
+    --ring-count: 21;
+    --ring-step: 17.1428deg;
+    --ring-slot: clamp(8.5rem, 14.5vw, 15.5rem);
+    --ring-radius: calc(var(--ring-slot) * var(--ring-count) / 6.2832);
+    perspective: 68rem;
+  }
+
+  .about-ring-depth {
+    transform: translateZ(calc(-1 * var(--ring-radius)));
+    transform-style: preserve-3d;
+  }
+
+  .about-ring {
+    transform-style: preserve-3d;
+    animation: about-ring-spin 38s linear infinite;
+  }
+
+  .about-ring-slot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--ring-slot);
+    margin-left: calc(var(--ring-slot) / -2);
+    /* Back-half words would otherwise show through mirrored. */
+    backface-visibility: hidden;
+    transform: translateY(-50%) rotateY(calc(var(--slot) * var(--ring-step)))
+      translateZ(var(--ring-radius));
+  }
+
+  /* Without 3D transforms the slots would stack on one another, so fall back
+     to a plain centered row of the front few words. */
+  @supports not (transform-style: preserve-3d) {
+    .about-ring-slot {
+      position: static;
+      margin-left: 0;
+      transform: none;
+    }
+
+    .about-ring {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+    }
   }
 
   /* Ring-only mask for the timeline wire border. Hand-authored because the
