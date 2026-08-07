@@ -58,17 +58,21 @@ export function HomeAboutSnapshotSection() {
         </div>
 
         <div className={styles.ticker} aria-hidden="true">
-          <div className={styles.tickerTrack}>
-            {[0, 1].map((half) => (
-              <div key={half} className={styles.tickerGroup}>
-                {homeCopy.aboutSnapshot.tickerItems.map((item) => (
-                  <span key={`${half}-${item}`} className={styles.tickerItem}>
-                    {item}
-                    <span className={styles.tickerStar}>✦</span>
-                  </span>
+          <div className={styles.tickerFrame}>
+            <div className={styles.tickerViewport}>
+              <div className={styles.tickerTrack}>
+                {[0, 1].map((half) => (
+                  <div key={half} className={styles.tickerGroup}>
+                    {homeCopy.aboutSnapshot.tickerItems.map((item) => (
+                      <span key={`${half}-${item}`} className={styles.tickerItem}>
+                        {item}
+                        <span className={styles.tickerStar}>✦</span>
+                      </span>
+                    ))}
+                  </div>
                 ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </div>

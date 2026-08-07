@@ -320,6 +320,16 @@ html {
   }
 }
 
+@keyframes about-ticker-star {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* Inline iso-illustration system (Prototype B). Keyframes live here, not in
    the SVGs: inlined <style> blocks are document-global, so per-file keyframes
    would collide once several illustrations mount at once. */
