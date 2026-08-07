@@ -13,8 +13,11 @@ export const typeScale = {
     "mb-6 text-5xl font-bold leading-tight tracking-tight text-content font-[family-name:var(--font-space-grotesk)] md:text-6xl lg:text-7xl",
   pageHeroTitle:
     "mb-5 text-balance text-3xl font-bold leading-tight tracking-tight text-content font-[family-name:var(--font-space-grotesk)] sm:text-4xl md:text-5xl",
+  // Section titles sit one full step below the home hero (72px) and one full
+  // step above cardTitle (20px), so the ladder reads 72 / 36 / 20 / 16 and a
+  // section always outranks the cards inside it.
   sectionTitle:
-    "mb-4 text-balance text-2xl font-bold tracking-tight text-content font-[family-name:var(--font-space-grotesk)] sm:text-3xl",
+    "mb-4 text-balance text-3xl font-bold tracking-tight text-content font-[family-name:var(--font-space-grotesk)] sm:text-4xl",
   sectionDescription: "max-w-[62ch] text-sm leading-relaxed text-content-muted sm:text-base",
   leadBody: "text-base leading-relaxed text-content-muted sm:text-lg",
   // Inverse variants for dark brand surfaces (CTA bands). These exist because
@@ -22,7 +25,7 @@ export const typeScale = {
   // unresolved conflict — the winner depends on generated CSS order, not
   // author order. Use these instead of overriding token colors.
   sectionTitleInverse:
-    "mb-4 text-balance text-2xl font-bold tracking-tight text-content-inverse font-[family-name:var(--font-space-grotesk)] sm:text-3xl",
+    "mb-4 text-balance text-3xl font-bold tracking-tight text-content-inverse font-[family-name:var(--font-space-grotesk)] sm:text-4xl",
   sectionDescriptionInverse:
     "max-w-[62ch] text-sm leading-relaxed text-brand-muted sm:text-base",
   leadBodyInverse: "text-base leading-relaxed text-brand-muted sm:text-lg",
@@ -31,6 +34,10 @@ export const typeScale = {
   // Single treatment for topic-tag pills so adjacent sections don't rank the
   // same semantic element at different visual weights.
   tagPill: "rounded-full border border-border-default bg-surface-muted px-3 py-1 text-xs font-medium text-content-muted",
+  // Same rank as tagPill, restated for dark brand surfaces. A light tagPill on
+  // an inverted band reads as a bright chip and outranks the copy above it.
+  tagPillInverse:
+    "rounded-full border border-content-inverse/20 bg-content-inverse/10 px-3 py-1 text-xs font-medium text-content-inverse-muted",
 } as const;
 
 // Shared page-hero surface treatment so route heroes read as one family.
