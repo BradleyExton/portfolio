@@ -1,6 +1,5 @@
 import { spacing, typeScale } from "@/features/shared/designSystem";
 
-export const placeholderAboutSection = `${spacing.section} relative bg-surface`;
 export const placeholderHowIWorkSection = `${spacing.section} relative bg-surface-muted`;
 export const placeholderExperienceSection = `${spacing.section} relative overflow-hidden bg-surface`;
 export const placeholderContainer = `relative ${spacing.container6}`;
