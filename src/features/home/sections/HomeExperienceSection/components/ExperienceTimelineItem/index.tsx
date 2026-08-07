@@ -5,6 +5,7 @@ import { homeCopy } from "@/copy/home";
 import { cn } from "@/features/shared/designSystem";
 import type { ExperienceTimelineItem as ExperienceTimelineItemType } from "../../types";
 import { getStartYearShort } from "../../utils";
+import { CompanyMark } from "../CompanyMark";
 import { ExperienceHighlights } from "../ExperienceHighlights";
 import { ExperienceMilestone } from "../ExperienceMilestone";
 import * as styles from "./styles";
@@ -71,6 +72,7 @@ export function ExperienceTimelineItem({
             </span>
           </p>
           <div className={styles.roleHeader}>
+            <CompanyMark company={job.company} inverse={job.current} />
             <h3 className={job.current ? styles.companyCurrent : styles.company}>{job.company}</h3>
             {job.current ? (
               <span className={styles.badge}>{homeCopy.experience.currentLabel}</span>
