@@ -39,6 +39,9 @@ export const ringDepth = "about-ring-depth absolute inset-0";
 export const ring = "about-ring absolute inset-0";
 export const ringSlot =
   "about-ring-slot text-center text-[0.6875rem] font-semibold uppercase tracking-[0.2em] whitespace-nowrap text-content-inverse/75 sm:text-sm";
+export const ringStarSlot = "about-ring-slot about-ring-slot-mid text-center text-[0.5625rem] leading-none text-accent-soft sm:text-[0.6875rem]";
+export const ringStarGlyph =
+  "inline-block animate-[about-ring-star_10s_linear_infinite] motion-reduce:animate-none";
 
 export const cardsRegion = `${spacing.section} relative`;
 export const ambientBackdrop = "pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_8%_0%,var(--color-brand-weak)_0%,transparent_62%),radial-gradient(120%_120%_at_92%_100%,var(--color-brand-soft)_0%,transparent_60%)] opacity-70";

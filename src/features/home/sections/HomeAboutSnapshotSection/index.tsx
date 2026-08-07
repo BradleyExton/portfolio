@@ -1,5 +1,6 @@
 "use client";
 
+import { Fragment } from "react";
 import Image from "next/image";
 import { homeCopy } from "@/copy/home";
 import { ActionLink, ArrowRightIcon, CheckCircleIcon, cn } from "@/features/shared/designSystem";
@@ -71,12 +72,16 @@ export function HomeAboutSnapshotSection() {
             <div className={styles.ringDepth}>
               <div className={styles.ring}>
                 {ringWords.map((word, index) => (
-                  <span
-                    key={`${index}-${word}`}
-                    className={cn(styles.ringSlot, getRingSlotClass(index))}
-                  >
-                    {word}
-                  </span>
+                  // Word and its trailing separator share a slot index; the
+                  // -mid class shifts the star half a step along the arc.
+                  <Fragment key={`${index}-${word}`}>
+                    <span className={cn(styles.ringSlot, getRingSlotClass(index))}>
+                      {word}
+                    </span>
+                    <span className={cn(styles.ringStarSlot, getRingSlotClass(index))}>
+                      <span className={styles.ringStarGlyph}>✦</span>
+                    </span>
+                  </Fragment>
                 ))}
               </div>
             </div>

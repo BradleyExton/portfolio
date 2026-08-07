@@ -321,6 +321,17 @@ html {
   }
 }
 
+/* Slow self-spin for the amber separators riding the ring. */
+@keyframes about-ring-star {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* Inline iso-illustration system (Prototype B). Keyframes live here, not in
    the SVGs: inlined <style> blocks are document-global, so per-file keyframes
    would collide once several illustrations mount at once. */
@@ -455,7 +466,9 @@ html {
   .about-ring-viewport {
     --ring-count: 21;
     --ring-step: 17.1428deg;
-    --ring-slot: clamp(8.5rem, 14.5vw, 15.5rem);
+    /* The floor must exceed the widest word ("Design Iteration" at the small
+       type size), or mid-arc separators land on top of word edges. */
+    --ring-slot: clamp(10.5rem, 14.5vw, 15.5rem);
     --ring-radius: calc(var(--ring-slot) * var(--ring-count) / 6.2832);
     perspective: 68rem;
   }
@@ -467,7 +480,7 @@ html {
 
   .about-ring {
     transform-style: preserve-3d;
-    animation: about-ring-spin 38s linear infinite;
+    animation: about-ring-spin 72s linear infinite;
   }
 
   .about-ring-slot {
@@ -479,6 +492,14 @@ html {
     /* Back-half words would otherwise show through mirrored. */
     backface-visibility: hidden;
     transform: translateY(-50%) rotateY(calc(var(--slot) * var(--ring-step)))
+      translateZ(var(--ring-radius));
+  }
+
+  /* Separator seats sit half a step behind their word, exactly midway on the
+     arc between neighbours, so they foreshorten and vanish in sync. */
+  .about-ring-slot-mid {
+    transform: translateY(-50%)
+      rotateY(calc((var(--slot) + 0.5) * var(--ring-step)))
       translateZ(var(--ring-radius));
   }
 
