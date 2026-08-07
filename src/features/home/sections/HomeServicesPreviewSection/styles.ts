@@ -4,31 +4,55 @@ import type { ServiceKey } from "./types";
 // brand-weak rather than surface-muted: against the white Experience section
 // above it, #f8faf9 was a 1% step and read as the same surface continuing.
 export const section = `${spacing.section} relative overflow-hidden bg-brand-weak`;
-export const ambientBackdrop = "pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_8%_0%,var(--color-brand-soft)_0%,transparent_58%),radial-gradient(120%_120%_at_92%_100%,var(--color-brand-tint)_0%,transparent_62%)] opacity-60";
+// The card grid this replaced had three white panels breaking up the radial
+// wash. A flat ledger has nothing to break it up, so the same overlay read as
+// a heavy green field. Halved and pulled to the corners.
+export const ambientBackdrop = "pointer-events-none absolute inset-0 bg-[radial-gradient(80%_80%_at_2%_0%,var(--color-brand-soft)_0%,transparent_55%),radial-gradient(80%_80%_at_98%_100%,var(--color-brand-tint)_0%,transparent_58%)] opacity-30";
 export const container = `relative ${spacing.container6}`;
-export const block = "mb-10 max-w-3xl md:mb-12";
+
+// The heading block and the availability line share one baseline rule, which
+// doubles as the top edge of the ledger below it.
+export const headerRow = "flex flex-col gap-5 border-b border-border-strong pb-6 md:flex-row md:items-end md:justify-between";
+export const block = "max-w-2xl";
 export const eyebrow = typeScale.eyebrow;
 export const subheading = typeScale.sectionTitle;
 export const description = typeScale.sectionDescription;
-export const grid = "scroll-view-stagger grid gap-6 md:grid-cols-2 xl:grid-cols-3";
-export const cardWrap = "h-full";
-export const card = "group relative isolate block h-full overflow-hidden rounded-2xl border border-border-subtle bg-surface/95 p-5 shadow-sm transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-brand-tint hover:shadow-xl focus-visible:-translate-y-0.5 focus-visible:border-brand-tint focus-visible:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand md:p-6";
-export const glow = "pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-brand-weak opacity-45 blur-2xl transition-opacity duration-300 group-hover:opacity-90";
-export const illustrationWrap = "mb-4 flex items-center justify-center md:mb-5";
+export const availability = "flex items-center gap-2 text-sm text-content-muted md:pb-1";
+export const availabilityDot = "relative flex h-2 w-2 shrink-0";
+export const availabilityPing = "absolute inline-flex h-2 w-2 rounded-full bg-brand opacity-60 motion-safe:animate-ping";
+export const availabilityCore = "relative inline-flex h-2 w-2 rounded-full bg-brand";
+
+export const list = "scroll-view-stagger";
+export const row = "border-b border-border-default";
+// Three-column ledger on desktop: mark, content, timeline. Below md the
+// timeline column collapses into the meta line so rows stay two deep.
+export const rowLink = "group grid grid-cols-[2.75rem_minmax(0,1fr)] items-start gap-x-4 gap-y-3 py-6 transition-colors duration-200 hover:bg-surface/70 focus-visible:bg-surface/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand md:grid-cols-[3rem_minmax(0,1fr)_9rem] md:gap-x-6 md:px-3";
+export const glyph = "h-10 w-10 text-brand transition-transform duration-300 md:h-11 md:w-11 motion-safe:group-hover:-translate-y-0.5";
 // Shared view-transition-name with the services catalog card frames so the
-// preview illustration morphs into the destination card on navigation.
+// row mark morphs into the destination card illustration on navigation.
 export const morphTargetByServiceKey: Record<ServiceKey, string> = {
   websites: "[view-transition-name:svc-illo-websites]",
   webApps: "[view-transition-name:svc-illo-web-applications]",
   aiTools: "[view-transition-name:svc-illo-ai-tools]",
 };
-export const serviceImage = "h-36 w-36 object-contain transition-transform duration-300 group-hover:scale-[1.03] sm:h-40 sm:w-40 md:h-52 md:w-52";
-export const cardTitle = `${typeScale.cardTitle} mb-1 md:mb-2`;
-export const text = "mb-3 text-sm leading-relaxed text-content-muted md:mb-4";
-export const outcome = "mb-2 text-sm leading-relaxed text-content-muted md:mb-3";
-export const hint = `${typeScale.metaLabel} mb-3 text-brand-strong md:mb-4`;
-export const tagList = "flex flex-wrap gap-2";
-export const tag = typeScale.tagPill;
-export const bottomCtaRow = "mt-8 text-center";
-export const bottomCta = "group inline-flex items-center gap-2 rounded-full border border-brand-tint bg-brand-weak px-4 py-2 text-sm font-semibold text-brand transition-[color,border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-brand hover:text-brand-strong focus-visible:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand";
+
+export const rowBody = "min-w-0";
+export const cardTitle = "mb-2 flex items-center gap-2 text-xl font-semibold text-content font-[family-name:var(--font-space-grotesk)] sm:text-2xl";
+export const titleArrow = "text-brand opacity-0 transition-all duration-200 group-hover:translate-x-1 group-hover:opacity-100 group-focus-visible:translate-x-1 group-focus-visible:opacity-100";
+// The outcome is the load-bearing line in each row, so it sits one step above
+// body copy rather than trailing a description.
+export const outcome = "mb-3 max-w-[52ch] text-base leading-snug text-content md:text-lg";
+export const meta = "text-xs font-medium uppercase tracking-wide text-content-faint";
+// Below md the timeline column collapses into the row body. It gets its own
+// labelled line rather than joining the tag run, where it just read as a
+// fourth tag.
+// Spelled out rather than metaLabel + a color override: appending a color
+// utility after a token that already sets one is an unresolved conflict.
+export const metaTimeline = "mt-2 text-xs font-semibold uppercase tracking-wide text-brand-strong md:hidden";
+export const timelineCell = "hidden md:block md:text-right";
+export const timelineLabel = `${typeScale.metaLabel} mb-1`;
+export const timelineValue = "text-sm text-content-muted";
+
+export const bottomCtaRow = "pt-7";
+export const bottomCta = "group inline-flex items-center gap-2 text-sm font-semibold text-brand underline-offset-4 transition-colors duration-200 hover:text-brand-strong hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand";
 export const bottomCtaIcon = "h-4 w-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-focus-visible:translate-x-0.5";

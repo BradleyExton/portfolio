@@ -170,28 +170,27 @@ export const homeCopy = {
     heading: "Available for select projects",
     description:
       "I take on a small number of projects for local businesses and startups.",
+    availability: "Currently booking selective projects for Spring 2026.",
     cta: "See all services",
     items: [
       {
         title: "AI Workflows",
-        description:
-          "AI agents and automations wired into how your business already operates.",
-        price: "Custom pricing",
-        icon: "🤖",
+        outcome:
+          "Automate repetitive execution with safe, observable workflows.",
+        timeline: "Scope-based",
+        tags: ["Assistants", "Integrations", "Process Intelligence"],
       },
       {
         title: "Websites",
-        description:
-          "Conversion-focused marketing sites that feel premium, load fast, and are easy to manage.",
-        price: "Starting at $1,500",
-        icon: "🌐",
+        outcome: "Turn your website into a sales channel, not a brochure.",
+        timeline: "2 to 3 weeks",
+        tags: ["Marketing Pages", "Content-Editable", "SEO Foundation"],
       },
       {
         title: "Web Applications",
-        description:
-          "Custom internal or customer apps built around how your team actually works.",
-        price: "Starting at $3,000",
-        icon: "⚡",
+        outcome: "Replace manual workflows with reliable, visible systems.",
+        timeline: "4 to 8 weeks",
+        tags: ["Workflow Automation", "Secure Auth", "Reporting"],
       },
     ],
   },

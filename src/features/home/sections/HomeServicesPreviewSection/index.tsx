@@ -1,8 +1,8 @@
-import Image from "next/image";
 import { Link } from "next-view-transitions";
 import { homeCopy } from "@/copy/home";
 import { ActionLink, ArrowRightIcon, SectionIntro, cn } from "@/features/shared/designSystem";
-import type { HomeServicePreviewItem, ServiceKey } from "./types";
+import { ServiceGlyph } from "./ServiceGlyph";
+import type { HomeServicePreviewItem } from "./types";
 import { buildHomeServicePreviewItems } from "./utils";
 import * as styles from "./styles";
 
@@ -10,90 +10,66 @@ const previewItems = buildHomeServicePreviewItems(
   homeCopy.servicesPreview.items,
 ) satisfies readonly HomeServicePreviewItem[];
 
-const illustrationByServiceKey: Record<
-  ServiceKey,
-  Readonly<{
-    alt: string;
-    src: string;
-  }>
-> = {
-  websites: {
-    alt: "Website service illustration",
-    src: "/images/services/website-illustration.svg",
-  },
-  webApps: {
-    alt: "Web application service illustration",
-    src: "/images/services/web-application-illustration.svg",
-  },
-  aiTools: {
-    alt: "AI tools service illustration",
-    src: "/images/services/ai-tools-illustration.svg",
-  },
-};
-
-const hrefByServiceKey: Record<ServiceKey, string> = {
-  websites: "/services#websites",
-  webApps: "/services#web-applications",
-  aiTools: "/services#ai-tools",
-};
-
 export function HomeServicesPreviewSection() {
   return (
     <section id="services" className={styles.section}>
       <div aria-hidden="true" className={styles.ambientBackdrop} />
       <div className={styles.container}>
-        <SectionIntro
-          eyebrow={homeCopy.servicesPreview.eyebrow}
-          title={homeCopy.servicesPreview.heading}
-          description={homeCopy.servicesPreview.description}
-          className={styles.block}
-          eyebrowClassName={styles.eyebrow}
-          titleClassName={styles.subheading}
-          descriptionClassName={styles.description}
-        />
+        <div className={styles.headerRow}>
+          <SectionIntro
+            eyebrow={homeCopy.servicesPreview.eyebrow}
+            title={homeCopy.servicesPreview.heading}
+            description={homeCopy.servicesPreview.description}
+            className={styles.block}
+            eyebrowClassName={styles.eyebrow}
+            titleClassName={styles.subheading}
+            descriptionClassName={styles.description}
+          />
 
-        <div className={styles.grid}>
-          {previewItems.map((service) => {
-            const illustration = illustrationByServiceKey[service.key];
-            const href = hrefByServiceKey[service.key];
-
-            return (
-              <div key={service.title} className={styles.cardWrap}>
-                <Link
-                  href={href}
-                  prefetch={false}
-                  className={styles.card}
-                  aria-label={`View ${service.title} service details`}
-                >
-                  <div className={styles.glow} />
-                  <div className={cn(styles.illustrationWrap, styles.morphTargetByServiceKey[service.key])}>
-                    <Image
-                      src={illustration.src}
-                      alt={illustration.alt}
-                      width={176}
-                      height={176}
-                      sizes="(min-width: 1280px) 176px, (min-width: 768px) 22vw, 40vw"
-                      loading="lazy"
-                      fetchPriority="low"
-                      className={styles.serviceImage}
-                    />
-                  </div>
-                  <h4 className={styles.cardTitle}>{service.title}</h4>
-                  <p className={styles.text}>{service.description}</p>
-                  <p className={styles.outcome}>{service.outcome}</p>
-                  <p className={styles.hint}>{service.deliveryHint}</p>
-                  <ul className={styles.tagList} aria-label={`${service.title} tags`}>
-                    {service.tags.map((tag) => (
-                      <li key={`${service.title}-${tag}`} className={styles.tag}>
-                        {tag}
-                      </li>
-                    ))}
-                  </ul>
-                </Link>
-              </div>
-            );
-          })}
+          <p className={styles.availability}>
+            <span aria-hidden="true" className={styles.availabilityDot}>
+              <span className={styles.availabilityPing} />
+              <span className={styles.availabilityCore} />
+            </span>
+            {homeCopy.servicesPreview.availability}
+          </p>
         </div>
+
+        <ul className={styles.list}>
+          {previewItems.map((service) => (
+            <li key={service.key} className={styles.row}>
+              <Link
+                href={service.href}
+                prefetch={false}
+                className={styles.rowLink}
+                aria-label={`View ${service.title} service details`}
+              >
+                <ServiceGlyph
+                  serviceKey={service.key}
+                  className={cn(styles.glyph, styles.morphTargetByServiceKey[service.key])}
+                />
+
+                <div className={styles.rowBody}>
+                  <h3 className={styles.cardTitle}>
+                    {service.title}
+                    <ArrowRightIcon
+                      aria-hidden="true"
+                      className={cn(styles.bottomCtaIcon, styles.titleArrow)}
+                    />
+                  </h3>
+                  <p className={styles.outcome}>{service.outcome}</p>
+                  <p className={styles.meta}>{service.tags.join("  ·  ")}</p>
+                  <p className={styles.metaTimeline}>Typical build: {service.timeline}</p>
+                </div>
+
+                <div className={styles.timelineCell}>
+                  <p className={styles.timelineLabel}>Typical build</p>
+                  <p className={styles.timelineValue}>{service.timeline}</p>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
 
         <div className={styles.bottomCtaRow}>
           <ActionLink

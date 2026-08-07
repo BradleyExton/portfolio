@@ -10,25 +10,10 @@ const titleToServiceKey: Record<string, ServiceKey> = {
   "AI Workflows": "aiTools",
 };
 
-const detailsByServiceKey: Record<
-  ServiceKey,
-  Omit<HomeServicePreviewItem, "key" | "title" | "description">
-> = {
-  websites: {
-    outcome: "Turn your website into a sales channel, not a brochure.",
-    deliveryHint: "Typical build: 2 to 3 weeks",
-    tags: ["Marketing Pages", "Content-Editable", "SEO Foundation"],
-  },
-  webApps: {
-    outcome: "Replace manual workflows with reliable, visible systems.",
-    deliveryHint: "Typical build: 4 to 8 weeks",
-    tags: ["Workflow Automation", "Secure Auth", "Reporting"],
-  },
-  aiTools: {
-    outcome: "Automate repetitive execution with safe, observable workflows.",
-    deliveryHint: "Typical build: scope-based",
-    tags: ["Assistants", "Integrations", "Process Intelligence"],
-  },
+const hrefByServiceKey: Record<ServiceKey, string> = {
+  websites: "/services#websites",
+  webApps: "/services#web-applications",
+  aiTools: "/services#ai-tools",
 };
 
 const getServiceKeyFromTitle = (title: string): ServiceKey =>
@@ -39,14 +24,13 @@ export const buildHomeServicePreviewItems = (
 ): readonly HomeServicePreviewItem[] =>
   items.map((item) => {
     const key = getServiceKeyFromTitle(item.title);
-    const details = detailsByServiceKey[key];
 
     return {
       key,
       title: item.title,
-      description: item.description,
-      outcome: details.outcome,
-      deliveryHint: details.deliveryHint,
-      tags: details.tags,
+      outcome: item.outcome,
+      timeline: item.timeline,
+      tags: item.tags,
+      href: hrefByServiceKey[key],
     };
   });
