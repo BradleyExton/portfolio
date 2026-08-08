@@ -7,8 +7,8 @@ export const palette = {
   hair: "#a37e54",
   hairShade: "#8a683f",
   stubble: "#c49a6c",
-  hoodie: "#10b981",
-  hoodieShade: "#059669",
+  shirt: "#10b981",
+  shirtShade: "#059669",
   pants: "#2f423a",
   shoes: "#1c2b25",
 } as const;

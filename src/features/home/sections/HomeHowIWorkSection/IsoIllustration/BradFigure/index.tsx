@@ -9,8 +9,19 @@ import type { BradFigureProps, BradLook, BradPose } from "./types";
    everything else is shared so the character stays consistent across all four
    stages. Head drawings and their turn clocks live in BradHead. */
 
-/* Shoulder ball, sleeve, and hand drawn straight down the +y axis, so a caller
-   aims a whole limb with one rotate and hangs a prop off the hand.
+/* How far a short sleeve runs down the arm. Everything below it is bare, so
+   this is also the number that decides how much skin the figure shows. */
+const SLEEVE = 15;
+
+/* Sleeve cap, drawn over the top of a bare arm: rounded at the shoulder,
+   straight at the hem, and a touch wider than the arm so the fabric sits on
+   it rather than replacing it. */
+function Sleeve({ fill }: { fill: string }) {
+  return <path d={`M-6.5 0 q0 -7 6.5 -7 q6.5 0 6.5 7 l0 ${SLEEVE} l-13 0 z`} fill={fill} />;
+}
+
+/* Bare arm, sleeve, and hand drawn straight down the +y axis, so a caller aims
+   a whole limb with one rotate and hangs a prop off the hand.
    `grip` puts the hand above the prop instead of under it: a pencil or a
    magnifier handle drawn last covers the hand completely, and the arm ends up
    looking like it terminates in the tool. */
@@ -29,14 +40,38 @@ function Limb({
 
   return (
     <g>
-      <circle cx="0" cy="1" r="5.5" fill={fill} />
-      <rect x="-5.5" y="-2" width="11" height={length} rx="5.5" fill={fill} />
+      <rect x="-5.5" y="-2" width="11" height={length} rx="5.5" fill={palette.skin} />
+      <Sleeve fill={fill} />
       {grip ? null : hand}
       {children ? <g transform={`translate(0,${length})`}>{children}</g> : null}
       {grip ? hand : null}
     </g>
   );
 }
+
+const torso = (
+  <path
+    d="M-22 70 q0 -8 8 -10 l28 0 q8 2 8 10 l0 38 q0 8 -8 8 l-28 0 q-8 0 -8 -8 z"
+    fill={palette.shirt}
+  />
+);
+
+/* Polo collar as one chevron band rather than two separate points: at the 0.62
+   the agents scene renders him at, individual collar points turn to noise on
+   the chest, while the band still reads. The placket and its two buttons are
+   what stop the torso being a flat green slab. */
+const frontNeck = (
+  <>
+    <path d="M-15 60 l15 14 l15 -14 l0 7 l-15 14 l-15 -14 z" fill={palette.shirtShade} />
+    <path d="M0 74 l0 15" stroke={palette.shirtShade} strokeWidth="2" strokeLinecap="round" fill="none" />
+    <circle cx="0" cy="80" r="1.7" fill="#ecfdf5" />
+    <circle cx="0" cy="88" r="1.7" fill="#ecfdf5" />
+  </>
+);
+
+const backNeck = (
+  <path d="M-11 58 q0 -8 11 -8 q11 0 11 8 l0 6 q-4 -5 -11 -5 q-7 0 -11 5 z" fill={palette.shirtShade} />
+);
 
 const base = (
   <g>
@@ -45,17 +80,16 @@ const base = (
     <rect x="3" y="112" width="13" height="38" rx="6" fill={palette.pants} />
     <path d="M-18 148 h16 v6 a3 3 0 01-3 3 h-11 a3 3 0 01-2 -6 z" fill={palette.shoes} />
     <path d="M2 148 h16 a3 3 0 012 6 a3 3 0 01-3 3 h-11 a3 3 0 01-4 -3 z" fill={palette.shoes} />
-    <path d="M-22 70 q0 -8 8 -10 l28 0 q8 2 8 10 l0 38 q0 8 -8 8 l-28 0 q-8 0 -8 -8 z" fill={palette.hoodie} />
-    <path d="M10 60 l4 0 q8 2 8 10 l0 38 q0 8 -8 8 l-4 0 z" fill={palette.hoodieShade} />
-    <path d="M-10 100 h20 v10 q0 4 -4 4 h-12 q-4 0 -4 -4 z" fill={palette.hoodieShade} opacity="0.45" />
-    <path d="M-5 62 l-1 12 M5 62 l1 12" stroke="#ecfdf5" strokeWidth="2" strokeLinecap="round" fill="none" />
+    {torso}
+    <path d="M10 60 l4 0 q8 2 8 10 l0 38 q0 8 -8 8 l-4 0 z" fill={palette.shirtShade} />
+    {frontNeck}
   </g>
 );
 
 /* Same body seen from behind. Everything structural is shared with `base`; the
    cues that sell the turn are the ones the front view spends on its face — the
-   drawstrings and pocket come off, the hood bunches at the collar, and the
-   shade strip swaps to the other side so the light stays put while he doesn't. */
+   neckline sits higher and flatter, a yoke seam crosses the shoulders, and the
+   shade strip swaps sides so the light stays put while he doesn't. */
 const backBase = (
   <g>
     <ellipse cx="0" cy="159" rx="36" ry="9" fill="#0f766e" opacity="0.14" />
@@ -64,18 +98,24 @@ const backBase = (
     {/* Heels rather than toes: from behind the shoe is a plain block. */}
     <rect x="-18" y="147" width="16" height="11" rx="4" fill={palette.shoes} />
     <rect x="2" y="147" width="16" height="11" rx="4" fill={palette.shoes} />
-    <path d="M-22 70 q0 -8 8 -10 l28 0 q8 2 8 10 l0 38 q0 8 -8 8 l-28 0 q-8 0 -8 -8 z" fill={palette.hoodie} />
-    <path d="M-10 60 l-4 0 q-8 2 -8 10 l0 38 q0 8 8 8 l4 0 z" fill={palette.hoodieShade} />
-    <path d="M0 76 l0 36" stroke={palette.hoodieShade} strokeWidth="2" strokeLinecap="round" opacity="0.55" fill="none" />
-    <path d="M-15 60 q0 -12 15 -12 q15 0 15 12 q0 14 -15 14 q-15 0 -15 -14 z" fill={palette.hoodieShade} />
-    <path d="M-11 58 q0 -8 11 -8 q11 0 11 8 q-5 -4 -11 -4 q-6 0 -11 4 z" fill={palette.hoodie} opacity="0.5" />
+    {torso}
+    <path d="M-10 60 l-4 0 q-8 2 -8 10 l0 38 q0 8 8 8 l4 0 z" fill={palette.shirtShade} />
+    <path
+      d="M-19 71 q19 9 38 0"
+      stroke={palette.shirtShade}
+      strokeWidth="2"
+      strokeLinecap="round"
+      opacity="0.5"
+      fill="none"
+    />
+    {backNeck}
   </g>
 );
 
 function RestArm({ side }: { side: "left" | "right" }) {
   return (
     <g transform={side === "left" ? "translate(-25,68) rotate(8)" : "translate(25,68) rotate(-8)"}>
-      <Limb fill={side === "left" ? palette.hoodie : palette.hoodieShade} length={38} />
+      <Limb fill={side === "left" ? palette.shirt : palette.shirtShade} length={38} />
     </g>
   );
 }
@@ -112,12 +152,12 @@ function armsFor(pose: BradPose) {
     return (
       <>
         <g transform="translate(-25,68) rotate(8)">
-          <Limb fill={palette.hoodieShade} length={38} />
+          <Limb fill={palette.shirtShade} length={38} />
         </g>
         <g transform="translate(25,66)">
           <g className={styles.penLift}>
             <g transform="rotate(-122)">
-              <Limb fill={palette.hoodie} length={42} grip>
+              <Limb fill={palette.shirt} length={42} grip>
                 <g className={styles.scribble}>{pencil}</g>
               </Limb>
             </g>
@@ -141,10 +181,10 @@ function armsFor(pose: BradPose) {
     return (
       <>
         <g transform="translate(-25,66) rotate(-16)">
-          <Limb fill={palette.hoodie} length={24} />
+          <Limb fill={palette.shirt} length={24} />
         </g>
         <g transform="translate(25,66) rotate(16)">
-          <Limb fill={palette.hoodieShade} length={24} />
+          <Limb fill={palette.shirtShade} length={24} />
         </g>
       </>
     );
@@ -156,7 +196,7 @@ function armsFor(pose: BradPose) {
         <g transform="translate(-26,70)">
           <g className={styles.cueArm}>
             <g transform="rotate(50)">
-              <Limb fill={palette.hoodie} length={34} />
+              <Limb fill={palette.shirt} length={34} />
             </g>
           </g>
         </g>
@@ -167,11 +207,11 @@ function armsFor(pose: BradPose) {
         <g transform="translate(24,66)">
           <g className={styles.batonSweep}>
             <g transform="rotate(-118)">
-              <circle cx="0" cy="1" r="5.5" fill={palette.hoodieShade} />
-              <rect x="-5.5" y="-2" width="11" height="22" rx="5.5" fill={palette.hoodieShade} />
+              <rect x="-5.5" y="-2" width="11" height="22" rx="5.5" fill={palette.skin} />
+              <Sleeve fill={palette.shirtShade} />
               <g transform="translate(0,19)">
                 <g className={styles.batonFlick}>
-                  <rect x="-5" y="-5" width="10" height="24" rx="5" fill={palette.hoodieShade} />
+                  <rect x="-5" y="-5" width="10" height="24" rx="5" fill={palette.skin} />
                   <circle cx="0" cy="20" r="5.5" fill={palette.skin} />
                   {/* Cork grip and a pale shaft, so the baton still reads at
                       the 0.62 scale this figure renders at. */}
@@ -191,7 +231,7 @@ function armsFor(pose: BradPose) {
       <RestArm side="left" />
       <g transform="translate(25,64) rotate(-158)">
         <g className={styles.inspectArm}>
-          <Limb fill={palette.hoodieShade} length={38} grip>
+          <Limb fill={palette.shirtShade} length={38} grip>
             {magnifier}
           </Limb>
         </g>
