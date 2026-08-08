@@ -156,6 +156,51 @@ const magnifier = (
   </g>
 );
 
+/* A conducting arm, drawn for whichever side `side` picks (1 = his right, the
+   hand nearer the viewer). This is the one place the figure needs a real elbow:
+   the shoulder sweeps the bar while the forearm flicks at twice the rate, and
+   two rotations about the same joint would just add up instead of tracing the
+   figure eight a conductor actually draws. Short sleeve, so the sleeve ends on
+   the upper arm and the whole forearm below the elbow flick is bare.
+   The two arms share this geometry but not their clocks — see cueSweep. */
+function BatonArm({
+  side,
+  base,
+  fill,
+  sweep,
+  flick,
+}: {
+  side: 1 | -1;
+  /** Resting angle off straight-down, before the sweep. */
+  base: number;
+  fill: string;
+  sweep: string;
+  flick: string;
+}) {
+  return (
+    <g transform={`translate(${24 * side},66)`}>
+      <g className={sweep}>
+        <g transform={`rotate(${-base * side})`}>
+          <rect x="-5.5" y="-2" width="11" height="22" rx="5.5" fill={palette.skin} />
+          <circle cx="0" cy="1" r="5.5" fill={fill} />
+          <rect x="-5.5" y="-2" width="11" height={SLEEVE} rx="5.5" fill={fill} />
+          <rect x="-5.6" y={SLEEVE - 4} width="11.2" height="4" fill={palette.trim} />
+          <g transform="translate(0,19)">
+            <g className={flick}>
+              <rect x="-5" y="-5" width="10" height="24" rx="5" fill={palette.skin} />
+              <circle cx="0" cy="20" r="5.5" fill={palette.skin} />
+              {/* Cork grip and a pale shaft, so the baton still reads at the
+                  0.62 scale this figure renders at. */}
+              <rect x="-2.6" y="19" width="5.2" height="8" rx="2.6" fill="#8a683f" />
+              <rect x="-1.7" y="26" width="3.4" height="21" rx="1.7" fill="#fbbf24" />
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  );
+}
+
 function armsFor(pose: BradPose) {
   if (pose === "spec") {
     return (
@@ -198,41 +243,14 @@ function armsFor(pose: BradPose) {
   }
 
   if (pose === "agents") {
+    // A baton in each hand. Far arm first, so the near one crosses over it. It
+    // also carries 14 more degrees of lift, which keeps the shaping hand above
+    // the beating one through the whole loop; at a shared resting angle the two
+    // arms passed through horizontal together and squared into a T.
     return (
       <>
-        <g transform="translate(-26,70)">
-          <g className={styles.cueArm}>
-            <g transform="rotate(50)">
-              <Limb fill={palette.shirt} length={34} />
-            </g>
-          </g>
-        </g>
-        {/* The conducting arm is the one place the figure needs a real elbow:
-            the shoulder sweeps the bar while the forearm flicks at twice the
-            rate, and two rotations about the same joint would just add up
-            instead of tracing the figure eight a conductor actually draws.
-            Short sleeve, so the sleeve ends on the upper arm and the whole
-            forearm below the elbow flick is bare. */}
-        <g transform="translate(24,66)">
-          <g className={styles.batonSweep}>
-            <g transform="rotate(-118)">
-              <rect x="-5.5" y="-2" width="11" height="22" rx="5.5" fill={palette.skin} />
-              <circle cx="0" cy="1" r="5.5" fill={palette.shirtShade} />
-              <rect x="-5.5" y="-2" width="11" height={SLEEVE} rx="5.5" fill={palette.shirtShade} />
-              <rect x="-5.6" y={SLEEVE - 4} width="11.2" height="4" fill={palette.trim} />
-              <g transform="translate(0,19)">
-                <g className={styles.batonFlick}>
-                  <rect x="-5" y="-5" width="10" height="24" rx="5" fill={palette.skin} />
-                  <circle cx="0" cy="20" r="5.5" fill={palette.skin} />
-                  {/* Cork grip and a pale shaft, so the baton still reads at
-                      the 0.62 scale this figure renders at. */}
-                  <rect x="-2.6" y="19" width="5.2" height="8" rx="2.6" fill="#8a683f" />
-                  <rect x="-1.7" y="26" width="3.4" height="21" rx="1.7" fill="#fbbf24" />
-                </g>
-              </g>
-            </g>
-          </g>
-        </g>
+        <BatonArm side={-1} base={132} fill={palette.shirt} sweep={styles.cueSweep} flick={styles.cueFlick} />
+        <BatonArm side={1} base={118} fill={palette.shirtShade} sweep={styles.batonSweep} flick={styles.batonFlick} />
       </>
     );
   }

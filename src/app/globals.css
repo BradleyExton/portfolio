@@ -677,18 +677,7 @@ html {
   }
 }
 
-@keyframes iso-cue-arm {
-  0%,
-  100% {
-    transform: rotate(0deg);
-  }
-
-  50% {
-    transform: rotate(var(--iso-cue-deg, 12deg));
-  }
-}
-
-/* Agent tiles answer the baton: one lifts per beat, offset by delay. */
+/* Agent bots answer the baton: one bobs per beat, offset by delay. */
 @keyframes iso-beat {
   0% {
     transform: translateY(0);
@@ -1132,12 +1121,7 @@ html {
 
   .iso-scene .iso-loop-baton-flick {
     animation: iso-baton-flick calc(var(--iso-beat, 2.4s) / 2) ease-in-out
-      infinite;
-    animation-play-state: var(--iso-play);
-  }
-
-  .iso-scene .iso-loop-cue {
-    animation: iso-cue-arm calc(var(--iso-beat, 2.4s) * 2) ease-in-out infinite;
+      var(--iso-flick-delay, 0s) infinite;
     animation-play-state: var(--iso-play);
   }
 

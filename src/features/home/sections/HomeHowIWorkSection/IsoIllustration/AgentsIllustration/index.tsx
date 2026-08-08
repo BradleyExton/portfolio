@@ -1,5 +1,39 @@
+import { AgentBot } from "../AgentBot";
+import type { AgentKind } from "../AgentBot/types";
 import { BradFigure } from "../BradFigure";
 import * as styles from "./styles";
+
+/* Plinth under an agent, on the scene's 30-degree axes: a 34-unit square tile
+   with a 9-unit lip. Paler than the emerald tiles it replaces — with a bot
+   standing on it, an emerald pad and an emerald body merged into one shape and
+   the bot lost its feet. */
+function AgentPad({ x, y }: { x: number; y: number }) {
+  return (
+    <g transform={`translate(${x},${y})`}>
+      <polygon points="0,-17 29.4,0 0,17 -29.4,0" fill="#d1fae5" />
+      <polygon points="-29.4,0 -29.4,9 0,26 0,17" fill="#a7f3d0" />
+      <polygon points="29.4,0 29.4,9 0,26 0,17" fill="#6ee7b7" />
+    </g>
+  );
+}
+
+/* Pad centres, back to front, so the group draws in depth order and a bot in
+   front overlaps the plinth behind it.
+   Laid out as a section fanned in front of the conductor rather than the tight
+   diagonal the flat tiles used: tiles are 9 units tall and could sit almost on
+   top of each other, but a 64-unit bot standing on the pad behind reaches over
+   the one in front, and at the old spacing the back two collapsed into a single
+   silhouette. Roughly 90 units of x between neighbours is what it takes to keep
+   three bodies plus their arms clear of each other. */
+const stations: { kind: AgentKind; x: number; y: number; beat: string; note: string }[] = [
+  { kind: "gemini", x: 168, y: 118, beat: styles.beatC, note: styles.noteC },
+  { kind: "claude", x: 105, y: 130, beat: styles.beatA, note: styles.noteA },
+  // Sits further down the plane than the arc wants. The conductor's riser is
+  // directly up-plane of this station, and anywhere higher put the bot's
+  // antenna light on the riser's front face, where it read as a blemish on the
+  // riser rather than as a thing standing in front of it.
+  { kind: "codex", x: 5, y: 160, beat: styles.beatB, note: styles.noteB },
+];
 
 // Inlined from public/images/how-i-work/agents.svg; loop keyframes live in
 // globals.css so several inline scenes can mount without keyframe collisions.
@@ -38,35 +72,23 @@ export function AgentsIllustration() {
           <polygon points="-43.3,40 -22.5,52 -43.3,64 -64.1,52" fill="#a7f3d0" />
         </g>
         {/* The three agents answer the baton instead of drifting on their own
-            clocks: one tile lifts per beat of the same 2.4s bar the arm sweeps
-            on, each offset by a third, with a note rising off the downbeat.
-            That sync is the whole point of the scene — orchestration. */}
+            clocks: one bot bobs per beat of the same 2.4s bar the arms sweep on,
+            each offset by a third, with a note rising off its downbeat. That
+            sync is the whole point of the scene — orchestration.
+            The plinth stays planted and only the bot rides the beat; lifting the
+            pad too made the floor look like it was bouncing under them. */}
         <g className={styles.pieces[4]}>
-          <g className={styles.beatA}>
-            <polygon points="82.3,62.5 111.7,79.5 82.3,96.5 52.8,79.5" fill="#6ee7b7" />
-            <polygon points="52.8,79.5 52.8,88.5 82.3,105.5 82.3,96.5" fill="#34d399" />
-            <polygon points="111.7,79.5 111.7,88.5 82.3,105.5 82.3,96.5" fill="#10b981" />
-          </g>
-          <g transform="translate(82.3,56.5)">
-            <polygon points="0,0 7,4 0,8.1 -7,4" fill="#059669" className={styles.noteA} />
-          </g>
-          <g className={styles.beatB}>
-            <polygon points="73.6,107.5 103.1,124.5 73.6,141.5 44.2,124.5" fill="#6ee7b7" />
-            <polygon points="44.2,124.5 44.2,133.5 73.6,150.5 73.6,141.5" fill="#34d399" />
-            <polygon points="103.1,124.5 103.1,133.5 73.6,150.5 73.6,141.5" fill="#10b981" />
-            <polygon points="0,0 10,5.8 0,11.5 -10,5.8" fill="#fbbf24" transform="translate(73.6,91.5)" />
-          </g>
-          <g transform="translate(73.6,101.5)">
-            <polygon points="0,0 7,4 0,8.1 -7,4" fill="#059669" className={styles.noteB} />
-          </g>
-          <g className={styles.beatC}>
-            <polygon points="4.3,117.5 33.8,134.5 4.3,151.5 -25.1,134.5" fill="#6ee7b7" />
-            <polygon points="-25.1,134.5 -25.1,143.5 4.3,160.5 4.3,151.5" fill="#34d399" />
-            <polygon points="33.8,134.5 33.8,143.5 4.3,160.5 4.3,151.5" fill="#10b981" />
-          </g>
-          <g transform="translate(4.3,111.5)">
-            <polygon points="0,0 7,4 0,8.1 -7,4" fill="#059669" className={styles.noteC} />
-          </g>
+          {stations.map((station) => (
+            <g key={station.kind}>
+              <AgentPad x={station.x} y={station.y} />
+              <g className={station.beat}>
+                <AgentBot kind={station.kind} transform={`translate(${station.x},${station.y})`} />
+              </g>
+              <g transform={`translate(${station.x},${station.y - 74})`}>
+                <polygon points="0,0 7,4 0,8.1 -7,4" fill="#059669" className={station.note} />
+              </g>
+            </g>
+          ))}
         </g>
         <g className={styles.pieces[5]}>
           <polygon points="0,0 6,3.5 0,6.9 -6,3.5" fill="#6ee7b7" className={styles.twinkleA} transform="translate(0,46)" />
