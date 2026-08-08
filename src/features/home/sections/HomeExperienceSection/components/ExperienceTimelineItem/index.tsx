@@ -4,7 +4,6 @@ import { useRef } from "react";
 import { homeCopy } from "@/copy/home";
 import { cn } from "@/features/shared/designSystem";
 import type { ExperienceTimelineItem as ExperienceTimelineItemType } from "../../types";
-import { getStartYearShort } from "../../utils";
 import { CompanyMark } from "../CompanyMark";
 import { ExperienceHighlights } from "../ExperienceHighlights";
 import { ExperienceMilestone } from "../ExperienceMilestone";
@@ -22,7 +21,6 @@ export function ExperienceTimelineItem({
   reduceMotion,
 }: ExperienceTimelineItemProps) {
   const entryRef = useRef<HTMLElement | null>(null);
-  const startYearShort = getStartYearShort(job.period);
 
   const handleSpotlightMove = (event: React.PointerEvent<HTMLElement>) => {
     const entryNode = entryRef.current;
@@ -38,10 +36,15 @@ export function ExperienceTimelineItem({
   return (
     <li className={cn(styles.timelineItem, styles.itemReveal)} aria-current={isActive ? "step" : undefined}>
       <ExperienceMilestone isActive={isActive} reduceMotion={reduceMotion} />
+      <span
+        aria-hidden="true"
+        className={cn(styles.milestoneLead, job.current && styles.milestoneLeadCurrent)}
+      />
 
       <article
         ref={entryRef}
         data-timeline-entry="true"
+        data-active={isActive ? "true" : "false"}
         onPointerMove={handleSpotlightMove}
         className={cn(
           styles.entry,
@@ -55,30 +58,27 @@ export function ExperienceTimelineItem({
           <span aria-hidden="true" className={styles.signalPulseClip}>
             <span className={styles.signalPulse} />
           </span>
-        ) : null}
-        {startYearShort ? (
-          <span
-            aria-hidden="true"
-            className={cn(styles.watermark, job.current && styles.watermarkCurrent)}
-          >
-            &rsquo;{startYearShort}
+        ) : (
+          <span aria-hidden="true" className={styles.shimmerClip}>
+            <span className={styles.shimmerBeam} />
           </span>
-        ) : null}
+        )}
 
         <header className={styles.entryHeader}>
-          <p className={styles.metaRow}>
-            <span className={job.current ? styles.timelineCurrent : styles.timeline}>
-              {job.period}
-            </span>
-          </p>
-          <div className={styles.roleHeader}>
+          <span
+            aria-hidden="true"
+            className={job.current ? styles.logoPlateCurrent : styles.logoPlate}
+          >
             <CompanyMark company={job.company} inverse={job.current} />
+          </span>
+          <div className={styles.roleHeader}>
             <h3 className={job.current ? styles.companyCurrent : styles.company}>{job.company}</h3>
             {job.current ? (
               <span className={styles.badge}>{homeCopy.experience.currentLabel}</span>
             ) : null}
           </div>
           <p className={job.current ? styles.textCurrent : styles.text}>{job.role}</p>
+          <p className={job.current ? styles.timelineCurrent : styles.timeline}>{job.period}</p>
         </header>
 
         <p className={job.current ? styles.roleDescriptionCurrent : styles.roleDescription}>
@@ -91,7 +91,10 @@ export function ExperienceTimelineItem({
           inverse={job.current}
         />
 
-        <ul className={styles.chipList} aria-label={`${job.company} technologies`}>
+        <ul
+          className={job.current ? styles.chipListCurrent : styles.chipList}
+          aria-label={`${job.company} technologies`}
+        >
           {job.techChips.map((chip) => (
             <li key={`${job.company}-${chip}`} className={job.current ? styles.chipCurrent : styles.chip}>
               {chip}

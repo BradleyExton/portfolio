@@ -283,6 +283,29 @@ html {
   }
 }
 
+/* One-shot sheen across a past-role card when the rail reaches it. The beam is
+   a quarter of the card wide, so -140% to 420% of its own width carries it from
+   just off the left edge to just off the right. */
+@keyframes timeline-card-shimmer {
+  0% {
+    opacity: 0;
+    transform: translateX(-140%) skewX(-14deg);
+  }
+
+  28% {
+    opacity: 1;
+  }
+
+  72% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(420%) skewX(-14deg);
+  }
+}
+
 @keyframes timeline-signal-travel {
   0% {
     top: -12%;

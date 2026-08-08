@@ -1,5 +1,8 @@
-export const mark = "h-9 w-9 shrink-0 md:h-10 md:w-10";
-export const markWide = "h-9 w-auto shrink-0 md:h-10";
+// Sized to sit inside the 48px logo plate with even optical padding. The wide
+// wordmark is matched on width instead of height so it reads at the same
+// visual weight as the square marks rather than towering over them.
+export const mark = "h-7 w-7 shrink-0";
+export const markWide = "h-auto w-9 shrink-0";
 
 // Every one of these logos was originally two distinct colors, so the marks
 // stay two-tone on the brand pair: emerald ink, amber for the secondary shape.

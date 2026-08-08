@@ -68,7 +68,7 @@ describe("HomeExperienceSection", () => {
     });
   });
 
-  it("renders milestone stops pinned to each entry's top-left corner", () => {
+  it("renders milestone stops pinned to the rail lane beside each entry", () => {
     render(<HomeExperienceSection />);
 
     const stops = Array.from(
@@ -76,9 +76,10 @@ describe("HomeExperienceSection", () => {
     );
     expect(stops).toHaveLength(homeCopy.experience.items.length);
     stops.forEach((stop) => {
-      expect(stop).toHaveClass("left-0");
-      expect(stop).toHaveClass("top-8");
-      expect(stop).toHaveClass("md:top-10");
+      expect(stop).toHaveClass("left-4");
+      expect(stop).toHaveClass("md:left-5");
+      expect(stop).toHaveClass("top-[68px]");
+      expect(stop).toHaveClass("md:top-[88px]");
       expect(stop).not.toHaveClass("right-3");
     });
   });

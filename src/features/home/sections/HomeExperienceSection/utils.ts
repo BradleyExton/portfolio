@@ -19,17 +19,6 @@ export const getViewportAnchorY = (
   return viewportHeight * clamp01(anchorRatio);
 };
 
-// Watermark label for past-role cards, e.g. "Dec 2021 - Feb 2023" -> "'21".
-export const getStartYearShort = (period: string): string | null => {
-  const yearMatch = period.match(/\b\d{4}\b/);
-
-  if (!yearMatch) {
-    return null;
-  }
-
-  return yearMatch[0].slice(2);
-};
-
 export const computeTimelineProgress = ({
   anchorY,
   startY,
