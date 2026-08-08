@@ -58,7 +58,7 @@ export const scrimClosed = "pointer-events-none opacity-0";
 
 export const button = "relative inline-flex h-11 w-11 items-center justify-center rounded-lg text-content transition-colors duration-200 hover:bg-surface-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand md:hidden";
 export const burger = "relative block h-4 w-5";
-export const burgerBar = "absolute left-0 h-0.5 w-5 rounded-full bg-content motion-safe:transition-[opacity,transform] motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.22,1,0.36,1)]";
+export const burgerBar = "absolute left-0 h-0.5 w-5 rounded-full bg-content motion-safe:transition-[opacity,transform,translate,scale,rotate] motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.22,1,0.36,1)]";
 export const burgerBarTop = "top-0";
 export const burgerBarTopOpen = "translate-y-[7px] rotate-45";
 export const burgerBarMiddle = "top-[7px]";
@@ -76,7 +76,7 @@ export const menuClip = "min-h-0 overflow-hidden";
 export const menuInner = "mx-auto max-h-[calc(100dvh-5.5rem)] max-w-6xl overflow-y-auto overscroll-contain border-t border-border-default px-6 pb-6 pt-2";
 export const menuList = "flex flex-col";
 
-export const menuReveal = "motion-safe:transition-[opacity,transform] motion-safe:ease-[cubic-bezier(0.22,1,0.36,1)]";
+export const menuReveal = "motion-safe:transition-[opacity,transform,translate,scale,rotate] motion-safe:ease-[cubic-bezier(0.22,1,0.36,1)]";
 export const menuRevealOpen = "translate-y-0 opacity-100 motion-safe:duration-[420ms]";
 export const menuRevealClosed = "translate-y-3 opacity-0 motion-safe:duration-150";
 export const menuRevealDelays = [

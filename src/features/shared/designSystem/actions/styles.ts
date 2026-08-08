@@ -1,5 +1,5 @@
 export const linkBase =
-  "group inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-[background-color,border-color,box-shadow,color,transform] duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 active:scale-[0.98]";
+  "group inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-[background-color,border-color,box-shadow,color,transform,translate,scale,rotate] duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 active:scale-[0.98]";
 
 export const linkBrand = "bg-brand text-content-inverse hover:bg-brand-strong hover:shadow-lg hover:shadow-brand/25 focus-visible:outline-brand";
 export const linkSurface = "bg-surface text-brand hover:bg-surface-muted hover:shadow-lg focus-visible:outline-surface";

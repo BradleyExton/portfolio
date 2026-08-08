@@ -8,7 +8,7 @@ export const heading = typeScale.sectionTitle;
 export const description = typeScale.sectionDescription;
 export const grid = "grid gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-3";
 export const cardReveal = "h-full";
-export const card = "group flex h-full flex-col rounded-xl border border-border-default bg-surface p-4 shadow-sm transition-[border-color,box-shadow,transform] duration-300 hover:border-brand-tint hover:shadow-lg motion-safe:hover:-translate-y-1 sm:p-5";
+export const card = "group flex h-full flex-col rounded-xl border border-border-default bg-surface p-4 shadow-sm transition-[border-color,box-shadow,transform,translate,scale,rotate] duration-300 hover:border-brand-tint hover:shadow-lg motion-safe:hover:-translate-y-1 sm:p-5";
 export const anchorOffset = "scroll-mt-28 md:scroll-mt-32";
 export const imageFrame = "mb-4 overflow-hidden rounded-lg border border-border-subtle bg-gradient-to-br from-brand-weak via-surface-muted to-brand-soft/60";
 // Shared view-transition-name with the home services preview illustrations so

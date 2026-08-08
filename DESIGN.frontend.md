@@ -88,6 +88,13 @@ Rules:
 - Avoid constant looping animation except minimal signal indicators.
 - Keep transitions short and consistent.
 - Respect `prefers-reduced-motion` by disabling or minimizing non-essential motion.
+- An explicit `transition-[...]` list that animates a `translate-*`, `scale-*`,
+  or `rotate-*` utility must name `translate`, `scale`, and `rotate` — not just
+  `transform`. Tailwind v4 compiles those utilities to the standalone CSS
+  properties, so a list naming only `transform` watches a property that never
+  changes and the element snaps to its final value. This type-checks, builds,
+  and screenshots correctly; the only symptom is the missing animation. The
+  `transition-transform` shorthand already covers all four and is safe.
 
 ---
 

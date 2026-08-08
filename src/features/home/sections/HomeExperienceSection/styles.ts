@@ -17,7 +17,7 @@ export const timelineItem = "relative";
 export const itemReveal = "relative py-6 pl-10 md:py-9 md:pl-16";
 // Node center = item padding-top + card padding + half the 48px logo plate, so
 // the stop lands on the company mark rather than on the card's rounded corner.
-export const milestoneNode = "absolute left-4 top-[68px] z-50 flex h-7 w-7 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-brand-tint bg-surface ring-4 ring-surface shadow-sm transition-[transform,border-color,box-shadow] duration-300 md:left-5 md:top-[88px] md:h-8 md:w-8";
+export const milestoneNode = "absolute left-4 top-[68px] z-50 flex h-7 w-7 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-brand-tint bg-surface ring-4 ring-surface shadow-sm transition-[transform,translate,scale,rotate,border-color,box-shadow] duration-300 md:left-5 md:top-[88px] md:h-8 md:w-8";
 export const milestoneNodeActive = "border-brand bg-brand-soft shadow-md";
 export const milestoneNodePulsing = "motion-safe:animate-[timeline-node-pulse_2.1s_ease-in-out_infinite]";
 export const milestoneNodeReducedMotion = "motion-safe:animate-none";
@@ -25,7 +25,7 @@ export const milestoneCore = "h-2.5 w-2.5 rounded-full bg-brand shadow-[0_0_0_2p
 // Hairline tying the rail stop to the card it labels, fading out as it arrives.
 export const milestoneLead = "pointer-events-none absolute left-4 top-[68px] h-px w-6 -translate-y-1/2 bg-gradient-to-r from-border-default to-transparent md:left-5 md:top-[88px] md:w-11";
 export const milestoneLeadCurrent = "from-brand-contrast/70";
-export const entry = "group/entry relative isolate w-full rounded-2xl border border-border-subtle bg-surface/80 p-5 transition-[box-shadow,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] before:pointer-events-none before:absolute before:inset-[-1px] before:z-10 before:rounded-2xl before:border-2 before:border-brand-contrast before:opacity-0 before:transition-opacity before:duration-500 before:ease-out motion-reduce:before:transition-none md:p-7";
+export const entry = "group/entry relative isolate w-full rounded-2xl border border-border-subtle bg-surface/80 p-5 transition-[box-shadow,transform,translate,scale,rotate] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] before:pointer-events-none before:absolute before:inset-[-1px] before:z-10 before:rounded-2xl before:border-2 before:border-brand-contrast before:opacity-0 before:transition-opacity before:duration-500 before:ease-out motion-reduce:before:transition-none md:p-7";
 // Scroll focus only lifts the card and fades in the brand-contrast edge; card
 // colors never change with scroll, so the motion stays quiet.
 export const entryLifted = "shadow-xl before:opacity-100 motion-safe:-translate-y-1";
@@ -95,10 +95,10 @@ export const chipList = "mt-3.5 flex flex-wrap gap-2 border-t border-border-subt
 export const chipListCurrent = "mt-3.5 flex flex-wrap gap-2 border-t border-brand-contrast/20 pt-3.5 md:mt-4 md:pt-4";
 // Light-card chips share the sitewide tagPill treatment (plus the timeline's
 // hover interactions) so adjacent sections rank tags at the same visual weight.
-export const chip = `${typeScale.tagPill} transition-[transform,border-color,background-color,color] duration-200 motion-safe:hover:-translate-y-0.5 hover:border-brand-contrast hover:bg-brand-weak hover:text-brand`;
+export const chip = `${typeScale.tagPill} transition-[transform,translate,scale,rotate,border-color,background-color,color] duration-200 motion-safe:hover:-translate-y-0.5 hover:border-brand-contrast hover:bg-brand-weak hover:text-brand`;
 // Dark-card chips restate the tagPill geometry with inverse-safe emerald text
 // instead of extending it, avoiding a same-specificity color clash.
-export const chipCurrent = "rounded-full border border-brand-contrast/35 bg-brand/15 px-3 py-1 text-xs font-medium text-brand-tint transition-[transform,border-color,background-color,color] duration-200 motion-safe:hover:-translate-y-0.5 hover:bg-brand/25";
+export const chipCurrent = "rounded-full border border-brand-contrast/35 bg-brand/15 px-3 py-1 text-xs font-medium text-brand-tint transition-[transform,translate,scale,rotate,border-color,background-color,color] duration-200 motion-safe:hover:-translate-y-0.5 hover:bg-brand/25";
 // Indented to the card column, not the section margin, so the link closes the
 // timeline instead of hanging off its left edge.
 export const ctaRow = "mt-10 pl-10 md:pl-16";
