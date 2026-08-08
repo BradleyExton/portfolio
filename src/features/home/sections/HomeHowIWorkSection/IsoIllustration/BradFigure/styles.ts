@@ -1,25 +1,10 @@
-// Character motion hooks. Each class pairs with a keyframe in globals.css and
+// Body motion hooks. Each class pairs with a keyframe in globals.css and
 // stays paused until its scene reports data-inview, so nothing animates
 // off-screen. Durations are multiples of the shared 2.4s beat.
-
-// Head turn (spec): the skull tilts continuously while the front and 3/4 face
-// drawings hard-cut between each other. All three share one duration so the
-// cut always lands inside the held part of the tilt, never mid-swing.
-export const headTilt = "iso-loop-look-tilt [--iso-look-deg:-10deg]";
-export const faceFront = "iso-loop-face-front";
-export const faceTurned = "iso-loop-face-turned";
-
-// Same pair on the magnifier sweep's clock (gates): he looks where the lens
-// goes rather than holding a stare at camera while scanning.
-export const headTrack = "iso-loop-track";
-export const trackFront = "iso-loop-track-front";
-export const trackTurned = "iso-loop-track-turned";
-
-// Small on-the-beat nod while conducting (agents).
-export const headNod = "iso-loop-bob [--iso-bob-duration:2.4s] [--iso-bob-y:-2px]";
+// The head has its own set, in BradHead/styles.ts.
 
 // Writing arm: fast wrist scribble inside a slow lift that pulls the pen off
-// the board for the beats he spends looking back at camera.
+// the board for the beat he spends glancing over his shoulder.
 export const penLift = "iso-loop-pen";
 export const scribble = "iso-loop-sway [--iso-sway-duration:0.9s] [--iso-sway-deg:-9deg]";
 

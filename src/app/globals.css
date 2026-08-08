@@ -492,24 +492,10 @@ html {
   }
 }
 
-@keyframes iso-face-front {
-  0%,
-  60% {
-    opacity: 0;
-  }
-
-  62%,
-  90% {
-    opacity: 1;
-  }
-
-  92%,
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes iso-face-turned {
+/* The held drawing owns the writing bars; the beat drawing owns the one bar he
+   looks up for. Which drawing is which is the scene's business — spec holds the
+   back of his head and beats on a glance over the shoulder. */
+@keyframes iso-face-held {
   0%,
   60% {
     opacity: 1;
@@ -526,7 +512,24 @@ html {
   }
 }
 
-/* Pen leaves the board for the window where he turns back to camera. */
+@keyframes iso-face-beat {
+  0%,
+  60% {
+    opacity: 0;
+  }
+
+  62%,
+  90% {
+    opacity: 1;
+  }
+
+  92%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Pen leaves the board for the window where he looks up. */
 @keyframes iso-pen-lift {
   0%,
   60% {
@@ -1081,17 +1084,18 @@ html {
   }
 
   /* Base values are the reduced-motion resting state that the global duration
-     override falls back to: front view showing, 3/4 view hidden. Exactly one
-     of the pair must ever be visible, or he has two faces. */
-  .iso-scene .iso-loop-face-front {
+     override falls back to: the held drawing showing, the beat one hidden — so
+     a still of the scene is the pose it spends most of its loop in. Exactly one
+     of the pair must ever be visible, or he has two heads. */
+  .iso-scene .iso-loop-face-held {
     opacity: 1;
-    animation: iso-face-front var(--iso-look-duration, 7.2s) steps(1) infinite;
+    animation: iso-face-held var(--iso-look-duration, 7.2s) steps(1) infinite;
     animation-play-state: var(--iso-play);
   }
 
-  .iso-scene .iso-loop-face-turned {
+  .iso-scene .iso-loop-face-beat {
     opacity: 0;
-    animation: iso-face-turned var(--iso-look-duration, 7.2s) steps(1) infinite;
+    animation: iso-face-beat var(--iso-look-duration, 7.2s) steps(1) infinite;
     animation-play-state: var(--iso-play);
   }
 

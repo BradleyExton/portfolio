@@ -1,35 +1,13 @@
+import { BradHead } from "./BradHead";
 import * as styles from "./styles";
-import type { BradFigureProps, BradPose } from "./types";
+import type { BradFigureProps, BradHeadLook, BradPose } from "./types";
+import { palette, SLEEVE } from "./utils";
 
 /* Cartoon Bradley for the how-i-work iso scenes: flat chibi figure drawn in
    scene-local units (~160 tall, feet on y=157) and placed by the caller's
-   transform. Poses only swap the arm/prop groups; head, torso, and legs are
-   shared so the character stays consistent across all four stages.
-   Hex literals rather than theme tokens: the figure lives inside the iso
-   scenes, which are hex-authored so the artwork stays identical across
-   themes (matching the what-i-do illustration tier). */
-const palette = {
-  skin: "#f2c29c",
-  skinShade: "#eab88f",
-  hair: "#a37e54",
-  stubble: "#c49a6c",
-  shirt: "#10b981",
-  shirtShade: "#059669",
-  // Collar, placket and cuff bands.
-  trim: "#d1fae5",
-  pants: "#2f423a",
-  belt: "#1c2b25",
-  // Warm against the cool trim: the buckle sits directly below the placket,
-  // and in the same family the two merged into one pale line down the centre.
-  buckle: "#caa14f",
-  // The shoe upper has to stay clearly lighter than the pants. Matched to
-  // them, the upper vanished and only the midsole read.
-  shoe: "#7b8f85",
-  sole: "#f3f6f4",
-} as const;
-
-/* Sleeve length on a 38-unit limb; the rest of the arm is skin. */
-const SLEEVE = 13;
+   transform. Poses only swap the arm/prop groups and pick a front or back
+   body; the head, torso block and legs are shared so the character stays
+   consistent across all four stages. */
 
 /* Shoulder ball, sleeve, and hand drawn straight down the +y axis, so a caller
    aims a whole limb with one rotate and hangs a prop off the hand.
@@ -65,86 +43,6 @@ function Limb({
   );
 }
 
-/* Two head drawings, hard-cut between: a front view and a 3/4 view. Sliding
-   the front face's features sideways was the first attempt and is a dead end —
-   the fringe, the ear, the nose and the chin all keep reading frontally no
-   matter where the eyes go. Both drawings share the same 42x52 head box and
-   the same tilt wrapper, so only the face changes at the cut.
-   The 3/4 view faces +x. Placement decides what that means on screen: the spec
-   figure is mirrored, so +x turns him toward the board he is writing on; the
-   gates figure is not, so +x turns him toward the magnifier.
-   `look` picks the clock — "back" holds the turn for two bars of the writing
-   loop, "track" swings out and back with the lens sweep, "nod" is a plain
-   on-beat bob with no turn at all. */
-const turnMotion = {
-  back: { tilt: styles.headTilt, front: styles.faceFront, turned: styles.faceTurned },
-  track: { tilt: styles.headTrack, front: styles.trackFront, turned: styles.trackTurned },
-} as const;
-
-/* No fringe: the hairline is a wide arch sitting high on the skull with both
-   temples receded past the brow, and a short taper in front of each ear. The
-   outer edge of the hair reuses the skull's own top curve, so the hair can
-   never bulge past the silhouette the way a drawn-on cap does. */
-const frontFace = (
-  <>
-    <rect x="-6" y="52" width="12" height="10" fill={palette.skinShade} />
-    <path d="M-21 22 q0 -20 21 -20 q21 0 21 20 l0 14 q0 18 -21 18 q-21 0 -21 -18 z" fill={palette.skin} />
-    <circle cx="-21" cy="32" r="4.5" fill={palette.skin} />
-    <circle cx="21" cy="32" r="4.5" fill={palette.skinShade} />
-    <path d="M-19.5 38 q0 15 19.5 15 q19.5 0 19.5 -15 l0 6 q-2 14 -19.5 14 q-17.5 0 -19.5 -14 z" fill={palette.stubble} opacity="0.55" />
-    <path
-      d="M-21 19 q0 -17 21 -17 q21 0 21 17 C18.6 13 16.4 8.6 13 8 C8.4 7 4 9 0 12 C-4 9 -8.4 7 -13 8 C-16.4 8.6 -18.6 13 -21 19 Z"
-      fill={palette.hair}
-    />
-    <path d="M-20.4 19 q-1.4 8 -0.4 12 q2.6 -3 3 -8 q0 -3 -0.6 -4.6 z" fill={palette.hair} />
-    <path d="M20.4 19 q1.4 8 0.4 12 q-2.6 -3 -3 -8 q0 -3 0.6 -4.6 z" fill={palette.hair} />
-    <circle cx="-8" cy="30" r="2.4" fill="#2f2a26" />
-    <circle cx="8" cy="30" r="2.4" fill="#2f2a26" />
-    <path d="M-12 24 q4 -2.5 8 -1 M4 23 q4 -1.5 8 1" stroke="#8a683f" strokeWidth="2" strokeLinecap="round" fill="none" />
-    <path d="M0 32 q2 3 0 5" stroke="#dda87e" strokeWidth="2" strokeLinecap="round" fill="none" />
-    <path d="M-5 42.5 q5 4.5 10 0" stroke="#8f6844" strokeWidth="2.2" strokeLinecap="round" fill="none" />
-  </>
-);
-
-/* The same recession read from the side, as one slicked-back cap: it starts
-   back from the brow, sweeps over the crown and dies at the nape. Drawn as a
-   single path rather than a front tuft plus a separate back mass — with the
-   front receded, a back mass reads as a bob instead of the back of a head. */
-const turnedFace = (
-  <>
-    <rect x="-1" y="52" width="12" height="10" fill={palette.skinShade} />
-    <path d="M-12 26 q0 -24 18 -24 q16 0 16 21 l0 10 q0 19 -16 19 q-18 0 -18 -19 z" fill={palette.skin} />
-    <path d="M21 26 q6 5 5 9 q-1 3 -5 2 z" fill={palette.skin} />
-    <path d="M-10 38 q0 15 16 15 q16 0 16 -15 l0 5 q-2 13 -16 13 q-14 0 -16 -13 z" fill={palette.stubble} opacity="0.55" />
-    <path
-      d="M-10.5 37 C-13.6 30 -14 19.5 -10.8 11 C-7 1.8 0 -0.8 7 0.6 C11.5 1.7 14 3.4 15.4 5.6 C12.6 4 9.6 5.4 6.6 8.4 C2.6 12.4 -0.6 17.4 -2.4 22.6 C-3.6 26 -4.2 28.6 -4.2 30.6 C-5.4 34 -7.8 36.4 -10.5 37 Z"
-      fill={palette.hair}
-    />
-    <ellipse cx="-2" cy="34" rx="4.4" ry="5.6" fill={palette.skinShade} />
-    <path d="M-3 32 q3 2 1 5" stroke="#d8a077" strokeWidth="1.6" strokeLinecap="round" fill="none" />
-    <circle cx="12" cy="30" r="2.4" fill="#2f2a26" />
-    <path d="M8 23 q4 -2.5 8 0" stroke="#8a683f" strokeWidth="2" strokeLinecap="round" fill="none" />
-    <path d="M12 43 q4 4 7 -1" stroke="#8f6844" strokeWidth="2.2" strokeLinecap="round" fill="none" />
-  </>
-);
-
-function Head({ look }: { look?: "back" | "track" | "nod" }) {
-  const motion = look === "back" || look === "track" ? turnMotion[look] : undefined;
-
-  return (
-    <g transform="translate(0,56)">
-      <g className={look === "nod" ? styles.headNod : undefined}>
-        <g className={motion?.tilt}>
-          <g transform="translate(0,-56)">
-            <g className={motion?.front}>{frontFace}</g>
-            {motion ? <g className={motion.turned}>{turnedFace}</g> : null}
-          </g>
-        </g>
-      </g>
-    </g>
-  );
-}
-
 /* Left runner: toe splayed out past the leg, heel flush with the back of it,
    instep sloping up to the ankle, white midsole under an emerald flash. Drawn
    once and mirrored, so the pair can never drift apart. */
@@ -156,33 +54,74 @@ const shoe = (
   </>
 );
 
-/* Short-sleeve button-up tucked into chinos. Three details are load-bearing at
-   the 0.62 scale the agents scene uses, and each replaced something that
-   failed there:
+/* Same runner from behind, where the toe splay is gone and all that is left is
+   a heel: a squared-off counter, the midsole under it, and the emerald flash
+   pulled round to the heel tab. */
+const backShoe = (
+  <>
+    <path d="M-17.6 146 q0 -3 3 -3 h10 q2.6 0 2.6 3 v11 h-15.6 z" fill={palette.shoe} />
+    <rect x="-12.6" y="145.4" width="4.6" height="5.6" rx="1.6" fill={palette.shirt} />
+    <path d="M-17.6 153.2 h15.6 v3.8 h-15.6 z" fill={palette.sole} />
+  </>
+);
+
+/* Shared from the waist out: the drop shadow, the hips, the legs and the shirt
+   block. Everything that says which way he is facing is layered on top of this
+   by frontBase or backBase.
+   Three details are load-bearing at the 0.62 scale the agents scene uses, and
+   each replaced something that failed there:
    - the shirt tapers to the belt at y=103, so the figure keeps a waist;
    - the shade is a rim down the right edge, not a panel whose leading edge cut
      a diagonal across the chest;
-   - the placket stops short of the waistband, so it and the buckle stay two
-     shapes instead of one pale line down the middle. */
-const base = (
-  <g>
+   - the belt band is drawn before its hardware, so the two never merge. */
+const torso = (
+  <>
     <ellipse cx="0" cy="159" rx="36" ry="9" fill="#0f766e" opacity="0.14" />
     <path d="M-18 100 h36 v18 q0 6 -6 6 h-24 q-6 0 -6 -6 z" fill={palette.pants} />
     <rect x="-16" y="116" width="13" height="31" rx="6" fill={palette.pants} />
     <rect x="3" y="116" width="13" height="31" rx="6" fill={palette.pants} />
     <path d="M-22 70 q0 -8 8 -10 l28 0 q8 2 8 10 L17 98 q0 5 -5 5 l-24 0 q-5 0 -5 -5 z" fill={palette.shirt} />
     <path d="M14 60.4 q8 2 8 9.6 L17 98 q0 5 -5 5 l-3 0 z" fill={palette.shirtShade} />
+    <rect x="-18" y="103" width="36" height="6.4" rx="1.5" fill={palette.belt} />
+  </>
+);
+
+/* Short-sleeve button-up tucked into chinos: collar points, placket and
+   buttons down the centre, buckle on the belt. The placket stops short of the
+   waistband, so it and the buckle stay two shapes instead of one pale line
+   down the middle. */
+const frontBase = (
+  <g>
+    {torso}
     <path d="M-11 59 L-1.5 61 L-7 73 z" fill={palette.trim} />
     <path d="M11 59 L1.5 61 L7 73 z" fill={palette.trim} />
     <rect x="-2.4" y="60" width="4.8" height="37" fill={palette.trim} opacity="0.7" />
     {[71, 80, 89].map((y) => (
       <circle key={y} cx="0" cy={y} r="1.4" fill={palette.shirtShade} />
     ))}
-    <rect x="-18" y="103" width="36" height="6.4" rx="1.5" fill={palette.belt} />
     <rect x="-4.4" y="102.4" width="8.8" height="7.6" rx="1.6" fill={palette.buckle} />
     <rect x="-2" y="104.8" width="4" height="2.8" rx="0.8" fill={palette.belt} />
     {shoe}
     <g transform="scale(-1,1)">{shoe}</g>
+  </g>
+);
+
+/* The same shirt and chinos from behind. Turning him round is mostly a matter
+   of what comes off — no placket, no buttons, no buckle — so the read has to
+   be carried by what only a back view has: the collar band standing behind the
+   neck, the yoke seam across the shoulders, two hip pockets, and the belt loops
+   notching the belt. Without them he is a green rectangle. */
+const backBase = (
+  <g>
+    {torso}
+    <path d="M-19 75 q19 5 38 0" stroke={palette.shirtShade} strokeWidth="2" strokeLinecap="round" fill="none" />
+    <path d="M-11.5 66 q1.5 -9 11.5 -9 q10 0 11.5 9 q-11.5 -4 -23 0 z" fill={palette.trim} />
+    <rect x="-12.4" y="101.6" width="3.6" height="9.2" rx="1.2" fill={palette.pants} />
+    <rect x="8.8" y="101.6" width="3.6" height="9.2" rx="1.2" fill={palette.pants} />
+    <rect x="-14" y="111.5" width="11" height="8.5" rx="2" fill={palette.pantsShade} />
+    <rect x="3" y="111.5" width="11" height="8.5" rx="2" fill={palette.pantsShade} />
+    {backShoe}
+    <g transform="scale(-1,1)">{backShoe}</g>
   </g>
 );
 
@@ -311,8 +250,19 @@ function armsFor(pose: BradPose) {
   );
 }
 
-const headLookByPose: Record<BradPose, "back" | "track" | "nod" | undefined> = {
-  spec: "back",
+/* Spec is the one stage he works with his back to us. He is writing on a board
+   that stands in the scene, and a figure who faces out while writing behind
+   himself reads as posing for the camera rather than working; turning him round
+   also puts the viewer over his shoulder, looking at the same doc he is. */
+const facesAwayByPose: Record<BradPose, boolean> = {
+  spec: true,
+  context: false,
+  agents: false,
+  gates: false,
+};
+
+const headLookByPose: Record<BradPose, BradHeadLook | undefined> = {
+  spec: "glance",
   context: undefined,
   agents: "nod",
   gates: "track",
@@ -321,9 +271,9 @@ const headLookByPose: Record<BradPose, "back" | "track" | "nod" | undefined> = {
 export function BradFigure({ pose, transform }: BradFigureProps) {
   return (
     <g transform={transform}>
-      {base}
+      {facesAwayByPose[pose] ? backBase : frontBase}
       {armsFor(pose)}
-      <Head look={headLookByPose[pose]} />
+      <BradHead look={headLookByPose[pose]} />
     </g>
   );
 }
