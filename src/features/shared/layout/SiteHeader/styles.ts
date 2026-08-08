@@ -40,9 +40,14 @@ export const rowCondensed = "py-3";
    with a void beside it; the mark reads as a companion to the name, not a
    replacement for it. */
 export const link = "flex items-center gap-2.5 text-xl font-bold text-content transition-colors hover:text-content-muted";
-export const mark = "shrink-0 motion-safe:transition-[height,width] motion-safe:duration-300 motion-safe:ease-out";
-export const markTop = "h-9 w-9";
-export const markCondensed = "h-8 w-8";
+/* Height only. The mark's viewBox is cropped to the drawing, so it is portrait
+   and its width is derived from whatever height it is given — naming width
+   here would watch a property that is never set. Sizes are a shade under the
+   h-9/h-8 steps: with the box trimmed to the ink the mark gained apparent
+   size, and at 36px it started to outweigh the 20px wordmark beside it. */
+export const mark = "w-auto shrink-0 motion-safe:transition-[height] motion-safe:duration-300 motion-safe:ease-out";
+export const markTop = "h-[34px]";
+export const markCondensed = "h-[30px]";
 export const labelText = "text-brand";
 export const desktopNav = "hidden items-center gap-6 md:flex";
 export const desktopNavList = "group flex items-center gap-1";
