@@ -31,8 +31,8 @@ const HERO_STEAM_CLUSTER_OFFSET = {
    from the image's own luminance edges; the HeroScreenAgent terminal maps
    onto the quad relative to this point. */
 const HERO_SCREEN_ANCHOR_POINT = {
-  x: 953,
-  y: 422,
+  x: 955.75,
+  y: 426.91,
 };
 
 const clamp = (value: number, min: number, max: number): number => {
