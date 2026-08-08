@@ -2,11 +2,11 @@ export const homeCopy = {
   hero: {
     heading: {
       prefix: "",
-      highlight: "AI-Native",
-      suffix: "Full-Stack Engineer",
+      highlight: "Full-Stack",
+      suffix: "Product Engineer",
     },
     description:
-      "I'm Bradley, an engineer in Barrie, Ontario. I've shipped production web apps for 10 years. These days most of my code is written by AI agents I design and direct, and it lets me deliver like a full team.",
+      "I'm Bradley, a product engineer in Barrie, Ontario. I've shipped production software for 10 years. These days I build products and AI systems, with most of my code written by AI agents I design and direct, and it lets me deliver like a full team.",
     ctaPrimary: "See How I Work",
     ctaSecondary: "Get In Touch",
     yearsExperience: "10+",

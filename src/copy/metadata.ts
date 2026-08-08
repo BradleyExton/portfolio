@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { profile } from "@/copy/profile";
 
 const defaultDescription =
-  "AI-native full-stack engineer based in Barrie, Ontario with 10+ years shipping production web applications. Building with AI agents, custom skills, and orchestrated workflows on React, Node.js, and Python.";
+  "Product engineer based in Barrie, Ontario with 10+ years shipping production software. Building products and AI systems with AI agents, custom skills, and orchestrated workflows on React, Node.js, and Python.";
 
 export const siteMetadata: Metadata = {
   title: `${profile.fullName} | ${profile.title}`,
@@ -45,7 +45,7 @@ export const homeMetadata: Metadata = {
 export const aboutMetadata: Metadata = {
   title: `About | ${profile.fullName}`,
   description:
-    "Learn more about Bradley Exton, an AI-native full-stack engineer based in Barrie, Ontario with 10+ years of experience building web applications.",
+    "Learn more about Bradley Exton, a product engineer based in Barrie, Ontario with 10+ years of experience building software products and AI systems.",
 };
 
 export const servicesMetadata: Metadata = {

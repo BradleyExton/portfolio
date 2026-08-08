@@ -3,7 +3,7 @@ export const aboutCopy = {
     eyebrow: "About",
     heading: "About me",
     description:
-      "I'm an AI-native full-stack engineer based in Barrie, Ontario. I've spent 10+ years building web applications at companies from early-stage startups to established tech platforms, and the last year rebuilding how I work around AI agents.",
+      "I'm a product engineer based in Barrie, Ontario. I've spent 10+ years building software at companies from early-stage startups to established tech platforms, and the last year rebuilding how I work around AI agents.",
     highlights: [
       "10+ years experience",
       "Barrie, Ontario",

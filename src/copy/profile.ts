@@ -3,8 +3,8 @@ export const profile = {
   lastName: "Exton",
   fullName: "Bradley Exton",
   initials: "BE",
-  title: "AI-Native Full-Stack Engineer",
-  tagline: "AI-Native Full-Stack Engineer",
+  title: "Full-Stack Product Engineer",
+  tagline: "Full-Stack Product Engineer",
   email: "bradley@bradleyexton.ca",
   location: "Barrie, Ontario, Canada",
   links: {

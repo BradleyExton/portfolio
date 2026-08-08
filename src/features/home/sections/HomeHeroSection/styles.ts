@@ -36,9 +36,8 @@ export const accentOrbBottomLeft = "absolute -bottom-32 -left-32 h-72 w-72 round
 export const container = `relative ${spacing.container6}`;
 export const grid = "grid items-center";
 export const title = typeScale.heroTitle;
-// Each word is its own unbreakable unit so the line never splits on the hyphen
-// inside "AI-Native" or "Full-Stack". At 390px the heading was breaking as
-// "AI-Native Full-" / "Stack Engineer".
+// Each word is its own unbreakable unit so narrow viewports break the heading
+// only between words, never mid-word.
 export const titleWord = "whitespace-nowrap";
 // Deep end of the emerald ramp, not the mid: primary-600 against the light
 // hero carries far less luminance contrast than the near-black rest of the
