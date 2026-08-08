@@ -1,23 +1,13 @@
+import { BradHead } from "./BradHead";
+import { palette } from "./palette";
 import * as styles from "./styles";
-import type { BradFigureProps, BradPose } from "./types";
+import type { BradFigureProps, BradLook, BradPose } from "./types";
 
 /* Cartoon Bradley for the how-i-work iso scenes: flat chibi figure drawn in
    scene-local units (~160 tall, feet on y=157) and placed by the caller's
-   transform. Poses only swap the arm/prop groups; head, torso, and legs are
-   shared so the character stays consistent across all four stages.
-   Hex literals rather than theme tokens: the figure lives inside the iso
-   scenes, which are hex-authored so the artwork stays identical across
-   themes (matching the what-i-do illustration tier). */
-const palette = {
-  skin: "#f2c29c",
-  skinShade: "#eab88f",
-  hair: "#a37e54",
-  stubble: "#c49a6c",
-  hoodie: "#10b981",
-  hoodieShade: "#059669",
-  pants: "#2f423a",
-  shoes: "#1c2b25",
-} as const;
+   transform. Poses swap the arm/prop groups and, for spec, the body drawing;
+   everything else is shared so the character stays consistent across all four
+   stages. Head drawings and their turn clocks live in BradHead. */
 
 /* Shoulder ball, sleeve, and hand drawn straight down the +y axis, so a caller
    aims a whole limb with one rotate and hangs a prop off the hand.
@@ -48,112 +38,6 @@ function Limb({
   );
 }
 
-/* Two head drawings, hard-cut between: a front view and a 3/4 view. Sliding
-   the front face's features sideways was the first attempt and is a dead end —
-   the fringe, the ear, the nose and the chin all keep reading frontally no
-   matter where the eyes go. Both drawings share the same 42x52 head box and
-   the same tilt wrapper, so only the face changes at the cut.
-   The 3/4 view faces +x. Placement decides what that means on screen: the spec
-   figure is mirrored, so +x turns him toward the board he is writing on; the
-   gates figure is not, so +x turns him toward the magnifier.
-   `look` picks the clock — "back" holds the turn for two bars of the writing
-   loop, "track" swings out and back with the lens sweep, "nod" is a plain
-   on-beat bob with no turn at all. */
-const turnMotion = {
-  back: { tilt: styles.headTilt, front: styles.faceFront, turned: styles.faceTurned },
-  track: { tilt: styles.headTrack, front: styles.trackFront, turned: styles.trackTurned },
-} as const;
-
-const frontFace = (
-  <>
-    <rect x="-6" y="52" width="12" height="10" fill={palette.skinShade} />
-    <path
-      d="M-21 22 q0 -20 21 -20 q21 0 21 20 l0 14 q0 18 -21 18 q-21 0 -21 -18 z"
-      fill={palette.skin}
-    />
-    <circle cx="-21" cy="32" r="4.5" fill={palette.skin} />
-    <circle cx="21" cy="32" r="4.5" fill={palette.skinShade} />
-    <path
-      d="M-19.5 38 q0 15 19.5 15 q19.5 0 19.5 -15 l0 6 q-2 14 -19.5 14 q-17.5 0 -19.5 -14 z"
-      fill={palette.stubble}
-      opacity="0.55"
-    />
-    <path
-      d="M-21 24 q-1 -22 21 -22 q22 0 21 22 q-3 -10 -9 -12 q-2 4 -6 5 q1 -4 -1 -6 q-8 -3 -16 1 q-6 3 -8 10 q-1 1 -2 2 z"
-      fill={palette.hair}
-    />
-    <circle cx="-8" cy="30" r="2.4" fill="#2f2a26" />
-    <circle cx="8" cy="30" r="2.4" fill="#2f2a26" />
-    <path
-      d="M-12 24 q4 -2.5 8 -1 M4 23 q4 -1.5 8 1"
-      stroke="#8a683f"
-      strokeWidth="2"
-      strokeLinecap="round"
-      fill="none"
-    />
-    <path d="M0 32 q2 3 0 5" stroke="#dda87e" strokeWidth="2" strokeLinecap="round" fill="none" />
-    <path
-      d="M-5 42.5 q5 4.5 10 0"
-      stroke="#8f6844"
-      strokeWidth="2.2"
-      strokeLinecap="round"
-      fill="none"
-    />
-  </>
-);
-
-/* Skull pushed toward the turn, nose breaking the leading silhouette, hair
-   capping the trailing side, single eye, ear back on the cheek where the hair
-   meets it. Two things this drawing must not do, both learned the hard way:
-   the trailing hair has to stop at the jaw or it reads as a bob rather than
-   the back of a head, and the hairline has to be one clean sweep — the front
-   view's notched fringe is a frontal cue and looks like a gash in profile. */
-const turnedFace = (
-  <>
-    <rect x="-1" y="52" width="12" height="10" fill={palette.skinShade} />
-    <path
-      d="M-12 26 q0 -24 18 -24 q16 0 16 21 l0 10 q0 19 -16 19 q-18 0 -18 -19 z"
-      fill={palette.skin}
-    />
-    <path d="M21 26 q6 5 5 9 q-1 3 -5 2 z" fill={palette.skin} />
-    <path
-      d="M-10 38 q0 15 16 15 q16 0 16 -15 l0 5 q-2 13 -16 13 q-14 0 -16 -13 z"
-      fill={palette.stubble}
-      opacity="0.55"
-    />
-    <path
-      d="M-12 26 q0 -24 18 -24 q16 0 16 21 q-2 -10 -8 -12 q-4 5 -10 5 q-9 0 -13 5 q-3 4 -3 5 z"
-      fill={palette.hair}
-    />
-    <path
-      d="M-18 30 q0 -28 22 -28 l0 8 q-11 2 -11 16 l0 6 q0 6 4 9 q-7 3 -11 -1 q-4 -5 -4 -14 z"
-      fill={palette.hair}
-    />
-    <ellipse cx="-2" cy="34" rx="4.4" ry="5.6" fill={palette.skinShade} />
-    <path d="M-3 32 q3 2 1 5" stroke="#d8a077" strokeWidth="1.6" strokeLinecap="round" fill="none" />
-    <circle cx="12" cy="30" r="2.4" fill="#2f2a26" />
-    <path d="M8 23 q4 -2.5 8 0" stroke="#8a683f" strokeWidth="2" strokeLinecap="round" fill="none" />
-    <path d="M12 43 q4 4 7 -1" stroke="#8f6844" strokeWidth="2.2" strokeLinecap="round" fill="none" />
-  </>
-);
-
-function Head({ look }: { look?: "back" | "track" | "nod" }) {
-  const motion = look === "back" || look === "track" ? turnMotion[look] : undefined;
-
-  return (
-    <g transform="translate(0,56)">
-      <g className={look === "nod" ? styles.headNod : undefined}>
-        <g className={motion?.tilt}>
-          <g transform="translate(0,-56)">
-            <g className={motion?.front}>{frontFace}</g>
-            {motion ? <g className={motion.turned}>{turnedFace}</g> : null}
-          </g>
-        </g>
-      </g>
-    </g>
-  );
-}
-
 const base = (
   <g>
     <ellipse cx="0" cy="159" rx="36" ry="9" fill="#0f766e" opacity="0.14" />
@@ -168,6 +52,26 @@ const base = (
   </g>
 );
 
+/* Same body seen from behind. Everything structural is shared with `base`; the
+   cues that sell the turn are the ones the front view spends on its face — the
+   drawstrings and pocket come off, the hood bunches at the collar, and the
+   shade strip swaps to the other side so the light stays put while he doesn't. */
+const backBase = (
+  <g>
+    <ellipse cx="0" cy="159" rx="36" ry="9" fill="#0f766e" opacity="0.14" />
+    <rect x="-16" y="112" width="13" height="38" rx="6" fill={palette.pants} />
+    <rect x="3" y="112" width="13" height="38" rx="6" fill={palette.pants} />
+    {/* Heels rather than toes: from behind the shoe is a plain block. */}
+    <rect x="-18" y="147" width="16" height="11" rx="4" fill={palette.shoes} />
+    <rect x="2" y="147" width="16" height="11" rx="4" fill={palette.shoes} />
+    <path d="M-22 70 q0 -8 8 -10 l28 0 q8 2 8 10 l0 38 q0 8 -8 8 l-28 0 q-8 0 -8 -8 z" fill={palette.hoodie} />
+    <path d="M-10 60 l-4 0 q-8 2 -8 10 l0 38 q0 8 8 8 l4 0 z" fill={palette.hoodieShade} />
+    <path d="M0 76 l0 36" stroke={palette.hoodieShade} strokeWidth="2" strokeLinecap="round" opacity="0.55" fill="none" />
+    <path d="M-15 60 q0 -12 15 -12 q15 0 15 12 q0 14 -15 14 q-15 0 -15 -14 z" fill={palette.hoodieShade} />
+    <path d="M-11 58 q0 -8 11 -8 q11 0 11 8 q-5 -4 -11 -4 q-6 0 -11 4 z" fill={palette.hoodie} opacity="0.5" />
+  </g>
+);
+
 function RestArm({ side }: { side: "left" | "right" }) {
   return (
     <g transform={side === "left" ? "translate(-25,68) rotate(8)" : "translate(25,68) rotate(-8)"}>
@@ -176,9 +80,11 @@ function RestArm({ side }: { side: "left" | "right" }) {
   );
 }
 
-/* Pencil, drawn tip-down so the hand group can aim it at the board. */
+/* Pencil, drawn tip-down so the hand group can aim it at the board. The baked
+   rotation is the difference between the writing arm's angle and the angle the
+   tip has to leave the hand at to sit flat on the iso board face. */
 const pencil = (
-  <g transform="rotate(-45)">
+  <g transform="rotate(-21)">
     <rect x="-3.5" y="-30" width="7" height="34" rx="2" fill="#fbbf24" />
     <path d="M-3.5 4 L0 14 L3.5 4 z" fill={palette.skinShade} />
     <path d="M-1.2 9.5 L0 14 L1.2 9.5 z" fill="#2f2a26" />
@@ -200,13 +106,18 @@ const magnifier = (
 
 function armsFor(pose: BradPose) {
   if (pose === "spec") {
+    // Back view: the far arm hangs, the near one reaches up and across into the
+    // board face. The reach angle is what fixes where the pen tip lands, so the
+    // doc's active line is laid out to meet it rather than the other way round.
     return (
       <>
-        <RestArm side="left" />
+        <g transform="translate(-25,68) rotate(8)">
+          <Limb fill={palette.hoodieShade} length={38} />
+        </g>
         <g transform="translate(25,66)">
           <g className={styles.penLift}>
-            <g transform="rotate(-135)">
-              <Limb fill={palette.hoodieShade} length={40} grip>
+            <g transform="rotate(-122)">
+              <Limb fill={palette.hoodie} length={42} grip>
                 <g className={styles.scribble}>{pencil}</g>
               </Limb>
             </g>
@@ -289,8 +200,8 @@ function armsFor(pose: BradPose) {
   );
 }
 
-const headLookByPose: Record<BradPose, "back" | "track" | "nod" | undefined> = {
-  spec: "back",
+const headLookByPose: Record<BradPose, BradLook | undefined> = {
+  spec: "over",
   context: undefined,
   agents: "nod",
   gates: "track",
@@ -299,9 +210,9 @@ const headLookByPose: Record<BradPose, "back" | "track" | "nod" | undefined> = {
 export function BradFigure({ pose, transform }: BradFigureProps) {
   return (
     <g transform={transform}>
-      {base}
+      {pose === "spec" ? backBase : base}
       {armsFor(pose)}
-      <Head look={headLookByPose[pose]} />
+      <BradHead look={headLookByPose[pose]} />
     </g>
   );
 }

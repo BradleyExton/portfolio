@@ -470,89 +470,151 @@ html {
    2.4s beat (agents 1 bar, context 2, spec/gates 3) so the four scenes read as
    one tempo rather than four unrelated fidgets. */
 
-/* Head turn. The skull tilts continuously, but the face itself is two separate
-   drawings — a front view and a 3/4 view — swapped by a hard cut, the way 2D
+/* Head turn. The neck swings continuously, but the face itself is three
+   separate drawings — back, 3/4, and front — swapped by a hard cut, the way 2D
    animation has always done head turns. Sliding the front face's features
    sideways was tried first and could not work: the fringe, ear, nose and chin
    all stay frontal no matter where you move them. steps(1) on the swap keeps
-   the two opaque drawings from ever ghosting through each other. */
-@keyframes iso-look-tilt {
-  0%,
-  60% {
-    transform: rotate(var(--iso-look-deg, -9deg));
-  }
+   the opaque drawings from ever ghosting through each other.
 
-  72%,
-  90% {
+   Spec: he works with his back to camera and glances over one shoulder, then
+   the other, so a viewer catches his eye twice per pass without him ever
+   turning away from the board for long. The neck leads the cut by a beat, the
+   way a real head turn starts before the face is readable. */
+@keyframes iso-glance {
+  0%,
+  32% {
     transform: rotate(0deg);
   }
 
-  100% {
-    transform: rotate(var(--iso-look-deg, -9deg));
-  }
-}
-
-@keyframes iso-face-front {
-  0%,
-  60% {
-    opacity: 0;
+  40%,
+  50% {
+    transform: translate(4px, 1px) rotate(8deg);
   }
 
-  62%,
+  58%,
+  72% {
+    transform: rotate(0deg);
+  }
+
+  80%,
   90% {
-    opacity: 1;
+    transform: translate(-4px, 1px) rotate(-8deg);
   }
 
-  92%,
+  98%,
   100% {
-    opacity: 0;
+    transform: rotate(0deg);
   }
 }
 
-@keyframes iso-face-turned {
+@keyframes iso-face-back {
   0%,
-  60% {
+  37% {
     opacity: 1;
   }
 
-  62%,
-  90% {
+  38%,
+  52% {
     opacity: 0;
   }
 
-  92%,
+  53%,
+  77% {
+    opacity: 1;
+  }
+
+  78%,
+  92% {
+    opacity: 0;
+  }
+
+  93%,
   100% {
     opacity: 1;
   }
 }
 
-/* Pen leaves the board for the window where he turns back to camera. */
+@keyframes iso-glance-near {
+  0%,
+  37% {
+    opacity: 0;
+  }
+
+  38%,
+  52% {
+    opacity: 1;
+  }
+
+  53%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes iso-glance-far {
+  0%,
+  77% {
+    opacity: 0;
+  }
+
+  78%,
+  92% {
+    opacity: 1;
+  }
+
+  93%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Pen pulls back off the board for each of the two glances. The retreat is
+   down-and-left because that is the direction away from the iso board face. */
 @keyframes iso-pen-lift {
   0%,
-  60% {
+  32% {
     transform: translate(0, 0) rotate(0deg);
   }
 
-  72%,
-  90% {
-    transform: translate(0, 8px) rotate(20deg);
+  40%,
+  50% {
+    transform: translate(-4px, 4px) rotate(-7deg);
   }
 
+  58%,
+  72% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  80%,
+  90% {
+    transform: translate(-4px, 4px) rotate(-7deg);
+  }
+
+  98%,
   100% {
     transform: translate(0, 0) rotate(0deg);
   }
 }
 
-/* The line he is writing grows across the spec doc, then clears for the next
-   pass. Origin is the rect's left edge, set by the wrapping translate. */
+/* The line he is writing grows across the spec doc, holding still through each
+   glance, then clears for the next pass. Origin is the rect's left edge, set
+   by the wrapping translate. */
 @keyframes iso-type-line {
   0% {
     opacity: 1;
     transform: scaleX(0);
   }
 
-  52%,
-  90% {
+  36%,
+  52% {
+    opacity: 1;
+    transform: scaleX(0.5);
+  }
+
+  76%,
+  92% {
     opacity: 1;
     transform: scaleX(1);
   }
@@ -1069,23 +1131,29 @@ html {
   /* Character loops. Durations are locked to the shared 2.4s beat: the
      spec/gates stories run three bars, the context handoff two, the conductor
      one. Every class here is paused until data-inview flips. */
-  .iso-scene .iso-loop-look-tilt {
-    animation: iso-look-tilt var(--iso-look-duration, 7.2s) ease-in-out infinite;
+  .iso-scene .iso-loop-glance {
+    animation: iso-glance var(--iso-look-duration, 7.2s) ease-in-out infinite;
     animation-play-state: var(--iso-play);
   }
 
   /* Base values are the reduced-motion resting state that the global duration
-     override falls back to: front view showing, 3/4 view hidden. Exactly one
-     of the pair must ever be visible, or he has two faces. */
-  .iso-scene .iso-loop-face-front {
+     override falls back to: back of the head showing, both glances hidden.
+     Exactly one of the three must ever be visible, or he has two faces. */
+  .iso-scene .iso-loop-face-back {
     opacity: 1;
-    animation: iso-face-front var(--iso-look-duration, 7.2s) steps(1) infinite;
+    animation: iso-face-back var(--iso-look-duration, 7.2s) steps(1) infinite;
     animation-play-state: var(--iso-play);
   }
 
-  .iso-scene .iso-loop-face-turned {
+  .iso-scene .iso-loop-glance-near {
     opacity: 0;
-    animation: iso-face-turned var(--iso-look-duration, 7.2s) steps(1) infinite;
+    animation: iso-glance-near var(--iso-look-duration, 7.2s) steps(1) infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-loop-glance-far {
+    opacity: 0;
+    animation: iso-glance-far var(--iso-look-duration, 7.2s) steps(1) infinite;
     animation-play-state: var(--iso-play);
   }
 
