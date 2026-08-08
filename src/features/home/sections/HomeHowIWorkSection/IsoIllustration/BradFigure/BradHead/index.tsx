@@ -1,3 +1,4 @@
+import { bradFrontFace } from "@/features/shared/character/bradArtwork";
 import type { BradHeadLook } from "../types";
 import { palette } from "../utils";
 import * as styles from "./styles";
@@ -8,28 +9,23 @@ import * as styles from "./styles";
    frontally no matter where the eyes go. All four share the same 42x52 head box
    and the same tilt wrapper, so only the drawing changes at the cut. */
 
-/* No fringe: the hairline is a wide arch sitting high on the skull with both
-   temples receded past the brow, and a short taper in front of each ear. The
-   outer edge of the hair reuses the skull's own top curve, so the hair can
-   never bulge past the silhouette the way a drawn-on cap does. */
+/* Shared with the nav mark, so the geometry lives in bradArtwork: the mark is
+   this same drawing scaled down, not a redraw of it. */
 const frontFace = (
   <>
-    <rect x="-6" y="52" width="12" height="10" fill={palette.skinShade} />
-    <path d="M-21 22 q0 -20 21 -20 q21 0 21 20 l0 14 q0 18 -21 18 q-21 0 -21 -18 z" fill={palette.skin} />
-    <circle cx="-21" cy="32" r="4.5" fill={palette.skin} />
-    <circle cx="21" cy="32" r="4.5" fill={palette.skinShade} />
-    <path d="M-19.5 38 q0 15 19.5 15 q19.5 0 19.5 -15 l0 6 q-2 14 -19.5 14 q-17.5 0 -19.5 -14 z" fill={palette.stubble} opacity="0.55" />
-    <path
-      d="M-21 19 q0 -17 21 -17 q21 0 21 17 C18.6 13 16.4 8.6 13 8 C8.4 7 4 9 0 12 C-4 9 -8.4 7 -13 8 C-16.4 8.6 -18.6 13 -21 19 Z"
-      fill={palette.hair}
-    />
-    <path d="M-20.4 19 q-1.4 8 -0.4 12 q2.6 -3 3 -8 q0 -3 -0.6 -4.6 z" fill={palette.hair} />
-    <path d="M20.4 19 q1.4 8 0.4 12 q-2.6 -3 -3 -8 q0 -3 0.6 -4.6 z" fill={palette.hair} />
-    <circle cx="-8" cy="30" r="2.4" fill="#2f2a26" />
-    <circle cx="8" cy="30" r="2.4" fill="#2f2a26" />
-    <path d="M-12 24 q4 -2.5 8 -1 M4 23 q4 -1.5 8 1" stroke="#8a683f" strokeWidth="2" strokeLinecap="round" fill="none" />
-    <path d="M0 32 q2 3 0 5" stroke="#dda87e" strokeWidth="2" strokeLinecap="round" fill="none" />
-    <path d="M-5 42.5 q5 4.5 10 0" stroke="#8f6844" strokeWidth="2.2" strokeLinecap="round" fill="none" />
+    <rect {...bradFrontFace.neck} fill={palette.skinShade} />
+    <path d={bradFrontFace.skull} fill={palette.skin} />
+    <circle {...bradFrontFace.earLeft} fill={palette.skin} />
+    <circle {...bradFrontFace.earRight} fill={palette.skinShade} />
+    <path d={bradFrontFace.stubble} fill={palette.stubble} opacity="0.55" />
+    <path d={bradFrontFace.hair} fill={palette.hair} />
+    <path d={bradFrontFace.sideburnLeft} fill={palette.hair} />
+    <path d={bradFrontFace.sideburnRight} fill={palette.hair} />
+    <circle {...bradFrontFace.eyeLeft} fill={palette.eye} />
+    <circle {...bradFrontFace.eyeRight} fill={palette.eye} />
+    <path d={bradFrontFace.brows} stroke={palette.brow} strokeWidth="2" strokeLinecap="round" fill="none" />
+    <path d={bradFrontFace.nose} stroke={palette.nose} strokeWidth="2" strokeLinecap="round" fill="none" />
+    <path d={bradFrontFace.mouth} stroke={palette.mouth} strokeWidth="2.2" strokeLinecap="round" fill="none" />
   </>
 );
 
@@ -50,9 +46,9 @@ const turnedFace = (
     />
     <ellipse cx="-2" cy="34" rx="4.4" ry="5.6" fill={palette.skinShade} />
     <path d="M-3 32 q3 2 1 5" stroke="#d8a077" strokeWidth="1.6" strokeLinecap="round" fill="none" />
-    <circle cx="12" cy="30" r="2.4" fill="#2f2a26" />
-    <path d="M8 23 q4 -2.5 8 0" stroke="#8a683f" strokeWidth="2" strokeLinecap="round" fill="none" />
-    <path d="M12 43 q4 4 7 -1" stroke="#8f6844" strokeWidth="2.2" strokeLinecap="round" fill="none" />
+    <circle cx="12" cy="30" r="2.4" fill={palette.eye} />
+    <path d="M8 23 q4 -2.5 8 0" stroke={palette.brow} strokeWidth="2" strokeLinecap="round" fill="none" />
+    <path d="M12 43 q4 4 7 -1" stroke={palette.mouth} strokeWidth="2.2" strokeLinecap="round" fill="none" />
   </>
 );
 

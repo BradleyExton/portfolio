@@ -1,3 +1,4 @@
+import { bradTorso } from "@/features/shared/character/bradArtwork";
 import { BradHead } from "./BradHead";
 import * as styles from "./styles";
 import type { BradFigureProps, BradHeadLook, BradPose } from "./types";
@@ -80,8 +81,8 @@ const torso = (
     <path d="M-18 100 h36 v18 q0 6 -6 6 h-24 q-6 0 -6 -6 z" fill={palette.pants} />
     <rect x="-16" y="116" width="13" height="31" rx="6" fill={palette.pants} />
     <rect x="3" y="116" width="13" height="31" rx="6" fill={palette.pants} />
-    <path d="M-22 70 q0 -8 8 -10 l28 0 q8 2 8 10 L17 98 q0 5 -5 5 l-24 0 q-5 0 -5 -5 z" fill={palette.shirt} />
-    <path d="M14 60.4 q8 2 8 9.6 L17 98 q0 5 -5 5 l-3 0 z" fill={palette.shirtShade} />
+    <path d={bradTorso.body} fill={palette.shirt} />
+    <path d={bradTorso.shade} fill={palette.shirtShade} />
     <rect x="-18" y="103" width="36" height="6.4" rx="1.5" fill={palette.belt} />
   </>
 );
@@ -93,10 +94,10 @@ const torso = (
 const frontBase = (
   <g>
     {torso}
-    <path d="M-11 59 L-1.5 61 L-7 73 z" fill={palette.trim} />
-    <path d="M11 59 L1.5 61 L7 73 z" fill={palette.trim} />
-    <rect x="-2.4" y="60" width="4.8" height="37" fill={palette.trim} opacity="0.7" />
-    {[71, 80, 89].map((y) => (
+    <path d={bradTorso.lapelLeft} fill={palette.trim} />
+    <path d={bradTorso.lapelRight} fill={palette.trim} />
+    <rect {...bradTorso.placket} fill={palette.trim} opacity="0.7" />
+    {bradTorso.buttonYs.map((y) => (
       <circle key={y} cx="0" cy={y} r="1.4" fill={palette.shirtShade} />
     ))}
     <rect x="-4.4" y="102.4" width="8.8" height="7.6" rx="1.6" fill={palette.buckle} />
