@@ -1,6 +1,11 @@
 export const spacing = {
   section: "px-4 py-12 sm:px-6 sm:py-16 md:py-20",
-  hero: "px-4 pb-12 pt-24 sm:px-6 sm:pb-16 sm:pt-28 md:pb-20 md:pt-32",
+  // Top padding has to clear the 85px header on its own now that the header's
+  // at-rest state is transparent — there is no longer a solid bar doing the
+  // separating. At pt-24 that left 11px of clearance on phones, where the
+  // header lockup and the h1 also share a left edge, so the two read as one
+  // stacked block rather than two zones. 28/32/32 lands 27/43/43px of gap.
+  hero: "px-4 pb-12 pt-28 sm:px-6 sm:pb-16 sm:pt-32 md:pb-20 md:pt-32",
   container6: "mx-auto max-w-6xl",
   container5: "mx-auto max-w-5xl",
   container4: "mx-auto max-w-4xl",
