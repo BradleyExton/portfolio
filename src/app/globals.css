@@ -566,86 +566,305 @@ html {
   }
 }
 
-/* Context crate: held, carried out over the store, set down, absorbed, and
-   back in hand for the next one. The travel vector is per-scene so the crate
-   lands on the slab's top face. It reappears in his hands during the two
-   frames it spends invisible, so a paused or reduced-motion scene still shows
-   a man holding a box rather than empty cupped hands. */
-@keyframes iso-carry {
+/* Context line, belt half. Every crate on the line runs this one keyframe: sit
+   a whole bar, then step forward exactly one slot and snap back at the loop
+   edge. The snap is invisible because the copies are anchored one slot apart
+   and identical — all the eye can see at the seam is that the crate which
+   reached the head is gone (Bradley has it) and one more has joined at the
+   spec end. Values are the context scene's slot vector; the belt slats run the
+   same shape a slat-pitch at a time. */
+@keyframes iso-belt-crate {
   0%,
-  24% {
+  64% {
+    transform: translate(0, 0);
+  }
+
+  78%,
+  100% {
+    transform: translate(24.25px, 14px);
+  }
+}
+
+/* Same step for the copy at the far end, which has no upstream neighbour to
+   hand it over: it fades up out of the spec panel as it takes its slot. */
+@keyframes iso-belt-feed {
+  0%,
+  60% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+
+  78%,
+  100% {
+    opacity: 1;
+    transform: translate(24.25px, 14px);
+  }
+}
+
+@keyframes iso-belt-step {
+  0%,
+  64% {
+    transform: translate(0, 0);
+  }
+
+  78%,
+  100% {
+    transform: translate(10.39px, 6px);
+  }
+}
+
+/* Context line, hands half. Offsets are measured from the crate's rest at his
+   chest, because that is the pose the scene has to hold when nothing is
+   moving: reduced motion leaves a man carrying a box down a working line
+   rather than grabbing at air. The hard cut at the loop edge hands the crate
+   back to the belt copy standing at the same spot, which is what lets the
+   pickup be drawn behind him and the carry in front of him. */
+@keyframes iso-lift-crate {
+  0% {
+    opacity: 1;
+    transform: translate(-25px, 15.3px) scale(1);
+  }
+
+  16%,
+  30% {
     opacity: 1;
     transform: translate(0, 0) scale(1);
+  }
+
+  39% {
+    transform: translate(38.6px, -20.2px) scale(1);
+  }
+
+  48% {
+    opacity: 1;
+    transform: translate(76.3px, 3.1px) scale(0.94);
   }
 
   54% {
     opacity: 1;
-    transform: translate(
-        var(--iso-carry-x, 76px),
-        calc(var(--iso-carry-y, 13px) - 22px)
-      )
-      scale(1);
+    transform: translate(76.3px, 10.1px) scale(0.72);
   }
 
-  68% {
-    opacity: 1;
-    transform: translate(var(--iso-carry-x, 76px), var(--iso-carry-y, 13px))
-      scale(0.94);
-  }
-
-  78% {
+  58%,
+  99% {
     opacity: 0;
-    transform: translate(
-        var(--iso-carry-x, 76px),
-        calc(var(--iso-carry-y, 13px) + 7px)
-      )
-      scale(0.7);
+    transform: translate(-25px, 15.3px) scale(1);
   }
 
-  80% {
-    opacity: 0;
-    transform: translate(0, 0) scale(0.7);
-  }
-
-  90%,
   100% {
     opacity: 1;
-    transform: translate(0, 0) scale(1);
+    transform: translate(-25px, 15.3px) scale(1);
   }
 }
 
-/* He leans into the handoff. Pivot is at the feet, set by a wrapper group. */
-@keyframes iso-load-lean {
-  0%,
-  22% {
+/* Arm angles are deltas off the carry pose the figure is drawn in, so the four
+   joints share one rest and reduced motion lands on it. Each pair sweeps
+   reach -> carry -> release -> reach; the forearms move further than the
+   shoulders, which is what makes it read as folding a box in rather than
+   swinging a whole limb. */
+@keyframes iso-lift-arm-l {
+  0% {
+    transform: rotate(26.6deg);
+  }
+
+  16%,
+  30% {
     transform: rotate(0deg);
   }
 
-  50%,
-  66% {
-    transform: rotate(var(--iso-lean-deg, 5deg));
+  40%,
+  54% {
+    transform: rotate(-27.5deg);
   }
 
-  86%,
+  72%,
   100% {
+    transform: rotate(26.6deg);
+  }
+}
+
+@keyframes iso-lift-fore-l {
+  0% {
+    transform: rotate(60.6deg);
+  }
+
+  16%,
+  30% {
     transform: rotate(0deg);
+  }
+
+  40%,
+  54% {
+    transform: rotate(89.3deg);
+  }
+
+  72%,
+  100% {
+    transform: rotate(60.6deg);
+  }
+}
+
+@keyframes iso-lift-arm-r {
+  0% {
+    transform: rotate(-17.8deg);
+  }
+
+  16%,
+  30% {
+    transform: rotate(0deg);
+  }
+
+  40%,
+  54% {
+    transform: rotate(-79.1deg);
+  }
+
+  72%,
+  100% {
+    transform: rotate(-17.8deg);
+  }
+}
+
+@keyframes iso-lift-fore-r {
+  0% {
+    transform: rotate(-53.7deg);
+  }
+
+  16%,
+  30% {
+    transform: rotate(0deg);
+  }
+
+  40%,
+  54% {
+    transform: rotate(-50deg);
+  }
+
+  72%,
+  100% {
+    transform: rotate(-53.7deg);
+  }
+}
+
+/* He turns into each end of the move. Pivot is at the feet, set by a wrapper
+   group, so the tilt reads as effort rather than the figure sliding. */
+@keyframes iso-load-lean {
+  0% {
+    transform: rotate(var(--iso-reach-deg, -5deg));
+  }
+
+  16%,
+  30% {
+    transform: rotate(0deg);
+  }
+
+  40%,
+  54% {
+    transform: rotate(var(--iso-lean-deg, 7deg));
+  }
+
+  72%,
+  100% {
+    transform: rotate(var(--iso-reach-deg, -5deg));
+  }
+}
+
+/* The knee-bend a chibi with straight legs cannot draw: he settles onto the
+   crate before it comes off the line and rises through the carry. */
+@keyframes iso-load-dip {
+  0% {
+    transform: translateY(3px);
+  }
+
+  16%,
+  30% {
+    transform: translateY(-2px);
+  }
+
+  40%,
+  54% {
+    transform: translateY(-1px);
+  }
+
+  72%,
+  100% {
+    transform: translateY(3px);
+  }
+}
+
+/* Head, on the same bar: he watches the line while he reaches for a crate and
+   turns to the store as he pushes it away. The turn is a hard cut between two
+   drawings, like the other scenes — sliding features across one face never
+   stops reading frontally — and the tilt carries the in-between. */
+@keyframes iso-carry-look {
+  0% {
+    transform: rotate(var(--iso-reach-deg, -8deg));
+  }
+
+  16%,
+  30% {
+    transform: rotate(0deg);
+  }
+
+  40%,
+  54% {
+    transform: rotate(var(--iso-look-deg, 7deg));
+  }
+
+  72%,
+  100% {
+    transform: rotate(var(--iso-reach-deg, -8deg));
+  }
+}
+
+@keyframes iso-carry-face-front {
+  0%,
+  36% {
+    opacity: 1;
+  }
+
+  37%,
+  59% {
+    opacity: 0;
+  }
+
+  60%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes iso-carry-face-turned {
+  0%,
+  36% {
+    opacity: 0;
+  }
+
+  37%,
+  59% {
+    opacity: 1;
+  }
+
+  60%,
+  100% {
+    opacity: 0;
   }
 }
 
 /* Store acknowledges the drop right as the crate sinks in. */
 @keyframes iso-load-pulse {
   0%,
-  62% {
+  42% {
     opacity: 0.85;
     transform: scale(1);
   }
 
-  74% {
+  52% {
     opacity: 1;
     transform: scale(1.18);
   }
 
-  86%,
+  70%,
   100% {
     opacity: 0.85;
     transform: scale(1);
@@ -1109,15 +1328,83 @@ html {
     animation-play-state: var(--iso-play);
   }
 
-  .iso-scene .iso-loop-carry {
-    animation: iso-carry var(--iso-carry-duration, 4.8s) ease-in-out infinite;
+  /* The whole context line runs on one bar, so belt, crate, arms, lean and
+     store pulse can never drift out of step with each other. The belt eases
+     harder than the body: a line indexes, it does not swing. */
+  .iso-scene .iso-loop-belt-crate,
+  .iso-scene .iso-loop-belt-step {
+    animation: iso-belt-crate var(--iso-carry-duration, 4.8s)
+      cubic-bezier(0.65, 0, 0.35, 1) infinite;
     animation-play-state: var(--iso-play);
   }
 
-  .iso-scene .iso-loop-lean {
-    animation: iso-load-lean var(--iso-carry-duration, 4.8s) ease-in-out
+  .iso-scene .iso-loop-belt-step {
+    animation-name: iso-belt-step;
+  }
+
+  .iso-scene .iso-loop-belt-feed {
+    animation: iso-belt-feed var(--iso-carry-duration, 4.8s)
+      cubic-bezier(0.65, 0, 0.35, 1) infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-loop-lift-crate,
+  .iso-scene .iso-loop-lift-arm-l,
+  .iso-scene .iso-loop-lift-fore-l,
+  .iso-scene .iso-loop-lift-arm-r,
+  .iso-scene .iso-loop-lift-fore-r,
+  .iso-scene .iso-loop-lean,
+  .iso-scene .iso-loop-dip {
+    animation: iso-lift-crate var(--iso-carry-duration, 4.8s) ease-in-out
       infinite;
     animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-loop-lift-arm-l {
+    animation-name: iso-lift-arm-l;
+  }
+
+  .iso-scene .iso-loop-lift-fore-l {
+    animation-name: iso-lift-fore-l;
+  }
+
+  .iso-scene .iso-loop-lift-arm-r {
+    animation-name: iso-lift-arm-r;
+  }
+
+  .iso-scene .iso-loop-lift-fore-r {
+    animation-name: iso-lift-fore-r;
+  }
+
+  .iso-scene .iso-loop-lean {
+    animation-name: iso-load-lean;
+  }
+
+  .iso-scene .iso-loop-dip {
+    animation-name: iso-load-dip;
+  }
+
+  .iso-scene .iso-loop-carry-look,
+  .iso-scene .iso-loop-carry-front,
+  .iso-scene .iso-loop-carry-turned {
+    animation: iso-carry-look var(--iso-carry-duration, 4.8s) ease-in-out
+      infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  /* Base is the front drawing showing, matching the other head pairs: a still
+     of the scene is the pose the loop spends most of its bar in. Exactly one of
+     the pair may ever be visible, or he has two heads. */
+  .iso-scene .iso-loop-carry-front {
+    opacity: 1;
+    animation-name: iso-carry-face-front;
+    animation-timing-function: steps(1);
+  }
+
+  .iso-scene .iso-loop-carry-turned {
+    opacity: 0;
+    animation-name: iso-carry-face-turned;
+    animation-timing-function: steps(1);
   }
 
   .iso-scene .iso-loop-load-pulse {

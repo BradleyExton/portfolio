@@ -5,10 +5,15 @@ export const packetB = "iso-loop-pulse [--iso-pulse-x:-60.6px] [--iso-pulse-y:32
 export const packetC = "iso-loop-pulse [--iso-pulse-x:5.2px] [--iso-pulse-y:33px] [--iso-pulse-duration:2.7s] [--iso-pulse-delay:-0.6s]";
 export const bobDiamond = "iso-loop-bob";
 
-// Two bars per handoff. The travel vector is the gap from the crate's resting
-// spot in his hands at (-20,119.4) to the store's top face at (56.3,122.5);
-// the arms, the lean, and the slot flare all share the duration so lift,
-// carry, and landing stay in step.
-export const crate = "iso-loop-carry [--iso-carry-x:76.3px] [--iso-carry-y:3.1px]";
+// One bar per crate, shared by the belt, the arms that empty it, the body and
+// the store's slot flare, so pickup, carry and landing can never drift apart.
+// The travel offsets live in the keyframes rather than here: they are the gaps
+// between four fixed scene points (line head, his chest, the store's top face,
+// and the sink below it) and mean nothing on their own.
+export const liftCrate = "iso-loop-lift-crate";
 export const loadPulse = "iso-loop-load-pulse";
-export const lean = "iso-loop-lean [--iso-lean-deg:6deg]";
+
+// He turns toward the line to take a crate and toward the store to place it, so
+// the lean has a sign at each end rather than one push off vertical.
+export const lean = "iso-loop-lean [--iso-lean-deg:7deg] [--iso-reach-deg:-5deg]";
+export const dip = "iso-loop-dip";

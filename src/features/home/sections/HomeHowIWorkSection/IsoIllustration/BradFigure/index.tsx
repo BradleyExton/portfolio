@@ -1,7 +1,7 @@
 import { BradHead } from "./BradHead";
 import * as styles from "./styles";
 import type { BradFigureProps, BradHeadLook, BradPose } from "./types";
-import { palette, SLEEVE } from "./utils";
+import { FOREARM, palette, SLEEVE, UPPER_ARM } from "./utils";
 
 /* Cartoon Bradley for the how-i-work iso scenes: flat chibi figure drawn in
    scene-local units (~160 tall, feet on y=157) and placed by the caller's
@@ -125,6 +125,45 @@ const backBase = (
   </g>
 );
 
+/* Two-segment arm, for the one pose that cannot be drawn with a single
+   rotation: taking a crate off the line means reaching past his own width and
+   then folding it back against his chest, and a rigid limb can hit one of those
+   targets or the other, never both. Shoulder and elbow are separate hooks so a
+   caller animates them independently — a forearm that moves further than the
+   upper arm is most of what makes a lift read as a lift.
+   Angles are authored as the carry pose on the static wrappers, and each hook
+   animates the delta off it, so the rest state is a man holding a box. */
+function JointedArm({
+  fill,
+  shoulderDeg,
+  elbowDeg,
+  shoulderClass,
+  elbowClass,
+}: {
+  fill: string;
+  shoulderDeg: number;
+  elbowDeg: number;
+  shoulderClass: string;
+  elbowClass: string;
+}) {
+  return (
+    <g transform={`rotate(${shoulderDeg})`}>
+      <g className={shoulderClass}>
+        <rect x="-5" y={SLEEVE - 4} width="10" height={UPPER_ARM - SLEEVE + 4} rx="5" fill={palette.skin} />
+        <circle cx="0" cy="1" r="5.5" fill={fill} />
+        <rect x="-5.5" y="-2" width="11" height={SLEEVE} rx="5.5" fill={fill} />
+        <rect x="-5.6" y={SLEEVE - 4} width="11.2" height="4" fill={palette.trim} />
+        <g transform={`translate(0,${UPPER_ARM}) rotate(${elbowDeg})`}>
+          <g className={elbowClass}>
+            <rect x="-5" y="-5" width="10" height={FOREARM + 5} rx="5" fill={palette.skin} />
+            <circle cx="0" cy={FOREARM} r="5.5" fill={palette.skin} />
+          </g>
+        </g>
+      </g>
+    </g>
+  );
+}
+
 function RestArm({ side }: { side: "left" | "right" }) {
   return (
     <g transform={side === "left" ? "translate(-25,68) rotate(8)" : "translate(25,68) rotate(-8)"}>
@@ -174,23 +213,32 @@ function armsFor(pose: BradPose) {
   }
 
   if (pose === "context") {
-    // Deliberately static. Three animated versions of this pose were tried and
-    // all read badly at 0.72 scale: rotating both arms as one group folded them
-    // into a single blob, translating the pair slid the near arm onto the torso
-    // where matching emerald swallowed it, and opening the grip per shoulder
-    // just looked like a shrug. The crate leaving his hands plus the whole-body
-    // lean carry the handoff on their own; the arms only have to hold a
-    // credible carry, which they do best by not moving.
-    // Aimed so the hands land on the crate's two side corners — the older pose
-    // put both hands within a circle's width of each other, which went unnoticed
-    // only because the crate covered them.
+    // Rest is the carry: both hands on the crate's side corners, elbows out.
+    // Three earlier attempts to animate rigid limbs from here all failed at the
+    // 0.72 scale this renders at — rotating the pair as one group folded them
+    // into a blob, translating them slid the near arm onto matching emerald,
+    // and opening the grip per shoulder read as a shrug. What they were all
+    // missing was an elbow: the reach and the carry are 36 and 21 units from
+    // the same shoulder, so nothing rigid can serve both.
     return (
       <>
-        <g transform="translate(-25,66) rotate(-16)">
-          <Limb fill={palette.shirt} length={24} />
+        <g transform="translate(-25,66)">
+          <JointedArm
+            fill={palette.shirt}
+            shoulderDeg={38.7}
+            elbowDeg={-115.3}
+            shoulderClass={styles.liftArmL}
+            elbowClass={styles.liftForeL}
+          />
         </g>
-        <g transform="translate(25,66) rotate(16)">
-          <Limb fill={palette.shirtShade} length={24} />
+        <g transform="translate(25,66)">
+          <JointedArm
+            fill={palette.shirtShade}
+            shoulderDeg={-38.7}
+            elbowDeg={115.3}
+            shoulderClass={styles.liftArmR}
+            elbowClass={styles.liftForeR}
+          />
         </g>
       </>
     );
@@ -263,7 +311,7 @@ const facesAwayByPose: Record<BradPose, boolean> = {
 
 const headLookByPose: Record<BradPose, BradHeadLook | undefined> = {
   spec: "glance",
-  context: undefined,
+  context: "carry",
   agents: "nod",
   gates: "track",
 };

@@ -30,3 +30,10 @@ export const palette = {
 
 /* Sleeve length on a 38-unit limb; the rest of the arm is skin. */
 export const SLEEVE = 13;
+
+/* Segment lengths for the jointed arm. Their sum is the figure's reach, and it
+   is set by the context scene: the crate at the head of the line sits 36 units
+   from his shoulder, and an arm that only just gets there keeps a bend in the
+   elbow at full stretch instead of locking straight. */
+export const UPPER_ARM = 20;
+export const FOREARM = 19;

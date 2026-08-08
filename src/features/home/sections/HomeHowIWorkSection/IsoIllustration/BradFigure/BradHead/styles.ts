@@ -18,5 +18,12 @@ export const headTrack = "iso-loop-track";
 export const trackFront = "iso-loop-track-front";
 export const trackTurned = "iso-loop-track-turned";
 
+// Same pair on the context line's bar: he watches the line while he reaches
+// for a crate and turns to the store as he pushes it away, so the turn has a
+// reason at each end rather than being a stare held through a lift.
+export const headCarry = "iso-loop-carry-look [--iso-look-deg:7deg] [--iso-reach-deg:-8deg]";
+export const carryFront = "iso-loop-carry-front";
+export const carryTurned = "iso-loop-carry-turned";
+
 // Small on-the-beat nod while conducting (agents).
 export const headNod = "iso-loop-bob [--iso-bob-duration:2.4s] [--iso-bob-y:-2px]";

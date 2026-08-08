@@ -14,6 +14,16 @@ export const batonSweep = "iso-loop-baton";
 export const batonFlick = "iso-loop-baton-flick";
 export const cueArm = "iso-loop-cue";
 
+// Loading the context line: each joint sweeps reach -> carry -> release -> reach
+// on the scene's carry bar. Values are deltas off the carry angles the arms are
+// drawn in, so all four rest on the same pose and a still shows a man holding a
+// crate. The forearms travel further than the shoulders, which is the part that
+// reads as folding a box in rather than swinging a limb at it.
+export const liftArmL = "iso-loop-lift-arm-l";
+export const liftForeL = "iso-loop-lift-fore-l";
+export const liftArmR = "iso-loop-lift-arm-r";
+export const liftForeR = "iso-loop-lift-fore-r";
+
 // Magnifier arm sweeps across the gate posts and back; the lens counter-turns
 // so it stays upright through the pass.
 export const inspectArm = "iso-loop-inspect [--iso-inspect-deg:52deg]";

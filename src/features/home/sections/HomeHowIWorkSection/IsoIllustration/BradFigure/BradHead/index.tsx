@@ -105,10 +105,15 @@ const turnMotion = {
     held: { className: styles.trackFront, face: frontFace },
     beat: { className: styles.trackTurned, face: turnedFace },
   },
+  carry: {
+    tilt: styles.headCarry,
+    held: { className: styles.carryFront, face: frontFace },
+    beat: { className: styles.carryTurned, face: turnedFace },
+  },
 } as const;
 
 export function BradHead({ look }: { look?: BradHeadLook }) {
-  const motion = look === "glance" || look === "track" ? turnMotion[look] : undefined;
+  const motion = look === "nod" || look === undefined ? undefined : turnMotion[look];
 
   return (
     <g transform="translate(0,56)">
