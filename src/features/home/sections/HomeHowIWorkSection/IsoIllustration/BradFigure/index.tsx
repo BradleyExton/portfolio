@@ -13,11 +13,23 @@ const palette = {
   skinShade: "#eab88f",
   hair: "#a37e54",
   stubble: "#c49a6c",
-  hoodie: "#10b981",
-  hoodieShade: "#059669",
+  shirt: "#10b981",
+  shirtShade: "#059669",
+  // Collar, placket and cuff bands.
+  trim: "#d1fae5",
   pants: "#2f423a",
-  shoes: "#1c2b25",
+  belt: "#1c2b25",
+  // Warm against the cool trim: the buckle sits directly below the placket,
+  // and in the same family the two merged into one pale line down the centre.
+  buckle: "#caa14f",
+  // The shoe upper has to stay clearly lighter than the pants. Matched to
+  // them, the upper vanished and only the midsole read.
+  shoe: "#7b8f85",
+  sole: "#f3f6f4",
 } as const;
+
+/* Sleeve length on a 38-unit limb; the rest of the arm is skin. */
+const SLEEVE = 13;
 
 /* Shoulder ball, sleeve, and hand drawn straight down the +y axis, so a caller
    aims a whole limb with one rotate and hangs a prop off the hand.
@@ -36,11 +48,16 @@ function Limb({
   children?: React.ReactNode;
 }) {
   const hand = <circle cx="0" cy={length} r="5.5" fill={palette.skin} />;
+  const sleeve = Math.min(SLEEVE, length);
 
   return (
     <g>
+      {length > sleeve ? (
+        <rect x="-5.5" y={sleeve - 2} width="11" height={length - sleeve + 2} rx="5.5" fill={palette.skin} />
+      ) : null}
       <circle cx="0" cy="1" r="5.5" fill={fill} />
-      <rect x="-5.5" y="-2" width="11" height={length} rx="5.5" fill={fill} />
+      <rect x="-5.5" y="-2" width="11" height={sleeve} rx="5.5" fill={fill} />
+      <rect x="-5.6" y={sleeve - 4} width="11.2" height="4" fill={palette.trim} />
       {grip ? null : hand}
       {children ? <g transform={`translate(0,${length})`}>{children}</g> : null}
       {grip ? hand : null}
@@ -64,69 +81,43 @@ const turnMotion = {
   track: { tilt: styles.headTrack, front: styles.trackFront, turned: styles.trackTurned },
 } as const;
 
+/* No fringe: the hairline is a wide arch sitting high on the skull with both
+   temples receded past the brow, and a short taper in front of each ear. The
+   outer edge of the hair reuses the skull's own top curve, so the hair can
+   never bulge past the silhouette the way a drawn-on cap does. */
 const frontFace = (
   <>
     <rect x="-6" y="52" width="12" height="10" fill={palette.skinShade} />
-    <path
-      d="M-21 22 q0 -20 21 -20 q21 0 21 20 l0 14 q0 18 -21 18 q-21 0 -21 -18 z"
-      fill={palette.skin}
-    />
+    <path d="M-21 22 q0 -20 21 -20 q21 0 21 20 l0 14 q0 18 -21 18 q-21 0 -21 -18 z" fill={palette.skin} />
     <circle cx="-21" cy="32" r="4.5" fill={palette.skin} />
     <circle cx="21" cy="32" r="4.5" fill={palette.skinShade} />
+    <path d="M-19.5 38 q0 15 19.5 15 q19.5 0 19.5 -15 l0 6 q-2 14 -19.5 14 q-17.5 0 -19.5 -14 z" fill={palette.stubble} opacity="0.55" />
     <path
-      d="M-19.5 38 q0 15 19.5 15 q19.5 0 19.5 -15 l0 6 q-2 14 -19.5 14 q-17.5 0 -19.5 -14 z"
-      fill={palette.stubble}
-      opacity="0.55"
-    />
-    <path
-      d="M-21 24 q-1 -22 21 -22 q22 0 21 22 q-3 -10 -9 -12 q-2 4 -6 5 q1 -4 -1 -6 q-8 -3 -16 1 q-6 3 -8 10 q-1 1 -2 2 z"
+      d="M-21 19 q0 -17 21 -17 q21 0 21 17 C18.6 13 16.4 8.6 13 8 C8.4 7 4 9 0 12 C-4 9 -8.4 7 -13 8 C-16.4 8.6 -18.6 13 -21 19 Z"
       fill={palette.hair}
     />
+    <path d="M-20.4 19 q-1.4 8 -0.4 12 q2.6 -3 3 -8 q0 -3 -0.6 -4.6 z" fill={palette.hair} />
+    <path d="M20.4 19 q1.4 8 0.4 12 q-2.6 -3 -3 -8 q0 -3 0.6 -4.6 z" fill={palette.hair} />
     <circle cx="-8" cy="30" r="2.4" fill="#2f2a26" />
     <circle cx="8" cy="30" r="2.4" fill="#2f2a26" />
-    <path
-      d="M-12 24 q4 -2.5 8 -1 M4 23 q4 -1.5 8 1"
-      stroke="#8a683f"
-      strokeWidth="2"
-      strokeLinecap="round"
-      fill="none"
-    />
+    <path d="M-12 24 q4 -2.5 8 -1 M4 23 q4 -1.5 8 1" stroke="#8a683f" strokeWidth="2" strokeLinecap="round" fill="none" />
     <path d="M0 32 q2 3 0 5" stroke="#dda87e" strokeWidth="2" strokeLinecap="round" fill="none" />
-    <path
-      d="M-5 42.5 q5 4.5 10 0"
-      stroke="#8f6844"
-      strokeWidth="2.2"
-      strokeLinecap="round"
-      fill="none"
-    />
+    <path d="M-5 42.5 q5 4.5 10 0" stroke="#8f6844" strokeWidth="2.2" strokeLinecap="round" fill="none" />
   </>
 );
 
-/* Skull pushed toward the turn, nose breaking the leading silhouette, hair
-   capping the trailing side, single eye, ear back on the cheek where the hair
-   meets it. Two things this drawing must not do, both learned the hard way:
-   the trailing hair has to stop at the jaw or it reads as a bob rather than
-   the back of a head, and the hairline has to be one clean sweep — the front
-   view's notched fringe is a frontal cue and looks like a gash in profile. */
+/* The same recession read from the side, as one slicked-back cap: it starts
+   back from the brow, sweeps over the crown and dies at the nape. Drawn as a
+   single path rather than a front tuft plus a separate back mass — with the
+   front receded, a back mass reads as a bob instead of the back of a head. */
 const turnedFace = (
   <>
     <rect x="-1" y="52" width="12" height="10" fill={palette.skinShade} />
-    <path
-      d="M-12 26 q0 -24 18 -24 q16 0 16 21 l0 10 q0 19 -16 19 q-18 0 -18 -19 z"
-      fill={palette.skin}
-    />
+    <path d="M-12 26 q0 -24 18 -24 q16 0 16 21 l0 10 q0 19 -16 19 q-18 0 -18 -19 z" fill={palette.skin} />
     <path d="M21 26 q6 5 5 9 q-1 3 -5 2 z" fill={palette.skin} />
+    <path d="M-10 38 q0 15 16 15 q16 0 16 -15 l0 5 q-2 13 -16 13 q-14 0 -16 -13 z" fill={palette.stubble} opacity="0.55" />
     <path
-      d="M-10 38 q0 15 16 15 q16 0 16 -15 l0 5 q-2 13 -16 13 q-14 0 -16 -13 z"
-      fill={palette.stubble}
-      opacity="0.55"
-    />
-    <path
-      d="M-12 26 q0 -24 18 -24 q16 0 16 21 q-2 -10 -8 -12 q-4 5 -10 5 q-9 0 -13 5 q-3 4 -3 5 z"
-      fill={palette.hair}
-    />
-    <path
-      d="M-18 30 q0 -28 22 -28 l0 8 q-11 2 -11 16 l0 6 q0 6 4 9 q-7 3 -11 -1 q-4 -5 -4 -14 z"
+      d="M-10.5 37 C-13.6 30 -14 19.5 -10.8 11 C-7 1.8 0 -0.8 7 0.6 C11.5 1.7 14 3.4 15.4 5.6 C12.6 4 9.6 5.4 6.6 8.4 C2.6 12.4 -0.6 17.4 -2.4 22.6 C-3.6 26 -4.2 28.6 -4.2 30.6 C-5.4 34 -7.8 36.4 -10.5 37 Z"
       fill={palette.hair}
     />
     <ellipse cx="-2" cy="34" rx="4.4" ry="5.6" fill={palette.skinShade} />
@@ -154,24 +145,51 @@ function Head({ look }: { look?: "back" | "track" | "nod" }) {
   );
 }
 
+/* Left runner: toe splayed out past the leg, heel flush with the back of it,
+   instep sloping up to the ankle, white midsole under an emerald flash. Drawn
+   once and mirrored, so the pair can never drift apart. */
+const shoe = (
+  <>
+    <path d="M-3 145 L-3 157 L-19.4 157 Q-21.6 156.6 -21 153 Q-20.4 149.8 -17.6 148.8 Q-16 148.2 -16 145 Z" fill={palette.shoe} />
+    <path d="M-20.6 151.8 Q-19 149.6 -16.4 148.9 L-15.6 151 Q-18 151.7 -19 152.8 Z" fill={palette.shirt} />
+    <path d="M-3 152.8 L-3 157 L-19.4 157 Q-21.6 156.6 -21 152.8 Z" fill={palette.sole} />
+  </>
+);
+
+/* Short-sleeve button-up tucked into chinos. Three details are load-bearing at
+   the 0.62 scale the agents scene uses, and each replaced something that
+   failed there:
+   - the shirt tapers to the belt at y=103, so the figure keeps a waist;
+   - the shade is a rim down the right edge, not a panel whose leading edge cut
+     a diagonal across the chest;
+   - the placket stops short of the waistband, so it and the buckle stay two
+     shapes instead of one pale line down the middle. */
 const base = (
   <g>
     <ellipse cx="0" cy="159" rx="36" ry="9" fill="#0f766e" opacity="0.14" />
-    <rect x="-16" y="112" width="13" height="38" rx="6" fill={palette.pants} />
-    <rect x="3" y="112" width="13" height="38" rx="6" fill={palette.pants} />
-    <path d="M-18 148 h16 v6 a3 3 0 01-3 3 h-11 a3 3 0 01-2 -6 z" fill={palette.shoes} />
-    <path d="M2 148 h16 a3 3 0 012 6 a3 3 0 01-3 3 h-11 a3 3 0 01-4 -3 z" fill={palette.shoes} />
-    <path d="M-22 70 q0 -8 8 -10 l28 0 q8 2 8 10 l0 38 q0 8 -8 8 l-28 0 q-8 0 -8 -8 z" fill={palette.hoodie} />
-    <path d="M10 60 l4 0 q8 2 8 10 l0 38 q0 8 -8 8 l-4 0 z" fill={palette.hoodieShade} />
-    <path d="M-10 100 h20 v10 q0 4 -4 4 h-12 q-4 0 -4 -4 z" fill={palette.hoodieShade} opacity="0.45" />
-    <path d="M-5 62 l-1 12 M5 62 l1 12" stroke="#ecfdf5" strokeWidth="2" strokeLinecap="round" fill="none" />
+    <path d="M-18 100 h36 v18 q0 6 -6 6 h-24 q-6 0 -6 -6 z" fill={palette.pants} />
+    <rect x="-16" y="116" width="13" height="31" rx="6" fill={palette.pants} />
+    <rect x="3" y="116" width="13" height="31" rx="6" fill={palette.pants} />
+    <path d="M-22 70 q0 -8 8 -10 l28 0 q8 2 8 10 L17 98 q0 5 -5 5 l-24 0 q-5 0 -5 -5 z" fill={palette.shirt} />
+    <path d="M14 60.4 q8 2 8 9.6 L17 98 q0 5 -5 5 l-3 0 z" fill={palette.shirtShade} />
+    <path d="M-11 59 L-1.5 61 L-7 73 z" fill={palette.trim} />
+    <path d="M11 59 L1.5 61 L7 73 z" fill={palette.trim} />
+    <rect x="-2.4" y="60" width="4.8" height="37" fill={palette.trim} opacity="0.7" />
+    {[71, 80, 89].map((y) => (
+      <circle key={y} cx="0" cy={y} r="1.4" fill={palette.shirtShade} />
+    ))}
+    <rect x="-18" y="103" width="36" height="6.4" rx="1.5" fill={palette.belt} />
+    <rect x="-4.4" y="102.4" width="8.8" height="7.6" rx="1.6" fill={palette.buckle} />
+    <rect x="-2" y="104.8" width="4" height="2.8" rx="0.8" fill={palette.belt} />
+    {shoe}
+    <g transform="scale(-1,1)">{shoe}</g>
   </g>
 );
 
 function RestArm({ side }: { side: "left" | "right" }) {
   return (
     <g transform={side === "left" ? "translate(-25,68) rotate(8)" : "translate(25,68) rotate(-8)"}>
-      <Limb fill={side === "left" ? palette.hoodie : palette.hoodieShade} length={38} />
+      <Limb fill={side === "left" ? palette.shirt : palette.shirtShade} length={38} />
     </g>
   );
 }
@@ -206,7 +224,7 @@ function armsFor(pose: BradPose) {
         <g transform="translate(25,66)">
           <g className={styles.penLift}>
             <g transform="rotate(-135)">
-              <Limb fill={palette.hoodieShade} length={40} grip>
+              <Limb fill={palette.shirtShade} length={40} grip>
                 <g className={styles.scribble}>{pencil}</g>
               </Limb>
             </g>
@@ -230,10 +248,10 @@ function armsFor(pose: BradPose) {
     return (
       <>
         <g transform="translate(-25,66) rotate(-16)">
-          <Limb fill={palette.hoodie} length={24} />
+          <Limb fill={palette.shirt} length={24} />
         </g>
         <g transform="translate(25,66) rotate(16)">
-          <Limb fill={palette.hoodieShade} length={24} />
+          <Limb fill={palette.shirtShade} length={24} />
         </g>
       </>
     );
@@ -245,22 +263,26 @@ function armsFor(pose: BradPose) {
         <g transform="translate(-26,70)">
           <g className={styles.cueArm}>
             <g transform="rotate(50)">
-              <Limb fill={palette.hoodie} length={34} />
+              <Limb fill={palette.shirt} length={34} />
             </g>
           </g>
         </g>
         {/* The conducting arm is the one place the figure needs a real elbow:
             the shoulder sweeps the bar while the forearm flicks at twice the
             rate, and two rotations about the same joint would just add up
-            instead of tracing the figure eight a conductor actually draws. */}
+            instead of tracing the figure eight a conductor actually draws.
+            Short sleeve, so the sleeve ends on the upper arm and the whole
+            forearm below the elbow flick is bare. */}
         <g transform="translate(24,66)">
           <g className={styles.batonSweep}>
             <g transform="rotate(-118)">
-              <circle cx="0" cy="1" r="5.5" fill={palette.hoodieShade} />
-              <rect x="-5.5" y="-2" width="11" height="22" rx="5.5" fill={palette.hoodieShade} />
+              <rect x="-5.5" y="-2" width="11" height="22" rx="5.5" fill={palette.skin} />
+              <circle cx="0" cy="1" r="5.5" fill={palette.shirtShade} />
+              <rect x="-5.5" y="-2" width="11" height={SLEEVE} rx="5.5" fill={palette.shirtShade} />
+              <rect x="-5.6" y={SLEEVE - 4} width="11.2" height="4" fill={palette.trim} />
               <g transform="translate(0,19)">
                 <g className={styles.batonFlick}>
-                  <rect x="-5" y="-5" width="10" height="24" rx="5" fill={palette.hoodieShade} />
+                  <rect x="-5" y="-5" width="10" height="24" rx="5" fill={palette.skin} />
                   <circle cx="0" cy="20" r="5.5" fill={palette.skin} />
                   {/* Cork grip and a pale shaft, so the baton still reads at
                       the 0.62 scale this figure renders at. */}
@@ -280,7 +302,7 @@ function armsFor(pose: BradPose) {
       <RestArm side="left" />
       <g transform="translate(25,64) rotate(-158)">
         <g className={styles.inspectArm}>
-          <Limb fill={palette.hoodieShade} length={38} grip>
+          <Limb fill={palette.shirtShade} length={38} grip>
             {magnifier}
           </Limb>
         </g>
