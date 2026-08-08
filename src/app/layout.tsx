@@ -4,6 +4,7 @@ import Script from "next/script";
 import { ViewTransitions } from "next-view-transitions";
 import "./globals.css";
 import { siteMetadata } from "@/copy/metadata";
+import { personSchema, professionalServiceSchema } from "@/copy/structuredData";
 import { publicEnv } from "@/config/publicEnv";
 import UnderConstruction from "@/components/UnderConstruction";
 
@@ -51,6 +52,12 @@ export default function RootLayout({
               </Script>
             </>
           ) : null}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify([personSchema, professionalServiceSchema]),
+            }}
+          />
           {isUnderConstruction ? <UnderConstruction /> : children}
         </body>
       </html>

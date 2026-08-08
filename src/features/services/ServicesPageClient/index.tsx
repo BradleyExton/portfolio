@@ -1,4 +1,5 @@
 import { PageShell } from "@/features/shared/layout/PageShell";
+import { ServicesCaseStudySection } from "@/features/services/sections/ServicesCaseStudySection";
 import { ServicesCatalogSection } from "@/features/services/sections/ServicesCatalogSection";
 import { ServicesCtaSection } from "@/features/services/sections/ServicesCtaSection";
 import { ServicesFaqSection } from "@/features/services/sections/ServicesFaqSection";
@@ -11,6 +12,7 @@ export default function ServicesPageClient() {
     <PageShell mainClassName={styles.main}>
       <ServicesHeroSection />
       <ServicesCatalogSection />
+      <ServicesCaseStudySection />
       <ServicesProcessSection />
       <ServicesFaqSection />
       <ServicesCtaSection />

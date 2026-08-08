@@ -48,22 +48,31 @@ export const aboutMetadata: Metadata = {
     "Learn more about Bradley Exton, a product engineer based in Barrie, Ontario with 10+ years of experience building software products and AI systems.",
 };
 
+const servicesTitle = `Web Design & Development Services in Barrie | ${profile.fullName}`;
+const servicesDescription =
+  "Websites, custom web applications, and AI automation for businesses in Barrie and Simcoe County. Built by an engineer with 10+ years of production experience, not an agency.";
+
 export const servicesMetadata: Metadata = {
-  title: `Services | ${profile.fullName}`,
-  description:
-    "Freelance web development services by Bradley Exton: websites, custom web applications, and AI-powered tools for businesses.",
+  title: servicesTitle,
+  description: servicesDescription,
+  keywords: [
+    "web designer Barrie",
+    "web developer Barrie",
+    "website design Simcoe County",
+    "small business website Ontario",
+    "custom web application",
+    "AI automation",
+  ],
   openGraph: {
-    title: `Services | ${profile.fullName}`,
-    description:
-      "Explore websites, web applications, and AI-powered tools for your business.",
+    title: servicesTitle,
+    description: servicesDescription,
     url: `${profile.links.website}/services`,
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: `Services | ${profile.fullName}`,
-    description:
-      "Explore websites, web applications, and AI-powered tools for your business.",
+    title: servicesTitle,
+    description: servicesDescription,
   },
 };
 

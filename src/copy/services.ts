@@ -3,9 +3,30 @@ export const servicesCopy = {
     eyebrow: "Services",
     heading: "Senior help for your website, app, or AI project.",
     description:
-      "I take on a few projects each quarter. You work directly with me, no agency overhead, and get senior engineering from first call to launch.",
+      "I'm based in Barrie and work with businesses across Simcoe County. I take on a few projects each quarter. You work directly with me, no agency overhead, and get senior engineering from first call to launch.",
     availabilityLabel: "Availability",
-    availability: "Currently booking selective projects for Spring 2026.",
+    availability: "Booking a small number of projects for Fall 2026.",
+  },
+  caseStudy: {
+    eyebrow: "Recent work",
+    heading: "A live example: Precision Tradework",
+    description:
+      "A renovation and finishing company in Barrie needed a site that turns local searches into quote requests. Here is what shipped.",
+    client: "Precision Tradework",
+    clientMeta: "Renovation and finishing, Barrie and Simcoe County",
+    summary:
+      "The site leads with the service area and a quote request on every page. Homeowners can read what a job involves, check that their town is covered, and send details from their phone in under a minute.",
+    highlights: [
+      "Service pages with the questions homeowners actually ask",
+      "Multi-step quote form with spam protection, delivered straight to the owner's inbox",
+      "Interactive service area map for Barrie, Simcoe County, and Muskoka",
+      "Technical SEO, analytics, and cookie consent set up at launch",
+    ],
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Mapbox", "Resend", "Vercel"],
+    linkLabel: "Visit precisiontradework.ca",
+    linkHref: "https://precisiontradework.ca",
+    imageAlt:
+      "The Precision Tradework homepage, showing a renovated kitchen behind the headline Barrie's Trusted Renovation and Finishing Experts",
   },
   catalog: {
     eyebrow: "What I offer",
