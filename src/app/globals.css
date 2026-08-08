@@ -910,9 +910,15 @@ html {
 }
 
 @layer utilities {
+  /* No will-change here, deliberately. This wrapper contains the whole page
+     including the fixed site header, and `will-change: transform` makes an
+     element a containing block for its fixed descendants — the header would
+     end up fixed to this div and scroll away with the content instead of
+     staying pinned to the viewport. The hint bought nothing anyway: the
+     browser promotes an element while it is actually animating, and this
+     animation runs once for 420ms on entry. */
   .page-transition-enter {
     animation: page-enter 420ms cubic-bezier(0.22, 1, 0.36, 1);
-    will-change: transform, opacity;
   }
 
   /* Capability words on a rotating 3D cylinder. Radius is derived from slot
