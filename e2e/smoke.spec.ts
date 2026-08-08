@@ -1,4 +1,10 @@
 import { expect, test } from "@playwright/test";
+import { homeCopy } from "../src/copy/home";
+
+/* Derived from the copy module that owns it rather than pinned to a literal.
+   A hardcoded title here silently outlived a rebrand once already. */
+const { prefix, highlight, suffix } = homeCopy.hero.heading;
+const HOME_HEADING = [prefix, highlight, suffix].filter(Boolean).join(" ");
 
 test("header transitions the property its hide/reveal actually moves", async ({ page }) => {
   await page.goto("/");
@@ -18,7 +24,7 @@ test("header transitions the property its hide/reveal actually moves", async ({ 
 test("primary routes render", async ({ page }) => {
   await page.goto("/");
   await expect(
-    page.getByRole("heading", { level: 1, name: "Full-Stack Product Engineer" }),
+    page.getByRole("heading", { level: 1, name: HOME_HEADING }),
   ).toBeVisible();
 
   await page.goto("/about");
