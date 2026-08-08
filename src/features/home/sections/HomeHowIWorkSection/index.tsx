@@ -28,7 +28,7 @@ export function HomeHowIWorkSection() {
             const reversed = isStageReversed(index);
 
             return (
-              <li key={stage.id} data-active="true" className={styles.stageRow}>
+              <li key={stage.id} className={styles.stageRow}>
                 <div className={reversed ? styles.mediaColReversed : styles.mediaCol}>
                   <IsoIllustration stageId={stage.id} />
                 </div>

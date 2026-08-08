@@ -32,7 +32,14 @@ export function SpecIllustration() {
             <rect x="28" y="-44" width="44" height="7" rx="3.5" fill="#c9d8d0" />
             <rect x="12" y="-30" width="10" height="10" rx="3" fill="#10b981" />
             <rect x="28" y="-28" width="56" height="7" rx="3.5" fill="#c9d8d0" />
-            <rect x="12" y="-14" width="28" height="7" rx="3.5" fill="#c9d8d0" />
+            {/* The line under the pencil grows while he writes and clears for
+                the next pass; scaleX pivots on the rect's left edge because
+                the wrapping translate puts the origin there. */}
+            <g transform="translate(12,-14)">
+              <g className={styles.typeLine}>
+                <rect x="0" y="0" width="28" height="7" rx="3.5" fill="#c9d8d0" />
+              </g>
+            </g>
             <rect x="46" y="-14" width="8" height="7" rx="2" fill="#34d399" className={styles.cursor} />
           </g>
         </g>

@@ -3,6 +3,25 @@ import * as styles from "./styles";
 
 // Inlined from public/images/how-i-work/gates.svg; loop keyframes live in
 // globals.css so several inline scenes can mount without keyframe collisions.
+
+// Tick that pops over a gate once the lens has cleared it. Stroked rather than
+// filled so it stays crisp at the ~8px it renders at.
+function GateCheck({ index, x, y }: { index: number; x: number; y: number }) {
+  return (
+    <g transform={`translate(${x},${y})`}>
+      <path
+        d="M-4.5 0 L-1.5 3.5 L4.5 -4"
+        className={styles.checks[index]}
+        fill="none"
+        stroke="#047857"
+        strokeWidth="2.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </g>
+  );
+}
+
 export function GatesIllustration() {
   return (
     <svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg" className={styles.svg}>
@@ -26,27 +45,35 @@ export function GatesIllustration() {
           <polygon points="13.9,77 43.3,94 13.9,111 -15.6,94" fill="#6ee7b7" />
           <polygon points="-15.6,94 -15.6,104 13.9,121 13.9,111" fill="#34d399" />
           <polygon points="43.3,94 43.3,104 13.9,121 13.9,111" fill="#10b981" />
-          <g transform="translate(13.9,57)">
+          <g transform="translate(13.9,44)">
             <polygon points="0,0 11,6.3 0,12.7 -11,6.3" fill="#fbbf24" className={styles.bobDiamond} />
           </g>
         </g>
+        {/* Gate caps light in screen order (x = 10.4, 62.4, 79.7, 131.6) as the
+            lens passes over them, then a tick pops above the post. The delays
+            are the sweep's arrival times, not a decorative stagger, so the
+            flashes track the magnifier instead of racing it. */}
         <g className={styles.pieces[3]}>
-          <polygon points="62.4,49 74.5,56 62.4,63 50.2,56" fill="#ffffff" />
-          <polygon points="50.2,56 50.2,100 62.4,107 62.4,63" fill="#e0eae5" />
-          <polygon points="74.5,56 74.5,100 62.4,107 62.4,63" fill="#c9d8d0" />
-          <polygon points="62.4,50 72.7,56 62.4,62 52,56" fill="#6ee7b7" className={styles.twinkleA} />
           <polygon points="10.4,79 22.5,86 10.4,93 -1.7,86" fill="#ffffff" />
           <polygon points="-1.7,86 -1.7,130 10.4,137 10.4,93" fill="#e0eae5" />
           <polygon points="22.5,86 22.5,130 10.4,137 10.4,93" fill="#c9d8d0" />
-          <polygon points="10.4,80 20.8,86 10.4,92 0,86" fill="#6ee7b7" className={styles.twinkleB} />
-          <polygon points="131.6,89 143.8,96 131.6,103 119.5,96" fill="#ffffff" />
-          <polygon points="119.5,96 119.5,140 131.6,147 131.6,103" fill="#e0eae5" />
-          <polygon points="143.8,96 143.8,140 131.6,147 131.6,103" fill="#c9d8d0" />
-          <polygon points="131.6,90 142,96 131.6,102 121.2,96" fill="#6ee7b7" className={styles.twinkleB} />
+          <polygon points="10.4,80 20.8,86 10.4,92 0,86" fill="#6ee7b7" className={styles.gates[0]} />
+          <GateCheck index={0} x={-2} y={72} />
+          <polygon points="62.4,49 74.5,56 62.4,63 50.2,56" fill="#ffffff" />
+          <polygon points="50.2,56 50.2,100 62.4,107 62.4,63" fill="#e0eae5" />
+          <polygon points="74.5,56 74.5,100 62.4,107 62.4,63" fill="#c9d8d0" />
+          <polygon points="62.4,50 72.7,56 62.4,62 52,56" fill="#6ee7b7" className={styles.gates[1]} />
+          <GateCheck index={1} x={50} y={42} />
           <polygon points="79.7,119 91.8,126 79.7,133 67.5,126" fill="#ffffff" />
           <polygon points="67.5,126 67.5,170 79.7,177 79.7,133" fill="#e0eae5" />
           <polygon points="91.8,126 91.8,170 79.7,177 79.7,133" fill="#c9d8d0" />
-          <polygon points="79.7,120 90.1,126 79.7,132 69.3,126" fill="#6ee7b7" className={styles.twinkleA} />
+          <polygon points="79.7,120 90.1,126 79.7,132 69.3,126" fill="#6ee7b7" className={styles.gates[2]} />
+          <GateCheck index={2} x={67.3} y={112} />
+          <polygon points="131.6,89 143.8,96 131.6,103 119.5,96" fill="#ffffff" />
+          <polygon points="119.5,96 119.5,140 131.6,147 131.6,103" fill="#e0eae5" />
+          <polygon points="143.8,96 143.8,140 131.6,147 131.6,103" fill="#c9d8d0" />
+          <polygon points="131.6,90 142,96 131.6,102 121.2,96" fill="#6ee7b7" className={styles.gates[3]} />
+          <GateCheck index={3} x={119.2} y={82} />
         </g>
         <g className={styles.pieces[4]}>
           <g transform="translate(105.7,145)">

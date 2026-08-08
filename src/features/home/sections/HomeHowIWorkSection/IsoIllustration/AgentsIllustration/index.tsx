@@ -3,10 +3,13 @@ import * as styles from "./styles";
 
 // Inlined from public/images/how-i-work/agents.svg; loop keyframes live in
 // globals.css so several inline scenes can mount without keyframe collisions.
+// The scene group sits 18px lower than its three siblings: the conductor
+// stands on the riser at the back of the plane, and at the shared 34px offset
+// his head clipped the top of the viewBox.
 export function AgentsIllustration() {
   return (
     <svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg" className={styles.svg}>
-      <g transform="translate(268,34)">
+      <g transform="translate(268,52)">
         <g className={styles.pieces[0]}>
           <polygon points="0,-14 294.4,156 112.6,261 -181.9,91" fill="#ecfdf5" />
           <polygon points="-181.9,91 -181.9,105 112.6,275 112.6,261" fill="#d1fae5" />
@@ -34,22 +37,35 @@ export function AgentsIllustration() {
           <polygon points="1.7,52 1.7,66 -43.3,92 -43.3,78" fill="#047857" />
           <polygon points="-43.3,40 -22.5,52 -43.3,64 -64.1,52" fill="#a7f3d0" />
         </g>
+        {/* The three agents answer the baton instead of drifting on their own
+            clocks: one tile lifts per beat of the same 2.4s bar the arm sweeps
+            on, each offset by a third, with a note rising off the downbeat.
+            That sync is the whole point of the scene — orchestration. */}
         <g className={styles.pieces[4]}>
-          <g className={styles.slideA}>
+          <g className={styles.beatA}>
             <polygon points="82.3,62.5 111.7,79.5 82.3,96.5 52.8,79.5" fill="#6ee7b7" />
             <polygon points="52.8,79.5 52.8,88.5 82.3,105.5 82.3,96.5" fill="#34d399" />
             <polygon points="111.7,79.5 111.7,88.5 82.3,105.5 82.3,96.5" fill="#10b981" />
           </g>
-          <g className={styles.slideB}>
+          <g transform="translate(82.3,56.5)">
+            <polygon points="0,0 7,4 0,8.1 -7,4" fill="#059669" className={styles.noteA} />
+          </g>
+          <g className={styles.beatB}>
             <polygon points="73.6,107.5 103.1,124.5 73.6,141.5 44.2,124.5" fill="#6ee7b7" />
             <polygon points="44.2,124.5 44.2,133.5 73.6,150.5 73.6,141.5" fill="#34d399" />
             <polygon points="103.1,124.5 103.1,133.5 73.6,150.5 73.6,141.5" fill="#10b981" />
             <polygon points="0,0 10,5.8 0,11.5 -10,5.8" fill="#fbbf24" transform="translate(73.6,91.5)" />
           </g>
-          <g className={styles.slideC}>
+          <g transform="translate(73.6,101.5)">
+            <polygon points="0,0 7,4 0,8.1 -7,4" fill="#059669" className={styles.noteB} />
+          </g>
+          <g className={styles.beatC}>
             <polygon points="4.3,117.5 33.8,134.5 4.3,151.5 -25.1,134.5" fill="#6ee7b7" />
             <polygon points="-25.1,134.5 -25.1,143.5 4.3,160.5 4.3,151.5" fill="#34d399" />
             <polygon points="33.8,134.5 33.8,143.5 4.3,160.5 4.3,151.5" fill="#10b981" />
+          </g>
+          <g transform="translate(4.3,111.5)">
+            <polygon points="0,0 7,4 0,8.1 -7,4" fill="#059669" className={styles.noteC} />
           </g>
         </g>
         <g className={styles.pieces[5]}>

@@ -466,6 +466,389 @@ html {
   }
 }
 
+/* Character motion for the iso scenes. Every loop is a multiple of the same
+   2.4s beat (agents 1 bar, context 2, spec/gates 3) so the four scenes read as
+   one tempo rather than four unrelated fidgets. */
+
+/* Head turn. The skull tilts continuously, but the face itself is two separate
+   drawings — a front view and a 3/4 view — swapped by a hard cut, the way 2D
+   animation has always done head turns. Sliding the front face's features
+   sideways was tried first and could not work: the fringe, ear, nose and chin
+   all stay frontal no matter where you move them. steps(1) on the swap keeps
+   the two opaque drawings from ever ghosting through each other. */
+@keyframes iso-look-tilt {
+  0%,
+  60% {
+    transform: rotate(var(--iso-look-deg, -9deg));
+  }
+
+  72%,
+  90% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(var(--iso-look-deg, -9deg));
+  }
+}
+
+@keyframes iso-face-front {
+  0%,
+  60% {
+    opacity: 0;
+  }
+
+  62%,
+  90% {
+    opacity: 1;
+  }
+
+  92%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes iso-face-turned {
+  0%,
+  60% {
+    opacity: 1;
+  }
+
+  62%,
+  90% {
+    opacity: 0;
+  }
+
+  92%,
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Pen leaves the board for the window where he turns back to camera. */
+@keyframes iso-pen-lift {
+  0%,
+  60% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  72%,
+  90% {
+    transform: translate(0, 8px) rotate(20deg);
+  }
+
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
+/* The line he is writing grows across the spec doc, then clears for the next
+   pass. Origin is the rect's left edge, set by the wrapping translate. */
+@keyframes iso-type-line {
+  0% {
+    opacity: 1;
+    transform: scaleX(0);
+  }
+
+  52%,
+  90% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scaleX(1);
+  }
+}
+
+/* Context crate: held, carried out over the store, set down, absorbed, and
+   back in hand for the next one. The travel vector is per-scene so the crate
+   lands on the slab's top face. It reappears in his hands during the two
+   frames it spends invisible, so a paused or reduced-motion scene still shows
+   a man holding a box rather than empty cupped hands. */
+@keyframes iso-carry {
+  0%,
+  24% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+
+  54% {
+    opacity: 1;
+    transform: translate(
+        var(--iso-carry-x, 76px),
+        calc(var(--iso-carry-y, 13px) - 22px)
+      )
+      scale(1);
+  }
+
+  68% {
+    opacity: 1;
+    transform: translate(var(--iso-carry-x, 76px), var(--iso-carry-y, 13px))
+      scale(0.94);
+  }
+
+  78% {
+    opacity: 0;
+    transform: translate(
+        var(--iso-carry-x, 76px),
+        calc(var(--iso-carry-y, 13px) + 7px)
+      )
+      scale(0.7);
+  }
+
+  80% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.7);
+  }
+
+  90%,
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+/* He leans into the handoff. Pivot is at the feet, set by a wrapper group. */
+@keyframes iso-load-lean {
+  0%,
+  22% {
+    transform: rotate(0deg);
+  }
+
+  50%,
+  66% {
+    transform: rotate(var(--iso-lean-deg, 5deg));
+  }
+
+  86%,
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+/* Store acknowledges the drop right as the crate sinks in. */
+@keyframes iso-load-pulse {
+  0%,
+  62% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+
+  74% {
+    opacity: 1;
+    transform: scale(1.18);
+  }
+
+  86%,
+  100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+}
+
+/* Conductor: a slow horizontal sweep with a wrist flick at twice the rate.
+   Nested, the two rotations trace a figure eight for the cost of two
+   keyframes. */
+@keyframes iso-baton-sweep {
+  0%,
+  100% {
+    transform: rotate(var(--iso-baton-from, -20deg));
+  }
+
+  50% {
+    transform: rotate(var(--iso-baton-to, 22deg));
+  }
+}
+
+@keyframes iso-baton-flick {
+  0%,
+  100% {
+    transform: rotate(-16deg);
+  }
+
+  50% {
+    transform: rotate(16deg);
+  }
+}
+
+@keyframes iso-cue-arm {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(var(--iso-cue-deg, 12deg));
+  }
+}
+
+/* Agent tiles answer the baton: one lifts per beat, offset by delay. */
+@keyframes iso-beat {
+  0% {
+    transform: translateY(0);
+  }
+
+  12% {
+    transform: translateY(var(--iso-beat-y, -7px));
+  }
+
+  40%,
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes iso-note {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.5);
+  }
+
+  14% {
+    opacity: 1;
+    transform: translate(0, -7px) scale(1);
+  }
+
+  46%,
+  100% {
+    opacity: 0;
+    transform: translate(0, -22px) scale(0.75);
+  }
+}
+
+/* Magnifier sweeps left to right across the gate posts, holds at the far end,
+   returns. Gate flashes below are delayed to land under the moving lens. */
+@keyframes iso-inspect {
+  0%,
+  8% {
+    transform: rotate(0deg) translateY(0);
+  }
+
+  46%,
+  56% {
+    transform: rotate(var(--iso-inspect-deg, 42deg)) translateY(3px);
+  }
+
+  94%,
+  100% {
+    transform: rotate(0deg) translateY(0);
+  }
+}
+
+/* Keeps the lens upright while the arm swings under it. Rotation only, so it
+   cancels the sweep without doubling its vertical nudge. */
+@keyframes iso-inspect-counter {
+  0%,
+  8% {
+    transform: rotate(0deg);
+  }
+
+  46%,
+  56% {
+    transform: rotate(calc(-1 * var(--iso-inspect-deg, 42deg)));
+  }
+
+  94%,
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes iso-track {
+  0%,
+  8% {
+    transform: rotate(0deg) translateX(0);
+  }
+
+  46%,
+  56% {
+    transform: rotate(var(--iso-track-deg, 7deg))
+      translateX(var(--iso-track-x, 4px));
+  }
+
+  94%,
+  100% {
+    transform: rotate(0deg) translateX(0);
+  }
+}
+
+@keyframes iso-track-front {
+  0%,
+  10% {
+    opacity: 1;
+  }
+
+  12%,
+  52% {
+    opacity: 0;
+  }
+
+  54%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes iso-track-turned {
+  0%,
+  10% {
+    opacity: 0;
+  }
+
+  12%,
+  52% {
+    opacity: 1;
+  }
+
+  54%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes iso-gate-clear {
+  0% {
+    opacity: 0.3;
+  }
+
+  4%,
+  68% {
+    opacity: 1;
+  }
+
+  82%,
+  100% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes iso-gate-check {
+  0% {
+    opacity: 0;
+    transform: translateY(5px) scale(0.4);
+  }
+
+  5% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.12);
+  }
+
+  10%,
+  62% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  76%,
+  100% {
+    opacity: 0;
+    transform: translateY(0) scale(1);
+  }
+}
+
 /* Status lines on the hero monitor terminal settle in from just below. */
 @keyframes screen-line-in {
   from {
@@ -616,9 +999,29 @@ html {
   }
 
   /* Iso-illustration behavior (Prototype B): scenes assemble piece-by-piece
-     when their card becomes active (data-active flips on the card surface),
-     and ambient loops only run while active. Time-based, so the global
-     reduced-motion override above neutralizes all of it. */
+     once they become active, and ambient loops run only while the scene is
+     actually on screen. Time-based, so the global reduced-motion override
+     above neutralizes all of it, and a scene that never gets activated simply
+     renders static.
+
+     Two activation shapes share this system. The about-snapshot deck flips
+     data-active on the card surface above its scene, so the whole scene reacts
+     to which card is selected. How I Work has four scenes on screen at once
+     and drives its own: data-active latches when a scene first scrolls in
+     (the assemble is an arrival, it should not replay), while data-inview
+     tracks visibility both ways so four character loops are never animating
+     off-screen. --iso-play is the single switch both resolve to, which keeps
+     the per-class rules below from having to spell out both shapes. */
+  .iso-scene {
+    --iso-play: paused;
+  }
+
+  .iso-scene[data-inview="true"],
+  [data-active="true"] .iso-scene {
+    --iso-play: running;
+  }
+
+  .iso-scene[data-active="true"] .iso-piece,
   [data-active="true"] .iso-scene .iso-piece {
     animation-name: iso-assemble;
     animation-duration: 640ms;
@@ -633,43 +1036,156 @@ html {
     opacity: 0;
     animation: iso-packet-travel var(--iso-pulse-duration, 2.8s) linear
       var(--iso-pulse-delay, 0s) infinite;
-    animation-play-state: paused;
+    animation-play-state: var(--iso-play);
   }
 
   .iso-scene .iso-loop-slide {
     animation: iso-slide var(--iso-slide-duration, 3.8s) ease-in-out
       var(--iso-slide-delay, 0s) infinite;
-    animation-play-state: paused;
+    animation-play-state: var(--iso-play);
   }
 
   .iso-scene .iso-loop-sway {
     animation: iso-sway var(--iso-sway-duration, 2.8s) ease-in-out infinite;
-    animation-play-state: paused;
+    animation-play-state: var(--iso-play);
   }
 
   .iso-scene .iso-loop-bob {
     animation: iso-bob var(--iso-bob-duration, 3.6s) ease-in-out infinite;
-    animation-play-state: paused;
+    animation-play-state: var(--iso-play);
   }
 
   .iso-scene .iso-loop-tw {
     animation: iso-twinkle var(--iso-tw-duration, 2.4s) ease-in-out
       var(--iso-tw-delay, 0s) infinite;
-    animation-play-state: paused;
+    animation-play-state: var(--iso-play);
   }
 
   .iso-scene .iso-loop-blink {
     animation: iso-blink 1.2s steps(1) infinite;
-    animation-play-state: paused;
+    animation-play-state: var(--iso-play);
   }
 
-  [data-active="true"] .iso-scene .iso-loop-pulse,
-  [data-active="true"] .iso-scene .iso-loop-bob,
-  [data-active="true"] .iso-scene .iso-loop-tw,
-  [data-active="true"] .iso-scene .iso-loop-blink,
-  [data-active="true"] .iso-scene .iso-loop-slide,
-  [data-active="true"] .iso-scene .iso-loop-sway {
-    animation-play-state: running;
+  /* Character loops. Durations are locked to the shared 2.4s beat: the
+     spec/gates stories run three bars, the context handoff two, the conductor
+     one. Every class here is paused until data-inview flips. */
+  .iso-scene .iso-loop-look-tilt {
+    animation: iso-look-tilt var(--iso-look-duration, 7.2s) ease-in-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  /* Base values are the reduced-motion resting state that the global duration
+     override falls back to: front view showing, 3/4 view hidden. Exactly one
+     of the pair must ever be visible, or he has two faces. */
+  .iso-scene .iso-loop-face-front {
+    opacity: 1;
+    animation: iso-face-front var(--iso-look-duration, 7.2s) steps(1) infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-loop-face-turned {
+    opacity: 0;
+    animation: iso-face-turned var(--iso-look-duration, 7.2s) steps(1) infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-loop-pen {
+    animation: iso-pen-lift var(--iso-look-duration, 7.2s) ease-in-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-loop-type {
+    animation: iso-type-line var(--iso-look-duration, 7.2s) ease-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-loop-carry {
+    animation: iso-carry var(--iso-carry-duration, 4.8s) ease-in-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-loop-lean {
+    animation: iso-load-lean var(--iso-carry-duration, 4.8s) ease-in-out
+      infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-loop-load-pulse {
+    animation: iso-load-pulse var(--iso-carry-duration, 4.8s) ease-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-loop-baton {
+    animation: iso-baton-sweep var(--iso-beat, 2.4s) ease-in-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-loop-baton-flick {
+    animation: iso-baton-flick calc(var(--iso-beat, 2.4s) / 2) ease-in-out
+      infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-loop-cue {
+    animation: iso-cue-arm calc(var(--iso-beat, 2.4s) * 2) ease-in-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-loop-beat {
+    animation: iso-beat var(--iso-beat, 2.4s) ease-out
+      var(--iso-beat-delay, 0s) infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-loop-note {
+    opacity: 0;
+    animation: iso-note var(--iso-beat, 2.4s) ease-out var(--iso-beat-delay, 0s)
+      infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-loop-inspect {
+    animation: iso-inspect var(--iso-sweep, 7.2s) ease-in-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-loop-inspect-counter {
+    animation: iso-inspect-counter var(--iso-sweep, 7.2s) ease-in-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-loop-track {
+    animation: iso-track var(--iso-sweep, 7.2s) ease-in-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  /* Same pair, on the magnifier sweep's clock. */
+  .iso-scene .iso-loop-track-front {
+    opacity: 1;
+    animation: iso-track-front var(--iso-sweep, 7.2s) steps(1) infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-loop-track-turned {
+    opacity: 0;
+    animation: iso-track-turned var(--iso-sweep, 7.2s) steps(1) infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  /* Base is fully lit so the reduced-motion fallback reads as "all gates
+     passed" rather than a wall of dimmed posts. */
+  .iso-scene .iso-loop-gate {
+    opacity: 1;
+    animation: iso-gate-clear var(--iso-sweep, 7.2s) ease-out
+      var(--iso-gate-delay, 0s) infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-loop-check {
+    opacity: 0;
+    animation: iso-gate-check var(--iso-sweep, 7.2s) ease-out
+      var(--iso-gate-delay, 0s) infinite;
+    animation-play-state: var(--iso-play);
   }
 
   /* Scroll-driven animations (Prototype A). Progress comes from the scroll
