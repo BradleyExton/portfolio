@@ -1,5 +1,20 @@
 import { expect, test } from "@playwright/test";
 
+test("header transitions the property its hide/reveal actually moves", async ({ page }) => {
+  await page.goto("/");
+
+  // Tailwind v4 compiles translate-y-* to the standalone `translate` property,
+  // not `transform`. An arbitrary transition list naming only `transform`
+  // still type-checks, still builds, and still looks right in a screenshot —
+  // the header just snaps instead of sliding. Assert the property by name.
+  const transitionProperty = await page
+    .getByRole("navigation", { name: "Primary" })
+    .evaluate((node) => getComputedStyle(node).transitionProperty);
+
+  expect(transitionProperty).toContain("translate");
+  expect(transitionProperty).toContain("opacity");
+});
+
 test("primary routes render", async ({ page }) => {
   await page.goto("/");
   await expect(
@@ -148,7 +163,13 @@ test("mobile landing layout keeps key cards compact and nav targets tappable", a
   });
   expect(firstServiceCardHeight).toBeLessThanOrEqual(460);
 
-  await page.getByRole("button", { name: "Toggle menu" }).click();
+  // Scrolling to the cards above retired the header off the top edge. Reach
+  // for it the way a reader does — flick up — rather than forcing the tap.
+  const menuToggle = page.getByRole("button", { name: "Toggle menu" });
+  await page.evaluate(() => window.scrollBy(0, -240));
+  await expect(menuToggle).toBeInViewport();
+
+  await menuToggle.click();
   const mobileNavLinkHeights = await page.locator("#mobile-menu a").evaluateAll((links) => {
     return links.map((link) => Math.round(link.getBoundingClientRect().height));
   });
