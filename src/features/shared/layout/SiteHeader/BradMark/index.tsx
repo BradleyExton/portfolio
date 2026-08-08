@@ -34,8 +34,12 @@ const palette = {
 const HEAD_PATH =
   "M12.5 20 q0 -12 11.5 -12 q11.5 0 11.5 12 l0 7 q0 10 -11.5 10 q-11.5 0 -11.5 -10 z";
 
-/* One clean sweep with a single part, not the scene figure's multi-notch
-   fringe: at nav scale every extra notch closes up into a dark blob. */
+/* One clean sweep with a single part. At nav scale every extra notch closes
+   up into a dark blob, so this cannot simply copy the scene figure's hairline.
+   Known divergence: abd6498 redrew that figure with a centre part and
+   sideburns, which this has not been reconciled against — same face and
+   palette, different hairstyle. Worth a pass if the two ever read as
+   different people side by side on the home page. */
 const HAIR_PATH =
   "M12.5 21 q-0.5 -13 11.5 -13 q12 0 11.5 13 q-1.8 -6 -5.3 -7.4 q-1.3 2.4 -3.6 3 q0.6 -2.4 -0.6 -3.7 q-4.6 -1.8 -9.2 0.6 q-3.6 1.9 -4.3 7.5 z";
 
