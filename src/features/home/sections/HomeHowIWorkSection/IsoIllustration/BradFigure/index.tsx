@@ -66,24 +66,72 @@ const backShoe = (
   </>
 );
 
-/* Shared from the waist out: the drop shadow, the hips, the legs and the shirt
-   block. Everything that says which way he is facing is layered on top of this
-   by frontBase or backBase.
+/* The figure's own drop shadow, which belongs to the floor rather than to him:
+   it stays out of any transform that turns the body. */
+const dropShadow = <ellipse cx="0" cy="159" rx="36" ry="9" fill="#0f766e" opacity="0.14" />;
+
+/* Shared from the waist out: the hips, the legs and the shirt block. Everything
+   that says which way he is facing is layered on top of this by its caller.
    Three details are load-bearing at the 0.62 scale the agents scene uses, and
    each replaced something that failed there:
    - the shirt tapers to the belt at y=103, so the figure keeps a waist;
    - the shade is a rim down the right edge, not a panel whose leading edge cut
      a diagonal across the chest;
    - the belt band is drawn before its hardware, so the two never merge. */
-const torso = (
+function Body({ legs, children }: { legs?: React.ReactNode; children: React.ReactNode }) {
+  return (
+    <>
+      <path d="M-18 100 h36 v18 q0 6 -6 6 h-24 q-6 0 -6 -6 z" fill={palette.pants} />
+      {legs}
+      <path d={bradTorso.body} fill={palette.shirt} />
+      <path d={bradTorso.shade} fill={palette.shirtShade} />
+      <rect x="-18" y="103" width="36" height="6.4" rx="1.5" fill={palette.belt} />
+      {children}
+    </>
+  );
+}
+
+const squareLegs = (
   <>
-    <ellipse cx="0" cy="159" rx="36" ry="9" fill="#0f766e" opacity="0.14" />
-    <path d="M-18 100 h36 v18 q0 6 -6 6 h-24 q-6 0 -6 -6 z" fill={palette.pants} />
     <rect x="-16" y="116" width="13" height="31" rx="6" fill={palette.pants} />
     <rect x="3" y="116" width="13" height="31" rx="6" fill={palette.pants} />
-    <path d={bradTorso.body} fill={palette.shirt} />
-    <path d={bradTorso.shade} fill={palette.shirtShade} />
-    <rect x="-18" y="103" width="36" height="6.4" rx="1.5" fill={palette.belt} />
+  </>
+);
+
+/* Standing in the board's plane means standing in the board's matrix: widths
+   run down the ground axis, verticals stay vertical. One transform turns him to
+   face the thing he is writing on and hands back everything that follows from
+   it — near shoulder dropped toward us, far shoulder ridden up, belt and yoke
+   raked, feet a step apart along the floor. Faking those part by part was the
+   first attempt and it stayed stubbornly flat-on, because the shoulder line was
+   still level and the shoulder line is the whole tell.
+   Only the body takes it. A head and a pair of arms are round in life and a
+   shear turns them into leaning ellipses, so they hang off sheared anchor
+   points and are drawn square — which is what a projection of a solid does
+   anyway. */
+const BOARD_PLANE = "matrix(0.866,0.5,0,1,0,0)";
+
+/** Where a body-local point ends up once the board plane has been applied. */
+const inBoardPlane = (x: number, y: number) => `translate(${(0.866 * x).toFixed(2)},${(0.5 * x + y).toFixed(2)})`;
+
+/* Legs and shoes step along the ground axis instead of raking with the torso.
+   A sheared leg leans and a sheared shoe reads as a floor tile, and neither is
+   what a round limb standing on a floor does — the stance is what moves, not
+   the shapes. Each side is drawn where it always was and shifted by the
+   difference between its own axis raked and square. */
+const legStep = (x: number) => `translate(${(0.866 * x - x).toFixed(2)},${(0.5 * x).toFixed(2)})`;
+const STANCE = 9.5;
+
+const steppedLegs = (
+  <>
+    <g transform={legStep(-STANCE)}>
+      <rect x="-16" y="116" width="13" height="31" rx="6" fill={palette.pants} />
+      {backShoe}
+    </g>
+    <g transform={legStep(STANCE)}>
+      <rect x="3" y="116" width="13" height="31" rx="6" fill={palette.pants} />
+      <g transform="scale(-1,1)">{backShoe}</g>
+    </g>
   </>
 );
 
@@ -93,36 +141,43 @@ const torso = (
    down the middle. */
 const frontBase = (
   <g>
-    {torso}
-    <path d={bradTorso.lapelLeft} fill={palette.trim} />
-    <path d={bradTorso.lapelRight} fill={palette.trim} />
-    <rect {...bradTorso.placket} fill={palette.trim} opacity="0.7" />
-    {bradTorso.buttonYs.map((y) => (
-      <circle key={y} cx="0" cy={y} r="1.4" fill={palette.shirtShade} />
-    ))}
-    <rect x="-4.4" y="102.4" width="8.8" height="7.6" rx="1.6" fill={palette.buckle} />
-    <rect x="-2" y="104.8" width="4" height="2.8" rx="0.8" fill={palette.belt} />
-    {shoe}
-    <g transform="scale(-1,1)">{shoe}</g>
+    {dropShadow}
+    <Body legs={squareLegs}>
+      <path d={bradTorso.lapelLeft} fill={palette.trim} />
+      <path d={bradTorso.lapelRight} fill={palette.trim} />
+      <rect {...bradTorso.placket} fill={palette.trim} opacity="0.7" />
+      {bradTorso.buttonYs.map((y) => (
+        <circle key={y} cx="0" cy={y} r="1.4" fill={palette.shirtShade} />
+      ))}
+      <rect x="-4.4" y="102.4" width="8.8" height="7.6" rx="1.6" fill={palette.buckle} />
+      <rect x="-2" y="104.8" width="4" height="2.8" rx="0.8" fill={palette.belt} />
+      {shoe}
+      <g transform="scale(-1,1)">{shoe}</g>
+    </Body>
   </g>
 );
 
-/* The same shirt and chinos from behind. Turning him round is mostly a matter
-   of what comes off — no placket, no buttons, no buckle — so the read has to
-   be carried by what only a back view has: the collar band standing behind the
-   neck, the yoke seam across the shoulders, two hip pockets, and the belt loops
-   notching the belt. Without them he is a green rectangle. */
+/* The same shirt and chinos from behind, raked into the board's plane. Turning
+   him round is mostly a matter of what comes off — no placket, no buttons, no
+   buckle — so the read has to be carried by what only a back view has: the
+   collar band standing behind the neck, the yoke seam across the shoulders, two
+   hip pockets, and the belt loops notching the belt. Without them he is a green
+   rectangle. All of them are drawn square and centred; the plane transform is
+   what rakes them. */
 const backBase = (
   <g>
-    {torso}
-    <path d="M-19 75 q19 5 38 0" stroke={palette.shirtShade} strokeWidth="2" strokeLinecap="round" fill="none" />
-    <path d="M-11.5 66 q1.5 -9 11.5 -9 q10 0 11.5 9 q-11.5 -4 -23 0 z" fill={palette.trim} />
-    <rect x="-12.4" y="101.6" width="3.6" height="9.2" rx="1.2" fill={palette.pants} />
-    <rect x="8.8" y="101.6" width="3.6" height="9.2" rx="1.2" fill={palette.pants} />
-    <rect x="-14" y="111.5" width="11" height="8.5" rx="2" fill={palette.pantsShade} />
-    <rect x="3" y="111.5" width="11" height="8.5" rx="2" fill={palette.pantsShade} />
-    {backShoe}
-    <g transform="scale(-1,1)">{backShoe}</g>
+    <g transform={BOARD_PLANE}>{dropShadow}</g>
+    {steppedLegs}
+    <g transform={BOARD_PLANE}>
+      <Body>
+        <path d="M-19 75 q19 5 38 0" stroke={palette.shirtShade} strokeWidth="2" strokeLinecap="round" fill="none" />
+        <path d="M-11.5 66 q1.5 -9 11.5 -9 q10 0 11.5 9 q-11.5 -4 -23 0 z" fill={palette.trim} />
+        <rect x="-12.4" y="101.6" width="3.6" height="9.2" rx="1.2" fill={palette.pants} />
+        <rect x="8.8" y="101.6" width="3.6" height="9.2" rx="1.2" fill={palette.pants} />
+        <rect x="-14" y="111.5" width="11" height="8.5" rx="2" fill={palette.pantsShade} />
+        <rect x="3" y="111.5" width="11" height="8.5" rx="2" fill={palette.pantsShade} />
+      </Body>
+    </g>
   </g>
 );
 
@@ -205,11 +260,48 @@ function armsFor(pose: BradPose) {
   if (pose === "spec") {
     return (
       <>
-        <RestArm side="left" />
-        <g transform="translate(25,66)">
+        {/* Both arms hang off shoulders that the board plane has already moved:
+            the far one high and back, the near one dropped toward us. Far arm
+            flat on the page, riding the doc up and back down while the pen is
+            off it — the static angle stays on the outer group and only the delta
+            is animated, so the shoulder never leaves the sleeve and reduced
+            motion rests on the reaching pose rather than an arm hanging
+            straight down. */}
+        <g transform={inBoardPlane(-21, 64)}>
+          <g className={styles.scrollArm}>
+            {/* Arm out to the side at shoulder height with an easy bend at the
+                elbow, hand flat on the page: someone leaning a hand on a wall.
+                Three geometries got tried here — a straight limb read as a
+                plank, a wide low elbow read as a zigzag, and a folded one hid
+                the elbow behind his back so all that showed was a forearm
+                poking out sideways. The bend has to be gentle, and it has to
+                clear the torso to be a bend at all.
+                The whole assembly pivots at the shoulder for the flick, so the
+                hand rides up the page on an arc and drifts in toward him as it
+                climbs, the way a real arm does. Rotating the forearm alone only
+                slides it sideways. */}
+            <g transform="rotate(82.5)">
+              <rect x="-5.5" y="-2" width="11" height="17" rx="5.5" fill={palette.skin} />
+              <circle cx="0" cy="1" r="5.5" fill={palette.shirtShade} />
+              <rect x="-5.5" y="-2" width="11" height={SLEEVE} rx="5.5" fill={palette.shirtShade} />
+              <rect x="-5.6" y={SLEEVE - 4} width="11.2" height="4" fill={palette.trim} />
+              <g transform="translate(0,15) rotate(43.6)">
+                <rect x="-5" y="-5" width="10" height="21" rx="5" fill={palette.skin} />
+                <circle cx="0" cy="16" r="5.5" fill={palette.skin} />
+              </g>
+            </g>
+          </g>
+        </g>
+        {/* Writing arm stays straight, and should: it is at full reach into the
+            board, which is the one position an arm has no bend left in. Jointing
+            it was tried and the elbow only fought the pencil for the silhouette.
+            Lit side, so it takes the plain shirt tone while the far arm sits in
+            the shade one — that tonal split is also the only thing separating
+            the far sleeve from the torso it crosses. */}
+        <g transform={inBoardPlane(25, 66)}>
           <g className={styles.penLift}>
-            <g transform="rotate(-135)">
-              <Limb fill={palette.shirtShade} length={40} grip>
+            <g transform="rotate(-145)">
+              <Limb fill={palette.shirt} length={40} grip>
                 <g className={styles.scribble}>{pencil}</g>
               </Limb>
             </g>

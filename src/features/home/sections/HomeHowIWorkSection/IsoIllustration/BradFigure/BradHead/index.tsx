@@ -52,48 +52,54 @@ const turnedFace = (
   </>
 );
 
-/* Straight up the back of his head. The recession is a front hairline, so from
-   behind the crown is one unbroken slicked mass; what keeps it from reading as
-   a brown egg is the strand fan over the crown, the nape arch cutting the hair
-   short of the jaw, and both ears standing proud at the silhouette. */
-const backFace = (
+/* Three-quarter rear: he is squared up to the board with his back right toward
+   us, so the skull sits left of the neck, the near ear has come inboard off the
+   silhouette, and the far one is only a nub at the opposite edge. The recession
+   is a front hairline, so from back here the crown is one unbroken slicked mass
+   and the tells are all edges — the hairline dropping in front of the near ear,
+   the nape arch, and the crescent of jaw below it. A flat back view was drawn
+   first and it reads as a man ignoring the board rather than working at it. */
+const backTurnedFace = (
   <>
-    <rect x="-6" y="52" width="12" height="10" fill={palette.skinShade} />
-    <path d="M-21 22 q0 -20 21 -20 q21 0 21 20 l0 14 q0 18 -21 18 q-21 0 -21 -18 z" fill={palette.skin} />
+    <rect x="-5" y="52" width="12" height="10" fill={palette.skinShade} />
+    <path d="M-24 26 q0 -24 20 -24 q20 0 20 22 l0 10 q0 18 -20 18 q-20 0 -20 -18 z" fill={palette.skin} />
+    <path d="M-6 44 q11 7 21 -8 l0 5 q-9 15 -21 8 z" fill={palette.stubble} opacity="0.5" />
+    <circle cx="-24" cy="31" r="3.4" fill={palette.skin} />
     <path
-      d="M-21 22 q0 -20 21 -20 q21 0 21 20 l0 11 Q20.5 38 13 40.5 Q6.5 42.5 0 42.5 Q-6.5 42.5 -13 40.5 Q-20.5 38 -21 33 z"
+      d="M-24 33 Q-24 2 -4 2 Q16 2 16 28 Q13 35 6 39 Q0 42 -8 43 Q-17 44 -21 40 Q-24 38 -24 33 Z"
       fill={palette.hair}
     />
     <path
-      d="M-9.5 9 Q-13 24 -12.5 36 M0 5.5 Q0 24 0 41 M9.5 9 Q13 24 12.5 36"
+      d="M-10 6 Q-17 20 -17 33 M-1 4 Q-8 20 -9 38 M8 6 Q2 20 1 34"
       stroke={palette.hairShade}
       strokeWidth="1.4"
       strokeLinecap="round"
       fill="none"
     />
-    <circle cx="-21" cy="32" r="4.5" fill={palette.skin} />
-    <circle cx="21" cy="32" r="4.5" fill={palette.skinShade} />
+    {/* Ear on the hairline rather than clear of it: drawn in the shade tone and
+        overlapping the hair, it has an edge to read against. Sat out on the
+        cheek in the skin tone it was skin on skin and vanished. */}
+    <circle cx="9" cy="32" r="4.8" fill={palette.skinShade} />
+    <path d="M7.4 30.2 q3.2 0.8 3 3.6" stroke="#d8a077" strokeWidth="1.4" strokeLinecap="round" fill="none" />
   </>
 );
 
-/* The look-up beat for a body that is facing away: a glance back over his
-   shoulder, which is the 3/4 view turned the other way. A true three-quarter
-   REAR was drawn first — hair owning the silhouette, a crescent of cheek and
-   the nose tip breaking its far edge — and at the 0.78 scale this renders at it
-   collapsed into a brown egg with a bump on it. The face has to actually come
-   round for the beat to read as him looking up. */
-const glanceFace = <g transform="scale(-1,1)">{turnedFace}</g>;
+/* The beat he looks up on carries the same turn further round, until the face
+   clears his shoulder: he is checking the room, not posing for the camera, so
+   the head keeps rotating the way it was already going rather than snapping to
+   front. This is the 3/4 drawing the other scenes use, unchanged. */
+const glanceFace = turnedFace;
 
 /* `look` picks the clock and the pair of drawings on it. "glance" holds the
-   back of his head for two bars of the writing loop and beats on the shoulder
-   glance; "track" swings out and back with the lens sweep; "nod" is a plain
-   on-beat bob with no turn at all. `held` is always the drawing the pair rests
-   on, so a still of the scene — or reduced motion — lands on the pose the loop
-   spends most of its time in. */
+   3/4 rear for two bars of the writing loop and beats on the look round;
+   "track" swings out and back with the lens sweep; "nod" is a plain on-beat bob
+   with no turn at all. `held` is always the drawing the pair rests on, so a
+   still of the scene — or reduced motion — lands on the pose the loop spends
+   most of its time in. */
 const turnMotion = {
   glance: {
     tilt: styles.headTilt,
-    held: { className: styles.faceHeld, face: backFace },
+    held: { className: styles.faceHeld, face: backTurnedFace },
     beat: { className: styles.faceBeat, face: glanceFace },
   },
   track: {

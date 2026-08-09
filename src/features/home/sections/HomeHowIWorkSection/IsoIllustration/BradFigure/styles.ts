@@ -4,9 +4,16 @@
 // The head has its own set, in BradHead/styles.ts.
 
 // Writing arm: fast wrist scribble inside a slow lift that pulls the pen off
-// the board for the beat he spends glancing over his shoulder.
+// the board for the beat he spends looking round.
 export const penLift = "iso-loop-pen";
 export const scribble = "iso-loop-sway [--iso-sway-duration:0.9s] [--iso-sway-deg:-9deg]";
+
+// The other hand stays on the page and flicks it up three notches while the pen
+// is off the board, then walks it back down. One notch per step, as a delta off
+// the arm's resting angle — the reach itself stays an attribute on the group
+// above this one. The step is small because the arm is folded: at this geometry
+// a dozen degrees at the shoulder is most of a line on the page.
+export const scrollArm = "iso-loop-scroll-hand [--iso-scroll-deg:10deg]";
 
 // Conducting, near hand: the one beating time. A slow shoulder sweep with a
 // wrist flick at twice the rate, so the nested pair traces a figure eight.

@@ -32,25 +32,49 @@ export function SpecIllustration() {
         <g className={styles.pieces[2]}>
           <g transform="translate(120,0)">
             <polygon points="-128.2,-34 -26,25 -32.9,29 -135.1,-30" fill="#f1f6f3" />
-            <polygon points="-26,25 -32.9,29 -32.9,139 -26,135" fill="#e0eae5" />
-            <g transform="matrix(0.866,0.5,0,1,-135.1,80)">
-              <rect x="0" y="-110" width="118" height="110" rx="4" fill="#f8faf9" />
-              <rect x="12" y="-96" width="52" height="11" rx="5" fill="#10b981" />
-              <rect x="12" y="-76" width="90" height="7" rx="3.5" fill="#c9d8d0" />
-              <rect x="12" y="-62" width="72" height="7" rx="3.5" fill="#c9d8d0" />
-              <rect x="12" y="-46" width="10" height="10" rx="3" fill="#10b981" />
-              <rect x="28" y="-44" width="44" height="7" rx="3.5" fill="#c9d8d0" />
-              <rect x="12" y="-30" width="10" height="10" rx="3" fill="#10b981" />
-              <rect x="28" y="-28" width="56" height="7" rx="3.5" fill="#c9d8d0" />
-              {/* The line under the pencil grows while he writes and clears for
-                  the next pass; scaleX pivots on the rect's left edge because
-                  the wrapping translate puts the origin there. */}
-              <g transform="translate(12,-14)">
-                <g className={styles.typeLine}>
-                  <rect x="0" y="0" width="28" height="7" rx="3.5" fill="#c9d8d0" />
+            <polygon points="-26,25 -32.9,29 -32.9,161 -26,157" fill="#e0eae5" />
+            <g transform="matrix(0.866,0.5,0,1,-135.1,102)">
+              <rect x="0" y="-132" width="118" height="132" rx="4" fill="#f8faf9" />
+              {/* The page moves under his left hand, so it needs an edge to
+                  move past: same rect as the sheet, and the rows ride a group
+                  inside it. Without the clip a dragged row leaves the doc and
+                  keeps going across the floor. */}
+              <clipPath id="spec-doc-page">
+                <rect x="0" y="-132" width="118" height="132" rx="4" />
+              </clipPath>
+              <g clipPath="url(#spec-doc-page)">
+                <g className={styles.docScroll}>
+                  <rect x="12" y="-118" width="52" height="11" rx="5" fill="#10b981" />
+                  <rect x="12" y="-100" width="86" height="7" rx="3.5" fill="#c9d8d0" />
+                  <rect x="12" y="-86" width="70" height="7" rx="3.5" fill="#c9d8d0" />
+                  {/* The line under the pencil grows while he writes and clears
+                      for the next pass; scaleX pivots on the rect's left edge
+                      because the wrapping translate puts the origin there. It
+                      sits on the row his pencil actually reaches — he is a head
+                      shorter than the board, so that is up here rather than at
+                      the foot of the page. */}
+                  <g transform="translate(12,-72)">
+                    <g className={styles.typeLine}>
+                      <rect x="0" y="0" width="70" height="7" rx="3.5" fill="#c9d8d0" />
+                    </g>
+                  </g>
+                  <rect x="85" y="-72" width="8" height="7" rx="2" fill="#34d399" className={styles.cursor} />
+                  <rect x="12" y="-58" width="72" height="7" rx="3.5" fill="#c9d8d0" />
+                  <rect x="12" y="-42" width="10" height="10" rx="3" fill="#10b981" />
+                  <rect x="28" y="-40" width="44" height="7" rx="3.5" fill="#c9d8d0" />
+                  <rect x="12" y="-26" width="10" height="10" rx="3" fill="#10b981" />
+                  <rect x="28" y="-24" width="56" height="7" rx="3.5" fill="#c9d8d0" />
+                  <rect x="12" y="-10" width="64" height="7" rx="3.5" fill="#c9d8d0" />
+                  {/* Below the fold, and the reason the scroll reads as a
+                      scroll: the sheet has more doc than it can show, so a
+                      notch up retires a row off the top and brings one in from
+                      under the edge. */}
+                  <rect x="12" y="4" width="80" height="7" rx="3.5" fill="#c9d8d0" />
+                  <rect x="12" y="18" width="10" height="10" rx="3" fill="#10b981" />
+                  <rect x="28" y="20" width="48" height="7" rx="3.5" fill="#c9d8d0" />
+                  <rect x="12" y="34" width="66" height="7" rx="3.5" fill="#c9d8d0" />
                 </g>
               </g>
-              <rect x="46" y="-14" width="8" height="7" rx="2" fill="#34d399" className={styles.cursor} />
             </g>
           </g>
         </g>
@@ -83,12 +107,13 @@ export function SpecIllustration() {
           <polygon points="0,0 13,7.5 0,15 -13,7.5" fill="#a7f3d0" transform="translate(-160,40)" />
           <polygon points="0,0 13,7.5 0,15 -13,7.5" fill="#6ee7b7" transform="translate(244,8)" />
         </g>
-        {/* Still mirrored, which a back view is free to be: it puts the
-            writing arm on the near side of him and keeps his body over the
-            doc's right margin, so the heading, the checklist and the line he is
-            typing all stay clear of him. */}
+        {/* Squared up to the board and standing on its centre line. The mirror
+            is gone, so his writing hand is his right one and it reaches up into
+            the doc; in this projection stepping forward off the board also
+            steps left, so the spot that puts him under the middle of the panel
+            is in front of its right half, not its middle. */}
         <g className={styles.pieces[6]}>
-          <BradFigure pose="spec" transform="translate(68.1,175) scale(-0.78,0.78) translate(0,-159)" />
+          <BradFigure pose="spec" transform="translate(38.5,173) scale(0.72) translate(0,-159)" />
         </g>
       </g>
     </svg>
