@@ -11,8 +11,8 @@ export const scribble = "iso-loop-sway [--iso-sway-duration:0.9s] [--iso-sway-de
 // The other hand stays on the page and flicks it up three notches while the pen
 // is off the board, then walks it back down. One notch per step, as a delta off
 // the arm's resting angle — the reach itself stays an attribute on the group
-// above this one. The step is small because the arm is folded: at this geometry
-// a dozen degrees at the shoulder is most of a line on the page.
+// above this one. The step is small because the arm is out at full stretch: at
+// that radius ten degrees at the shoulder carries the hand most of a line.
 export const scrollArm = "iso-loop-scroll-hand [--iso-scroll-deg:10deg]";
 
 // Conducting, near hand: the one beating time. A slow shoulder sweep with a
