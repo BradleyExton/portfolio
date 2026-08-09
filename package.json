@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint --max-warnings=0 src eslint.config.mjs next.config.ts playwright.config.ts vitest.config.ts",
     "lint:copy": "node scripts/copy-lint.mjs",
+    "icons": "node scripts/generate-icons.mjs",
     "typecheck": "tsc --noEmit",
     "verify": "npm run lint && npm run lint:copy && npm run typecheck && npm run build",
     "test": "vitest run",
