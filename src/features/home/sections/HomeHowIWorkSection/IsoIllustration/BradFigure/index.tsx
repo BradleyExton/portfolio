@@ -1,7 +1,7 @@
 import { bradTorso } from "@/features/shared/character/bradArtwork";
 import { BradHead } from "./BradHead";
 import * as styles from "./styles";
-import type { BradFigureProps, BradHeadLook, BradPose } from "./types";
+import type { BatonArmProps, BodyProps, BradFigureProps, BradHeadLook, BradPose, LimbProps } from "./types";
 import { palette, SLEEVE } from "./utils";
 
 /* Cartoon Bradley for the how-i-work iso scenes: flat chibi figure drawn in
@@ -15,17 +15,7 @@ import { palette, SLEEVE } from "./utils";
    `grip` puts the hand above the prop instead of under it: a pencil or a
    magnifier handle drawn last covers the hand completely, and the arm ends up
    looking like it terminates in the tool. */
-function Limb({
-  fill,
-  length,
-  grip,
-  children,
-}: {
-  fill: string;
-  length: number;
-  grip?: boolean;
-  children?: React.ReactNode;
-}) {
+function Limb({ fill, length, grip, children }: LimbProps) {
   const hand = <circle cx="0" cy={length} r="5.5" fill={palette.skin} />;
   const sleeve = Math.min(SLEEVE, length);
 
@@ -78,7 +68,7 @@ const dropShadow = <ellipse cx="0" cy="159" rx="36" ry="9" fill="#0f766e" opacit
    - the shade is a rim down the right edge, not a panel whose leading edge cut
      a diagonal across the chest;
    - the belt band is drawn before its hardware, so the two never merge. */
-function Body({ legs, children }: { legs?: React.ReactNode; children: React.ReactNode }) {
+function Body({ legs, children }: BodyProps) {
   return (
     <>
       <path d="M-18 100 h36 v18 q0 6 -6 6 h-24 q-6 0 -6 -6 z" fill={palette.pants} />
@@ -218,20 +208,7 @@ const magnifier = (
    figure eight a conductor actually draws. Short sleeve, so the sleeve ends on
    the upper arm and the whole forearm below the elbow flick is bare.
    The two arms share this geometry but not their clocks — see cueSweep. */
-function BatonArm({
-  side,
-  base,
-  fill,
-  sweep,
-  flick,
-}: {
-  side: 1 | -1;
-  /** Resting angle off straight-down, before the sweep. */
-  base: number;
-  fill: string;
-  sweep: string;
-  flick: string;
-}) {
+function BatonArm({ side, base, fill, sweep, flick }: BatonArmProps) {
   return (
     <g transform={`translate(${24 * side},66)`}>
       <g className={sweep}>
