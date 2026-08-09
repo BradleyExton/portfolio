@@ -25,14 +25,14 @@ function AgentPad({ x, y }: { x: number; y: number }) {
    the one in front, and at the old spacing the back two collapsed into a single
    silhouette. Roughly 90 units of x between neighbours is what it takes to keep
    three bodies plus their arms clear of each other. */
-const stations: { kind: AgentKind; x: number; y: number; beat: string; note: string }[] = [
-  { kind: "gemini", x: 168, y: 118, beat: styles.beatC, note: styles.noteC },
-  { kind: "claude", x: 105, y: 130, beat: styles.beatA, note: styles.noteA },
+const stations: { kind: AgentKind; x: number; y: number }[] = [
+  { kind: "gemini", x: 168, y: 118 },
+  { kind: "claude", x: 105, y: 130 },
   // Sits further down the plane than the arc wants. The conductor's riser is
   // directly up-plane of this station, and anywhere higher put the bot's
   // antenna light on the riser's front face, where it read as a blemish on the
   // riser rather than as a thing standing in front of it.
-  { kind: "codex", x: 5, y: 160, beat: styles.beatB, note: styles.noteB },
+  { kind: "codex", x: 5, y: 160 },
 ];
 
 // Inlined from public/images/how-i-work/agents.svg; loop keyframes live in
@@ -71,22 +71,16 @@ export function AgentsIllustration() {
           <polygon points="1.7,52 1.7,66 -43.3,92 -43.3,78" fill="#047857" />
           <polygon points="-43.3,40 -22.5,52 -43.3,64 -64.1,52" fill="#a7f3d0" />
         </g>
-        {/* The three agents answer the baton instead of drifting on their own
-            clocks: one bot bobs per beat of the same 2.4s bar the arms sweep on,
-            each offset by a third, with a note rising off its downbeat. That
-            sync is the whole point of the scene — orchestration.
-            The plinth stays planted and only the bot rides the beat; lifting the
-            pad too made the floor look like it was bouncing under them. */}
+        {/* Each agent carries its own gesture rather than a shared beat — see
+            AgentBot/styles. They are still on the conductor's tempo, because
+            every one of those gestures runs on a multiple of the same 2.4s bar
+            the batons sweep on; what they no longer do is all make the same
+            move on it, which is what a section under a conductor looks like. */}
         <g className={styles.pieces[4]}>
           {stations.map((station) => (
             <g key={station.kind}>
               <AgentPad x={station.x} y={station.y} />
-              <g className={station.beat}>
-                <AgentBot kind={station.kind} transform={`translate(${station.x},${station.y})`} />
-              </g>
-              <g transform={`translate(${station.x},${station.y - 74})`}>
-                <polygon points="0,0 7,4 0,8.1 -7,4" fill="#059669" className={station.note} />
-              </g>
+              <AgentBot kind={station.kind} transform={`translate(${station.x},${station.y})`} />
             </g>
           ))}
         </g>

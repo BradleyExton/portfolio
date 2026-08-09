@@ -58,27 +58,62 @@ const marks: Record<AgentKind, React.ReactNode> = {
   ),
 };
 
+/* An arm hinged at the shoulder, so a gesture rotates where an arm actually
+   rotates. side 1 is the arm on the right of the drawing. Drawn straight down
+   from the hinge and given its resting splay inside the animated group, so the
+   gesture composes with the splay instead of replacing it. */
+function Arm({ side, motion }: { side: 1 | -1; motion?: string }) {
+  return (
+    <g transform={`translate(${16.7 * side},-27)`}>
+      <g className={motion}>
+        <g transform={`rotate(${-10 * side})`}>
+          <rect x="-2.7" y="0" width="5.4" height="15" rx="2.7" fill={bot.chassisShade} />
+        </g>
+      </g>
+    </g>
+  );
+}
+
 export function AgentBot({ kind, transform }: AgentBotProps) {
+  const motion = styles.motionByKind[kind];
+
   return (
     <g transform={transform}>
+      {/* Outside the lean, because a shadow cast on the pad does not lean with
+          the thing casting it. */}
       <ellipse cx="0" cy="0" rx="15" ry="5" fill={bot.chassisShade} opacity="0.3" />
-      {/* Arms and vents go down before the body and head, so the silhouettes on
-          top cut them off cleanly at the shoulder and the temple. */}
-      <rect x="-19.4" y="-27" width="5.4" height="15" rx="2.7" fill={bot.chassisShade} transform="rotate(10 -16.7 -27)" />
-      <rect x="14" y="-27" width="5.4" height="15" rx="2.7" fill={bot.chassisShade} transform="rotate(-10 16.7 -27)" />
-      <rect x="-15.6" y="-49" width="3" height="8" rx="1.5" fill={bot.chassisShade} />
-      <rect x="12.6" y="-49" width="3" height="8" rx="1.5" fill={bot.chassisShade} />
-      <rect x="-4" y="-34" width="8" height="6" rx="1.6" fill={bot.chassisShade} />
-      <rect x="-9.5" y="-7" width="19" height="7" rx="2.8" fill={bot.chassisShade} />
-      <rect x="-14" y="-30" width="28" height="23" rx="8" fill={bot.chassis} />
-      <path d="M5 -30 h1 q8 0 8 8 v7 q0 8 -8 8 h-1 z" fill={bot.chassisShade} />
-      <g transform="translate(0,-19) scale(0.8)">{marks[kind]}</g>
-      <rect x="-13" y="-55" width="26" height="22" rx="8" fill={bot.shell} />
-      <rect x="-10" y="-50" width="20" height="11.5" rx="5.75" fill={bot.visor} />
-      <circle cx="-4.4" cy="-44.3" r="2.3" fill={bot.eye} />
-      <circle cx="4.4" cy="-44.3" r="2.3" fill={bot.eye} />
-      <rect x="-1.2" y="-62" width="2.4" height="8" rx="1.2" fill={bot.chassisShade} />
-      <circle cx="0" cy="-63.6" r="3" fill={bot.status} className={styles.statusByKind[kind]} />
+      <g className={motion.lean}>
+        {/* Arms and neck go down before the body, so the body silhouette cuts
+            them off cleanly at the shoulder and the collar. */}
+        <Arm side={-1} motion={motion.armFar} />
+        <Arm side={1} motion={motion.armNear} />
+        <rect x="-4" y="-34" width="8" height="6" rx="1.6" fill={bot.chassisShade} />
+        <rect x="-9.5" y="-7" width="19" height="7" rx="2.8" fill={bot.chassisShade} />
+        <rect x="-14" y="-30" width="28" height="23" rx="8" fill={bot.chassis} />
+        <path d="M5 -30 h1 q8 0 8 8 v7 q0 8 -8 8 h-1 z" fill={bot.chassisShade} />
+        <g transform="translate(0,-19) scale(0.8)">{marks[kind]}</g>
+        {/* Head, hinged on the collar rather than on its own centre: a head that
+            tilts about its middle slides off the neck it is sitting on. */}
+        <g transform="translate(0,-30)">
+          <g className={motion.headTilt}>
+            <g transform="translate(0,30)">
+              <rect x="-15.6" y="-49" width="3" height="8" rx="1.5" fill={bot.chassisShade} />
+              <rect x="12.6" y="-49" width="3" height="8" rx="1.5" fill={bot.chassisShade} />
+              <rect x="-13" y="-55" width="26" height="22" rx="8" fill={bot.shell} />
+              <rect x="-10" y="-50" width="20" height="11.5" rx="5.75" fill={bot.visor} />
+              {/* Parked a half-pan left of centre. The slide runs from zero to
+                  its offset, so starting centred would pan the eyes to one side
+                  of the visor and back rather than across it. */}
+              <g className={motion.eyeScan}>
+                <circle cx="-5.7" cy="-44.3" r="2.3" fill={bot.eye} />
+                <circle cx="3.1" cy="-44.3" r="2.3" fill={bot.eye} />
+              </g>
+              <rect x="-1.2" y="-62" width="2.4" height="8" rx="1.2" fill={bot.chassisShade} />
+              <circle cx="0" cy="-63.6" r="3" fill={bot.status} className={styles.statusByKind[kind]} />
+            </g>
+          </g>
+        </g>
+      </g>
     </g>
   );
 }

@@ -677,40 +677,6 @@ html {
   }
 }
 
-/* Agent bots answer the baton: one bobs per beat, offset by delay. */
-@keyframes iso-beat {
-  0% {
-    transform: translateY(0);
-  }
-
-  12% {
-    transform: translateY(var(--iso-beat-y, -7px));
-  }
-
-  40%,
-  100% {
-    transform: translateY(0);
-  }
-}
-
-@keyframes iso-note {
-  0% {
-    opacity: 0;
-    transform: translate(0, 0) scale(0.5);
-  }
-
-  14% {
-    opacity: 1;
-    transform: translate(0, -7px) scale(1);
-  }
-
-  46%,
-  100% {
-    opacity: 0;
-    transform: translate(0, -22px) scale(0.75);
-  }
-}
-
 /* Magnifier sweeps left to right across the gate posts, holds at the far end,
    returns. Gate flashes below are delayed to land under the moving lens. */
 @keyframes iso-inspect {
@@ -1044,7 +1010,8 @@ html {
   }
 
   .iso-scene .iso-loop-sway {
-    animation: iso-sway var(--iso-sway-duration, 2.8s) ease-in-out infinite;
+    animation: iso-sway var(--iso-sway-duration, 2.8s) ease-in-out
+      var(--iso-sway-delay, 0s) infinite;
     animation-play-state: var(--iso-play);
   }
 
@@ -1122,19 +1089,6 @@ html {
   .iso-scene .iso-loop-baton-flick {
     animation: iso-baton-flick calc(var(--iso-beat, 2.4s) / 2) ease-in-out
       var(--iso-flick-delay, 0s) infinite;
-    animation-play-state: var(--iso-play);
-  }
-
-  .iso-scene .iso-loop-beat {
-    animation: iso-beat var(--iso-beat, 2.4s) ease-out
-      var(--iso-beat-delay, 0s) infinite;
-    animation-play-state: var(--iso-play);
-  }
-
-  .iso-scene .iso-loop-note {
-    opacity: 0;
-    animation: iso-note var(--iso-beat, 2.4s) ease-out var(--iso-beat-delay, 0s)
-      infinite;
     animation-play-state: var(--iso-play);
   }
 
