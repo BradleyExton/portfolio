@@ -107,13 +107,15 @@ export function SpecIllustration() {
           <polygon points="0,0 13,7.5 0,15 -13,7.5" fill="#a7f3d0" transform="translate(-160,40)" />
           <polygon points="0,0 13,7.5 0,15 -13,7.5" fill="#6ee7b7" transform="translate(244,8)" />
         </g>
-        {/* Squared up to the board and standing on its centre line. The mirror
-            is gone, so his writing hand is his right one and it reaches up into
-            the doc; in this projection stepping forward off the board also
-            steps left, so the spot that puts him under the middle of the panel
-            is in front of its right half, not its middle. */}
+        {/* At the board's near corner rather than in front of it, three-quarter
+            to us, reaching across to write. Standing him in front of the panel
+            forced a choice between his back and a figure who faces out while
+            writing behind himself, and both read badly; from the corner he can
+            work the board and still show a face. The spot is far enough left to
+            clear the slab block behind him and far enough right that the pencil
+            lands inside the page rather than off its edge. */}
         <g className={styles.pieces[6]}>
-          <BradFigure pose="spec" transform="translate(38.5,173) scale(0.72) translate(0,-159)" />
+          <BradFigure pose="spec" transform="translate(-34,136) scale(0.72) translate(0,-159)" />
         </g>
       </g>
     </svg>

@@ -22,8 +22,8 @@ export const bradPalette = {
   skin: "#f2c29c",
   skinShade: "#eab88f",
   hair: "#a37e54",
-  // Only ever seen from behind: the slicked strands over the crown, which are
-  // the one thing separating the back of his head from a plain brown oval.
+  // Underside of the slicked-back cap on the turned head, where the hair leaves
+  // the skull and nothing else separates the two brown masses.
   hairShade: "#8a6844",
   stubble: "#c49a6c",
   shirt: "#10b981",
@@ -42,6 +42,11 @@ export const bradPalette = {
   // them, the upper vanished and only the midsole read.
   shoe: "#7b8f85",
   sole: "#f3f6f4",
+  // The sole used to be one bar of `sole`, and at scene scale it was the
+  // brightest thing on the figure — two pale blocks that pulled the eye
+  // straight to his feet. It is now a thin midsole over this outsole, which
+  // also gives every other rounded part its shaded side.
+  outsole: "#4c6058",
   eye: "#2f2a26",
   brow: "#8a683f",
   nose: "#dda87e",

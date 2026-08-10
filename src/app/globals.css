@@ -529,53 +529,16 @@ html {
   }
 }
 
-/* The hand he keeps on the page, and the page under it. Both ratchet: three
-   flicks up, a beat to read what arrived, three back down. A single smooth
-   drift was the first pass and it read as the page sagging rather than as
-   anyone scrolling — the notches and the pause between them are the whole
-   difference. Each var is one notch, multiplied per step, so the travel stays
+/* The page under the pencil. It ratchets: three notches up, a beat to read what
+   arrived, three back down — write, scroll back over it, carry on. A single
+   smooth drift was the first pass and it read as the page sagging rather than as
+   anyone scrolling; the notches and the pause between them are the whole
+   difference. The var is one notch, multiplied per step, so the travel stays
    tunable from the component.
-   Both run the pen's clock and only in the window where the pen is off the
-   board, because a page that moves under a pencil is a page being scribbled on.
-   The arm carries a delta rather than an absolute angle, so the pose it starts
-   from stays an attribute on the group above it. */
-@keyframes iso-scroll-hand {
-  0%,
-  60% {
-    transform: rotate(0deg);
-  }
-
-  63%,
-  66% {
-    transform: rotate(var(--iso-scroll-deg, 11deg));
-  }
-
-  69%,
-  72% {
-    transform: rotate(calc(var(--iso-scroll-deg, 11deg) * 2));
-  }
-
-  75%,
-  80% {
-    transform: rotate(calc(var(--iso-scroll-deg, 11deg) * 3));
-  }
-
-  83%,
-  86% {
-    transform: rotate(calc(var(--iso-scroll-deg, 11deg) * 2));
-  }
-
-  89%,
-  92% {
-    transform: rotate(var(--iso-scroll-deg, 11deg));
-  }
-
-  95%,
-  100% {
-    transform: rotate(0deg);
-  }
-}
-
+   It runs the pen's clock and only in the window where the pen is off the board,
+   because a page that moves under a pencil is a page being scribbled on. A hand
+   flicking the page along used to ride the same clock; the arm it belonged to is
+   gone, but the page keeps its own motion. */
 @keyframes iso-doc-scroll {
   0%,
   60% {
@@ -1146,12 +1109,6 @@ html {
 
   .iso-scene .iso-loop-type {
     animation: iso-type-line var(--iso-look-duration, 7.2s) ease-out infinite;
-    animation-play-state: var(--iso-play);
-  }
-
-  .iso-scene .iso-loop-scroll-hand {
-    animation: iso-scroll-hand var(--iso-look-duration, 7.2s) ease-in-out
-      infinite;
     animation-play-state: var(--iso-play);
   }
 

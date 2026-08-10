@@ -18,8 +18,13 @@ export type LimbProps = {
 };
 
 export type BodyProps = {
-  legs?: React.ReactNode;
   children: React.ReactNode;
+};
+
+export type HangingArmProps = {
+  fill: string;
+  /** Length below the sleeve hem, where the elbow is. */
+  forearm: number;
 };
 
 export type BatonArmProps = {

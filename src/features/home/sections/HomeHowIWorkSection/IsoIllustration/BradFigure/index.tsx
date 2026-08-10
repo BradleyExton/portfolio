@@ -1,7 +1,15 @@
 import { bradTorso } from "@/features/shared/character/bradArtwork";
 import { BradHead } from "./BradHead";
 import * as styles from "./styles";
-import type { BatonArmProps, BodyProps, BradFigureProps, BradHeadLook, BradPose, LimbProps } from "./types";
+import type {
+  BatonArmProps,
+  BodyProps,
+  BradFigureProps,
+  BradHeadLook,
+  BradPose,
+  HangingArmProps,
+  LimbProps,
+} from "./types";
 import { palette, SLEEVE } from "./utils";
 
 /* Cartoon Bradley for the how-i-work iso scenes: flat chibi figure drawn in
@@ -35,30 +43,32 @@ function Limb({ fill, length, grip, children }: LimbProps) {
 }
 
 /* Left runner: toe splayed out past the leg, heel flush with the back of it,
-   instep sloping up to the ankle, white midsole under an emerald flash. Drawn
-   once and mirrored, so the pair can never drift apart. */
+   instep sloping up to the ankle, midsole under an emerald flash. Drawn once and
+   mirrored, so the pair can never drift apart.
+   The sole is two bands, not one: a thin pale midsole over a dark outsole. As a
+   single pale bar it was the brightest shape on the whole figure and the eye
+   went to his feet before his face. The heel also takes a shade wedge, which is
+   what stops the upper reading as a flat cutout. */
 const shoe = (
   <>
     <path d="M-3 145 L-3 157 L-19.4 157 Q-21.6 156.6 -21 153 Q-20.4 149.8 -17.6 148.8 Q-16 148.2 -16 145 Z" fill={palette.shoe} />
+    <path d="M-6.4 145 L-3 145 L-3 152.8 L-6.4 152.8 z" fill={palette.outsole} opacity="0.28" />
     <path d="M-20.6 151.8 Q-19 149.6 -16.4 148.9 L-15.6 151 Q-18 151.7 -19 152.8 Z" fill={palette.shirt} />
-    <path d="M-3 152.8 L-3 157 L-19.4 157 Q-21.6 156.6 -21 152.8 Z" fill={palette.sole} />
+    <path d="M-3 152.6 L-3 155.4 L-19.9 155.4 Q-21.4 155.2 -21 152.6 Z" fill={palette.sole} />
+    <path d="M-3 155.4 L-3 157 L-19.4 157 Q-20.9 156.8 -20.8 155.4 Z" fill={palette.outsole} />
   </>
 );
 
-/* Same runner from behind, where the toe splay is gone and all that is left is
-   a heel: a squared-off counter, the midsole under it, and the emerald flash
-   pulled round to the heel tab. */
-const backShoe = (
+/* The figure's own drop shadow, which belongs to the floor rather than to him.
+   Two ellipses: a broad soft one for the ambient occlusion and a tight dark one
+   right under the soles. The broad one alone left him hovering a little — a
+   figure only reads as standing on a floor once something touches it. */
+const dropShadow = (
   <>
-    <path d="M-17.6 146 q0 -3 3 -3 h10 q2.6 0 2.6 3 v11 h-15.6 z" fill={palette.shoe} />
-    <rect x="-12.6" y="145.4" width="4.6" height="5.6" rx="1.6" fill={palette.shirt} />
-    <path d="M-17.6 153.2 h15.6 v3.8 h-15.6 z" fill={palette.sole} />
+    <ellipse cx="0" cy="159" rx="36" ry="9" fill="#0f766e" opacity="0.14" />
+    <ellipse cx="0" cy="158" rx="23" ry="5.6" fill="#0f766e" opacity="0.2" />
   </>
 );
-
-/* The figure's own drop shadow, which belongs to the floor rather than to him:
-   it stays out of any transform that turns the body. */
-const dropShadow = <ellipse cx="0" cy="159" rx="36" ry="9" fill="#0f766e" opacity="0.14" />;
 
 /* Shared from the waist out: the hips, the legs and the shirt block. Everything
    that says which way he is facing is layered on top of this by its caller.
@@ -68,11 +78,17 @@ const dropShadow = <ellipse cx="0" cy="159" rx="36" ry="9" fill="#0f766e" opacit
    - the shade is a rim down the right edge, not a panel whose leading edge cut
      a diagonal across the chest;
    - the belt band is drawn before its hardware, so the two never merge. */
-function Body({ legs, children }: BodyProps) {
+function Body({ children }: BodyProps) {
   return (
     <>
       <path d="M-18 100 h36 v18 q0 6 -6 6 h-24 q-6 0 -6 -6 z" fill={palette.pants} />
-      {legs}
+      {/* Legs, with a shaded strip down the right of each. The strip is what
+          turns two flat rectangles into two cylinders, and it can sit at a fixed
+          side because a standing leg never rotates. */}
+      <rect x="-16" y="116" width="13" height="31" rx="6" fill={palette.pants} />
+      <rect x="3" y="116" width="13" height="31" rx="6" fill={palette.pants} />
+      <rect x="-6.4" y="116" width="3.4" height="31" rx="1.7" fill={palette.pantsShade} />
+      <rect x="12.6" y="116" width="3.4" height="31" rx="1.7" fill={palette.pantsShade} />
       <path d={bradTorso.body} fill={palette.shirt} />
       <path d={bradTorso.shade} fill={palette.shirtShade} />
       <rect x="-18" y="103" width="36" height="6.4" rx="1.5" fill={palette.belt} />
@@ -81,50 +97,6 @@ function Body({ legs, children }: BodyProps) {
   );
 }
 
-const squareLegs = (
-  <>
-    <rect x="-16" y="116" width="13" height="31" rx="6" fill={palette.pants} />
-    <rect x="3" y="116" width="13" height="31" rx="6" fill={palette.pants} />
-  </>
-);
-
-/* Standing in the board's plane means standing in the board's matrix: widths
-   run down the ground axis, verticals stay vertical. One transform turns him to
-   face the thing he is writing on and hands back everything that follows from
-   it — near shoulder dropped toward us, far shoulder ridden up, belt and yoke
-   raked, feet a step apart along the floor. Faking those part by part was the
-   first attempt and it stayed stubbornly flat-on, because the shoulder line was
-   still level and the shoulder line is the whole tell.
-   Only the body takes it. A head and a pair of arms are round in life and a
-   shear turns them into leaning ellipses, so they hang off sheared anchor
-   points and are drawn square — which is what a projection of a solid does
-   anyway. */
-const BOARD_PLANE = "matrix(0.866,0.5,0,1,0,0)";
-
-/** Where a body-local point ends up once the board plane has been applied. */
-const inBoardPlane = (x: number, y: number) => `translate(${(0.866 * x).toFixed(2)},${(0.5 * x + y).toFixed(2)})`;
-
-/* Legs and shoes step along the ground axis instead of raking with the torso.
-   A sheared leg leans and a sheared shoe reads as a floor tile, and neither is
-   what a round limb standing on a floor does — the stance is what moves, not
-   the shapes. Each side is drawn where it always was and shifted by the
-   difference between its own axis raked and square. */
-const legStep = (x: number) => `translate(${(0.866 * x - x).toFixed(2)},${(0.5 * x).toFixed(2)})`;
-const STANCE = 9.5;
-
-const steppedLegs = (
-  <>
-    <g transform={legStep(-STANCE)}>
-      <rect x="-16" y="116" width="13" height="31" rx="6" fill={palette.pants} />
-      {backShoe}
-    </g>
-    <g transform={legStep(STANCE)}>
-      <rect x="3" y="116" width="13" height="31" rx="6" fill={palette.pants} />
-      <g transform="scale(-1,1)">{backShoe}</g>
-    </g>
-  </>
-);
-
 /* Short-sleeve button-up tucked into chinos: collar points, placket and
    buttons down the centre, buckle on the belt. The placket stops short of the
    waistband, so it and the buckle stay two shapes instead of one pale line
@@ -132,7 +104,7 @@ const steppedLegs = (
 const frontBase = (
   <g>
     {dropShadow}
-    <Body legs={squareLegs}>
+    <Body>
       <path d={bradTorso.lapelLeft} fill={palette.trim} />
       <path d={bradTorso.lapelRight} fill={palette.trim} />
       <rect {...bradTorso.placket} fill={palette.trim} opacity="0.7" />
@@ -147,34 +119,34 @@ const frontBase = (
   </g>
 );
 
-/* The same shirt and chinos from behind, raked into the board's plane. Turning
-   him round is mostly a matter of what comes off — no placket, no buttons, no
-   buckle — so the read has to be carried by what only a back view has: the
-   collar band standing behind the neck, the yoke seam across the shoulders, two
-   hip pockets, and the belt loops notching the belt. Without them he is a green
-   rectangle. All of them are drawn square and centred; the plane transform is
-   what rakes them. */
-const backBase = (
-  <g>
-    <g transform={BOARD_PLANE}>{dropShadow}</g>
-    {steppedLegs}
-    <g transform={BOARD_PLANE}>
-      <Body>
-        <path d="M-19 75 q19 5 38 0" stroke={palette.shirtShade} strokeWidth="2" strokeLinecap="round" fill="none" />
-        <path d="M-11.5 66 q1.5 -9 11.5 -9 q10 0 11.5 9 q-11.5 -4 -23 0 z" fill={palette.trim} />
-        <rect x="-12.4" y="101.6" width="3.6" height="9.2" rx="1.2" fill={palette.pants} />
-        <rect x="8.8" y="101.6" width="3.6" height="9.2" rx="1.2" fill={palette.pants} />
-        <rect x="-14" y="111.5" width="11" height="8.5" rx="2" fill={palette.pantsShade} />
-        <rect x="3" y="111.5" width="11" height="8.5" rx="2" fill={palette.pantsShade} />
-      </Body>
-    </g>
-  </g>
-);
-
-function RestArm({ side }: { side: "left" | "right" }) {
+/* An arm that is not doing anything, which is most of them. Three things it
+   needs that a plain Limb does not give it: a forearm narrower than the sleeve,
+   an elbow at the sleeve hem so the forearm swings in toward the hip rather than
+   dropping as one straight tube, and a loose fist wider than the wrist. Without
+   the last two a resting arm ends in a circle the same width as the arm, which
+   reads as the limb trailing off rather than as a hand.
+   The shaded strips sit at a fixed side for the same reason the legs' do: these
+   arms hang, so they are never rotated far enough for the light to move. */
+function HangingArm({ fill, forearm }: HangingArmProps) {
   return (
-    <g transform={side === "left" ? "translate(-25,68) rotate(8)" : "translate(25,68) rotate(-8)"}>
-      <Limb fill={side === "left" ? palette.shirt : palette.shirtShade} length={38} />
+    <g>
+      <circle cx="0" cy="1" r="5.5" fill={fill} />
+      <rect x="-5.5" y="-2" width="11" height={SLEEVE} rx="5.5" fill={fill} />
+      <path d="M2.4 -1.6 h3.1 v13 h-3.1 z" fill={palette.shirtShade} opacity="0.5" />
+      <rect x="-5.6" y={SLEEVE - 4} width="11.2" height="4" fill={palette.trim} />
+      <g transform={`translate(0,${SLEEVE - 1}) rotate(-13)`}>
+        <rect x="-4.6" y="-4" width="9.2" height={forearm} rx="4.6" fill={palette.skin} />
+        <rect x="1.2" y="-2" width="3.4" height={forearm - 5} rx="1.7" fill={palette.skinShade} opacity="0.7" />
+        <g transform={`translate(0,${forearm - 2})`}>
+          <path d="M-5.8 -4.4 q0 -3 3.2 -3 h5.2 q3.2 0 3.2 3.2 v4.4 q0 3.4 -3.4 3.4 h-4.8 q-3.4 0 -3.4 -3.4 z" fill={palette.skin} />
+          <path
+            d="M-2.8 -3.6 v3.4 M0.4 -4 v3.6 M3.4 -3.4 v3.2"
+            stroke={palette.skinShade}
+            strokeWidth="1.1"
+            strokeLinecap="round"
+          />
+        </g>
+      </g>
     </g>
   );
 }
@@ -237,47 +209,22 @@ function armsFor(pose: BradPose) {
   if (pose === "spec") {
     return (
       <>
-        {/* Both arms hang off shoulders that the board plane has already moved:
-            the far one high and back, the near one dropped toward us. Far arm
-            flat on the page, riding the doc up and back down while the pen is
-            off it — the static angle stays on the outer group and only the delta
-            is animated, so the shoulder never leaves the sleeve and reduced
-            motion rests on the reaching pose rather than an arm hanging
-            straight down. */}
-        <g transform={inBoardPlane(-21, 64)}>
-          <g className={styles.scrollArm}>
-            {/* Arm out to the side at shoulder height with an easy bend at the
-                elbow, hand flat on the page: someone leaning a hand on a wall.
-                Three geometries got tried here — a straight limb read as a
-                plank, a wide low elbow read as a zigzag, and a folded one hid
-                the elbow behind his back so all that showed was a forearm
-                poking out sideways. The bend has to be gentle, and it has to
-                clear the torso to be a bend at all.
-                The whole assembly pivots at the shoulder for the flick, so the
-                hand rides up the page on an arc and drifts in toward him as it
-                climbs, the way a real arm does. Rotating the forearm alone only
-                slides it sideways. */}
-            <g transform="rotate(82.5)">
-              <rect x="-5.5" y="-2" width="11" height="17" rx="5.5" fill={palette.skin} />
-              <circle cx="0" cy="1" r="5.5" fill={palette.shirtShade} />
-              <rect x="-5.5" y="-2" width="11" height={SLEEVE} rx="5.5" fill={palette.shirtShade} />
-              <rect x="-5.6" y={SLEEVE - 4} width="11.2" height="4" fill={palette.trim} />
-              <g transform="translate(0,15) rotate(43.6)">
-                <rect x="-5" y="-5" width="10" height="21" rx="5" fill={palette.skin} />
-                <circle cx="0" cy="16" r="5.5" fill={palette.skin} />
-              </g>
-            </g>
-          </g>
+        {/* Far arm, so it takes the shade tone and is drawn first for the near
+            one to cross. It does nothing but hang, which is the point: the
+            version that reached up and put a hand on the page had to clear his
+            own head to get there, and every angle that did read as a chevron of
+            two equal tubes ending in a bare wrist. */}
+        <g transform="translate(-24,66) rotate(16)">
+          <HangingArm fill={palette.shirtShade} forearm={19} />
         </g>
         {/* Writing arm stays straight, and should: it is at full reach into the
             board, which is the one position an arm has no bend left in. Jointing
-            it was tried and the elbow only fought the pencil for the silhouette.
-            Lit side, so it takes the plain shirt tone while the far arm sits in
-            the shade one — that tonal split is also the only thing separating
-            the far sleeve from the torso it crosses. */}
-        <g transform={inBoardPlane(25, 66)}>
+            it was tried and the elbow only fought the pencil for the
+            silhouette. Aimed so the pencil lands on the row the type line grows
+            along, not in the page margin. */}
+        <g transform="translate(24,66)">
           <g className={styles.penLift}>
-            <g transform="rotate(-145)">
+            <g transform="rotate(-138)">
               <Limb fill={palette.shirt} length={40} grip>
                 <g className={styles.scribble}>{pencil}</g>
               </Limb>
@@ -326,7 +273,9 @@ function armsFor(pose: BradPose) {
 
   return (
     <>
-      <RestArm side="left" />
+      <g transform="translate(-25,66) rotate(-9)">
+        <HangingArm fill={palette.shirt} forearm={19} />
+      </g>
       <g transform="translate(25,64) rotate(-158)">
         <g className={styles.inspectArm}>
           <Limb fill={palette.shirtShade} length={38} grip>
@@ -338,17 +287,6 @@ function armsFor(pose: BradPose) {
   );
 }
 
-/* Spec is the one stage he works with his back to us. He is writing on a board
-   that stands in the scene, and a figure who faces out while writing behind
-   himself reads as posing for the camera rather than working; turning him round
-   also puts the viewer over his shoulder, looking at the same doc he is. */
-const facesAwayByPose: Record<BradPose, boolean> = {
-  spec: true,
-  context: false,
-  agents: false,
-  gates: false,
-};
-
 const headLookByPose: Record<BradPose, BradHeadLook | undefined> = {
   spec: "glance",
   context: undefined,
@@ -359,7 +297,7 @@ const headLookByPose: Record<BradPose, BradHeadLook | undefined> = {
 export function BradFigure({ pose, transform }: BradFigureProps) {
   return (
     <g transform={transform}>
-      {facesAwayByPose[pose] ? backBase : frontBase}
+      {frontBase}
       {armsFor(pose)}
       <BradHead look={headLookByPose[pose]} />
     </g>
