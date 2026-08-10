@@ -1,96 +1,122 @@
+import { IsoBox, IsoShadow, OnGround, PAPER_EDGE, project, shades } from "../isoKit";
 import * as styles from "./styles";
 
-// Inlined from public/images/what-i-do/delivery.svg; loop keyframes moved to
-// globals.css so several inline scenes can mount without keyframe collisions.
+/* A lane board with real tickets on it, rather than blocks that stand for
+   planning. The previous scene was abstract in a way that left the card unable
+   to say which capability it belonged to: its vocabulary — mint slab, floating
+   tiles, green check puck — was shared with the front-end scene, so cards 01
+   and 02 read as near-duplicates of each other.
+
+   A flat surface is the only shape that fills a 16:9 frame in this projection
+   (a square of floor projects to sqrt(3):1, within a few percent of 16:9),
+   which is why the board stays on the floor and the slab is now carrying a
+   board instead of nothing. */
+
+/* Lane fills sit a step above the board rather than at near-white. At #f8faf9
+   on a white board on a white card the lanes vanished and the tickets read as
+   loose chips floating on the surface. */
+const LANES = [
+  { v: -96, chip: "#047857", fill: "#eaf2ee" },
+  { v: 0, chip: "#10b981", fill: "#e4efe9" },
+  { v: 96, chip: "#fbbf24", fill: "#eaf2ee" },
+] as const;
+
+/* Two tickets per lane, staggered along it so the board never reads as a grid
+   of identical chips, and the last slot left open for the one in flight. */
+const TICKETS = [
+  { u: -38, v: -96, accent: "#047857", rows: [56, 38] },
+  { u: 72, v: -96, accent: "#047857", rows: [48, 30] },
+  { u: -38, v: 0, accent: "#10b981", rows: [52, 34] },
+  { u: 72, v: 0, accent: "#10b981", rows: [44, 40] },
+  { u: -38, v: 96, accent: "#059669", rows: [50, 32] },
+] as const;
+
+const SLOT_U = 72;
+const SLOT_V = 96;
+
+function TicketFace({ accent, rows }: { accent: string; rows: readonly number[] }) {
+  return (
+    <>
+      <rect x="-42" y="-26" width="30" height="7" rx="3.5" fill={accent} />
+      {rows.map((width, index) => (
+        <rect key={width} x="-42" y={-12 + index * 12} width={width} height="6" rx="3" fill="#c9d8d0" />
+      ))}
+      <rect x="-42" y="16" width="22" height="8" rx="4" fill="#d1fae5" />
+      <circle cx="34" cy="20" r="6" fill="#a7f3d0" />
+    </>
+  );
+}
+
 export function DeliveryIllustration() {
   return (
     <svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg" className={styles.svg}>
-      <g transform="translate(268,34)">
+      <g transform="translate(320,174)">
         <g className={styles.pieces[0]}>
-          <polygon points="0,-14 294.4,156 112.6,261 -181.9,91" fill="#ecfdf5" />
-          <polygon points="-181.9,91 -181.9,105 112.6,275 112.6,261" fill="#d1fae5" />
-          <polygon points="294.4,156 294.4,170 112.6,275 112.6,261" fill="#a7f3d0" />
+          <IsoBox u={0} v={0} w={344} d={344} h={12} shade={{ top: "#ffffff", right: "#dfe9e4", left: "#c9d8d0" }} outline="#cfdfd8" />
         </g>
+
+        {/* Board toolbar along the back edge. It is the scene's dark mass as
+            much as it is a toolbar: without it the whole card sat between
+            #ffffff and #d1fae5 and had nowhere for the eye to land. */}
         <g className={styles.pieces[1]}>
-          <polygon points="34.6,30 102.2,69 -41.6,152 -109.1,113" fill="#d1fae5" />
-          <polygon points="34.6,30 102.2,69 88.3,77 20.8,38" fill="#a7f3d0" />
-          <polygon points="110.9,74 178.4,113 34.6,196 -32.9,157" fill="#d1fae5" />
-          <polygon points="110.9,74 178.4,113 164.5,121 97,82" fill="#6ee7b7" />
-          <polygon points="187.1,118 254.6,157 110.9,240 43.3,201" fill="#d1fae5" />
-          <polygon points="187.1,118 254.6,157 240.8,165 173.2,126" fill="#34d399" />
+          <OnGround u={0} v={-158} h={12}>
+            <rect x="-152" y="-13" width="304" height="26" rx="8" fill="#064e3b" />
+            <rect x="-140" y="-4" width="52" height="8" rx="4" fill="#6ee7b7" />
+            <rect x="-76" y="-3" width="34" height="6" rx="3" fill="#0a6b52" />
+            <circle cx="118" cy="0" r="6" fill="#0a6b52" />
+            <circle cx="134" cy="0" r="6" fill="#0a6b52" />
+          </OnGround>
         </g>
-        <g className={styles.pieces[2]}>
-          <polygon points="13.9,48 52,70 13.9,92 -24.2,70" fill="#ffffff" />
-          <polygon points="-24.2,70 -24.2,78 13.9,100 13.9,92" fill="#e0eae5" />
-          <polygon points="52,70 52,78 13.9,100 13.9,92" fill="#c9d8d0" />
-        </g>
-        <g className={styles.pieces[3]}>
-          <polygon points="-31.2,80 6.9,102 -31.2,124 -69.3,102" fill="#ffffff" />
-          <polygon points="-69.3,102 -69.3,110 -31.2,132 -31.2,124" fill="#e0eae5" />
-          <polygon points="6.9,102 6.9,110 -31.2,132 -31.2,124" fill="#c9d8d0" />
-        </g>
-        <g className={styles.pieces[4]}>
-          <g className={styles.lift}>
-            <polygon points="71,97 112.6,121 71,145 29.4,121" fill="#fbbf24" />
-            <polygon points="29.4,121 29.4,133 71,157 71,145" fill="#f59e0b" />
-            <polygon points="112.6,121 112.6,133 71,157 71,145" fill="#d97706" />
+
+        {LANES.map((lane, index) => (
+          <g key={`lane-${lane.v}`} className={styles.pieces[index + 2]}>
+            <OnGround u={0} v={lane.v} h={12}>
+              <rect x="-152" y="-44" width="304" height="88" rx="10" fill={lane.fill} />
+              <rect x="-152" y="-44" width="304" height="88" rx="10" fill="none" stroke="#cddcd5" strokeWidth="2" />
+              {/* Lane header: colour chip, name bar, WIP count. */}
+              <rect x="-142" y="-36" width="8" height="8" rx="4" fill={lane.chip} />
+              <rect x="-128" y="-36" width="44" height="8" rx="4" fill="#7f938b" />
+              <rect x="126" y="-37" width="16" height="10" rx="5" fill="#cddcd5" />
+            </OnGround>
           </g>
-        </g>
-        <g className={styles.pieces[5]}>
-          <polygon points="26,135 60.6,155 26,175 -8.7,155" fill="#ffffff" />
-          <polygon points="-8.7,155 -8.7,163 26,183 26,175" fill="#e0eae5" />
-          <polygon points="60.6,155 60.6,163 26,183 26,175" fill="#c9d8d0" />
-        </g>
-        <g className={styles.pieces[6]}>
-          <polygon points="162.8,136 204.4,160 162.8,184 121.2,160" fill="#10b981" />
-          <polygon points="121.2,160 121.2,170 162.8,194 162.8,184" fill="#059669" />
-          <polygon points="204.4,160 204.4,170 162.8,194 162.8,184" fill="#047857" />
-          <ellipse cx="162.8" cy="160" rx="17" ry="9.8" fill="#047857" />
-          <ellipse cx="162.8" cy="152" rx="17" ry="9.8" fill="#059669" />
-          <path
-            d="M151.8 152l7 5 14-11"
-            stroke="#ffffff"
-            strokeWidth="5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            fill="none"
-          />
-        </g>
-        <g className={styles.pieces[7]}>
-          <polygon points="103.9,166 142,188 103.9,210 65.8,188" fill="#6ee7b7" />
-          <polygon points="65.8,188 65.8,198 103.9,220 103.9,210" fill="#34d399" />
-          <polygon points="142,188 142,198 103.9,220 103.9,210" fill="#10b981" />
-        </g>
-        <g className={styles.pieces[8]}>
-          <polygon
-            points="0,0 8.7,5 0,10 -8.7,5"
-            transform="translate(-24,66)"
-            fill="#6ee7b7"
-            className={styles.twinkleA}
-          />
-          <polygon
-            points="0,0 8.7,5 0,10 -8.7,5"
-            transform="translate(-10,74)"
-            fill="#6ee7b7"
-            className={styles.twinkleB}
-          />
-        </g>
-        <g className={styles.pieces[9]}>
-          <polygon points="-128.2,-36 -32.9,19 -39.8,23 -135.1,-32" fill="#f1f6f3" />
-          <polygon points="-32.9,19 -39.8,23 -39.8,135 -32.9,131" fill="#e0eae5" />
-          <g transform="matrix(0.866,0.5,0,1,-135.1,80)">
-            <rect x="0" y="-112" width="110" height="112" rx="4" fill="#f8faf9" />
-            <rect x="12" y="-98" width="48" height="11" rx="5" fill="#10b981" />
-            <rect x="12" y="-76" width="86" height="7" rx="3.5" fill="#c9d8d0" />
-            <rect x="12" y="-62" width="68" height="7" rx="3.5" fill="#c9d8d0" />
-            <rect x="12" y="-48" width="78" height="7" rx="3.5" fill="#c9d8d0" />
-            <rect x="12" y="-32" width="10" height="10" rx="3" fill="#10b981" />
-            <rect x="28" y="-30" width="40" height="7" rx="3.5" fill="#c9d8d0" />
+        ))}
+
+        {TICKETS.map((ticket, index) => (
+          <g key={`ticket-${ticket.u}-${ticket.v}`} className={styles.pieces[index + 5]}>
+            <IsoBox u={ticket.u} v={ticket.v} w={104} d={66} h={9} base={12} shade={shades.paper} outline={PAPER_EDGE}>
+              <TicketFace accent={ticket.accent} rows={ticket.rows} />
+            </IsoBox>
           </g>
-        </g>
+        ))}
+
+        {/* The slot the airborne ticket is heading for. */}
         <g className={styles.pieces[10]}>
-          <polygon points="0,0 13,7.5 0,15 -13,7.5" transform="translate(240,10)" fill="#6ee7b7" />
-          <polygon points="0,0 13,7.5 0,15 -13,7.5" transform="translate(-160,40)" fill="#a7f3d0" />
+          <OnGround u={SLOT_U} v={SLOT_V} h={13}>
+            <rect
+              x="-52"
+              y="-33"
+              width="104"
+              height="66"
+              rx="8"
+              fill="#ecfdf5"
+              stroke="#34d399"
+              strokeWidth="2.5"
+              strokeDasharray="8 6"
+            />
+          </OnGround>
+          {/* In flight, with its shadow left on the board underneath it. */}
+          <IsoShadow u={SLOT_U} v={SLOT_V} w={104} d={66} opacity={0.12} />
+          <g className={styles.bob}>
+            <IsoBox u={SLOT_U} v={SLOT_V} w={104} d={66} h={9} base={54} shade={shades.amber}>
+              <rect x="-42" y="-26" width="30" height="7" rx="3.5" fill="#ffffff" opacity="0.9" />
+              <rect x="-42" y="-12" width="52" height="6" rx="3" fill="#ffffff" opacity="0.65" />
+              <rect x="-42" y="0" width="34" height="6" rx="3" fill="#ffffff" opacity="0.65" />
+              <circle cx="34" cy="20" r="6" fill="#ffffff" opacity="0.8" />
+            </IsoBox>
+          </g>
+          <g transform={`translate(${project(SLOT_U, SLOT_V, 30)})`}>
+            <polygon points="0,0 7,4 0,8.1 -7,4" fill="#34d399" className={styles.packet} />
+          </g>
         </g>
       </g>
     </svg>
