@@ -1,4 +1,4 @@
-import { IsoBox, IsoShadow, OnGround, PAPER_EDGE, project, shades } from "../isoKit";
+import { BOARD_EDGE, IsoBox, IsoShadow, OnGround, PAPER_EDGE, project, shades } from "../isoKit";
 import * as styles from "./styles";
 
 /* A lane board with real tickets on it, rather than blocks that stand for
@@ -52,7 +52,7 @@ export function DeliveryIllustration() {
     <svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg" className={styles.svg}>
       <g transform="translate(320,174)">
         <g className={styles.pieces[0]}>
-          <IsoBox u={0} v={0} w={344} d={344} h={12} shade={{ top: "#ffffff", right: "#dfe9e4", left: "#c9d8d0" }} outline="#cfdfd8" />
+          <IsoBox u={0} v={0} w={344} d={344} h={12} shade={shades.board} outline={BOARD_EDGE} />
         </g>
 
         {/* Board toolbar along the back edge. It is the scene's dark mass as

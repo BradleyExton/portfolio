@@ -53,6 +53,13 @@ export const shades = {
   pale: { top: "#d1fae5", right: "#a7f3d0", left: "#6ee7b7" },
   paper: { top: "#ffffff", right: "#e0eae5", left: "#c9d8d0" },
   amber: { top: "#fbbf24", right: "#f59e0b", left: "#d97706" },
+  /* The floor the delivery and front-end scenes stand on. It used to be #ffffff
+     and #f8faf9, which only held together because the illustration sat in a
+     tinted panel; on the bare card surface those tops were the card. Toning the
+     board one step down also buys back the contrast the white artifacts on it
+     were missing: tickets and the suite card now read as objects placed on a
+     surface rather than holes cut in it. */
+  board: { top: "#f1f6f3", right: "#dde8e2", left: "#c6d6ce" },
 } as const satisfies Record<string, Shade>;
 
 export type IsoBoxProps = {
@@ -127,6 +134,9 @@ export function IsoBox({ u, v, w, d, h, base = 0, shade, outline, children }: Is
 
 /** Outline tone for the paper family, dark enough to survive on card surface. */
 export const PAPER_EDGE = "#b9cec5";
+
+/** Silhouette for the board, which has to hold its own against a white card. */
+export const BOARD_EDGE = "#c3d5cc";
 
 /** Contact shadow for a box footprint: cheap grounding without a full slab. */
 export function IsoShadow({ u, v, w, d, opacity = 0.13 }: { u: number; v: number; w: number; d: number; opacity?: number }) {

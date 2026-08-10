@@ -1,6 +1,9 @@
 // Scene wrapper: .iso-scene scopes the assemble/loop behavior defined in
 // globals.css; activation is driven by data-active on the card surface.
-export const scene = "iso-scene absolute inset-0 p-4 xl:p-5";
+// Padding existed to hold the scene off the old panel border. With the border
+// gone it only shrank the drawing, so the scene now fills its column and the
+// card's own gutter does the spacing.
+export const scene = "iso-scene absolute inset-0";
 
 // Watermark wrapper deliberately omits .iso-scene: a scene that assembles and
 // then loops forever behind body copy reads as distraction, not detail. The

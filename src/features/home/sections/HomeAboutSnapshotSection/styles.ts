@@ -81,7 +81,12 @@ export const cardHeader = "mb-4 flex items-center gap-3 border-b border-border-s
 export const cardIndex = "inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-brand-tint bg-brand-weak text-sm font-bold text-brand font-[family-name:var(--font-space-grotesk)] transition-colors duration-300 group-data-[active=true]/card:border-brand group-data-[active=true]/card:bg-brand group-data-[active=true]/card:text-content-inverse";
 export const cardTitle = `${typeScale.cardTitle} mb-0 min-w-0 text-xl leading-tight md:text-2xl`;
 export const cardOutcome = "mb-4 text-base leading-relaxed text-content-muted";
-export const illustrationPanel = "relative aspect-[16/9] w-full min-h-[17rem] overflow-hidden rounded-xl border border-border-subtle bg-gradient-to-br from-brand-weak/60 via-surface to-surface-muted";
+// No fill and no border: a tinted, rounded, outlined box around the scene made
+// every card a card-within-a-card, and the frame competed with the card's own
+// edge two inches away. The scenes now sit directly on the card surface, which
+// is what the shade retune in isoKit is for — their board tops used to be
+// #ffffff and relied on this panel's tint to be visible at all.
+export const illustrationPanel = "relative aspect-[16/9] w-full min-h-[17rem]";
 export const illustrationPanelDesktopSwap = "xl:order-1";
 
 // Below xl the scene has no column of its own, so it becomes a corner
@@ -104,8 +109,6 @@ export const illustrationWatermarkTint =
 // the heading rather than a texture behind it.
 export const illustrationWatermark =
   "pointer-events-none absolute -right-14 -top-10 z-0 aspect-[16/9] w-[30rem] opacity-30 [-webkit-mask-composite:source-in] [-webkit-mask-image:linear-gradient(to_left,black_18%,transparent_55%),linear-gradient(to_bottom,black_20%,transparent_62%)] [mask-composite:intersect] [mask-image:linear-gradient(to_left,black_18%,transparent_55%),linear-gradient(to_bottom,black_20%,transparent_62%)] sm:w-[34rem]";
-export const illustrationImage = "object-contain object-center p-4 xl:p-5";
-
 export const proofList = "mb-4 space-y-2.5";
 export const proofItem = "flex gap-2.5 text-sm leading-relaxed text-content-muted sm:text-base";
 export const proofIcon = "mt-0.5 h-4 w-4 shrink-0 text-brand sm:mt-1";
