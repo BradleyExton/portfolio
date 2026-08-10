@@ -1,4 +1,4 @@
-import { IsoBox, IsoShadow, OnGround, PAPER_EDGE, PLANE_LEFT, project, ring, shades } from "../isoKit";
+import { BOARD_EDGE, IsoBox, IsoShadow, OnGround, PAPER_EDGE, PLANE_LEFT, project, ring, shades } from "../isoKit";
 import * as styles from "./styles";
 
 /* The interface, the layers it is built from, and the suite that holds it
@@ -13,10 +13,30 @@ import * as styles from "./styles";
    by half its own width on top of its height, so anywhere further back and it
    leaves the frame. */
 
+/* The suite moved out along +u and the board grew with it. At 304 the board's
+   half-footprint was 152 and the suite's own half-length is 88, so its front
+   corner sat at v=162 and hung off the front edge — a card lying half in space.
+   The wider board holds it, and pushing it toward the right flank puts an
+   object in the one quadrant that was reading as bare surface. */
 const SCREEN = { u: -105, v: 105 } as const;
 const STACK = { u: 95, v: -60 } as const;
-const SUITE = { u: 40, v: 120 } as const;
+const SUITE = { u: 74, v: 106 } as const;
 const INCOMING = { u: 152, v: -104 } as const;
+/* Back-left flank, which was the largest empty region in any of the three
+   scenes: screen, stack and suite all sit forward of the board's centre line,
+   so a quarter of the drawing was bare surface. It stopped mattering less once
+   the panel tint came off — an empty pale plane on a white card is a hole. */
+const TRAY = { u: -96, v: -100 } as const;
+const BOARD = 336;
+
+/* The parts the interface is composed from. The scene already had a piece in
+   the air heading for the stack; it had nowhere for that piece to have come
+   from. */
+const TRAY_PARTS = [
+  { x: -46, bar: 16 },
+  { x: -8, bar: 22 },
+  { x: 30, bar: 12 },
+] as const;
 
 /* Only the top plate carries printed interface. Plates that share a footprint
    occlude each other completely in this projection — a stack of equal tiles
@@ -41,7 +61,7 @@ export function FrontendIllustration() {
     <svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg" className={styles.svg}>
       <g transform="translate(320,186)">
         <g className={styles.pieces[0]}>
-          <IsoBox u={0} v={0} w={304} d={304} h={11} shade={{ top: "#f8faf9", right: "#dfe9e4", left: "#c9d8d0" }} outline="#cfdfd8" />
+          <IsoBox u={0} v={0} w={BOARD} d={BOARD} h={11} shade={shades.board} outline={BOARD_EDGE} />
         </g>
 
         {/* Wires under everything: screen to stack, stack to suite. */}
@@ -71,10 +91,27 @@ export function FrontendIllustration() {
           </g>
         </g>
 
+        {/* Parts tray on the back flank. The parts are filled from the same
+            pale/mint pair as the plates below rather than outlined like the
+            screen's buttons, so the tray reads as the library the stack is
+            built from and not as a second interface. */}
+        <g className={styles.pieces[2]}>
+          <OnGround u={TRAY.u} v={TRAY.v} h={12}>
+            <rect x="-68" y="-32" width="136" height="64" rx="10" fill="#ffffff" stroke={PAPER_EDGE} strokeWidth="2" />
+            <rect x="-56" y="-24" width="34" height="7" rx="3.5" fill="#7f938b" />
+            {TRAY_PARTS.map((part) => (
+              <g key={part.x}>
+                <rect x={part.x} y="-4" width="30" height="24" rx="6" fill="#d1fae5" />
+                <rect x={part.x + 6} y="4" width={part.bar} height="6" rx="3" fill="#10b981" />
+              </g>
+            ))}
+          </OnGround>
+        </g>
+
         {/* Suite, printed flat on the board: two green ticks and one still
             running. Light rather than dark, because a tick has to read at about
             eight pixels and green-on-deep-green does not. */}
-        <g className={styles.pieces[2]}>
+        <g className={styles.pieces[3]}>
           <OnGround u={SUITE.u} v={SUITE.v} h={12}>
             <rect x="-88" y="-42" width="176" height="84" rx="10" fill="#ffffff" stroke={PAPER_EDGE} strokeWidth="2" />
             <rect x="-74" y="-34" width="46" height="8" rx="4" fill="#7f938b" />
@@ -99,12 +136,12 @@ export function FrontendIllustration() {
         </g>
 
         {/* Layer stack on a dark foundation: tokens, composition, interface. */}
-        <g className={styles.pieces[3]}>
+        <g className={styles.pieces[4]}>
           <IsoShadow u={STACK.u} v={STACK.v} w={112} d={112} opacity={0.14} />
           <IsoBox u={STACK.u} v={STACK.v} w={112} d={112} h={22} base={11} shade={shades.ink} />
         </g>
         {PLATES.map((plate, index) => (
-          <g key={plate.base} className={styles.pieces[index + 4]}>
+          <g key={plate.base} className={styles.pieces[index + 5]}>
             <IsoBox
               u={STACK.u}
               v={STACK.v}
@@ -129,8 +166,9 @@ export function FrontendIllustration() {
 
         {/* One more component, still in the air. This is what carries
             "composed from parts" now that the lower plates cannot show their
-            faces: a piece the same shape as the layers, on its way in. */}
-        <g className={styles.pieces[7]}>
+            faces: a piece the same shape as the layers, off the tray and on its
+            way in. */}
+        <g className={styles.pieces[8]}>
           <polyline
             points={ring([
               [INCOMING.u, INCOMING.v, 74],
@@ -150,7 +188,7 @@ export function FrontendIllustration() {
         </g>
 
         {/* The screen itself. */}
-        <g className={styles.pieces[8]}>
+        <g className={styles.pieces[9]}>
           <IsoBox u={SCREEN.u} v={SCREEN.v} w={56} d={56} h={8} base={11} shade={shades.paper} outline={PAPER_EDGE} />
           <g transform={`translate(${project(SCREEN.u, SCREEN.v, 19)}) ${PLANE_LEFT}`}>
             <rect x="-78" y="-104" width="156" height="104" rx="7" fill="#ffffff" stroke={PAPER_EDGE} strokeWidth="2" />
