@@ -29,3 +29,14 @@ export const pieces = [
 ] as const;
 
 export const svg = "h-full w-full";
+
+/* Loop classes the three scenes share. Packets on one route are offset against
+   each other rather than given separate durations, so the whole card stays on
+   the sitewide beat. */
+export const packet = "iso-loop-pulse";
+export const packetLate = "iso-loop-pulse [--iso-pulse-delay:-1.4s]";
+export const packetLater = "iso-loop-pulse [--iso-pulse-delay:-2.1s]";
+export const bob = "iso-loop-bob";
+export const bobSlow = "iso-loop-bob [--iso-bob-duration:4.4s]";
+export const twinkleA = "iso-loop-tw";
+export const twinkleB = "iso-loop-tw [--iso-tw-delay:-1.2s]";
