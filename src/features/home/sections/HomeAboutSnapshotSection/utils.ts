@@ -94,10 +94,6 @@ export const getRingSlotClass = (index: number): string => {
   return "[--slot:0]";
 };
 
-export const getCapabilityIllustrationSrc = (id: CapabilityId): string => {
-  return `/images/what-i-do/${id}.svg`;
-};
-
 export const resolveActiveCapabilityId = ({
   capabilityIds,
   cardRects,

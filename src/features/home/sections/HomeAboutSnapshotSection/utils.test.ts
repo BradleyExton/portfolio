@@ -1,7 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import type { CapabilityId } from "./types";
 import {
-  getCapabilityIllustrationSrc,
   getStackedCardCountClass,
   getStackedCardIndexClass,
   resolveActiveCapabilityId,
@@ -10,12 +9,6 @@ import {
 const capabilityIds: readonly CapabilityId[] = ["delivery", "frontend", "platform"];
 
 describe("HomeAboutSnapshotSection utils", () => {
-  it("returns deterministic illustration paths for capability ids", () => {
-    capabilityIds.forEach((capabilityId) => {
-      expect(getCapabilityIllustrationSrc(capabilityId)).toBe(`/images/what-i-do/${capabilityId}.svg`);
-    });
-  });
-
   it("returns stacked index classes and a safe fallback", () => {
     const consoleWarnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
 
