@@ -49,8 +49,7 @@ export const servicesCopy = {
       price: "Custom pricing",
       timeline: "3-6 weeks",
       illustration: {
-        src: "/images/services/ai-tools-illustration.svg",
-        alt: "Abstract illustration representing AI workflows and integrations",
+        alt: "Isometric drawing of an agent console sending finished work across a board, with the last step held for a person to approve",
       },
       deliverables: [
         "Use-case mapping and ROI prioritization",
@@ -80,8 +79,7 @@ export const servicesCopy = {
       price: "Starting at $1,500",
       timeline: "2-4 weeks",
       illustration: {
-        src: "/images/services/website-illustration.svg",
-        alt: "Abstract illustration representing a high-converting marketing website",
+        alt: "Isometric drawing of a marketing page with a quote request lifting off it toward a send button",
       },
       deliverables: [
         "Information architecture and visual direction",
@@ -111,8 +109,7 @@ export const servicesCopy = {
       price: "Starting at $3,000",
       timeline: "4-8 weeks",
       illustration: {
-        src: "/images/services/web-application-illustration.svg",
-        alt: "Abstract illustration representing a custom web application workflow",
+        alt: "Isometric drawing of an application screen riding on a solid base of data, serving records out of it",
       },
       deliverables: [
         "Discovery and scope alignment",

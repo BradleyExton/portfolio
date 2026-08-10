@@ -1,7 +1,7 @@
-import Image from "next/image";
 import { servicesCopy } from "@/copy/services";
 import { SectionIntro, cn } from "@/features/shared/designSystem";
 import { ScrollReveal } from "@/features/shared/motion/ScrollReveal";
+import { IsoIllustration } from "./IsoIllustration";
 import * as styles from "./styles";
 import { getServiceNumber } from "./utils";
 
@@ -32,15 +32,7 @@ export function ServicesCatalogSection() {
             >
               <article id={service.id} className={`${styles.card} ${styles.anchorOffset}`}>
                 <div className={cn(styles.imageFrame, styles.imageFrameMorphById[service.id])}>
-                  <Image
-                    src={service.illustration.src}
-                    alt={service.illustration.alt}
-                    width={800}
-                    height={560}
-                    className={styles.image}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    priority={index === 0}
-                  />
+                  <IsoIllustration serviceId={service.id} label={service.illustration.alt} />
                 </div>
                 <div className={styles.cardRow}>
                   <span className={styles.badge}>{getServiceNumber(index)}</span>
