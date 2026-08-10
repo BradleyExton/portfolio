@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { Link } from "next-view-transitions";
 import { homeCopy } from "@/copy/home";
 import { ActionLink, ArrowRightIcon, SectionIntro, cn } from "@/features/shared/designSystem";
@@ -35,6 +36,10 @@ export function HomeServicesPreviewSection() {
           </p>
         </div>
 
+        <div aria-hidden="true" className={styles.ledgerHead}>
+          <span className={styles.ledgerHeadLabelEnd}>Typical build</span>
+        </div>
+
         <ul className={styles.list}>
           {previewItems.map((service) => (
             <li key={service.key} className={styles.row}>
@@ -52,20 +57,42 @@ export function HomeServicesPreviewSection() {
                 <div className={styles.rowBody}>
                   <h3 className={styles.cardTitle}>
                     {service.title}
-                    <ArrowRightIcon
-                      aria-hidden="true"
-                      className={cn(styles.bottomCtaIcon, styles.titleArrow)}
-                    />
+                    <ArrowRightIcon aria-hidden="true" className={styles.titleArrow} />
                   </h3>
                   <p className={styles.outcome}>{service.outcome}</p>
-                  <p className={styles.meta}>{service.tags.join("  ·  ")}</p>
-                  <p className={styles.metaTimeline}>Typical build: {service.timeline}</p>
+                  {/* Each tag needs its own element: below md the separators
+                      are display:none, and bare sibling text nodes would then
+                      merge into one anonymous flex item with no gap between
+                      the words. */}
+                  <p className={styles.meta}>
+                    {service.tags.map((tag, index) => (
+                      <Fragment key={tag}>
+                        {index > 0 ? (
+                          <span aria-hidden="true" className={styles.metaSeparator}>
+                            ·
+                          </span>
+                        ) : null}
+                        <span>{tag}</span>
+                      </Fragment>
+                    ))}
+                  </p>
+                  <p className={styles.metaTimeline}>
+                    <span className={styles.metaTimelineLabel}>Typical build</span>
+                    <span className={styles.metaTimelineValue}>{service.timeline}</span>
+                  </p>
                 </div>
 
                 <div className={styles.timelineCell}>
-                  <p className={styles.timelineLabel}>Typical build</p>
-                  <p className={styles.timelineValue}>{service.timeline}</p>
+                  {/* The column header carries this label visually, but it is
+                      decorative to assistive tech, and the phone-width line
+                      that states it is display:none at this width. */}
+                  <p className={styles.timelineValue}>
+                    <span className="sr-only">Typical build: </span>
+                    {service.timeline}
+                  </p>
                 </div>
+
+                <span aria-hidden="true" className={styles.rowRule} />
               </Link>
             </li>
           ))}
