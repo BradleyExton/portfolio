@@ -1,8 +1,10 @@
-/* Shared geometry for the three what-i-do card scenes. The how-i-work scenes
-   next door hardcode every polygon, which is workable for drawings that never
-   move but makes them expensive to lay out and easy to drift apart; these three
-   project through one true-isometric basis instead (30 degrees, so the axis
-   ratio is sqrt(3), matching every other iso drawing on the site).
+/* Shared geometry for the card scenes that project rather than hardcode: the
+   three what-i-do cards on the home page and the three service cards on
+   /services. The how-i-work scenes still hardcode every polygon, which is
+   workable for drawings that never move but makes them expensive to lay out and
+   easy to drift apart; everything here projects through one true-isometric
+   basis instead (30 degrees, so the axis ratio is sqrt(3), matching every other
+   iso drawing on the site).
 
    Ground coordinates are (u, v) with height h rising off the floor. +u goes
    right-and-down the screen, +v goes left-and-down, so the viewer sits out past

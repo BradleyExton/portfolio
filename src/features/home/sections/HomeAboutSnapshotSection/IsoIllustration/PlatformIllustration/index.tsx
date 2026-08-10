@@ -1,4 +1,4 @@
-import { IsoBox, IsoShadow, PAPER_EDGE, PLANE_RIGHT, project, ring, shades } from "../isoKit";
+import { IsoBox, IsoShadow, PAPER_EDGE, PLANE_RIGHT, project, ring, shades } from "@/features/shared/isoKit";
 import * as styles from "./styles";
 
 /* One dark core carrying three services, rather than six pale objects spread

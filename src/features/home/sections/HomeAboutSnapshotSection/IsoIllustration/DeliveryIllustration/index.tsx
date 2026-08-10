@@ -1,4 +1,4 @@
-import { BOARD_EDGE, IsoBox, IsoShadow, OnGround, PAPER_EDGE, project, shades } from "../isoKit";
+import { BOARD_EDGE, IsoBox, IsoShadow, OnGround, PAPER_EDGE, project, shades } from "@/features/shared/isoKit";
 import * as styles from "./styles";
 
 /* A lane board with real tickets on it, rather than blocks that stand for

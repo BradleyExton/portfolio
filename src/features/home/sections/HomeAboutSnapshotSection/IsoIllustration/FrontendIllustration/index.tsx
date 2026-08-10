@@ -1,4 +1,4 @@
-import { BOARD_EDGE, IsoBox, IsoShadow, OnGround, PAPER_EDGE, PLANE_LEFT, project, ring, shades } from "../isoKit";
+import { BOARD_EDGE, IsoBox, IsoShadow, OnGround, PAPER_EDGE, PLANE_LEFT, project, ring, shades } from "@/features/shared/isoKit";
 import * as styles from "./styles";
 
 /* The interface, the layers it is built from, and the suite that holds it
