@@ -95,11 +95,15 @@ export const illustrationWatermarkTint =
 // right edge, gone by the time it reaches the copy column, and faded out below
 // the header band so the proof points stay on clean surface.
 // Both ramps end earlier than they used to (78% -> 55% across, 100% -> 62%
-// down) and the layer sits at 45% rather than 60%. At 390px the old stops put
-// the scene's saturated amber block at ~31% strength directly behind the
-// outcome paragraph; the copy column now sits in the tail of both ramps.
+// down). At 390px the old stops put the scene's saturated amber block at ~31%
+// strength directly behind the outcome paragraph; the copy column now sits in
+// the tail of both ramps.
+// Opacity stepped 45 -> 30 when the scenes gained a deliberate dark mass. The
+// darkest value in each scene went from #047857 to #064e3b, which at the old
+// 45% turned every card's top-right corner into a hard shape competing with
+// the heading rather than a texture behind it.
 export const illustrationWatermark =
-  "pointer-events-none absolute -right-14 -top-10 z-0 aspect-[16/9] w-[30rem] opacity-45 [-webkit-mask-composite:source-in] [-webkit-mask-image:linear-gradient(to_left,black_18%,transparent_55%),linear-gradient(to_bottom,black_20%,transparent_62%)] [mask-composite:intersect] [mask-image:linear-gradient(to_left,black_18%,transparent_55%),linear-gradient(to_bottom,black_20%,transparent_62%)] sm:w-[34rem]";
+  "pointer-events-none absolute -right-14 -top-10 z-0 aspect-[16/9] w-[30rem] opacity-30 [-webkit-mask-composite:source-in] [-webkit-mask-image:linear-gradient(to_left,black_18%,transparent_55%),linear-gradient(to_bottom,black_20%,transparent_62%)] [mask-composite:intersect] [mask-image:linear-gradient(to_left,black_18%,transparent_55%),linear-gradient(to_bottom,black_20%,transparent_62%)] sm:w-[34rem]";
 export const illustrationImage = "object-contain object-center p-4 xl:p-5";
 
 export const proofList = "mb-4 space-y-2.5";
