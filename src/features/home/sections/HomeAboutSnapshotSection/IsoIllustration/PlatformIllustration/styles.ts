@@ -1,4 +1,2 @@
-export { pieces, svg } from "../styles";
-
-export const packet = "iso-loop-pulse";
-export const bobDiamond = "iso-loop-bob";
+// The three scenes share one class set; see ../styles.
+export * from "../styles";

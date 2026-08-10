@@ -1,69 +1,93 @@
+import { IsoBox, IsoShadow, PAPER_EDGE, PLANE_RIGHT, project, ring, shades } from "../isoKit";
 import * as styles from "./styles";
 
-// Inlined from public/images/what-i-do/platform.svg; loop keyframes moved to
-// globals.css so several inline scenes can mount without keyframe collisions.
+/* One dark core carrying three services, rather than six pale objects spread
+   evenly across a slab. This scene stays abstract where the delivery card went
+   literal, and deliberately: the literal version of this brief is a wiring
+   diagram, and drawing one at card size produces documentation rather than an
+   illustration. What it takes from the delivery card is the discipline — the
+   subject fills the frame, and one mass is clearly darker than everything else. */
+
+const SERVICES = [
+  { u: 186, v: -54, w: 78, d: 78, h: 26, shade: shades.paper, outline: PAPER_EDGE },
+  { u: -54, v: 186, w: 78, d: 78, h: 26, shade: shades.paper, outline: PAPER_EDGE },
+  { u: 104, v: 104, w: 78, d: 78, h: 26, shade: shades.mint, outline: undefined },
+] as const;
+
+const PACKET_CLASS = [styles.packet, styles.packetLate, styles.packetLater];
+
 export function PlatformIllustration() {
   return (
     <svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg" className={styles.svg}>
-      <g transform="translate(268,34)">
+      <g transform="translate(320,150)">
         <g className={styles.pieces[0]}>
-          <polygon points="0,-14 294.4,156 112.6,261 -181.9,91" fill="#ecfdf5" />
-          <polygon points="-181.9,91 -181.9,105 112.6,275 112.6,261" fill="#d1fae5" />
-          <polygon points="294.4,156 294.4,170 112.6,275 112.6,261" fill="#a7f3d0" />
+          <IsoShadow u={0} v={0} w={170} d={170} opacity={0.16} />
+          {SERVICES.map((service) => (
+            <IsoShadow key={`shadow-${service.u}`} u={service.u} v={service.v} w={service.w} d={service.d} opacity={0.1} />
+          ))}
         </g>
+
+        {/* Links run under everything, so a service sits on its wire. They end
+            at the node centres rather than short of them: a wire that stops in
+            open floor reads as a broken connection. */}
         <g className={styles.pieces[1]}>
-          <polygon points="-28.6,80.5 21.7,109.5 16.5,112.5 -33.8,83.5" fill="#a7f3d0" />
-          <polygon points="78.8,142.5 127.3,170.5 122.1,173.5 73.6,145.5" fill="#a7f3d0" />
-          <polygon points="161.1,151 166.3,154 127.3,176.5 122.1,173.5" fill="#a7f3d0" />
-          <polygon points="32.9,147 38.1,150 13.9,164 8.7,161" fill="#a7f3d0" />
-          <polygon points="13.9,164 45,182 39.8,185 8.7,167" fill="#a7f3d0" />
-          <polygon points="3.5,130 8.7,133 -22.5,151 -27.7,148" fill="#a7f3d0" />
-          <g transform="translate(-28,81)">
-            <polygon points="0,0 6,3.5 0,6.9 -6,3.5" fill="#34d399" className={styles.packet} />
-          </g>
+          {SERVICES.map((service) => (
+            <polyline
+              key={`edge-${service.u}-${service.v}`}
+              points={ring([
+                [service.u * 0.3, service.v * 0.3, 6],
+                [service.u, service.v, 6],
+              ])}
+              stroke="#a7f3d0"
+              strokeWidth="4"
+              strokeLinecap="round"
+              fill="none"
+            />
+          ))}
         </g>
+
+        {/* The core. Deep enough to be the darkest thing on the card, with a
+            pale socket cut into the top so it reads as a housing, not a brick. */}
         <g className={styles.pieces[2]}>
-          <ellipse cx="-39.8" cy="143" rx="26" ry="15" fill="#c9d8d0" />
-          <ellipse cx="-39.8" cy="134" rx="26" ry="15" fill="#e0eae5" />
-          <ellipse cx="-39.8" cy="125" rx="26" ry="15" fill="#f8faf9" />
+          <IsoBox u={0} v={0} w={170} d={170} h={78} shade={shades.ink} />
+          <IsoBox u={0} v={0} w={104} d={104} h={0} base={78} shade={shades.deep} />
+          <IsoBox u={0} v={0} w={62} d={62} h={0} base={78} shade={shades.brand} />
         </g>
+
+        {/* Status strip raked onto the core's right face: three lit units. */}
         <g className={styles.pieces[3]}>
-          <polygon points="194,116 232.1,138 194,160 155.9,138" fill="#ffffff" />
-          <polygon points="155.9,138 155.9,148 194,170 194,160" fill="#e0eae5" />
-          <polygon points="232.1,138 232.1,148 194,170 194,160" fill="#c9d8d0" />
-        </g>
-        <g className={styles.pieces[4]}>
-          <polygon points="-53.7,37 -15.6,59 -53.7,81 -91.8,59" fill="#ffffff" />
-          <polygon points="-91.8,59 -91.8,69 -53.7,91 -53.7,81" fill="#e0eae5" />
-          <polygon points="-15.6,59 -15.6,69 -53.7,91 -53.7,81" fill="#c9d8d0" />
-        </g>
-        <g className={styles.pieces[5]}>
-          <polygon points="48.5,82 100.5,112 48.5,142 -3.5,112" fill="#10b981" />
-          <polygon points="-3.5,112 -3.5,128 48.5,158 48.5,142" fill="#059669" />
-          <polygon points="100.5,112 100.5,128 48.5,158 48.5,142" fill="#047857" />
-          <polygon points="48.5,97 74.5,112 48.5,127 22.5,112" fill="#d1fae5" />
-        </g>
-        <g className={styles.pieces[6]}>
-          <polygon points="50.2,169 81.4,187 50.2,205 19.1,187" fill="#fbbf24" />
-          <polygon points="19.1,187 19.1,197 50.2,215 50.2,205" fill="#f59e0b" />
-          <polygon points="81.4,187 81.4,197 50.2,215 50.2,205" fill="#d97706" />
-        </g>
-        <g className={styles.pieces[7]}>
-          <polygon points="136.8,173 150.7,181 136.8,189 123,181" fill="#ffffff" />
-          <polygon points="123,181 123,197 136.8,205 136.8,189" fill="#e0eae5" />
-          <polygon points="150.7,181 150.7,197 136.8,205 136.8,189" fill="#c9d8d0" />
-          <polygon points="143.8,173 157.6,181 143.8,189 129.9,181" fill="#6ee7b7" />
-          <polygon points="129.9,181 129.9,211 143.8,219 143.8,189" fill="#34d399" />
-          <polygon points="157.6,181 157.6,211 143.8,219 143.8,189" fill="#10b981" />
-          <polygon points="150.7,171 164.5,179 150.7,187 136.8,179" fill="#10b981" />
-          <polygon points="136.8,179 136.8,225 150.7,233 150.7,187" fill="#059669" />
-          <polygon points="164.5,179 164.5,225 150.7,233 150.7,187" fill="#047857" />
-        </g>
-        <g className={styles.pieces[8]}>
-          <g transform="translate(48,78)">
-            <polygon points="0,0 10,5.8 0,11.5 -10,5.8" fill="#6ee7b7" className={styles.bobDiamond} />
+          <g transform={`translate(${project(85, 0, 0)}) ${PLANE_RIGHT}`}>
+            {[0, 1, 2].map((row) => (
+              <rect key={row} x={-58 + row * 38} y={-54} width="26" height="7" rx="3.5" fill="#34d399" opacity={0.85} />
+            ))}
+            <rect x="-58" y="-34" width="102" height="5" rx="2.5" fill="#065f46" />
           </g>
-          <polygon points="0,0 13,7.5 0,15 -13,7.5" transform="translate(-160,60)" fill="#a7f3d0" />
+        </g>
+
+        {SERVICES.map((service, index) => (
+          <g key={`service-${service.u}`} className={styles.pieces[index + 4]}>
+            <IsoBox {...service} />
+          </g>
+        ))}
+
+        <g className={styles.pieces[7]}>
+          {SERVICES.map((service, index) => (
+            <g key={`packet-${service.u}`} transform={`translate(${project(service.u * 0.64, service.v * 0.64, 16)})`}>
+              <polygon points="0,0 9,5.2 0,10.4 -9,5.2" fill="#34d399" className={PACKET_CLASS[index]} />
+            </g>
+          ))}
+        </g>
+
+        {/* Amber marker hovering over the core: the one non-green note, and the
+            only thing above the skyline, so the eye starts here. */}
+        <g className={styles.pieces[8]}>
+          <g transform={`translate(${project(0, 0, 126)})`}>
+            <g className={styles.bob}>
+              <polygon points="0,0 15,8.7 0,17.3 -15,8.7" fill="#fbbf24" />
+              <polygon points="-15,8.7 0,17.3 0,24 -15,15.4" fill="#d97706" />
+              <polygon points="15,8.7 0,17.3 0,24 15,15.4" fill="#f59e0b" />
+            </g>
+          </g>
         </g>
       </g>
     </svg>
