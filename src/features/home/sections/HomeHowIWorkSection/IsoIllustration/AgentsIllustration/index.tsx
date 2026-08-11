@@ -19,20 +19,21 @@ function AgentPad({ x, y }: { x: number; y: number }) {
 
 /* Pad centres, back to front, so the group draws in depth order and a bot in
    front overlaps the plinth behind it.
-   Laid out as a section fanned in front of the conductor rather than the tight
-   diagonal the flat tiles used: tiles are 9 units tall and could sit almost on
-   top of each other, but a 64-unit bot standing on the pad behind reaches over
-   the one in front, and at the old spacing the back two collapsed into a single
-   silhouette. Roughly 90 units of x between neighbours is what it takes to keep
-   three bodies plus their arms clear of each other. */
+   Each centre sits on the centreline of its own beam — back beam, middle,
+   front — so the lane runs visibly under the plinth and out the other side to
+   its worktree tile. The first fanned layout placed the pads between the
+   beams for silhouette clearance, and the agents read as standing beside the
+   lines they were supposed to be working. On-line y values are fixed by the
+   beam geometry: y = beamStartY + (x - beamStartX) / tan(60), so only x is
+   free to pick per station. */
 const stations: { kind: AgentKind; x: number; y: number }[] = [
-  { kind: "gemini", x: 168, y: 118 },
-  { kind: "claude", x: 105, y: 130 },
-  // Sits further down the plane than the arc wants. The conductor's riser is
-  // directly up-plane of this station, and anywhere higher put the bot's
-  // antenna light on the riser's front face, where it read as a blemish on the
-  // riser rather than as a thing standing in front of it.
-  { kind: "codex", x: 5, y: 160 },
+  { kind: "gemini", x: 168, y: 138 },
+  { kind: "claude", x: 105, y: 151.6 },
+  // Furthest down its lane of the three. The conductor's riser sits at the
+  // hub end of this beam, and any station much closer to it put the bot's
+  // antenna light on the riser's front face, where it read as a blemish on
+  // the riser rather than as a thing standing in front of it.
+  { kind: "codex", x: 30, y: 158.3 },
 ];
 
 // Inlined from public/images/how-i-work/agents.svg; loop keyframes live in
@@ -74,7 +75,7 @@ export function AgentsIllustration() {
         {/* Each agent carries its own gesture rather than a shared beat — see
             AgentBot/styles. They are still on the conductor's tempo, because
             every one of those gestures runs on a multiple of the same 2.4s bar
-            the batons sweep on; what they no longer do is all make the same
+            the baton sweeps on; what they no longer do is all make the same
             move on it, which is what a section under a conductor looks like. */}
         <g className={styles.pieces[4]}>
           {stations.map((station) => (

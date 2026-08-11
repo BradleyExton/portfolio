@@ -10,20 +10,23 @@ export const scribble = "iso-loop-sway [--iso-sway-duration:0.9s] [--iso-sway-de
 
 // Conducting, near hand: the one beating time. A slow shoulder sweep with a
 // wrist flick at twice the rate, so the nested pair traces a figure eight.
-export const batonSweep = "iso-loop-baton";
+// The sweep is narrower than the keyframe default: at -20deg the upper arm
+// passed through horizontal and the bent rig straightened into a pointing
+// rod for the outer beat of every bar.
+export const batonSweep = "iso-loop-baton [--iso-baton-from:-12deg] [--iso-baton-to:16deg]";
 export const batonFlick = "iso-loop-baton-flick";
 
-// Conducting, far hand: the shaping hand, which in real conducting does not
-// beat time with the other. Same rig on double the bar and an inverted arc, so
-// the two batons never fall into mirror image — a symmetric pair reads as one
-// bar being worked by a puppeteer rather than as two hands doing two jobs. The
-// flick sits inside the sweep, so it inherits the doubled --iso-beat and lands
-// back on the scene's 2.4s; only its phase has to be set here.
-// A narrower arc than the beating hand's, on top of the extra lift its resting
-// angle already carries, so the shaping hand stays the higher of the two.
-export const cueSweep =
-  "iso-loop-baton [--iso-beat:4.8s] [--iso-baton-from:-8deg] [--iso-baton-to:20deg]";
-export const cueFlick = "iso-loop-baton-flick [--iso-flick-delay:-1.2s]";
+// Conducting, far hand: the open shaping hand, which in real conducting does
+// not beat time with the other. A drift, not a beat: a shallow arc on double
+// the bar at the shoulder, and a smaller counter-breath at the elbow. The
+// elbow sits inside the sweep, so it inherits the doubled --iso-beat and its
+// half-rate flick lands back on the scene's 2.4s; only phase and amplitude
+// are set here. Anything wider, or in phase with the baton, pulls the two
+// arms back toward the symmetric semaphore this hand exists to break.
+export const shapeSweep =
+  "iso-loop-baton [--iso-beat:4.8s] [--iso-baton-from:-4deg] [--iso-baton-to:9deg]";
+export const shapeFloat =
+  "iso-loop-baton-flick [--iso-beat:4.8s] [--iso-flick-delay:-1.2s] [--iso-flick-deg:5deg]";
 
 // Magnifier arm sweeps across the gate posts and back; the lens counter-turns
 // so it stays upright through the pass.

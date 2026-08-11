@@ -716,11 +716,11 @@ html {
 @keyframes iso-baton-flick {
   0%,
   100% {
-    transform: rotate(-16deg);
+    transform: rotate(calc(-1 * var(--iso-flick-deg, 16deg)));
   }
 
   50% {
-    transform: rotate(16deg);
+    transform: rotate(var(--iso-flick-deg, 16deg));
   }
 }
 
