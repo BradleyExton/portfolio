@@ -1,4 +1,7 @@
-// Shared monoline treatment for every mark in the set, so the three glyphs read
-// as one family regardless of which shapes they draw.
-export const stroke =
-  "fill-none stroke-current [stroke-width:1.5] [stroke-linecap:round] [stroke-linejoin:round]";
+/* The marks are filled iso faces on the shared cube grammar, not monoline
+   strokes, so there is no stroke treatment to share any more. Sizing and the
+   hover lift come from the caller; this class is the standalone fallback. */
+export const svg = "block";
+
+/* Micro-animation reused from the iso illustration system (globals.css). */
+export const twinkle = "motion-safe:animate-[iso-twinkle_2.6s_ease-in-out_infinite]";
