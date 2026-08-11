@@ -47,10 +47,7 @@ export function HomeHowIWorkSection() {
                   </p>
                   <h3 className={styles.stageName}>{stage.name}</h3>
                   <p className={styles.stageBody}>{stage.body}</p>
-                  <ul
-                    className={reversed ? styles.chipListReversed : styles.chipList}
-                    aria-label={`${stage.name} artifacts`}
-                  >
+                  <ul className={styles.chipList} aria-label={`${stage.name} artifacts`}>
                     {stage.chips.map((chip) => (
                       <li key={`${stage.id}-${chip}`} className={styles.chip}>
                         {chip}

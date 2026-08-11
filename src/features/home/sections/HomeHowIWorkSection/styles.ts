@@ -44,7 +44,11 @@ export const nodeFinal = `${nodeBase} text-accent-soft ring-1 ring-accent-soft/5
 
 const textColBase = "flex flex-col items-center text-center lg:row-start-1 lg:self-center";
 export const textCol = `${textColBase} lg:col-start-3 lg:items-start lg:text-left`;
-export const textColReversed = `${textColBase} lg:col-start-1 lg:items-end lg:text-right`;
+// Reversed rows mirror position only, not reading direction: right-aligning
+// the column set four- and five-line paragraphs ragged-left, which makes the
+// eye hunt for each line start. The station label above and the node beside
+// the row carry the zigzag; the copy always reads flush left.
+export const textColReversed = `${textColBase} lg:col-start-1 lg:items-start lg:text-left`;
 
 const stationLabelBase = "mb-3 rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wider";
 export const stationLabel = `${stationLabelBase} border-brand-contrast/40 bg-brand-contrast/10 text-brand-contrast`;
@@ -53,9 +57,11 @@ export const stationLabelFinal = `${stationLabelBase} border-accent-soft/50 bg-a
 // One step up from cardTitle's 18/20px. These are the four beats of the
 // workflow argument and were previously the smallest headings on the page.
 export const stageName = "mb-2 text-xl font-semibold text-content-inverse font-[family-name:var(--font-space-grotesk)] sm:text-2xl";
-export const stageBody = "mb-4 max-w-prose text-sm leading-relaxed text-content-inverse-muted";
+// 14/16 responsive like sectionDescription, not a flat 14: these four
+// paragraphs carry the page's positioning argument, and they were the only
+// long-form copy on the page still at 14px on desktop.
+export const stageBody = "mb-4 max-w-prose text-sm leading-relaxed text-content-inverse-muted sm:text-base";
 export const chipList = "flex flex-wrap justify-center gap-2 lg:justify-start";
-export const chipListReversed = "flex flex-wrap justify-center gap-2 lg:justify-end";
 export const chip = typeScale.tagPillInverse;
 
 export const closing = "mt-12 text-balance text-center text-lg font-semibold text-content-inverse font-heading sm:text-xl md:mt-14";
