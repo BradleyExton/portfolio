@@ -19,21 +19,25 @@ function AgentPad({ x, y }: { x: number; y: number }) {
 
 /* Pad centres, back to front, so the group draws in depth order and a bot in
    front overlaps the plinth behind it.
-   Each centre sits on the centreline of its own beam — back beam, middle,
-   front — so the lane runs visibly under the plinth and out the other side to
-   its worktree tile. The first fanned layout placed the pads between the
-   beams for silhouette clearance, and the agents read as standing beside the
-   lines they were supposed to be working. On-line y values are fixed by the
-   beam geometry: y = beamStartY + (x - beamStartX) / tan(60), so only x is
-   free to pick per station. */
+   Each plinth is centred on the centreline of its own beam — back beam,
+   middle, front — so the lane runs visibly under the plinth and out the other
+   side to its worktree tile. The first fanned layout placed the pads between
+   the beams for silhouette clearance, and the agents read as standing beside
+   the lines they were supposed to be working.
+   Centred on the block's whole silhouette, not on its top face: the lip drops
+   9 below the top diamond, so a beam through the top-face centre cut across
+   the upper half of the block and the plinth read as hanging off the line.
+   The y values are fixed by the beam geometry plus that half-lip correction:
+   y = beamStartY + (x - beamStartX) / tan(60) - 4.5, so only x is free to
+   pick per station. */
 const stations: { kind: AgentKind; x: number; y: number }[] = [
-  { kind: "gemini", x: 168, y: 138 },
-  { kind: "claude", x: 105, y: 151.6 },
+  { kind: "gemini", x: 168, y: 133.5 },
+  { kind: "claude", x: 105, y: 147.1 },
   // Furthest down its lane of the three. The conductor's riser sits at the
   // hub end of this beam, and any station much closer to it put the bot's
   // antenna light on the riser's front face, where it read as a blemish on
   // the riser rather than as a thing standing in front of it.
-  { kind: "codex", x: 30, y: 158.3 },
+  { kind: "codex", x: 30, y: 153.8 },
 ];
 
 // Inlined from public/images/how-i-work/agents.svg; loop keyframes live in
