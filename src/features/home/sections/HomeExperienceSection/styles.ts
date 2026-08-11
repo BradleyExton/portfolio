@@ -4,7 +4,11 @@ export const section = `${spacing.section} relative overflow-hidden bg-surface`;
 export const ambientBackdrop = "pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_0%_0%,var(--color-brand-soft)_0%,transparent_58%),radial-gradient(130%_130%_at_100%_100%,var(--color-brand-weak)_0%,transparent_62%)] opacity-70";
 export const container = `relative ${spacing.container6}`;
 export const eyebrow = typeScale.eyebrow;
-export const subheading = `${typeScale.sectionTitle} mb-10`;
+// Restated rather than `${typeScale.sectionTitle} mb-10`: the token already
+// carries mb-4, and stacking a second margin utility leaves the winner to
+// generated CSS order rather than authoring order.
+export const subheading =
+  "mb-10 text-balance text-3xl font-bold tracking-tight text-content font-[family-name:var(--font-space-grotesk)] sm:text-4xl";
 export const timelineWrapper = "relative";
 export const pathSvg = "pointer-events-none absolute inset-0 z-20 h-full w-full overflow-visible";
 export const pathTrack = "fill-none stroke-border-default [stroke-linecap:round] [stroke-linejoin:round] [stroke-width:2.5]";
@@ -62,8 +66,12 @@ export const roleHeader = "flex flex-wrap items-center gap-x-3 gap-y-1";
 // font-semibold, not font-bold. These are h3s, the same rank as the What I Do
 // card titles and the How I Work stage names, and 700 here against 600 there
 // made the timeline read as a heavier heading level than its neighbours.
-export const company = "text-xl font-semibold text-content md:text-2xl";
-export const companyCurrent = "text-xl font-semibold text-content-inverse md:text-2xl";
+// Space Grotesk for the same reason: half the page's card-rank headings ran
+// in the heading face and half in Inter, so equal ranks spoke in two voices.
+export const company =
+  "text-xl font-semibold text-content font-[family-name:var(--font-space-grotesk)] md:text-2xl";
+export const companyCurrent =
+  "text-xl font-semibold text-content-inverse font-[family-name:var(--font-space-grotesk)] md:text-2xl";
 export const badge = "rounded-full bg-accent-soft px-2.5 py-0.5 text-[0.6875rem] font-bold uppercase tracking-wide text-content";
 export const text = "text-[0.9375rem] font-semibold text-brand";
 // Amber role line on the emerald current card, replacing (not stacking on) the

@@ -79,7 +79,13 @@ export const cardContentColumn = "flex h-full min-w-0 flex-col";
 export const cardContentColumnDesktopSwap = "xl:order-2";
 export const cardHeader = "mb-4 flex items-center gap-3 border-b border-border-subtle pb-4";
 export const cardIndex = "inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-brand-tint bg-brand-weak text-sm font-bold text-brand font-[family-name:var(--font-space-grotesk)] transition-colors duration-300 group-data-[active=true]/card:border-brand group-data-[active=true]/card:bg-brand group-data-[active=true]/card:text-content-inverse";
-export const cardTitle = `${typeScale.cardTitle} mb-0 min-w-0 text-xl leading-tight md:text-2xl`;
+// Restated rather than composed from typeScale.cardTitle: appending size
+// utilities to a token that already sets them (text-lg/sm:text-xl vs
+// text-xl/md:text-2xl) leaves the winner to generated CSS order. Space
+// Grotesk puts this at the same 20/24px card rank and voice as the services
+// rows, stage names, and company names.
+export const cardTitle =
+  "mb-0 min-w-0 text-xl font-semibold leading-tight text-content font-[family-name:var(--font-space-grotesk)] md:text-2xl";
 export const cardOutcome = "mb-4 text-base leading-relaxed text-content-muted";
 // No fill and no border: a tinted, rounded, outlined box around the scene made
 // every card a card-within-a-card, and the frame competed with the card's own
