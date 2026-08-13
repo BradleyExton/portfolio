@@ -1,4 +1,16 @@
-import { BOARD_EDGE, IsoBox, IsoShadow, OnGround, PAPER_EDGE, PLANE_LEFT, project, ring, shades } from "@/features/shared/isoKit";
+import {
+  BOARD_EDGE,
+  IsoBox,
+  IsoShadow,
+  OnGround,
+  PAPER_EDGE,
+  PLANE_LEFT,
+  project,
+  ring,
+  SCENE_ORIGIN_X,
+  SCENE_VIEW_BOX,
+  shades,
+} from "@/features/shared/isoKit";
 import * as styles from "./styles";
 
 /* The interface, the layers it is built from, and the suite that holds it
@@ -58,8 +70,9 @@ const SUITE_ROWS = [
 
 export function FrontendIllustration() {
   return (
-    <svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg" className={styles.svg}>
-      <g transform="translate(320,186)">
+    <svg viewBox={SCENE_VIEW_BOX} xmlns="http://www.w3.org/2000/svg" className={styles.svg}>
+      {/* Screen's top-left corner at -179, board's front corner at +168. */}
+      <g transform={`translate(${SCENE_ORIGIN_X},208)`}>
         <g className={styles.pieces[0]}>
           <IsoBox u={0} v={0} w={BOARD} d={BOARD} h={11} shade={shades.board} outline={BOARD_EDGE} />
         </g>

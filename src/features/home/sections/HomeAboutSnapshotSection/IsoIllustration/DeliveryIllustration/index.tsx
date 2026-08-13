@@ -1,4 +1,14 @@
-import { BOARD_EDGE, IsoBox, IsoShadow, OnGround, PAPER_EDGE, project, shades } from "@/features/shared/isoKit";
+import {
+  BOARD_EDGE,
+  IsoBox,
+  IsoShadow,
+  OnGround,
+  PAPER_EDGE,
+  project,
+  SCENE_ORIGIN_X,
+  SCENE_VIEW_BOX,
+  shades,
+} from "@/features/shared/isoKit";
 import * as styles from "./styles";
 
 /* A lane board with real tickets on it, rather than blocks that stand for
@@ -49,8 +59,9 @@ function TicketFace({ accent, rows }: { accent: string; rows: readonly number[] 
 
 export function DeliveryIllustration() {
   return (
-    <svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg" className={styles.svg}>
-      <g transform="translate(320,174)">
+    <svg viewBox={SCENE_VIEW_BOX} xmlns="http://www.w3.org/2000/svg" className={styles.svg}>
+      {/* Board back corner at -184, airborne ticket's front corner at +172. */}
+      <g transform={`translate(${SCENE_ORIGIN_X},208)`}>
         <g className={styles.pieces[0]}>
           <IsoBox u={0} v={0} w={344} d={344} h={12} shade={shades.board} outline={BOARD_EDGE} />
         </g>

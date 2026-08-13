@@ -1,4 +1,14 @@
-import { IsoBox, IsoShadow, PAPER_EDGE, PLANE_RIGHT, project, ring, shades } from "@/features/shared/isoKit";
+import {
+  IsoBox,
+  IsoShadow,
+  PAPER_EDGE,
+  PLANE_RIGHT,
+  project,
+  ring,
+  SCENE_ORIGIN_X,
+  SCENE_VIEW_BOX,
+  shades,
+} from "@/features/shared/isoKit";
 import * as styles from "./styles";
 
 /* One dark core carrying three services, rather than six pale objects spread
@@ -55,10 +65,13 @@ const PACKET_CLASS = [styles.packet, styles.packetLate, styles.packetLater];
 
 export function PlatformIllustration() {
   return (
-    <svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg" className={styles.svg}>
-      {/* Centred on the composition's own bounding box (marker top at -158, the
-          near service's bottom corner at +176), not on the core. */}
-      <g transform="translate(320,171)">
+    <svg viewBox={SCENE_VIEW_BOX} xmlns="http://www.w3.org/2000/svg" className={styles.svg}>
+      {/* Centred on the composition's own bounding box, not on the core: marker
+          top at -158, and -164 at the top of its bob, against the near service's
+          bottom corner at +176. The marker is the one piece in the set whose
+          loop carries it toward the frame edge, so the bob is part of the
+          measurement rather than slack left over after it. */}
+      <g transform={`translate(${SCENE_ORIGIN_X},196)`}>
         <g className={styles.pieces[0]}>
           <IsoShadow u={0} v={0} w={CORE} d={CORE} opacity={0.16} />
           {SERVICES.map((service) => (

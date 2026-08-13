@@ -24,6 +24,23 @@ export const svg = styles.svg;
 export const ISO_X = 0.8660254;
 export const ISO_Y = 0.5;
 
+/* The frame every card scene is drawn into: the 16:9 of the illustration panel,
+   but at 720x405 rather than 640x360. The projection scale is unchanged, so this
+   is margin rather than a smaller drawing.
+
+   The old box was the drawing. Each scene had been composed to fill it and had
+   grown flush against it: the delivery board's back corner ran 10 units past the
+   top edge and came out sheared flat, and the other two cleared it by under 2%
+   of the frame — close enough that the scenes read as cropped by the card rather
+   than placed on it. 405 puts 6-8% of air above the tallest thing in each scene.
+
+   Vertical placement stays per-scene. The three differ by 22 units of content
+   height, and one shared origin would hand all the slack to the shortest scene
+   and re-tighten the tallest, so each picks the y that centres its own bounding
+   box — including the 6 units a bobbing piece at the top of the scene travels. */
+export const SCENE_VIEW_BOX = "0 0 720 405";
+export const SCENE_ORIGIN_X = 360;
+
 /** One ground point as an SVG "x,y" pair. */
 export const project = (u: number, v: number, h = 0) =>
   `${((u - v) * ISO_X).toFixed(2)},${((u + v) * ISO_Y - h).toFixed(2)}`;
