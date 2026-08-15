@@ -23,11 +23,14 @@ import * as styles from "./styles";
    drifting on wires — it said "connected system" and nothing else. This one
    says what the copy under it says. A client window fires a request through
    the SSO gate into the λ core; the core fans out to the payment card, the
-   CRM cloud and the database; a response comes back and the client pops a
-   check. The wide dashboard watches all of it, and once per loop it takes the
-   amber alert — the same blocker vocabulary as the delivery board — and
-   resolves it green while traffic keeps moving. Observability is the story
-   beat, not a prop: the card's claim is that incidents get caught.
+   CRM cloud and the database, each landing ringed on its top face; a response
+   comes back and the client pops a ringed check. The wide dashboard watches
+   all of it — telemetry dots sample the tap wire every beat, and its metric
+   steps up as responses complete. Once per loop it takes the amber alert —
+   the same blocker vocabulary as the delivery board — logs it as an amber
+   feed row, ships a fix packet back up the tap wire, and resolves the row
+   green while traffic keeps moving. Observability is the story beat, not a
+   prop: the card's claim is that incidents get caught.
 
    Everything runs on the sitewide 9.6s clock (iso-plt keyframes in
    globals.css). Every travel class has an -4.8s echo twin, so a request is
@@ -76,6 +79,7 @@ export function PlatformIllustration() {
           <g className={styles.plt.clientCheck}>
             <CheckBadge r={9} />
           </g>
+          <circle r="12" fill="none" stroke="#10b981" strokeWidth="2.5" opacity="0" className={styles.plt.clientRing} />
         </g>
 
         <g className={styles.pieces[3]}>
@@ -87,6 +91,17 @@ export function PlatformIllustration() {
         <g className={styles.pieces[5]}>
           <Satellites />
         </g>
+
+        {/* Telemetry on the tap wire, drawn before the dashboard so samples
+            disappear behind the screen as they arrive. Four dots one beat
+            apart keep the wire alive all loop; the fix packet rides the same
+            wire back to the core while the alert is held. */}
+        {styles.plt.tickDelays.map((delay) => (
+          <g key={delay} className={`${styles.plt.tick} ${delay}`} opacity="0">
+            <circle r="2.6" fill="#34d399" />
+          </g>
+        ))}
+        <g className={styles.plt.fix} opacity="0"><Packet fill="#a7f3d0" /></g>
 
         <g className={styles.pieces[6]}>
           <g className={styles.plt.wiggle}>

@@ -151,6 +151,12 @@ export function Satellites() {
       <g transform={`translate(${project(CLOUD.u + 21, CLOUD.v - 21, 23)})`}>
         <circle r="3.5" fill="#047857" opacity="0.75" className={styles.plt.lampCloud} />
       </g>
+      {/* Landing rings echo the core's socket pulse: an iso ellipse expanding
+          on the top face as each fan packet docks. Base opacity 0 keeps the
+          resting scene calm. */}
+      <g transform={`translate(${project(CLOUD.u, CLOUD.v, 23)})`}>
+        <ellipse rx="21" ry="12" fill="none" stroke="#059669" strokeWidth="2.5" opacity="0" className={styles.plt.landCloud} />
+      </g>
 
       <IsoBox u={CARD.u} v={CARD.v} w={CARD.size} d={CARD.size} h={26} shade={shades.paper} />
       <OnGround u={CARD.u} v={CARD.v} h={26}>
@@ -158,6 +164,9 @@ export function Satellites() {
       </OnGround>
       <g transform={`translate(${project(CARD.u + 19, CARD.v - 19, 27)})`}>
         <circle r="3.5" fill="#10b981" opacity="0.75" className={styles.plt.lampCard} />
+      </g>
+      <g transform={`translate(${project(CARD.u, CARD.v, 27)})`}>
+        <ellipse rx="20" ry="11.5" fill="none" stroke="#34d399" strokeWidth="2.5" opacity="0" className={styles.plt.landCard} />
       </g>
 
       <IsoBox u={DB.u} v={DB.v} w={64} d={64} h={6} shade={shades.board} />
@@ -170,6 +179,9 @@ export function Satellites() {
       </g>
       <g transform={`translate(${project(DB.u + 22, DB.v - 22, 50)})`}>
         <circle r="3.5" fill="#a7f3d0" opacity="0.75" className={styles.plt.lampDb} />
+      </g>
+      <g transform={`translate(${project(DB.u, DB.v, 46)})`}>
+        <ellipse rx="22" ry="12.8" fill="none" stroke="#047857" strokeWidth="2.5" opacity="0" className={styles.plt.landDb} />
       </g>
     </>
   );
@@ -201,8 +213,20 @@ export function Dashboard() {
         <rect x="12" y="46.8" width="46" height="2.4" rx="1.2" fill="#0d9488" opacity="0.7" />
         <rect x="6" y="54" width="3.5" height="3.5" rx="1" fill="#6ee7b7" />
         <rect x="12" y="54.8" width="26" height="2.4" rx="1.2" fill="#0d9488" opacity="0.7" />
+        {/* Incident row: the top feed line goes amber while the alert badge is
+            up, then swaps green with the resolve — same element-swap idiom as
+            the delivery board's blocker. Opacity-only, so no transform fight
+            with the sheared face group. */}
+        <g className={styles.plt.alertRow} opacity="0">
+          <rect x="6" y="38" width="3.5" height="3.5" rx="1" fill="#fbbf24" />
+          <rect x="12" y="38.8" width="40" height="2.4" rx="1.2" fill="#f59e0b" />
+        </g>
+        <g className={styles.plt.okRow} opacity="0">
+          <rect x="6" y="38" width="3.5" height="3.5" rx="1" fill="#34d399" />
+          <rect x="12" y="38.8" width="40" height="2.4" rx="1.2" fill="#10b981" />
+        </g>
         <rect x="70" y="40" width="42" height="19" rx="2" fill="#04382c" />
-        <rect x="75" y="45" width="20" height="3.5" rx="1.75" fill="#6ee7b7" />
+        <rect x="75" y="45" width="20" height="3.5" rx="1.75" fill="#6ee7b7" className={styles.plt.metric} />
         <rect x="75" y="52" width="30" height="2.5" rx="1.25" fill="#0d9488" />
       </g>
     </>

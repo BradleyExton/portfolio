@@ -1305,6 +1305,78 @@ html {
   81%, 90% { transform: scale(1); opacity: 1; }
   94%, 100% { transform: scale(1); opacity: 0; }
 }
+/* Telemetry sample riding the tap wire toward the dashboard (-207.84, 61) in
+   baked screen px. It departs from where the wire clears the core's slab edge
+   (-50.6, 14.8) rather than the core's centre, so it never floats over the
+   slab. One trip per loop, and the trip fills the 2.4s beat between the four
+   -2.4s-step instances in the markup, so exactly one sample is always ambling
+   down the wire — against which the fix packet later reads as rushed. Hidden
+   at 0%, 25%, 50% and 75%, which keeps every delayed twin on a paused card
+   showing an empty wire. */
+@keyframes iso-plt-tick {
+  0% { transform: translate(-50.6px, 14.8px); opacity: 0; }
+  2% { opacity: 0.65; }
+  22% { opacity: 0.65; }
+  24%, 100% { transform: translate(-207.84px, 61px); opacity: 0; }
+}
+/* The fix rides the same wire back while the alert is held, arriving just
+   before the resolve pops — the incident beat gets a cause, the way the
+   front-end card's fix packet ships in along the token rail. */
+@keyframes iso-plt-fix {
+  0%, 69% { transform: translate(-207.84px, 61px); opacity: 0; }
+  70.5% { transform: translate(-178.4px, 52.3px); opacity: 1; }
+  75.5% { transform: translate(-80.1px, 23.5px); opacity: 1; }
+  77%, 100% { transform: translate(-50.6px, 14.8px); opacity: 0; }
+}
+/* Landing rings on the satellites' top faces, the socket pulse's shape on the
+   arrival timing of each fan leg and its echo. */
+@keyframes iso-plt-land-card {
+  0%, 26%, 35%, 74%, 83%, 100% { transform: scale(0.4); opacity: 0; }
+  28% { transform: scale(0.75); opacity: 0.8; }
+  34% { transform: scale(1.5); opacity: 0; }
+  76% { transform: scale(0.75); opacity: 0.8; }
+  82% { transform: scale(1.5); opacity: 0; }
+}
+@keyframes iso-plt-land-cloud {
+  0%, 30%, 39%, 78%, 87%, 100% { transform: scale(0.4); opacity: 0; }
+  32% { transform: scale(0.75); opacity: 0.8; }
+  38% { transform: scale(1.5); opacity: 0; }
+  80% { transform: scale(0.75); opacity: 0.8; }
+  86% { transform: scale(1.5); opacity: 0; }
+}
+@keyframes iso-plt-land-db {
+  0%, 34%, 43%, 82%, 91%, 100% { transform: scale(0.4); opacity: 0; }
+  36% { transform: scale(0.75); opacity: 0.8; }
+  42% { transform: scale(1.5); opacity: 0; }
+  84% { transform: scale(0.75); opacity: 0.8; }
+  90% { transform: scale(1.5); opacity: 0; }
+}
+/* Expanding ring under the client's check pop — the delivery card's check
+   ring, timed to the response docking. */
+@keyframes iso-plt-client-ring {
+  0%, 46% { transform: scale(0.3); opacity: 0; }
+  48% { opacity: 0.5; }
+  54%, 100% { transform: scale(2); opacity: 0; }
+}
+/* The dashboard's feed logs the incident: top row amber with the alert badge,
+   swapped green with the resolve, gone once the resolve fades. */
+@keyframes iso-plt-alert-row {
+  0%, 64% { opacity: 0; }
+  65%, 78% { opacity: 1; }
+  79%, 100% { opacity: 0; }
+}
+@keyframes iso-plt-ok-row {
+  0%, 78% { opacity: 0; }
+  79%, 92% { opacity: 1; }
+  93%, 100% { opacity: 0; }
+}
+/* Metric tile steps up when the base cycle's response completes and resets
+   when the echo's does; base scaleX(1) is the reduced-motion resting width. */
+@keyframes iso-plt-metric {
+  0%, 46% { transform: scaleX(1); }
+  49%, 93% { transform: scaleX(1.4); }
+  96%, 100% { transform: scaleX(1); }
+}
 @keyframes iso-plt-graph {
   from { stroke-dashoffset: 0; }
   to { stroke-dashoffset: -84; }
@@ -2020,7 +2092,9 @@ html {
   .iso-scene .iso-plt-fan-card,
   .iso-scene .iso-plt-fan-cloud,
   .iso-scene .iso-plt-fan-db,
-  .iso-scene .iso-plt-resp {
+  .iso-scene .iso-plt-resp,
+  .iso-scene .iso-plt-tick,
+  .iso-scene .iso-plt-fix {
     animation-duration: 9.6s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
@@ -2033,6 +2107,13 @@ html {
   .iso-scene .iso-plt-fan-db { animation-name: iso-plt-fan-db; }
   .iso-scene .iso-plt-resp { animation-name: iso-plt-resp; }
 
+  .iso-scene .iso-plt-tick {
+    animation-name: iso-plt-tick;
+    animation-delay: var(--iso-tick-delay, 0s);
+  }
+
+  .iso-scene .iso-plt-fix { animation-name: iso-plt-fix; }
+
   .iso-scene .iso-plt-echo {
     animation-delay: -4.8s;
   }
@@ -2042,6 +2123,10 @@ html {
   .iso-scene .iso-plt-lamp-card,
   .iso-scene .iso-plt-lamp-cloud,
   .iso-scene .iso-plt-lamp-db,
+  .iso-scene .iso-plt-land-card,
+  .iso-scene .iso-plt-land-cloud,
+  .iso-scene .iso-plt-land-db,
+  .iso-scene .iso-plt-client-ring,
   .iso-scene .iso-plt-client-check,
   .iso-scene .iso-plt-alert,
   .iso-scene .iso-plt-wiggle,
@@ -2059,6 +2144,10 @@ html {
   .iso-scene .iso-plt-lamp-card { animation-name: iso-plt-lamp-card; }
   .iso-scene .iso-plt-lamp-cloud { animation-name: iso-plt-lamp-cloud; }
   .iso-scene .iso-plt-lamp-db { animation-name: iso-plt-lamp-db; }
+  .iso-scene .iso-plt-land-card { animation-name: iso-plt-land-card; }
+  .iso-scene .iso-plt-land-cloud { animation-name: iso-plt-land-cloud; }
+  .iso-scene .iso-plt-land-db { animation-name: iso-plt-land-db; }
+  .iso-scene .iso-plt-client-ring { animation-name: iso-plt-client-ring; }
 
   /* Badges rest hidden so the static scene is a calm running system rather
      than an incident. */
@@ -2066,6 +2155,27 @@ html {
   .iso-scene .iso-plt-alert { opacity: 0; animation-name: iso-plt-alert; }
   .iso-scene .iso-plt-wiggle { animation-name: iso-plt-wiggle; }
   .iso-scene .iso-plt-resolve { opacity: 0; animation-name: iso-plt-resolve; }
+
+  /* Feed rows are opacity-only swaps on the sheared screen face; steps keeps
+     them reading as log lines appearing rather than fading art. */
+  .iso-scene .iso-plt-alert-row {
+    opacity: 0;
+    animation: iso-plt-alert-row 9.6s steps(1) infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-plt-ok-row {
+    opacity: 0;
+    animation: iso-plt-ok-row 9.6s steps(1) infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-plt-metric {
+    transform-box: fill-box;
+    transform-origin: left center;
+    animation: iso-plt-metric 9.6s ease-in-out infinite;
+    animation-play-state: var(--iso-play);
+  }
 
   .iso-scene .iso-plt-graph {
     animation: iso-plt-graph 9.6s linear infinite;
