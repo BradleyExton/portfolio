@@ -1003,6 +1003,155 @@ html {
   58%, 100% { transform: scale(1); }
 }
 
+/* Front-end render pass. One 9.6s master clock, same as the delivery board;
+   every class reads a percentage window of it so the screen and the suite
+   stay in lockstep. The beats: skeleton (0-10), content resolves (12-15),
+   unit tier runs (15-30), component tier (26-41), e2e tier click-drives the
+   page (38-52), the error is caught (52), held (52-66), the fix packet ships
+   in along the token rail (62-70), card B re-renders (66-71), the re-run goes green
+   (73-88), calm all-green (88-95), reset to skeleton for the next pass
+   (96-100). Cursor waypoints are face-local px: button A at (-57,-14),
+   button B at (25,-14) — see ScreenParts. Base (non-animated) values are the
+   reduced-motion resting state: loaded screen, all-green suite. */
+@keyframes iso-fnt-skel {
+  0%, 9% { opacity: 1; }
+  13%, 93% { opacity: 0; }
+  98%, 100% { opacity: 1; }
+}
+@keyframes iso-fnt-content-a {
+  0%, 10% { opacity: 0; transform: translateY(5px); }
+  13%, 92% { opacity: 1; transform: translateY(0); }
+  96%, 100% { opacity: 0; transform: translateY(0); }
+}
+@keyframes iso-fnt-content-b {
+  0%, 12% { opacity: 0; transform: translateY(6px); }
+  15%, 92% { opacity: 1; transform: translateY(0); }
+  96%, 100% { opacity: 0; transform: translateY(0); }
+}
+@keyframes iso-fnt-b-ok {
+  0%, 51% { opacity: 1; }
+  52%, 70% { opacity: 0; }
+  71%, 100% { opacity: 1; }
+}
+@keyframes iso-fnt-b-err {
+  0%, 51% { opacity: 0; }
+  52%, 65% { opacity: 1; }
+  66%, 100% { opacity: 0; }
+}
+@keyframes iso-fnt-b-skel {
+  0%, 65% { opacity: 0; }
+  66%, 70% { opacity: 1; }
+  71%, 100% { opacity: 0; }
+}
+@keyframes iso-fnt-badge {
+  0%, 52% { transform: scale(0); }
+  55% { transform: scale(1.35); }
+  57%, 62% { transform: scale(1); }
+  66%, 100% { transform: scale(0); }
+}
+@keyframes iso-fnt-cursor {
+  0%, 39% { opacity: 0; transform: translate(26px, -40px); }
+  42% { opacity: 1; transform: translate(-16px, -28px); }
+  45% { opacity: 1; transform: translate(-57px, -14px); }
+  47% { opacity: 1; transform: translate(-57px, -14px); }
+  51% { opacity: 1; transform: translate(25px, -14px); }
+  53% { opacity: 1; transform: translate(25px, -14px); }
+  56%, 71% { opacity: 0; transform: translate(46px, -32px); }
+  74% { opacity: 1; transform: translate(8px, -24px); }
+  78% { opacity: 1; transform: translate(25px, -14px); }
+  80% { opacity: 1; transform: translate(25px, -14px); }
+  83%, 100% { opacity: 0; transform: translate(25px, -14px); }
+}
+@keyframes iso-fnt-ring-a {
+  0%, 44% { transform: scale(0.3); opacity: 0; }
+  46% { opacity: 0.5; }
+  52%, 100% { transform: scale(2); opacity: 0; }
+}
+@keyframes iso-fnt-ring-err {
+  0%, 51% { transform: scale(0.3); opacity: 0; }
+  53% { opacity: 0.6; }
+  59%, 100% { transform: scale(2); opacity: 0; }
+}
+@keyframes iso-fnt-ring-ok {
+  0%, 78% { transform: scale(0.3); opacity: 0; }
+  80% { opacity: 0.55; }
+  86%, 100% { transform: scale(2); opacity: 0; }
+}
+@keyframes iso-fnt-run-u {
+  0%, 14% { opacity: 0; }
+  16% { opacity: 1; }
+  19% { opacity: 0.45; }
+  22% { opacity: 1; }
+  25%, 100% { opacity: 0; }
+}
+@keyframes iso-fnt-fill-u {
+  0%, 15% { transform: scaleX(0); }
+  25%, 100% { transform: scaleX(1); }
+}
+@keyframes iso-fnt-check-u {
+  0%, 25% { transform: scale(0); }
+  28% { transform: scale(1.3); }
+  30%, 100% { transform: scale(1); }
+}
+@keyframes iso-fnt-run-c {
+  0%, 25% { opacity: 0; }
+  27% { opacity: 1; }
+  30% { opacity: 0.45; }
+  33% { opacity: 1; }
+  36%, 100% { opacity: 0; }
+}
+@keyframes iso-fnt-fill-c {
+  0%, 26% { transform: scaleX(0); }
+  36%, 100% { transform: scaleX(1); }
+}
+@keyframes iso-fnt-check-c {
+  0%, 36% { transform: scale(0); }
+  39% { transform: scale(1.3); }
+  41%, 100% { transform: scale(1); }
+}
+@keyframes iso-fnt-run-e {
+  0%, 38% { opacity: 0; }
+  40% { opacity: 1; }
+  44% { opacity: 0.45; }
+  48% { opacity: 1; }
+  52%, 71% { opacity: 0; }
+  73% { opacity: 1; }
+  77% { opacity: 0.45; }
+  80% { opacity: 1; }
+  83%, 100% { opacity: 0; }
+}
+@keyframes iso-fnt-fail-e {
+  0%, 52% { transform: scale(0); }
+  55% { transform: scale(1.3); }
+  57%, 68% { transform: scale(1); }
+  72%, 100% { transform: scale(0); }
+}
+/* The e2e track freezes at 0.68 while the error is held — a paused run, not a
+   failed colour. */
+@keyframes iso-fnt-fill-e {
+  0%, 39% { transform: scaleX(0); }
+  52%, 72% { transform: scaleX(0.68); }
+  82%, 100% { transform: scaleX(1); }
+}
+@keyframes iso-fnt-check-e {
+  0%, 83% { transform: scale(0); }
+  86% { transform: scale(1.3); }
+  88%, 100% { transform: scale(1); }
+}
+@keyframes iso-fnt-suite-ring {
+  0%, 86% { transform: scale(0.3); opacity: 0; }
+  88% { opacity: 0.55; }
+  95%, 100% { transform: scale(2); opacity: 0; }
+}
+/* The fix packet rides the token-rail wire in screen-space px: from
+   project(-96,-100,14) to project(-105,105,14) is a delta of (-185.3, 98). */
+@keyframes iso-fnt-fix-rail {
+  0%, 62% { opacity: 0; transform: translate(0, 0); }
+  64% { opacity: 1; transform: translate(-37px, 19.6px); }
+  69% { opacity: 1; transform: translate(-166.8px, 88.2px); }
+  70%, 100% { opacity: 0; transform: translate(-185.3px, 98px); }
+}
+
 /* Status lines on the hero monitor terminal settle in from just below. */
 @keyframes screen-line-in {
   from {
@@ -1492,6 +1641,164 @@ html {
 
   .iso-scene .iso-dlv-count-2 {
     animation: iso-dlv-count-c 9.6s ease-in-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  /* Front-end render pass classes. All on the one 9.6s clock; see the
+     keyframes block for the timeline. Scale pops need fill-box centre
+     origins, and every animated element sits inside a plain positioning
+     group because a CSS transform animation replaces the SVG transform
+     attribute. */
+  .iso-scene .iso-fnt-badge,
+  .iso-scene .iso-fnt-fail-e,
+  .iso-scene .iso-fnt-check-u,
+  .iso-scene .iso-fnt-check-c,
+  .iso-scene .iso-fnt-check-e,
+  .iso-scene .iso-fnt-ring-a,
+  .iso-scene .iso-fnt-ring-err,
+  .iso-scene .iso-fnt-ring-ok,
+  .iso-scene .iso-fnt-suite-ring {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .iso-scene .iso-fnt-fill-u,
+  .iso-scene .iso-fnt-fill-c,
+  .iso-scene .iso-fnt-fill-e {
+    transform-box: fill-box;
+    transform-origin: left center;
+  }
+
+  /* The skeleton rests hidden and the content groups rest shown, so a still
+     of the scene is a loaded interface rather than a loading one. */
+  .iso-scene .iso-fnt-skel {
+    opacity: 0;
+    animation: iso-fnt-skel 9.6s ease-in-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-fnt-content-a {
+    animation: iso-fnt-content-a 9.6s ease-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-fnt-content-b {
+    animation: iso-fnt-content-b 9.6s ease-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  /* Card B's three faces swap on steps(1); exactly one is ever visible. */
+  .iso-scene .iso-fnt-b-ok {
+    animation: iso-fnt-b-ok 9.6s steps(1) infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-fnt-b-err {
+    opacity: 0;
+    animation: iso-fnt-b-err 9.6s steps(1) infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-fnt-b-skel {
+    opacity: 0;
+    animation: iso-fnt-b-skel 9.6s steps(1) infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-fnt-badge {
+    transform: scale(0);
+    animation: iso-fnt-badge 9.6s ease-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-fnt-cursor {
+    opacity: 0;
+    animation: iso-fnt-cursor 9.6s ease-in-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-fnt-ring-a {
+    opacity: 0;
+    animation: iso-fnt-ring-a 9.6s ease-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-fnt-ring-err {
+    opacity: 0;
+    animation: iso-fnt-ring-err 9.6s ease-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-fnt-ring-ok {
+    opacity: 0;
+    animation: iso-fnt-ring-ok 9.6s ease-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  /* Suite rows: run dots rest hidden, checks and fills rest complete. */
+  .iso-scene .iso-fnt-run-u {
+    opacity: 0;
+    animation: iso-fnt-run-u 9.6s ease-in-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-fnt-fill-u {
+    animation: iso-fnt-fill-u 9.6s ease-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-fnt-check-u {
+    animation: iso-fnt-check-u 9.6s ease-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-fnt-run-c {
+    opacity: 0;
+    animation: iso-fnt-run-c 9.6s ease-in-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-fnt-fill-c {
+    animation: iso-fnt-fill-c 9.6s ease-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-fnt-check-c {
+    animation: iso-fnt-check-c 9.6s ease-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-fnt-run-e {
+    opacity: 0;
+    animation: iso-fnt-run-e 9.6s ease-in-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-fnt-fail-e {
+    transform: scale(0);
+    animation: iso-fnt-fail-e 9.6s ease-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-fnt-fill-e {
+    animation: iso-fnt-fill-e 9.6s ease-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-fnt-check-e {
+    animation: iso-fnt-check-e 9.6s ease-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-fnt-suite-ring {
+    opacity: 0;
+    animation: iso-fnt-suite-ring 9.6s ease-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-fnt-fix-rail {
+    opacity: 0;
+    animation: iso-fnt-fix-rail 9.6s ease-in-out infinite;
     animation-play-state: var(--iso-play);
   }
 
