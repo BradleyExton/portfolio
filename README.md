@@ -55,6 +55,7 @@ npm run verify
 - `NEXT_PUBLIC_FORMSPREE_ID`
 - `NEXT_PUBLIC_CALCOM_URL`
 - `NEXT_PUBLIC_GA_MEASUREMENT_ID`
+- `GOOGLE_SITE_VERIFICATION`
 - `UNDER_CONSTRUCTION`
 
 Env access is centralized through `src/config/publicEnv.ts`.

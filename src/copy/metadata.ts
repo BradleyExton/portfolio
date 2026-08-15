@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { publicEnv } from "@/config/publicEnv";
 import { profile } from "@/copy/profile";
 
 const defaultDescription =
@@ -35,6 +36,10 @@ export const siteMetadata: Metadata = {
     index: true,
     follow: true,
   },
+  // Only rendered once GOOGLE_SITE_VERIFICATION is set, so the tag never ships empty.
+  ...(publicEnv.googleSiteVerification
+    ? { verification: { google: publicEnv.googleSiteVerification } }
+    : {}),
 };
 
 export const homeMetadata: Metadata = {
