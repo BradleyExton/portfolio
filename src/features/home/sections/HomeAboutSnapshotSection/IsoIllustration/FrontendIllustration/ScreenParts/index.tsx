@@ -84,17 +84,22 @@ export function ScreenFace() {
         <g className={styles.fnt.bOk}>
           <ContentCard x={CARD_B_X} widths={B_WIDTHS} button="#059669" />
         </g>
+        {/* The catch lands with the delivery board's blocker shudder: the
+            wiggle group is separate from the steps(1) opacity group above it,
+            so each animation keeps its own transform. */}
         <g className={styles.fnt.bErr}>
-          <rect x={CARD_B_X} y={CARD.y} width={CARD.w} height={CARD.h} rx="6" fill="#fffbeb" stroke="#fcd34d" strokeWidth="1.6" />
-          <rect x="12" y="-44" width="26" height="7" rx="3.5" fill="#fcd34d" />
-          <g transform="translate(24,-29)">
-            <circle r="8" fill="#fbbf24" />
-            <rect x="-1.5" y="-4.6" width="3" height="5.8" rx="1.5" fill="#78350f" />
-            <circle cx="0" cy="3.4" r="1.6" fill="#78350f" />
+          <g className={styles.fnt.errWiggle}>
+            <rect x={CARD_B_X} y={CARD.y} width={CARD.w} height={CARD.h} rx="6" fill="#fffbeb" stroke="#fcd34d" strokeWidth="1.6" />
+            <rect x="12" y="-44" width="26" height="7" rx="3.5" fill="#fcd34d" />
+            <g transform="translate(24,-29)">
+              <circle r="8" fill="#fbbf24" />
+              <rect x="-1.5" y="-4.6" width="3" height="5.8" rx="1.5" fill="#78350f" />
+              <circle cx="0" cy="3.4" r="1.6" fill="#78350f" />
+            </g>
+            <rect x="38" y="-32" width="32" height="5" rx="2.5" fill="#fde68a" />
+            <rect x="38" y="-24" width="24" height="5" rx="2.5" fill="#fde68a" />
+            <rect x="12" y="-18" width="34" height="9" rx="4.5" fill="none" stroke="#f59e0b" strokeWidth="1.6" />
           </g>
-          <rect x="38" y="-32" width="32" height="5" rx="2.5" fill="#fde68a" />
-          <rect x="38" y="-24" width="24" height="5" rx="2.5" fill="#fde68a" />
-          <rect x="12" y="-18" width="34" height="9" rx="4.5" fill="none" stroke="#f59e0b" strokeWidth="1.6" />
         </g>
         <g className={styles.fnt.bSkel}>
           <SkeletonCard x={CARD_B_X} widths={B_WIDTHS} />
@@ -133,22 +138,40 @@ export function ScreenFace() {
    read as devices on one desk; the slab is also the scene's only dark mass,
    the anchor the old layer stack used to provide. The outer rect here is
    #032b22 — ink's left face — so the panel's rounded corners dissolve into
-   the body behind them. */
+   the body behind them.
+
+   The phone is on the scene's clock too: the outer rect stays put (a body
+   whose screen is off) while everything inside it lights up a beat after the
+   desktop resolves, and once the sync packet lands, its own card B — the
+   lower card, the one the desktop error hit — re-renders and pops a confirm
+   ring. The re-render skeleton bars are the card tone nudged one step
+   lighter, the dark theme's version of the desktop skeleton's grey. */
 export function PhonePanel() {
   return (
     <>
       <rect x="-34" y="-124" width="68" height="124" rx="10" fill="#032b22" />
-      <rect x="-28" y="-116" width="56" height="108" rx="7" fill="#065f46" />
-      <circle cx="0" cy="-120" r="2" fill="#0a6b52" />
-      <rect x="-22" y="-108" width="28" height="7" rx="3.5" fill="#6ee7b7" />
-      <rect x="-22" y="-96" width="40" height="4.5" rx="2.25" fill="#0a6b52" />
-      <rect x="-22" y="-84" width="44" height="30" rx="5" fill="#0a6b52" />
-      <rect x="-16" y="-78" width="18" height="5" rx="2.5" fill="#6ee7b7" />
-      <rect x="-16" y="-69" width="28" height="4" rx="2" fill="#34d399" />
-      <rect x="-22" y="-48" width="44" height="30" rx="5" fill="#0a6b52" />
-      <rect x="-16" y="-42" width="16" height="5" rx="2.5" fill="#6ee7b7" />
-      <rect x="-16" y="-33" width="24" height="4" rx="2" fill="#34d399" />
-      <rect x="-12" y="-13" width="24" height="3.5" rx="1.75" fill="#0a6b52" />
+      <g className={styles.fnt.pLoad}>
+        <rect x="-28" y="-116" width="56" height="108" rx="7" fill="#065f46" />
+        <circle cx="0" cy="-120" r="2" fill="#0a6b52" />
+        <rect x="-22" y="-108" width="28" height="7" rx="3.5" fill="#6ee7b7" />
+        <rect x="-22" y="-96" width="40" height="4.5" rx="2.25" fill="#0a6b52" />
+        <rect x="-22" y="-84" width="44" height="30" rx="5" fill="#0a6b52" />
+        <rect x="-16" y="-78" width="18" height="5" rx="2.5" fill="#6ee7b7" />
+        <rect x="-16" y="-69" width="28" height="4" rx="2" fill="#34d399" />
+        <rect x="-22" y="-48" width="44" height="30" rx="5" fill="#0a6b52" />
+        <g className={styles.fnt.pOk}>
+          <rect x="-16" y="-42" width="16" height="5" rx="2.5" fill="#6ee7b7" />
+          <rect x="-16" y="-33" width="24" height="4" rx="2" fill="#34d399" />
+        </g>
+        <g className={styles.fnt.pSkel}>
+          <rect x="-16" y="-42" width="16" height="5" rx="2.5" fill="#0e8562" />
+          <rect x="-16" y="-33" width="24" height="4" rx="2" fill="#0e8562" />
+        </g>
+        <rect x="-12" y="-13" width="24" height="3.5" rx="1.75" fill="#0a6b52" />
+        <g transform="translate(0,-33)">
+          <circle r="11" fill="none" stroke="#34d399" strokeWidth="2.5" className={styles.fnt.pRing} />
+        </g>
+      </g>
     </>
   );
 }

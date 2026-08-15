@@ -27,4 +27,12 @@ export const fnt = {
   checkE: "iso-fnt-check-e",
   suiteRing: "iso-fnt-suite-ring",
   fixRail: "iso-fnt-fix-rail",
+  errWiggle: "iso-fnt-err-wiggle",
+  swatch: "iso-fnt-swatch",
+  sync: "iso-fnt-sync",
+  watch: "iso-fnt-watch",
+  pLoad: "iso-fnt-p-load",
+  pOk: "iso-fnt-p-ok",
+  pSkel: "iso-fnt-p-skel",
+  pRing: "iso-fnt-p-ring",
 } as const;

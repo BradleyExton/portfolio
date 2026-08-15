@@ -26,11 +26,16 @@ import * as styles from "./styles";
    same interface runs on a phone — dark theme, cards reflowed vertically —
    so theming reads as architecture, not paint. The phone's dark body is also
    the scene's one dark mass, the anchor an abstract layer stack used to
-   provide before it was cut for saying nothing.
+   provide before it was cut for saying nothing. The cast is on the clock,
+   not posed around it: the phone lights up a beat after the desktop
+   resolves, a sync packet carries the landed fix across the screen->phone
+   wire, and the phone re-renders its own copy of the broken card — one fix,
+   both surfaces.
 
    Base (non-animated) values are the reduced-motion resting state: a loaded
-   screen over an all-green suite — quality held, not mid-incident. Amber is
-   spent on the error beat and the rail's one amber token.
+   screen and a lit phone over an all-green suite — quality held, not
+   mid-incident. Amber is spent on the error beat and the rail's one amber
+   token.
 
    Two ordering rules carry over from the delivery board: every animated
    element sits inside a plain positioning group, because a CSS transform
@@ -57,11 +62,12 @@ const SUITE = { u: 74, v: 106 } as const;
 const RAIL = { u: -96, v: -100 } as const;
 const BOARD = 336;
 
-/* Emerald, ink, amber: the theme tokens the two surfaces draw from. */
+/* Emerald, ink, amber: the theme tokens the two surfaces draw from. The
+   emerald one pops as the fix packet departs — the token the fix carries. */
 const TOKEN_SWATCHES = [
-  { x: -50, fill: "#10b981" },
-  { x: -8, fill: "#065f46" },
-  { x: 34, fill: "#fbbf24" },
+  { x: -50, fill: "#10b981", pop: true },
+  { x: -8, fill: "#065f46", pop: false },
+  { x: 34, fill: "#fbbf24", pop: false },
 ] as const;
 
 export function FrontendIllustration() {
@@ -106,9 +112,18 @@ export function FrontendIllustration() {
             strokeWidth="3"
             strokeDasharray="7 6"
             fill="none"
+            className={styles.fnt.watch}
           />
           <g transform={`translate(${project(RAIL.u, RAIL.v, 14)})`}>
             <g className={styles.fnt.fixRail}>
+              <polygon points="0,0 8,4.6 0,9.2 -8,4.6" fill="#34d399" />
+            </g>
+          </g>
+          {/* The sync packet: once card B re-renders, the same fix rides the
+              screen->phone wire, so theming-as-architecture is something the
+              scene does, not just something it shows. */}
+          <g transform={`translate(${project(SCREEN.u, SCREEN.v, 14)})`}>
+            <g className={styles.fnt.sync}>
               <polygon points="0,0 8,4.6 0,9.2 -8,4.6" fill="#34d399" />
             </g>
           </g>
@@ -123,7 +138,9 @@ export function FrontendIllustration() {
             <rect x="-56" y="-24" width="34" height="7" rx="3.5" fill="#7f938b" />
             {TOKEN_SWATCHES.map((swatch) => (
               <g key={swatch.x}>
-                <rect x={swatch.x} y="-6" width="24" height="24" rx="8" fill={swatch.fill} />
+                <g className={swatch.pop ? styles.fnt.swatch : undefined}>
+                  <rect x={swatch.x} y="-6" width="24" height="24" rx="8" fill={swatch.fill} />
+                </g>
                 <rect x={swatch.x} y="22" width="24" height="5" rx="2.5" fill="#dbe7e1" />
               </g>
             ))}

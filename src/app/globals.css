@@ -1005,14 +1005,17 @@ html {
 
 /* Front-end render pass. One 9.6s master clock, same as the delivery board;
    every class reads a percentage window of it so the screen and the suite
-   stay in lockstep. The beats: skeleton (0-10), content resolves (12-15),
-   unit tier runs (15-30), component tier (26-41), e2e tier click-drives the
-   page (38-52), the error is caught (52), held (52-66), the fix packet ships
-   in along the token rail (62-70), card B re-renders (66-71), the re-run goes green
-   (73-88), calm all-green (88-95), reset to skeleton for the next pass
+   stay in lockstep. The beats: skeleton (0-10), content resolves (12-15) and
+   the phone lights up just after it (13-17), unit tier runs (15-30),
+   component tier (26-41), e2e tier click-drives the page (38-52), the error
+   is caught (52) and the card shudders, held (52-66), the fix packet ships
+   in along the token rail (62-70) with a swatch pop as it departs, card B
+   re-renders (66-71), the sync packet carries the fix to the phone (71-77),
+   the phone re-renders its own card B and confirms (77-86), the re-run goes
+   green (73-88), calm all-green (88-95), reset to skeleton for the next pass
    (96-100). Cursor waypoints are face-local px: button A at (-57,-14),
    button B at (25,-14) — see ScreenParts. Base (non-animated) values are the
-   reduced-motion resting state: loaded screen, all-green suite. */
+   reduced-motion resting state: loaded screen, lit phone, all-green suite. */
 @keyframes iso-fnt-skel {
   0%, 9% { opacity: 1; }
   13%, 93% { opacity: 0; }
@@ -1150,6 +1153,62 @@ html {
   64% { opacity: 1; transform: translate(-37px, 19.6px); }
   69% { opacity: 1; transform: translate(-166.8px, 88.2px); }
   70%, 100% { opacity: 0; transform: translate(-185.3px, 98px); }
+}
+/* The catch, felt on the glass: the same shudder the delivery board's blocked
+   card does, spent on the error face's window only. */
+@keyframes iso-fnt-err-wiggle {
+  0%, 52% { transform: rotate(0deg); }
+  53.5% { transform: rotate(1.6deg); }
+  55% { transform: rotate(-1.2deg); }
+  56.5% { transform: rotate(0.7deg); }
+  58%, 100% { transform: rotate(0deg); }
+}
+/* The emerald swatch pops as the fix leaves the rail: the token the fix
+   carries, on the delivery board's count-pop clock. */
+@keyframes iso-fnt-swatch {
+  0%, 60% { transform: scale(1); }
+  62% { transform: scale(1.3); }
+  64%, 100% { transform: scale(1); }
+}
+/* The sync packet rides the screen->phone wire in screen-space px: from
+   project(-105,105,14) to project(95,-60,14) is a delta of (316.1, 17.5). */
+@keyframes iso-fnt-sync {
+  0%, 71% { opacity: 0; transform: translate(0, 0); }
+  72.5% { opacity: 1; transform: translate(63.2px, 3.5px); }
+  76.5% { opacity: 1; transform: translate(284.5px, 15.8px); }
+  77.5%, 100% { opacity: 0; transform: translate(316.1px, 17.5px); }
+}
+/* The dashed suite wire runs continuously toward the suite — the tests watch
+   both surfaces even between beats. The dash period is 13 (7 on, 6 off), so
+   -39 per loop wraps seamlessly. */
+@keyframes iso-fnt-watch {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -39; }
+}
+/* The phone's glass lights up one beat after the desktop content resolves:
+   the outer ink rect stays (a dark body whose screen is off), the interface
+   arrives. */
+@keyframes iso-fnt-p-load {
+  0%, 13% { opacity: 0; }
+  17%, 93% { opacity: 1; }
+  97%, 100% { opacity: 0; }
+}
+/* The phone's card B re-renders after the sync packet lands; same exclusive
+   steps(1) windows as the desktop card's swap. */
+@keyframes iso-fnt-p-ok {
+  0%, 76% { opacity: 1; }
+  77%, 81% { opacity: 0; }
+  82%, 100% { opacity: 1; }
+}
+@keyframes iso-fnt-p-skel {
+  0%, 76% { opacity: 0; }
+  77%, 81% { opacity: 1; }
+  82%, 100% { opacity: 0; }
+}
+@keyframes iso-fnt-p-ring {
+  0%, 79% { transform: scale(0.3); opacity: 0; }
+  81% { opacity: 0.55; }
+  87%, 100% { transform: scale(2); opacity: 0; }
 }
 
 /* Platform journey. One request cycle per 9.6s: client -> SSO gate -> core,
@@ -1760,7 +1819,10 @@ html {
   .iso-scene .iso-fnt-ring-a,
   .iso-scene .iso-fnt-ring-err,
   .iso-scene .iso-fnt-ring-ok,
-  .iso-scene .iso-fnt-suite-ring {
+  .iso-scene .iso-fnt-suite-ring,
+  .iso-scene .iso-fnt-err-wiggle,
+  .iso-scene .iso-fnt-swatch,
+  .iso-scene .iso-fnt-p-ring {
     transform-box: fill-box;
     transform-origin: center;
   }
@@ -1902,6 +1964,51 @@ html {
   .iso-scene .iso-fnt-fix-rail {
     opacity: 0;
     animation: iso-fnt-fix-rail 9.6s ease-in-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-fnt-err-wiggle {
+    animation: iso-fnt-err-wiggle 9.6s ease-in-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-fnt-swatch {
+    animation: iso-fnt-swatch 9.6s ease-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-fnt-sync {
+    opacity: 0;
+    animation: iso-fnt-sync 9.6s ease-in-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-fnt-watch {
+    animation: iso-fnt-watch 9.6s linear infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  /* Phone classes. The glass content rests shown and the re-render skeleton
+     rests hidden, so a still of the scene is two lit, healthy surfaces. */
+  .iso-scene .iso-fnt-p-load {
+    animation: iso-fnt-p-load 9.6s ease-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-fnt-p-ok {
+    animation: iso-fnt-p-ok 9.6s steps(1) infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-fnt-p-skel {
+    opacity: 0;
+    animation: iso-fnt-p-skel 9.6s steps(1) infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-fnt-p-ring {
+    opacity: 0;
+    animation: iso-fnt-p-ring 9.6s ease-out infinite;
     animation-play-state: var(--iso-play);
   }
 
