@@ -854,6 +854,155 @@ html {
   }
 }
 
+/* Delivery board journey. One 9.6s master timeline (4 bars of the sitewide
+   2.4s beat); every class below reads a percentage window of it, so the
+   parallel stories stay in sync. Positions are screen-space px baked from the
+   iso projection: one column hop (u+114) is (98.7, 57), done sits at
+   (197.4, 114), and the ship leg to the production pad adds (165.4, 35.5).
+   Base (non-animated) values are the reduced-motion and watermark resting
+   state: card A at rest in the first column, no badge, no ring, replacements
+   hidden — a populated board, mid-sprint. */
+@keyframes iso-dlv-card-a {
+  0%, 16% { transform: translate(0, 0); opacity: 1; }
+  19% { transform: translate(4px, -16px); }
+  23% { transform: translate(91.7px, 42px); }
+  25% { transform: translate(98.7px, 62px); }
+  27%, 44% { transform: translate(98.7px, 57px); }
+  47% { transform: translate(104.7px, 40px); }
+  51% { transform: translate(190.4px, 99px); }
+  53% { transform: translate(197.4px, 119px); }
+  55%, 69% { transform: translate(197.4px, 114px) scale(1); opacity: 1; }
+  72% { transform: translate(205.4px, 92px) scale(0.97); opacity: 1; }
+  75% { transform: translate(288.4px, 107.5px) scale(0.86); opacity: 1; }
+  79% { transform: translate(362.8px, 145.5px) scale(0.74); opacity: 0; }
+  100% { transform: translate(362.8px, 149.5px) scale(0.74); opacity: 0; }
+}
+@keyframes iso-dlv-shadow-a {
+  0%, 16% { transform: translate(0, 0); opacity: 0.12; }
+  19% { opacity: 0.07; }
+  25%, 44% { transform: translate(98.7px, 57px); opacity: 0.12; }
+  47% { opacity: 0.07; }
+  53%, 69% { transform: translate(197.4px, 114px); opacity: 0.12; }
+  74%, 100% { transform: translate(197.4px, 114px); opacity: 0; }
+}
+@keyframes iso-dlv-face-spec {
+  0%, 21% { opacity: 1; }
+  22%, 100% { opacity: 0; }
+}
+@keyframes iso-dlv-face-build {
+  0%, 21% { opacity: 0; }
+  22%, 48% { opacity: 1; }
+  49%, 100% { opacity: 0; }
+}
+@keyframes iso-dlv-face-ship {
+  0%, 48% { opacity: 0; }
+  49%, 100% { opacity: 1; }
+}
+@keyframes iso-dlv-progress-a {
+  0%, 27% { transform: scaleX(0); }
+  44%, 100% { transform: scaleX(1); }
+}
+@keyframes iso-dlv-check-a {
+  0%, 56% { transform: scale(0); }
+  60% { transform: scale(1.3); }
+  63%, 100% { transform: scale(1); }
+}
+@keyframes iso-dlv-ring-a {
+  0%, 56% { transform: scale(0.4); opacity: 0; }
+  58% { opacity: 0.55; }
+  67%, 100% { transform: scale(2.1); opacity: 0; }
+}
+@keyframes iso-dlv-prod-ring {
+  0%, 75% { transform: scale(0.3); opacity: 0; }
+  77% { opacity: 0.6; }
+  88%, 100% { transform: scale(2); opacity: 0; }
+}
+@keyframes iso-dlv-user-a {
+  0%, 77% { transform: scale(0); opacity: 0; }
+  80% { transform: scale(1.25); opacity: 1; }
+  82%, 95% { transform: scale(1); opacity: 1; }
+  99%, 100% { transform: scale(1); opacity: 0; }
+}
+@keyframes iso-dlv-user-b {
+  0%, 80% { transform: scale(0); opacity: 0; }
+  83% { transform: scale(1.25); opacity: 1; }
+  85%, 95% { transform: scale(1); opacity: 1; }
+  99%, 100% { transform: scale(1); opacity: 0; }
+}
+@keyframes iso-dlv-user-c {
+  0%, 83% { transform: scale(0); opacity: 0; }
+  86% { transform: scale(1.25); opacity: 1; }
+  88%, 95% { transform: scale(1); opacity: 1; }
+  99%, 100% { transform: scale(1); opacity: 0; }
+}
+@keyframes iso-dlv-next-a {
+  0%, 80% { transform: translate(0, -60px); opacity: 0; }
+  83% { opacity: 1; }
+  88% { transform: translate(0, 4px); }
+  90%, 100% { transform: translate(0, 0); opacity: 1; }
+}
+@keyframes iso-dlv-card-b {
+  0%, 45% { transform: translate(0, 0); opacity: 1; }
+  48% { transform: translate(5px, -15px); }
+  52% { transform: translate(91.7px, 42px); }
+  54% { transform: translate(98.7px, 62px); }
+  56%, 86% { transform: translate(98.7px, 57px); opacity: 1; }
+  92%, 100% { transform: translate(98.7px, 57px); opacity: 0; }
+}
+@keyframes iso-dlv-shadow-b {
+  0%, 45% { transform: translate(0, 0); opacity: 0.12; }
+  48% { opacity: 0.07; }
+  54%, 86% { transform: translate(98.7px, 57px); opacity: 0.12; }
+  92%, 100% { transform: translate(98.7px, 57px); opacity: 0; }
+}
+@keyframes iso-dlv-wiggle {
+  0%, 6% { transform: rotate(0deg); }
+  7.5% { transform: rotate(1.6deg); }
+  9% { transform: rotate(-1.6deg); }
+  10.5% { transform: rotate(1.1deg); }
+  12% { transform: rotate(-0.8deg); }
+  13.5%, 100% { transform: rotate(0deg); }
+}
+@keyframes iso-dlv-badge {
+  0%, 3% { transform: scale(0); }
+  6% { transform: scale(1.35); }
+  8%, 24% { transform: scale(1); }
+  28%, 100% { transform: scale(0); }
+}
+@keyframes iso-dlv-progress-b {
+  0%, 28% { transform: scaleX(0.42); }
+  42%, 100% { transform: scaleX(1); }
+}
+@keyframes iso-dlv-check-b {
+  0%, 58% { transform: scale(0); }
+  62% { transform: scale(1.25); }
+  65%, 100% { transform: scale(1); }
+}
+@keyframes iso-dlv-next-b {
+  0%, 90% { opacity: 0; }
+  97%, 100% { opacity: 1; }
+}
+@keyframes iso-dlv-ghost-b {
+  0%, 28% { opacity: 1; }
+  32%, 94% { opacity: 0; }
+  98%, 100% { opacity: 1; }
+}
+@keyframes iso-dlv-count-a {
+  0%, 84% { transform: scale(1); }
+  86% { transform: scale(1.45); }
+  88%, 100% { transform: scale(1); }
+}
+@keyframes iso-dlv-count-b {
+  0%, 25% { transform: scale(1); }
+  27% { transform: scale(1.45); }
+  29%, 100% { transform: scale(1); }
+}
+@keyframes iso-dlv-count-c {
+  0%, 54% { transform: scale(1); }
+  56% { transform: scale(1.45); }
+  58%, 100% { transform: scale(1); }
+}
+
 /* Status lines on the hero monitor terminal settle in from just below. */
 @keyframes screen-line-in {
   from {
@@ -1186,6 +1335,163 @@ html {
     opacity: 0;
     animation: iso-gate-check var(--iso-sweep, 7.2s) ease-out
       var(--iso-gate-delay, 0s) infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  /* Delivery board journey classes. All on the one 9.6s clock; see the
+     keyframes block for the timeline. Scale/rotate pops need fill-box centre
+     origins, and every animated element sits inside a plain positioning group
+     because a CSS transform animation replaces the SVG transform attribute. */
+  .iso-scene .iso-dlv-card-a,
+  .iso-scene .iso-dlv-wiggle,
+  .iso-scene .iso-dlv-badge,
+  .iso-scene .iso-dlv-check-a,
+  .iso-scene .iso-dlv-check-b,
+  .iso-scene .iso-dlv-ring-a,
+  .iso-scene .iso-dlv-prod-ring,
+  .iso-scene .iso-dlv-user-a,
+  .iso-scene .iso-dlv-user-b,
+  .iso-scene .iso-dlv-user-c,
+  .iso-scene .iso-dlv-count-0,
+  .iso-scene .iso-dlv-count-1,
+  .iso-scene .iso-dlv-count-2 {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .iso-scene .iso-dlv-progress-a,
+  .iso-scene .iso-dlv-progress-b {
+    transform-box: fill-box;
+    transform-origin: left center;
+  }
+
+  .iso-scene .iso-dlv-card-a {
+    animation: iso-dlv-card-a 9.6s ease-in-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-dlv-shadow-a {
+    animation: iso-dlv-shadow-a 9.6s ease-in-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-dlv-face-spec {
+    animation: iso-dlv-face-spec 9.6s steps(1) infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-dlv-face-build {
+    opacity: 0;
+    animation: iso-dlv-face-build 9.6s steps(1) infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-dlv-face-ship {
+    opacity: 0;
+    animation: iso-dlv-face-ship 9.6s steps(1) infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-dlv-progress-a {
+    animation: iso-dlv-progress-a 9.6s ease-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-dlv-check-a {
+    animation: iso-dlv-check-a 9.6s ease-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  /* Rings and the blocker badge rest hidden so the static scene is a calm
+     mid-sprint board rather than a celebration or an incident. */
+  .iso-scene .iso-dlv-ring-a {
+    opacity: 0;
+    animation: iso-dlv-ring-a 9.6s ease-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-dlv-prod-ring {
+    opacity: 0;
+    animation: iso-dlv-prod-ring 9.6s ease-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-dlv-user-a {
+    animation: iso-dlv-user-a 9.6s ease-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-dlv-user-b {
+    animation: iso-dlv-user-b 9.6s ease-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-dlv-user-c {
+    animation: iso-dlv-user-c 9.6s ease-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-dlv-next-a {
+    opacity: 0;
+    animation: iso-dlv-next-a 9.6s ease-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-dlv-card-b {
+    animation: iso-dlv-card-b 9.6s ease-in-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-dlv-shadow-b {
+    animation: iso-dlv-shadow-b 9.6s ease-in-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-dlv-wiggle {
+    animation: iso-dlv-wiggle 9.6s ease-in-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-dlv-badge {
+    transform: scale(0);
+    animation: iso-dlv-badge 9.6s ease-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-dlv-progress-b {
+    animation: iso-dlv-progress-b 9.6s ease-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-dlv-check-b {
+    transform: scale(0);
+    animation: iso-dlv-check-b 9.6s ease-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-dlv-next-b {
+    opacity: 0;
+    animation: iso-dlv-next-b 9.6s steps(1) infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-dlv-ghost-b {
+    animation: iso-dlv-ghost-b 9.6s steps(1) infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-dlv-count-0 {
+    animation: iso-dlv-count-a 9.6s ease-in-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-dlv-count-1 {
+    animation: iso-dlv-count-b 9.6s ease-in-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-dlv-count-2 {
+    animation: iso-dlv-count-c 9.6s ease-in-out infinite;
     animation-play-state: var(--iso-play);
   }
 
