@@ -1152,6 +1152,109 @@ html {
   70%, 100% { opacity: 0; transform: translate(-185.3px, 98px); }
 }
 
+/* Platform journey. One request cycle per 9.6s: client -> SSO gate -> core,
+   fan to the three integrations, response back. Travel positions are
+   screen-space px baked from the iso projection. Every travel class gets an
+   -4.8s echo twin in the markup, so the cycle also runs half-loop shifted and
+   traffic never stops; 0% and 50% frames are both empty-road, which is what a
+   paused card (and a paused echo) shows. */
+@keyframes iso-plt-req {
+  0%, 3% { transform: translate(-241.7px, -80.8px); opacity: 0; }
+  5% { transform: translate(-225.2px, -77.5px); opacity: 1; }
+  10% { transform: translate(-117.8px, -58px); opacity: 1; }
+  14% { transform: translate(-20.6px, -33.8px); opacity: 1; }
+  16%, 100% { transform: translate(-0.2px, -27.6px); opacity: 0; }
+}
+@keyframes iso-plt-fan-card {
+  0%, 19% { transform: translate(77.1px, -36.5px); opacity: 0; }
+  21% { transform: translate(143.8px, -15.2px); opacity: 1; }
+  26% { transform: translate(210.4px, 6px); opacity: 1; }
+  28%, 100% { transform: translate(229.5px, 17.5px); opacity: 0; }
+}
+@keyframes iso-plt-fan-cloud {
+  0%, 23% { transform: translate(71.9px, -60.5px); opacity: 0; }
+  25% { transform: translate(129.5px, -81.3px); opacity: 1; }
+  30% { transform: translate(187.1px, -98px); opacity: 1; }
+  32%, 100% { transform: translate(203.5px, -98.5px); opacity: 0; }
+}
+@keyframes iso-plt-fan-db {
+  0%, 27% { transform: translate(65.8px, -24px); opacity: 0; }
+  29% { transform: translate(112.8px, 19.1px); opacity: 1; }
+  34% { transform: translate(159.8px, 42.3px); opacity: 1; }
+  36%, 100% { transform: translate(173.2px, 58px); opacity: 0; }
+}
+@keyframes iso-plt-resp {
+  0%, 38% { transform: translate(-0.2px, -27.6px); opacity: 0; }
+  40% { transform: translate(-20.6px, -35.8px); opacity: 1; }
+  43% { transform: translate(-117.8px, -58px); opacity: 1; }
+  46% { transform: translate(-239px, -80.2px); opacity: 1; }
+  48%, 100% { transform: translate(-241.7px, -80.8px); opacity: 0; }
+}
+/* Lamps pop twice per loop: once for the base cycle's arrival, once for the
+   echo's. The gate greets both requests the same way. */
+@keyframes iso-plt-gate-lamp {
+  0%, 8%, 13%, 57%, 62%, 100% { transform: scale(1); opacity: 0.7; }
+  10.5% { transform: scale(1.8); opacity: 1; }
+  59.5% { transform: scale(1.8); opacity: 1; }
+}
+@keyframes iso-plt-socket-pulse {
+  0%, 15%, 24%, 63%, 72%, 100% { transform: scale(0.4); opacity: 0; }
+  17% { transform: scale(0.7); opacity: 0.9; }
+  23% { transform: scale(1.5); opacity: 0; }
+  65% { transform: scale(0.7); opacity: 0.9; }
+  71% { transform: scale(1.5); opacity: 0; }
+}
+@keyframes iso-plt-lamp-card {
+  0%, 26%, 31%, 74%, 79%, 100% { transform: scale(1); opacity: 0.75; }
+  28.5% { transform: scale(1.9); opacity: 1; }
+  76.5% { transform: scale(1.9); opacity: 1; }
+}
+@keyframes iso-plt-lamp-cloud {
+  0%, 30%, 35%, 78%, 83%, 100% { transform: scale(1); opacity: 0.75; }
+  32.5% { transform: scale(1.9); opacity: 1; }
+  80.5% { transform: scale(1.9); opacity: 1; }
+}
+@keyframes iso-plt-lamp-db {
+  0%, 34%, 39%, 82%, 87%, 100% { transform: scale(1); opacity: 0.75; }
+  36.5% { transform: scale(1.9); opacity: 1; }
+  84.5% { transform: scale(1.9); opacity: 1; }
+}
+@keyframes iso-plt-client-check {
+  0%, 47% { transform: scale(0.3); opacity: 0; }
+  49% { transform: scale(1.2); opacity: 1; }
+  51%, 58% { transform: scale(1); opacity: 1; }
+  61%, 100% { transform: scale(1); opacity: 0; }
+}
+/* The one incident per loop, on the delivery board's blocker clock: pop,
+   wiggle, hold, resolve green. Traffic keeps flowing underneath it, which is
+   the point — incidents get caught without the system stopping. */
+@keyframes iso-plt-alert {
+  0%, 63% { transform: scale(0.3); opacity: 0; }
+  65% { transform: scale(1.25); opacity: 1; }
+  66.5%, 75% { transform: scale(1); opacity: 1; }
+  78%, 100% { transform: scale(1); opacity: 0; }
+}
+@keyframes iso-plt-wiggle {
+  0%, 65%, 71%, 100% { transform: rotate(0deg); }
+  66.5% { transform: rotate(1.4deg); }
+  68% { transform: rotate(-1.2deg); }
+  69.5% { transform: rotate(0.8deg); }
+}
+@keyframes iso-plt-resolve {
+  0%, 77% { transform: scale(0.3); opacity: 0; }
+  79% { transform: scale(1.2); opacity: 1; }
+  81%, 90% { transform: scale(1); opacity: 1; }
+  94%, 100% { transform: scale(1); opacity: 0; }
+}
+@keyframes iso-plt-graph {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -84; }
+}
+@keyframes iso-plt-chip {
+  0%, 44%, 100% { opacity: 0.55; }
+  2%, 55% { opacity: 1; }
+}
+
 /* Status lines on the hero monitor terminal settle in from just below. */
 @keyframes screen-line-in {
   from {
@@ -1799,6 +1902,71 @@ html {
   .iso-scene .iso-fnt-fix-rail {
     opacity: 0;
     animation: iso-fnt-fix-rail 9.6s ease-in-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  /* Platform journey classes. Travels move on the linear master clock; pops
+     scale around their own centre. The echo rule must follow the travel
+     rules: the animation shorthand resets delay, and the twin's half-loop
+     offset lives entirely in that one declaration. */
+  .iso-scene .iso-plt-req,
+  .iso-scene .iso-plt-fan-card,
+  .iso-scene .iso-plt-fan-cloud,
+  .iso-scene .iso-plt-fan-db,
+  .iso-scene .iso-plt-resp {
+    animation-duration: 9.6s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-plt-req { animation-name: iso-plt-req; }
+  .iso-scene .iso-plt-fan-card { animation-name: iso-plt-fan-card; }
+  .iso-scene .iso-plt-fan-cloud { animation-name: iso-plt-fan-cloud; }
+  .iso-scene .iso-plt-fan-db { animation-name: iso-plt-fan-db; }
+  .iso-scene .iso-plt-resp { animation-name: iso-plt-resp; }
+
+  .iso-scene .iso-plt-echo {
+    animation-delay: -4.8s;
+  }
+
+  .iso-scene .iso-plt-gate-lamp,
+  .iso-scene .iso-plt-socket-pulse,
+  .iso-scene .iso-plt-lamp-card,
+  .iso-scene .iso-plt-lamp-cloud,
+  .iso-scene .iso-plt-lamp-db,
+  .iso-scene .iso-plt-client-check,
+  .iso-scene .iso-plt-alert,
+  .iso-scene .iso-plt-wiggle,
+  .iso-scene .iso-plt-resolve {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation-duration: 9.6s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-plt-gate-lamp { animation-name: iso-plt-gate-lamp; }
+  .iso-scene .iso-plt-socket-pulse { animation-name: iso-plt-socket-pulse; }
+  .iso-scene .iso-plt-lamp-card { animation-name: iso-plt-lamp-card; }
+  .iso-scene .iso-plt-lamp-cloud { animation-name: iso-plt-lamp-cloud; }
+  .iso-scene .iso-plt-lamp-db { animation-name: iso-plt-lamp-db; }
+
+  /* Badges rest hidden so the static scene is a calm running system rather
+     than an incident. */
+  .iso-scene .iso-plt-client-check { opacity: 0; animation-name: iso-plt-client-check; }
+  .iso-scene .iso-plt-alert { opacity: 0; animation-name: iso-plt-alert; }
+  .iso-scene .iso-plt-wiggle { animation-name: iso-plt-wiggle; }
+  .iso-scene .iso-plt-resolve { opacity: 0; animation-name: iso-plt-resolve; }
+
+  .iso-scene .iso-plt-graph {
+    animation: iso-plt-graph 9.6s linear infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-plt-chip {
+    animation: iso-plt-chip 9.6s ease-in-out infinite;
     animation-play-state: var(--iso-play);
   }
 
