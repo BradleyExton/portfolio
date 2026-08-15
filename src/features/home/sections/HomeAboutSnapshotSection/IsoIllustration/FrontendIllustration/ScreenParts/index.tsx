@@ -129,9 +129,11 @@ export function ScreenFace() {
 }
 
 /* The same interface on a second surface: dark theme, cards reflowed to a
-   vertical stack. Raked PLANE_LEFT like the desktop screen so the two read as
-   devices on one desk; the dark body is also the scene's only dark mass, the
-   anchor the old layer stack used to provide. */
+   vertical stack. Raked onto an ink slab like the desktop screen so the two
+   read as devices on one desk; the slab is also the scene's only dark mass,
+   the anchor the old layer stack used to provide. The outer rect here is
+   #032b22 — ink's left face — so the panel's rounded corners dissolve into
+   the body behind them. */
 export function PhonePanel() {
   return (
     <>

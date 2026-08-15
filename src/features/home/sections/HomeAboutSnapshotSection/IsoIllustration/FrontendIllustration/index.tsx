@@ -35,13 +35,20 @@ import * as styles from "./styles";
    Two ordering rules carry over from the delivery board: every animated
    element sits inside a plain positioning group, because a CSS transform
    animation replaces an SVG transform attribute outright; and scale pops need
-   fill-box centre origins. */
+   fill-box centre origins.
 
-/* The screen stands where the board's centre line crosses zero: a panel raked
-   into a vertical plane grows by half its own width on top of its height, so
-   anywhere further back and it leaves the frame. The face is 176x118, which
-   puts its top edge 27px into the frame against the board's 29px at the
-   bottom. */
+   One construction rule carries over from the rest of the iso system:
+   everything in the scene is an extruded object, and flat art only ever
+   appears as the face of one. Screens rake onto slab bodies the way the
+   delivery scene's production monitor does; the suite and the rail are tiles
+   on the board, not prints on it. A raked face with no body behind it reads
+   as a sticker standing in space. */
+
+/* The screen stands where the board's centre line crosses zero: a standing
+   body grows by half its own footprint on top of its height, so anywhere
+   further back and it leaves the frame. The face is 176x118 on a 10-deep
+   slab, which puts the body's top back corner 22px into the frame against
+   the board's 29px at the bottom. */
 const SCREEN = { u: -105, v: 105 } as const;
 const PHONE = { u: 95, v: -60 } as const;
 const SUITE = { u: 74, v: 106 } as const;
@@ -107,9 +114,11 @@ export function FrontendIllustration() {
           </g>
         </g>
 
-        {/* Token rail on the back flank: the theme, as objects. */}
+        {/* Token rail on the back flank: the theme, as objects. A tile like
+            the delivery board's tickets, with the swatches printed on top. */}
         <g className={styles.pieces[2]}>
-          <OnGround u={RAIL.u} v={RAIL.v} h={12}>
+          <IsoBox u={RAIL.u} v={RAIL.v} w={136} d={64} h={6} base={11} shade={shades.paper} />
+          <OnGround u={RAIL.u} v={RAIL.v} h={17}>
             <rect x="-68" y="-32" width="136" height="64" rx="10" fill="#f7faf9" />
             <rect x="-56" y="-24" width="34" height="7" rx="3.5" fill="#7f938b" />
             {TOKEN_SWATCHES.map((swatch) => (
@@ -121,24 +130,33 @@ export function FrontendIllustration() {
           </OnGround>
         </g>
 
-        {/* The suite, flat on the board and wired to the scene's clock. */}
+        {/* The suite, a tile on the board and wired to the scene's clock. */}
         <g className={styles.pieces[3]}>
-          <OnGround u={SUITE.u} v={SUITE.v} h={12}>
+          <IsoBox u={SUITE.u} v={SUITE.v} w={176} d={84} h={6} base={11} shade={shades.paper} />
+          <OnGround u={SUITE.u} v={SUITE.v} h={17}>
             <SuitePanel />
           </OnGround>
         </g>
 
-        {/* The second surface. */}
+        {/* The second surface: a thin dark slab on its stand, with the panel
+            raked onto the slab's +v face. The body's centre sits half its
+            depth behind the face so the glass lands exactly where the box
+            face is. Its ink left face is the same #032b22 as the panel's
+            outer rect, so the rounded corners blend into the body. */}
         <g className={styles.pieces[4]}>
           <IsoBox u={PHONE.u} v={PHONE.v} w={44} d={44} h={8} base={11} shade={shades.paper} />
+          <IsoBox u={PHONE.u} v={PHONE.v - 4} w={68} d={8} h={124} base={19} shade={shades.ink} />
           <g transform={`translate(${project(PHONE.u, PHONE.v, 19)}) ${PLANE_LEFT}`}>
             <PhonePanel />
           </g>
         </g>
 
-        {/* The screen itself, last so nothing draws over the story. */}
+        {/* The screen itself, last so nothing draws over the story. Same
+            construction as the production monitor on the delivery board:
+            stand, slab body, face raked onto the body's +v plane. */}
         <g className={styles.pieces[5]}>
           <IsoBox u={SCREEN.u} v={SCREEN.v} w={56} d={56} h={8} base={11} shade={shades.paper} />
+          <IsoBox u={SCREEN.u} v={SCREEN.v - 5} w={176} d={10} h={118} base={19} shade={shades.paper} />
           <g transform={`translate(${project(SCREEN.u, SCREEN.v, 19)}) ${PLANE_LEFT}`}>
             <ScreenFace />
           </g>
