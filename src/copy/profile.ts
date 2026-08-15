@@ -8,7 +8,10 @@ export const profile = {
   email: "bradley@bradleyexton.ca",
   location: "Barrie, Ontario, Canada",
   links: {
-    website: "https://bradleyexton.ca",
+    // Canonical host. The apex domain 308-redirects to www in production, so every
+    // sitemap, canonical, and structured-data URL has to use www to avoid pointing
+    // search engines and ad crawlers at a redirect.
+    website: "https://www.bradleyexton.ca",
     linkedin: "https://www.linkedin.com/in/bradley-exton-7aa347136/",
     github: "https://github.com/bradleyexton",
   },
