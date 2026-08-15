@@ -1,4 +1,4 @@
-import { BOARD_EDGE, IsoBox, OnGround, PAPER_EDGE, PLANE_LEFT, project, ring, shades } from "@/features/shared/isoKit";
+import { IsoBox, OnGround, PLANE_LEFT, project, ring, shades } from "@/features/shared/isoKit";
 import * as styles from "./styles";
 
 /* An agent doing work, and a human keeping the last say. The console is the
@@ -43,7 +43,7 @@ export function AiToolsIllustration() {
   return (
     <svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg" className={styles.svg}>
       <g transform="translate(320,180)">
-        <IsoBox u={0} v={0} w={BOARD_W} d={BOARD_D} h={BOARD_H} shade={shades.board} outline={BOARD_EDGE} />
+        <IsoBox u={0} v={0} w={BOARD_W} d={BOARD_D} h={BOARD_H} shade={shades.board} />
 
         {/* Feeds into the console, drawn before it so the console covers the
             ends rather than the lines crossing its face. */}
@@ -71,7 +71,6 @@ export function AiToolsIllustration() {
             h={10}
             base={BOARD_H}
             shade={shades.paper}
-            outline={PAPER_EDGE}
           >
             <rect x={-26} y={-10} width={34} height={9} rx={4.5} fill="#059669" />
             <rect x={-26} y={3} width={20} height={7} rx={3.5} fill="#6ee7b7" />
@@ -129,7 +128,6 @@ export function AiToolsIllustration() {
                 h={11}
                 base={BOARD_H}
                 shade={shades.paper}
-                outline={PAPER_EDGE}
               />
               <OnGround u={step.u} v={step.v} h={BOARD_H + 11}>
                 <rect x={-42} y={-26} width={52} height={10} rx={5} fill="#047857" />

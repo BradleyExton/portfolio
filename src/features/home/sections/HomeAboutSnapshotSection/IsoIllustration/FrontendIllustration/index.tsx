@@ -1,9 +1,8 @@
 import {
-  BOARD_EDGE,
   IsoBox,
   IsoShadow,
   OnGround,
-  PAPER_EDGE,
+  PAPER_FACE,
   PLANE_LEFT,
   project,
   ring,
@@ -74,7 +73,7 @@ export function FrontendIllustration() {
       {/* Screen's top-left corner at -179, board's front corner at +168. */}
       <g transform={`translate(${SCENE_ORIGIN_X},208)`}>
         <g className={styles.pieces[0]}>
-          <IsoBox u={0} v={0} w={BOARD} d={BOARD} h={11} shade={shades.board} outline={BOARD_EDGE} />
+          <IsoBox u={0} v={0} w={BOARD} d={BOARD} h={11} shade={shades.board} />
         </g>
 
         {/* Wires under everything: screen to stack, stack to suite. */}
@@ -110,7 +109,7 @@ export function FrontendIllustration() {
             built from and not as a second interface. */}
         <g className={styles.pieces[2]}>
           <OnGround u={TRAY.u} v={TRAY.v} h={12}>
-            <rect x="-68" y="-32" width="136" height="64" rx="10" fill="#ffffff" stroke={PAPER_EDGE} strokeWidth="2" />
+            <rect x="-68" y="-32" width="136" height="64" rx="10" fill={PAPER_FACE} />
             <rect x="-56" y="-24" width="34" height="7" rx="3.5" fill="#7f938b" />
             {TRAY_PARTS.map((part) => (
               <g key={part.x}>
@@ -126,7 +125,7 @@ export function FrontendIllustration() {
             eight pixels and green-on-deep-green does not. */}
         <g className={styles.pieces[3]}>
           <OnGround u={SUITE.u} v={SUITE.v} h={12}>
-            <rect x="-88" y="-42" width="176" height="84" rx="10" fill="#ffffff" stroke={PAPER_EDGE} strokeWidth="2" />
+            <rect x="-88" y="-42" width="176" height="84" rx="10" fill={PAPER_FACE} />
             <rect x="-74" y="-34" width="46" height="8" rx="4" fill="#7f938b" />
             {SUITE_ROWS.map((row) => (
               <g key={row.y}>
@@ -163,7 +162,6 @@ export function FrontendIllustration() {
               h={14}
               base={plate.base}
               shade={plate.shade}
-              outline={plate.shade === shades.paper ? PAPER_EDGE : undefined}
             >
               {index === PLATES.length - 1 ? (
                 <>
@@ -202,9 +200,9 @@ export function FrontendIllustration() {
 
         {/* The screen itself. */}
         <g className={styles.pieces[9]}>
-          <IsoBox u={SCREEN.u} v={SCREEN.v} w={56} d={56} h={8} base={11} shade={shades.paper} outline={PAPER_EDGE} />
+          <IsoBox u={SCREEN.u} v={SCREEN.v} w={56} d={56} h={8} base={11} shade={shades.paper} />
           <g transform={`translate(${project(SCREEN.u, SCREEN.v, 19)}) ${PLANE_LEFT}`}>
-            <rect x="-78" y="-104" width="156" height="104" rx="7" fill="#ffffff" stroke={PAPER_EDGE} strokeWidth="2" />
+            <rect x="-78" y="-104" width="156" height="104" rx="7" fill={PAPER_FACE} />
             <rect x="-78" y="-104" width="156" height="17" rx="7" fill="#e0eae5" />
             <circle cx="-68" cy="-95" r="3" fill="#7f938b" />
             <circle cx="-58" cy="-95" r="3" fill="#7f938b" />

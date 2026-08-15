@@ -70,7 +70,7 @@ export const shades = {
   brand: { top: "#10b981", right: "#059669", left: "#047857" },
   mint: { top: "#6ee7b7", right: "#34d399", left: "#10b981" },
   pale: { top: "#d1fae5", right: "#a7f3d0", left: "#6ee7b7" },
-  paper: { top: "#ffffff", right: "#e0eae5", left: "#c9d8d0" },
+  paper: { top: "#f7faf9", right: "#dde8e2", left: "#c6d6ce" },
   amber: { top: "#fbbf24", right: "#f59e0b", left: "#d97706" },
   /* The floor the delivery and front-end scenes stand on. It used to be #ffffff
      and #f8faf9, which only held together because the illustration sat in a
@@ -78,7 +78,7 @@ export const shades = {
      board one step down also buys back the contrast the white artifacts on it
      were missing: tickets and the suite card now read as objects placed on a
      surface rather than holes cut in it. */
-  board: { top: "#f1f6f3", right: "#dde8e2", left: "#c6d6ce" },
+  board: { top: "#e9f1ed", right: "#d6e3dd", left: "#bfd0c7" },
 } as const satisfies Record<string, Shade>;
 
 export type IsoBoxProps = {
@@ -93,22 +93,16 @@ export type IsoBoxProps = {
   /** Floor the box sits on, so a floating block keeps its own shadow below it. */
   base?: number;
   shade: Shade;
-  /* A near-white top face on a near-white card disappears, and what is left
-     reads as a floating chevron rather than a box. Anything in the paper family
-     needs its silhouette drawn. */
-  outline?: string;
   children?: React.ReactNode;
 };
 
 /** A rectangular prism: top face plus the two faces the viewer can see. */
-export function IsoBox({ u, v, w, d, h, base = 0, shade, outline, children }: IsoBoxProps) {
+export function IsoBox({ u, v, w, d, h, base = 0, shade, children }: IsoBoxProps) {
   const uMin = u - w / 2;
   const uMax = u + w / 2;
   const vMin = v - d / 2;
   const vMax = v + d / 2;
   const top = base + h;
-
-  const edge = outline ? { stroke: outline, strokeWidth: 1.6, strokeLinejoin: "round" as const } : null;
 
   return (
     <g>
@@ -120,7 +114,6 @@ export function IsoBox({ u, v, w, d, h, base = 0, shade, outline, children }: Is
           [uMin, vMax, top],
         ])}
         fill={shade.top}
-        {...edge}
       />
       {h > 0 ? (
         <>
@@ -132,7 +125,6 @@ export function IsoBox({ u, v, w, d, h, base = 0, shade, outline, children }: Is
               [uMax, vMin, base],
             ])}
             fill={shade.right}
-            {...edge}
           />
           <polygon
             points={ring([
@@ -142,7 +134,6 @@ export function IsoBox({ u, v, w, d, h, base = 0, shade, outline, children }: Is
               [uMin, vMax, base],
             ])}
             fill={shade.left}
-            {...edge}
           />
         </>
       ) : null}
@@ -151,11 +142,15 @@ export function IsoBox({ u, v, w, d, h, base = 0, shade, outline, children }: Is
   );
 }
 
-/** Outline tone for the paper family, dark enough to survive on card surface. */
-export const PAPER_EDGE = "#b9cec5";
+/* The scenes used to draw a hairline around every near-white shape, because
+   `paper` topped out at #ffffff and the card surface is also #ffffff: a top
+   face at card colour is not a face at all, and what was left read as a
+   floating chevron. The outline propped that up at the cost of a cel-shaded
+   line around the lightest objects on the page. The shade values above fix it
+   at the source instead, so nothing here strokes anything. */
 
-/** Silhouette for the board, which has to hold its own against a white card. */
-export const BOARD_EDGE = "#c3d5cc";
+/** Flat art (screens, page bodies) drawn square, matching the paper top face. */
+export const PAPER_FACE = "#f7faf9";
 
 /** Contact shadow for a box footprint: cheap grounding without a full slab. */
 export function IsoShadow({ u, v, w, d, opacity = 0.13 }: { u: number; v: number; w: number; d: number; opacity?: number }) {

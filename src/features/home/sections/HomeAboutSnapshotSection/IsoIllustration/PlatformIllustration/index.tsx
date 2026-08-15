@@ -1,7 +1,6 @@
 import {
   IsoBox,
   IsoShadow,
-  PAPER_EDGE,
   PLANE_RIGHT,
   project,
   ring,
@@ -37,9 +36,9 @@ import * as styles from "./styles";
    symmetry stops reading as a drawing and starts reading as a logo — the other
    two cards in the set are both asymmetric. */
 const SERVICES = [
-  { u: 142, v: -142, w: 70, d: 70, h: 30, shade: shades.mint, pill: "#047857", outline: undefined },
-  { u: -134, v: 134, w: 66, d: 66, h: 30, shade: shades.paper, pill: "#10b981", outline: PAPER_EDGE },
-  { u: 140, v: 140, w: 72, d: 72, h: 30, shade: shades.pale, pill: "#059669", outline: undefined },
+  { u: 142, v: -142, w: 70, d: 70, h: 30, shade: shades.mint, pill: "#047857" },
+  { u: -134, v: 134, w: 66, d: 66, h: 30, shade: shades.paper, pill: "#10b981" },
+  { u: 140, v: 140, w: 72, d: 72, h: 30, shade: shades.pale, pill: "#059669" },
 ] as const;
 
 /* Core footprint and height. Everything else is measured off these: the sockets

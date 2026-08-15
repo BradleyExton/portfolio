@@ -1,4 +1,4 @@
-import { BOARD_EDGE, IsoBox, OnGround, project, ring, shades } from "@/features/shared/isoKit";
+import { IsoBox, OnGround, PAPER_FACE, project, ring, shades } from "@/features/shared/isoKit";
 import * as styles from "./styles";
 
 /* The page, drawn literally, with the one thing the brief is actually about
@@ -28,7 +28,7 @@ export function WebsiteIllustration() {
   return (
     <svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg" className={styles.svg}>
       <g transform="translate(320,182)">
-        <IsoBox u={0} v={0} w={PAGE_W} d={PAGE_D} h={PAGE_H} shade={shades.board} outline={BOARD_EDGE} />
+        <IsoBox u={0} v={0} w={PAGE_W} d={PAGE_D} h={PAGE_H} shade={shades.board} />
 
         {/* Page content, raked onto the page's top face. Art x runs along +u and
             art y along +v, so this lays out like a page seen from above: the
@@ -47,7 +47,7 @@ export function WebsiteIllustration() {
             { x: 60, y: 8 },
           ].map((tile) => (
             <g key={`${tile.x}-${tile.y}`} transform={`translate(${tile.x},${tile.y})`}>
-              <rect x={0} y={0} width={88} height={128} rx={7} fill="#ffffff" />
+              <rect x={0} y={0} width={88} height={128} rx={7} fill={PAPER_FACE} />
               <rect x={12} y={18} width={44} height={11} rx={5.5} fill="#34d399" />
               <rect x={12} y={40} width={58} height={9} rx={4.5} fill="#cddcd5" />
               <rect x={12} y={57} width={48} height={9} rx={4.5} fill="#cddcd5" />

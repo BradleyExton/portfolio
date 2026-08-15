@@ -1,4 +1,4 @@
-import { BOARD_EDGE, IsoBox, OnGround, PAPER_EDGE, shades } from "@/features/shared/isoKit";
+import { IsoBox, OnGround, PAPER_FACE, shades } from "@/features/shared/isoKit";
 import * as styles from "./styles";
 
 /* An application is two things stacked: the screen someone works in, and the
@@ -20,9 +20,9 @@ const BOARD_TOP = PLINTH_H + BOARD_H;
    stack drawn straight up shows exactly one top face however far apart the
    plates sit. */
 const RECORDS = [
-  { u: 100, v: -60, base: BOARD_TOP + 20, shade: shades.pale, outline: undefined },
-  { u: 118, v: -76, base: BOARD_TOP + 54, shade: shades.mint, outline: undefined },
-  { u: 136, v: -92, base: BOARD_TOP + 88, shade: shades.paper, outline: PAPER_EDGE },
+  { u: 100, v: -60, base: BOARD_TOP + 20, shade: shades.pale },
+  { u: 118, v: -76, base: BOARD_TOP + 54, shade: shades.mint },
+  { u: 136, v: -92, base: BOARD_TOP + 88, shade: shades.paper },
 ] as const;
 
 export function WebAppIllustration() {
@@ -43,7 +43,6 @@ export function WebAppIllustration() {
           h={BOARD_H}
           base={PLINTH_H}
           shade={shades.board}
-          outline={BOARD_EDGE}
         />
 
         {/* The app itself, raked onto the board. Sidebar down the left, working
@@ -55,18 +54,18 @@ export function WebAppIllustration() {
             <rect key={row} x={-132} y={-76 + row * 36} width={38} height={12} rx={6} fill="#a7f3d0" />
           ))}
 
-          <rect x={-64} y={-104} width={210} height={58} rx={8} fill="#ffffff" />
+          <rect x={-64} y={-104} width={210} height={58} rx={8} fill={PAPER_FACE} />
           <rect x={-46} y={-86} width={80} height={13} rx={6.5} fill="#047857" />
           <rect x={-46} y={-66} width={126} height={9} rx={4.5} fill="#cddcd5" />
 
           {[0, 1, 2].map((row) => (
             <g key={row} transform={`translate(0,${row * 46})`}>
-              <rect x={-64} y={-34} width={210} height={38} rx={7} fill="#ffffff" />
+              <rect x={-64} y={-34} width={210} height={38} rx={7} fill={PAPER_FACE} />
               <rect x={-46} y={-20} width={56} height={10} rx={5} fill="#34d399" />
               <rect x={24} y={-20} width={80} height={10} rx={5} fill="#cddcd5" />
             </g>
           ))}
-          <rect x={-64} y={66} width={210} height={38} rx={7} fill="#ffffff" />
+          <rect x={-64} y={66} width={210} height={38} rx={7} fill={PAPER_FACE} />
           <rect x={-46} y={80} width={56} height={10} rx={5} fill="#34d399" />
           <rect x={72} y={74} width={62} height={22} rx={11} fill="#fbbf24" />
         </OnGround>
@@ -83,7 +82,6 @@ export function WebAppIllustration() {
             h={7}
             base={record.base}
             shade={record.shade}
-            outline={record.outline}
           >
             <rect x={-26} y={-10} width={34} height={8} rx={4} fill={index === 2 ? "#047857" : "#065f46"} />
             <rect x={-26} y={3} width={20} height={7} rx={3.5} fill="#047857" opacity={0.45} />

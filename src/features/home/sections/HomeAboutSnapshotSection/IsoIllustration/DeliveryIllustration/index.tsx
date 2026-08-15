@@ -1,9 +1,7 @@
 import {
-  BOARD_EDGE,
   IsoBox,
   IsoShadow,
   OnGround,
-  PAPER_EDGE,
   project,
   SCENE_ORIGIN_X,
   SCENE_VIEW_BOX,
@@ -63,7 +61,7 @@ export function DeliveryIllustration() {
       {/* Board back corner at -184, airborne ticket's front corner at +172. */}
       <g transform={`translate(${SCENE_ORIGIN_X},208)`}>
         <g className={styles.pieces[0]}>
-          <IsoBox u={0} v={0} w={344} d={344} h={12} shade={shades.board} outline={BOARD_EDGE} />
+          <IsoBox u={0} v={0} w={344} d={344} h={12} shade={shades.board} />
         </g>
 
         {/* Board toolbar along the back edge. It is the scene's dark mass as
@@ -94,7 +92,7 @@ export function DeliveryIllustration() {
 
         {TICKETS.map((ticket, index) => (
           <g key={`ticket-${ticket.u}-${ticket.v}`} className={styles.pieces[index + 5]}>
-            <IsoBox u={ticket.u} v={ticket.v} w={104} d={66} h={9} base={12} shade={shades.paper} outline={PAPER_EDGE}>
+            <IsoBox u={ticket.u} v={ticket.v} w={104} d={66} h={9} base={12} shade={shades.paper}>
               <TicketFace accent={ticket.accent} rows={ticket.rows} />
             </IsoBox>
           </g>
