@@ -58,14 +58,23 @@ export function ScreenFace() {
       <circle cx="-68" cy="-109" r="3" fill="#7f938b" />
       <circle cx="-59" cy="-109" r="3" fill="#7f938b" />
       <rect x="-46" y="-113" width="94" height="8" rx="4" fill="#f4f8f6" />
+      {/* The dev server's live dot, on the sitewide twinkle: the one part of
+          the chrome that stays awake between beats. */}
+      <circle cx="41" cy="-109" r="2" fill="#34d399" className={styles.twinkleA} />
 
-      {/* Loading pass: grey stand-ins for every region below the chrome. */}
+      {/* Loading pass: grey stand-ins for every region below the chrome.
+          Each region dips once on a stagger — a shimmer wave running down
+          the page while the fetch is out. */}
       <g className={styles.fnt.skel}>
-        <rect x="-78" y="-96" width="64" height="10" rx="5" fill="#dde8e2" />
-        <rect x="-78" y="-80" width="100" height="6.5" rx="3.25" fill="#e5ede9" />
-        <rect x="-78" y="-69" width="80" height="6.5" rx="3.25" fill="#e5ede9" />
-        <SkeletonCard x={CARD_A_X} widths={A_WIDTHS} />
-        <SkeletonCard x={CARD_B_X} widths={B_WIDTHS} />
+        <rect x="-78" y="-96" width="64" height="10" rx="5" fill="#dde8e2" className={styles.shimmer[0]} />
+        <rect x="-78" y="-80" width="100" height="6.5" rx="3.25" fill="#e5ede9" className={styles.shimmer[1]} />
+        <rect x="-78" y="-69" width="80" height="6.5" rx="3.25" fill="#e5ede9" className={styles.shimmer[2]} />
+        <g className={styles.shimmer[3]}>
+          <SkeletonCard x={CARD_A_X} widths={A_WIDTHS} />
+        </g>
+        <g className={styles.shimmer[4]}>
+          <SkeletonCard x={CARD_B_X} widths={B_WIDTHS} />
+        </g>
       </g>
 
       {/* Loaded pass, in two beats: page furniture first, then the cards. */}
@@ -145,30 +154,48 @@ export function ScreenFace() {
    desktop resolves, and once the sync packet lands, its own card B — the
    lower card, the one the desktop error hit — re-renders and pops a confirm
    ring. The re-render skeleton bars are the card tone nudged one step
-   lighter, the dark theme's version of the desktop skeleton's grey. */
+   lighter, the dark theme's version of the desktop skeleton's grey.
+
+   The hardware details are what make it read as a handset rather than a
+   small tablet: a thin uniform bezel, a punch-hole camera cut from the glass
+   (bezel ink, so it reads as a hole), a status bar with time, signal steps
+   and a battery pill, a tab bar over a home-indicator pill, and side buttons
+   on the silhouette — power on the right edge, where it overlays the body's
+   own end face, volume pair poking left in body ink. */
 export function PhonePanel() {
   return (
     <>
-      <rect x="-34" y="-124" width="68" height="124" rx="10" fill="#032b22" />
+      <rect x="-32" y="-132" width="64" height="132" rx="12" fill="#032b22" />
+      <rect x="32" y="-103" width="2.6" height="14" rx="1.3" fill="#0a4a3a" />
+      <rect x="-34.6" y="-107" width="2.6" height="10" rx="1.3" fill="#032b22" />
+      <rect x="-34.6" y="-93" width="2.6" height="10" rx="1.3" fill="#032b22" />
       <g className={styles.fnt.pLoad}>
-        <rect x="-28" y="-116" width="56" height="108" rx="7" fill="#065f46" />
-        <circle cx="0" cy="-120" r="2" fill="#0a6b52" />
-        <rect x="-22" y="-108" width="28" height="7" rx="3.5" fill="#6ee7b7" />
-        <rect x="-22" y="-96" width="40" height="4.5" rx="2.25" fill="#0a6b52" />
-        <rect x="-22" y="-84" width="44" height="30" rx="5" fill="#0a6b52" />
-        <rect x="-16" y="-78" width="18" height="5" rx="2.5" fill="#6ee7b7" />
-        <rect x="-16" y="-69" width="28" height="4" rx="2" fill="#34d399" />
-        <rect x="-22" y="-48" width="44" height="30" rx="5" fill="#0a6b52" />
+        <rect x="-29" y="-129" width="58" height="126" rx="9" fill="#065f46" />
+        <circle cx="0" cy="-123" r="2.2" fill="#032b22" />
+        <rect x="-24" y="-125" width="9" height="3.5" rx="1.75" fill="#34d399" />
+        <rect x="12" y="-124" width="1.8" height="2.5" rx="0.9" fill="#34d399" />
+        <rect x="14.8" y="-125" width="1.8" height="3.5" rx="0.9" fill="#34d399" />
+        <rect x="17.6" y="-126" width="1.8" height="4.5" rx="0.9" fill="#34d399" />
+        <rect x="21" y="-125" width="6" height="3.5" rx="1.2" fill="#34d399" />
+        <rect x="-22" y="-114" width="26" height="6.5" rx="3.25" fill="#6ee7b7" />
+        <rect x="-22" y="-104" width="38" height="4.5" rx="2.25" fill="#0a6b52" />
+        <rect x="-23" y="-96" width="46" height="31" rx="5" fill="#0a6b52" />
+        <rect x="-17" y="-90" width="18" height="5" rx="2.5" fill="#6ee7b7" />
+        <rect x="-17" y="-81" width="28" height="4" rx="2" fill="#34d399" />
+        <rect x="-23" y="-59" width="46" height="31" rx="5" fill="#0a6b52" />
         <g className={styles.fnt.pOk}>
-          <rect x="-16" y="-42" width="16" height="5" rx="2.5" fill="#6ee7b7" />
-          <rect x="-16" y="-33" width="24" height="4" rx="2" fill="#34d399" />
+          <rect x="-17" y="-53" width="16" height="5" rx="2.5" fill="#6ee7b7" />
+          <rect x="-17" y="-44" width="24" height="4" rx="2" fill="#34d399" />
         </g>
         <g className={styles.fnt.pSkel}>
-          <rect x="-16" y="-42" width="16" height="5" rx="2.5" fill="#0e8562" />
-          <rect x="-16" y="-33" width="24" height="4" rx="2" fill="#0e8562" />
+          <rect x="-17" y="-53" width="16" height="5" rx="2.5" fill="#0e8562" />
+          <rect x="-17" y="-44" width="24" height="4" rx="2" fill="#0e8562" />
         </g>
-        <rect x="-12" y="-13" width="24" height="3.5" rx="1.75" fill="#0a6b52" />
-        <g transform="translate(0,-33)">
+        <circle cx="-14" cy="-15" r="2.2" fill="#34d399" />
+        <circle cx="0" cy="-15" r="2.2" fill="#0d8564" />
+        <circle cx="14" cy="-15" r="2.2" fill="#0d8564" />
+        <rect x="-9" y="-8.5" width="18" height="2.5" rx="1.25" fill="#6ee7b7" opacity="0.85" />
+        <g transform="translate(0,-43.5)">
           <circle r="11" fill="none" stroke="#34d399" strokeWidth="2.5" className={styles.fnt.pRing} />
         </g>
       </g>

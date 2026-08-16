@@ -62,12 +62,16 @@ const SUITE = { u: 74, v: 106 } as const;
 const RAIL = { u: -96, v: -100 } as const;
 const BOARD = 336;
 
-/* Emerald, ink, amber: the theme tokens the two surfaces draw from. The
-   emerald one pops as the fix packet departs — the token the fix carries. */
+/* Emerald, ink, amber: the theme tokens the two surfaces draw from. Extruded
+   chips hovering over the rail tile on a slow staggered bob — live values,
+   not printed samples — with their shadows kept printed on the tile so the
+   float reads as height. The emerald one pops as the fix packet departs —
+   the token the fix carries. du is the chip centre's offset along the tile;
+   labels print 12 wide of centre to span the chip. */
 const TOKEN_SWATCHES = [
-  { x: -50, fill: "#10b981", pop: true },
-  { x: -8, fill: "#065f46", pop: false },
-  { x: 34, fill: "#fbbf24", pop: false },
+  { du: -38, shade: shades.brand, pop: true, float: styles.chipFloat[0] },
+  { du: 4, shade: shades.ink, pop: false, float: styles.chipFloat[1] },
+  { du: 46, shade: shades.amber, pop: false, float: styles.chipFloat[2] },
 ] as const;
 
 export function FrontendIllustration() {
@@ -130,21 +134,30 @@ export function FrontendIllustration() {
         </g>
 
         {/* Token rail on the back flank: the theme, as objects. A tile like
-            the delivery board's tickets, with the swatches printed on top. */}
+            the delivery board's tickets; the chips themselves float above it,
+            each on its own beat of the shared bob. */}
         <g className={styles.pieces[2]}>
           <IsoBox u={RAIL.u} v={RAIL.v} w={136} d={64} h={6} base={11} shade={shades.paper} />
           <OnGround u={RAIL.u} v={RAIL.v} h={17}>
             <rect x="-68" y="-32" width="136" height="64" rx="10" fill="#f7faf9" />
             <rect x="-56" y="-24" width="34" height="7" rx="3.5" fill="#7f938b" />
             {TOKEN_SWATCHES.map((swatch) => (
-              <g key={swatch.x}>
-                <g className={swatch.pop ? styles.fnt.swatch : undefined}>
-                  <rect x={swatch.x} y="-6" width="24" height="24" rx="8" fill={swatch.fill} />
-                </g>
-                <rect x={swatch.x} y="22" width="24" height="5" rx="2.5" fill="#dbe7e1" />
+              <g key={swatch.du}>
+                <rect x={swatch.du - 10} y="-4" width="20" height="20" rx="7" fill="#0f766e" opacity="0.12" />
+                <rect x={swatch.du - 12} y="22" width="24" height="5" rx="2.5" fill="#dbe7e1" />
               </g>
             ))}
           </OnGround>
+          {/* The chips ride outside the tile's GROUND rake: a CSS translateY
+              inside it would slide along the floor plane, not lift off it.
+              Local x/y on the tile map straight onto u/v offsets. */}
+          {TOKEN_SWATCHES.map((swatch) => (
+            <g key={swatch.du} className={swatch.float}>
+              <g className={swatch.pop ? styles.fnt.swatch : undefined}>
+                <IsoBox u={RAIL.u + swatch.du} v={RAIL.v + 6} w={18} d={18} h={5} base={21} shade={swatch.shade} />
+              </g>
+            </g>
+          ))}
         </g>
 
         {/* The suite, a tile on the board and wired to the scene's clock. */}
@@ -159,10 +172,11 @@ export function FrontendIllustration() {
             raked onto the slab's +v face. The body's centre sits half its
             depth behind the face so the glass lands exactly where the box
             face is. Its ink left face is the same #032b22 as the panel's
-            outer rect, so the rounded corners blend into the body. */}
+            outer rect, so the rounded corners blend into the body. 64x132 is
+            a real handset's aspect — the old 68x124 read as a tablet. */}
         <g className={styles.pieces[4]}>
           <IsoBox u={PHONE.u} v={PHONE.v} w={44} d={44} h={8} base={11} shade={shades.paper} />
-          <IsoBox u={PHONE.u} v={PHONE.v - 4} w={68} d={8} h={124} base={19} shade={shades.ink} />
+          <IsoBox u={PHONE.u} v={PHONE.v - 4} w={64} d={8} h={132} base={19} shade={shades.ink} />
           <g transform={`translate(${project(PHONE.u, PHONE.v, 19)}) ${PLANE_LEFT}`}>
             <PhonePanel />
           </g>

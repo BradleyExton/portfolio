@@ -1021,6 +1021,15 @@ html {
   13%, 93% { opacity: 0; }
   98%, 100% { opacity: 1; }
 }
+/* Each skeleton region dips once, staggered top-to-bottom by
+   --iso-shim-delay, while the loading pass is on screen: the wave that says
+   "fetching", spent entirely inside the skeleton's own window (the last
+   stagger's dip ends by ~11%, before the 13% swap to content). */
+@keyframes iso-fnt-shimmer {
+  0%, 1% { opacity: 1; }
+  4% { opacity: 0.45; }
+  7%, 100% { opacity: 1; }
+}
 @keyframes iso-fnt-content-a {
   0%, 10% { opacity: 0; transform: translateY(5px); }
   13%, 92% { opacity: 1; transform: translateY(0); }
@@ -1595,7 +1604,8 @@ html {
   }
 
   .iso-scene .iso-loop-bob {
-    animation: iso-bob var(--iso-bob-duration, 3.6s) ease-in-out infinite;
+    animation: iso-bob var(--iso-bob-duration, 3.6s) ease-in-out
+      var(--iso-bob-delay, 0s) infinite;
     animation-play-state: var(--iso-play);
   }
 
@@ -1911,6 +1921,12 @@ html {
   .iso-scene .iso-fnt-skel {
     opacity: 0;
     animation: iso-fnt-skel 9.6s ease-in-out infinite;
+    animation-play-state: var(--iso-play);
+  }
+
+  .iso-scene .iso-fnt-shimmer {
+    animation: iso-fnt-shimmer 9.6s ease-in-out var(--iso-shim-delay, 0s)
+      infinite;
     animation-play-state: var(--iso-play);
   }
 

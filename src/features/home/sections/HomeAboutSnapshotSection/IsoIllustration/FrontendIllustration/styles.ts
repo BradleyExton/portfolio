@@ -3,6 +3,23 @@
 // because inline SVG <style> is document-global.
 export * from "../styles";
 
+// The token chips share one bob and stagger by phase, so the rail breathes
+// as a group without the three ever moving in lockstep.
+export const chipFloat = [
+  "iso-loop-bob [--iso-bob-duration:4.8s] [--iso-bob-y:-3px]",
+  "iso-loop-bob [--iso-bob-duration:4.8s] [--iso-bob-y:-3px] [--iso-bob-delay:-1.6s]",
+  "iso-loop-bob [--iso-bob-duration:4.8s] [--iso-bob-y:-3px] [--iso-bob-delay:-3.2s]",
+] as const;
+
+// Skeleton shimmer stagger, top of the page to the bottom.
+export const shimmer = [
+  "iso-fnt-shimmer",
+  "iso-fnt-shimmer [--iso-shim-delay:0.18s]",
+  "iso-fnt-shimmer [--iso-shim-delay:0.36s]",
+  "iso-fnt-shimmer [--iso-shim-delay:0.54s]",
+  "iso-fnt-shimmer [--iso-shim-delay:0.72s]",
+] as const;
+
 export const fnt = {
   skel: "iso-fnt-skel",
   contentA: "iso-fnt-content-a",
