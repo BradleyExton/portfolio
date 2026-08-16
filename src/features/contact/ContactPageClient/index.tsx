@@ -6,12 +6,12 @@ import { ContactOptionsSection } from "@/features/contact/sections/ContactOption
 import * as styles from "./styles";
 
 type ContactPageClientProps = {
-  formspreeFormId: string | null;
+  isContactFormEnabled: boolean;
   calcomUrl: string | null;
 };
 
 export default function ContactPageClient({
-  formspreeFormId,
+  isContactFormEnabled,
   calcomUrl,
 }: ContactPageClientProps) {
   return (
@@ -21,7 +21,7 @@ export default function ContactPageClient({
       <section className={styles.section}>
         <div className={styles.ambientBackdrop} aria-hidden="true" />
         <div className={styles.sectionContent}>
-          <ContactFormSection formspreeFormId={formspreeFormId} />
+          <ContactFormSection isEnabled={isContactFormEnabled} />
         </div>
       </section>
       <ContactLocationSection />

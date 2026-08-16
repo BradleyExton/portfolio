@@ -1,10 +1,13 @@
 import type { ContactFormData, SubmitStatus } from "./types";
 
+export const CONTACT_ENDPOINT = "/api/contact";
+
 export const initialFormState: ContactFormData = {
   name: "",
   email: "",
   topic: "",
   message: "",
+  company: "",
 };
 
 export const updateContactFormData = (
@@ -17,22 +20,22 @@ export const updateContactFormData = (
 });
 
 type SubmitContactFormParams = {
-  submitUrl: string | null;
+  isEnabled: boolean;
   formData: ContactFormData;
   fetchImpl?: typeof fetch;
 };
 
 export const submitContactForm = async ({
-  submitUrl,
+  isEnabled,
   formData,
   fetchImpl = fetch,
 }: SubmitContactFormParams): Promise<SubmitStatus> => {
-  if (!submitUrl) {
+  if (!isEnabled) {
     return "error";
   }
 
   try {
-    const response = await fetchImpl(submitUrl, {
+    const response = await fetchImpl(CONTACT_ENDPOINT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

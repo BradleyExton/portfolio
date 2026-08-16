@@ -14,6 +14,8 @@ export const subheading = "mb-2 text-xl font-bold text-content";
 export const description = "text-content-muted";
 export const layout = "grid gap-4 sm:gap-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start";
 export const block = "space-y-5 rounded-xl border border-border-subtle bg-surface p-4 shadow-[0_16px_30px_-26px_var(--color-neutral-900)] sm:space-y-6 sm:rounded-2xl sm:p-6 sm:shadow-sm";
+// Off-screen rather than display:none, which many bots know to skip.
+export const honeypot = "absolute left-[-9999px] h-px w-px overflow-hidden";
 export const label = "mb-2 block text-sm font-medium text-content";
 export const fieldHint = "mt-2 text-xs text-content-subtle";
 const controlBase = "w-full rounded-xl border border-border-default bg-surface px-4 py-3 text-base text-content outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-content-faint hover:border-brand-tint focus:border-brand focus:ring-2 focus:ring-brand-soft disabled:cursor-not-allowed disabled:border-border-subtle disabled:bg-surface-muted";

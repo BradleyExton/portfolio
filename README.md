@@ -52,13 +52,17 @@ npm run verify
 
 ## Environment Variables
 
-- `NEXT_PUBLIC_FORMSPREE_ID`
 - `NEXT_PUBLIC_CALCOM_URL`
 - `NEXT_PUBLIC_GA_MEASUREMENT_ID`
+- `RESEND_API_KEY`
+- `CONTACT_FROM_EMAIL`
+- `CONTACT_TO_EMAIL`
 - `GOOGLE_SITE_VERIFICATION`
 - `UNDER_CONSTRUCTION`
 
-Env access is centralized through `src/config/publicEnv.ts`.
+Browser-exposed env access is centralized through `src/config/publicEnv.ts`.
+Secrets and delivery details live in `src/config/serverEnv.ts`, which must never
+be imported from a client component.
 
 ## Contributor Workflow
 

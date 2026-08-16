@@ -30,19 +30,19 @@ describe("ContactFormSection", () => {
     vi.restoreAllMocks();
   });
 
-  it("shows unavailable state and disables submit when form ID is missing", () => {
-    render(<ContactFormSection formspreeFormId={null} />);
+  it("shows unavailable state and disables submit when the form is not configured", () => {
+    render(<ContactFormSection isEnabled={false} />);
 
     expect(screen.getByText(contactCopy.form.unavailableTitle)).toBeInTheDocument();
     expect(screen.getByRole("button", { name: contactCopy.form.submitLabel })).toBeDisabled();
   });
 
-  it("submits successfully when Formspree responds with ok", async () => {
+  it("submits successfully when the contact endpoint responds with ok", async () => {
     const user = userEvent.setup();
     const fetchMock = vi.mocked(global.fetch);
     fetchMock.mockResolvedValue({ ok: true } as Response);
 
-    render(<ContactFormSection formspreeFormId="abc123" />);
+    render(<ContactFormSection isEnabled />);
 
     await user.type(screen.getByLabelText(contactCopy.form.nameLabel), "Bradley");
     await user.type(screen.getByLabelText(contactCopy.form.emailLabel), "brad@example.com");
@@ -53,7 +53,7 @@ describe("ContactFormSection", () => {
 
     await waitFor(() => {
       expect(fetchMock).toHaveBeenCalledWith(
-        "https://formspree.io/f/abc123",
+        "/api/contact",
         expect.objectContaining({
           method: "POST",
         }),
@@ -67,12 +67,12 @@ describe("ContactFormSection", () => {
     expect(trackContactFormError).not.toHaveBeenCalled();
   });
 
-  it("shows error when Formspree response is not ok", async () => {
+  it("shows error when the contact endpoint response is not ok", async () => {
     const user = userEvent.setup();
     const fetchMock = vi.mocked(global.fetch);
     fetchMock.mockResolvedValue({ ok: false } as Response);
 
-    render(<ContactFormSection formspreeFormId="abc123" />);
+    render(<ContactFormSection isEnabled />);
 
     await user.type(screen.getByLabelText(contactCopy.form.nameLabel), "Bradley");
     await user.type(screen.getByLabelText(contactCopy.form.emailLabel), "brad@example.com");

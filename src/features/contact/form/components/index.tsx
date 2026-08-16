@@ -106,7 +106,7 @@ type ContactFormStatesProps = {
   formData: ContactFormData;
   submitStatus: SubmitStatus;
   isSubmitting: boolean;
-  submitUrl: string | null;
+  isEnabled: boolean;
   onFieldFocus: () => void;
   onFieldChange: (field: keyof ContactFormData, value: string) => void;
   onSubmit: (event: FormEvent<HTMLFormElement>) => Promise<void>;
@@ -116,16 +116,30 @@ export function ContactFormFields({
   formData,
   isSubmitting,
   submitStatus,
-  submitUrl,
+  isEnabled,
   onFieldFocus,
   onFieldChange,
   onSubmit,
 }: ContactFormStatesProps) {
-  const disabled = !submitUrl || isSubmitting;
+  const disabled = !isEnabled || isSubmitting;
 
   return (
     <div className={styles.layout}>
       <form onSubmit={onSubmit} className={styles.block}>
+        {/* Honeypot: hidden from people and assistive tech, irresistible to bots. */}
+        <div className={styles.honeypot} aria-hidden="true">
+          <label htmlFor="company">Company</label>
+          <input
+            type="text"
+            id="company"
+            name="company"
+            tabIndex={-1}
+            autoComplete="off"
+            value={formData.company}
+            onChange={(event) => onFieldChange("company", event.target.value)}
+          />
+        </div>
+
         <ContactFormField htmlFor="name" label={contactCopy.form.nameLabel}>
           <input
             type="text"

@@ -8,17 +8,16 @@ import * as styles from "./styles";
 import type { ContactFormSectionProps } from "./types";
 import { useContactFormController } from "./useContactFormController";
 
-export function ContactFormSection({ formspreeFormId }: ContactFormSectionProps) {
+export function ContactFormSection({ isEnabled }: ContactFormSectionProps) {
   const {
     formData,
     isSubmitting,
     submitStatus,
-    submitUrl,
     isUnavailable,
     updateField,
     handleFieldFocus,
     handleSubmit,
-  } = useContactFormController({ formspreeFormId });
+  } = useContactFormController({ isEnabled });
 
   return (
     <div className={styles.container}>
@@ -47,7 +46,7 @@ export function ContactFormSection({ formspreeFormId }: ContactFormSectionProps)
             formData={formData}
             isSubmitting={isSubmitting}
             submitStatus={submitStatus}
-            submitUrl={submitUrl}
+            isEnabled={isEnabled}
             onFieldFocus={handleFieldFocus}
             onFieldChange={updateField}
             onSubmit={handleSubmit}

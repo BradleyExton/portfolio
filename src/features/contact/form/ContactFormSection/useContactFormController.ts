@@ -5,7 +5,6 @@ import {
   trackContactFormSubmit,
   trackContactLeadGenerated,
 } from "@/features/shared/analytics";
-import { getFormspreeSubmitUrl } from "@/config/publicEnv";
 import type { ContactFormData, ContactFormSectionProps, SubmitStatus } from "./types";
 import { initialFormState, submitContactForm, updateContactFormData } from "./utils";
 
@@ -13,7 +12,6 @@ type UseContactFormControllerResult = {
   formData: ContactFormData;
   isSubmitting: boolean;
   submitStatus: SubmitStatus;
-  submitUrl: string | null;
   isUnavailable: boolean;
   updateField: (field: keyof ContactFormData, value: string) => void;
   handleFieldFocus: () => void;
@@ -21,13 +19,12 @@ type UseContactFormControllerResult = {
 };
 
 export function useContactFormController({
-  formspreeFormId,
+  isEnabled,
 }: ContactFormSectionProps): UseContactFormControllerResult {
   const [formData, setFormData] = useState<ContactFormData>(initialFormState);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus>("idle");
   const hasTrackedStartRef = useRef(false);
-  const submitUrl = getFormspreeSubmitUrl(formspreeFormId);
 
   const updateField = (field: keyof ContactFormData, value: string) => {
     setFormData((previous) => updateContactFormData(previous, field, value));
@@ -48,7 +45,7 @@ export function useContactFormController({
     trackContactFormSubmit(formData.topic);
     setIsSubmitting(true);
 
-    const result = await submitContactForm({ submitUrl, formData });
+    const result = await submitContactForm({ isEnabled, formData });
     setSubmitStatus(result);
 
     if (result === "success") {
@@ -65,8 +62,7 @@ export function useContactFormController({
     formData,
     isSubmitting,
     submitStatus,
-    submitUrl,
-    isUnavailable: !submitUrl,
+    isUnavailable: !isEnabled,
     updateField,
     handleFieldFocus,
     handleSubmit,

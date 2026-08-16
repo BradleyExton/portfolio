@@ -1,5 +1,5 @@
 export type ContactFormSectionProps = {
-  formspreeFormId: string | null;
+  isEnabled: boolean;
 };
 
 export type SubmitStatus = "idle" | "success" | "error";
@@ -9,4 +9,6 @@ export type ContactFormData = {
   email: string;
   topic: string;
   message: string;
+  // Honeypot. Stays empty for anyone using a browser; the server rejects the rest.
+  company: string;
 };

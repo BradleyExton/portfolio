@@ -25,7 +25,6 @@ const toSafeHttpUrl = (value: string | null): string | null => {
 };
 
 type PublicEnv = {
-  formspreeFormId: string | null;
   calcomUrl: string | null;
   gaMeasurementId: string | null;
   googleSiteVerification: string | null;
@@ -33,19 +32,8 @@ type PublicEnv = {
 };
 
 export const publicEnv: PublicEnv = {
-  formspreeFormId: toNonEmptyValue(process.env.NEXT_PUBLIC_FORMSPREE_ID),
   calcomUrl: toSafeHttpUrl(toNonEmptyValue(process.env.NEXT_PUBLIC_CALCOM_URL)),
   gaMeasurementId: toNonEmptyValue(process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID),
   googleSiteVerification: toNonEmptyValue(process.env.GOOGLE_SITE_VERIFICATION),
   underConstruction: process.env.UNDER_CONSTRUCTION === "true",
-};
-
-export const getFormspreeSubmitUrl = (
-  formspreeFormId: string | null,
-): string | null => {
-  if (!formspreeFormId) {
-    return null;
-  }
-
-  return `https://formspree.io/f/${formspreeFormId}`;
 };
