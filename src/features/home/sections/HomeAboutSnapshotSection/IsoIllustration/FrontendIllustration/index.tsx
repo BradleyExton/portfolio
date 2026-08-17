@@ -118,6 +118,18 @@ export function FrontendIllustration() {
             fill="none"
             className={styles.fnt.watch}
           />
+          {/* Ambient dev-server traffic: small pulses always mid-route on
+              both solid wires, so the system reads live between story beats.
+              The narrative packets below stay the big diamonds; these are
+              the heartbeat. */}
+          <g transform={`translate(${project(RAIL.u, RAIL.v, 14)})`}>
+            <circle r="2.6" fill="#34d399" className={styles.hmrRail[0]} />
+            <circle r="2.6" fill="#34d399" className={styles.hmrRail[1]} />
+          </g>
+          <g transform={`translate(${project(SCREEN.u, SCREEN.v, 14)})`}>
+            <circle r="2.6" fill="#34d399" className={styles.hmrSync[0]} />
+            <circle r="2.6" fill="#34d399" className={styles.hmrSync[1]} />
+          </g>
           <g transform={`translate(${project(RAIL.u, RAIL.v, 14)})`}>
             <g className={styles.fnt.fixRail}>
               <polygon points="0,0 8,4.6 0,9.2 -8,4.6" fill="#34d399" />

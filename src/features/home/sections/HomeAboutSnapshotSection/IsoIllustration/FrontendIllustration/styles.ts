@@ -6,9 +6,22 @@ export * from "../styles";
 // The token chips share one bob and stagger by phase, so the rail breathes
 // as a group without the three ever moving in lockstep.
 export const chipFloat = [
-  "iso-loop-bob [--iso-bob-duration:4.8s] [--iso-bob-y:-3px]",
-  "iso-loop-bob [--iso-bob-duration:4.8s] [--iso-bob-y:-3px] [--iso-bob-delay:-1.6s]",
-  "iso-loop-bob [--iso-bob-duration:4.8s] [--iso-bob-y:-3px] [--iso-bob-delay:-3.2s]",
+  "iso-loop-bob [--iso-bob-duration:4.8s] [--iso-bob-y:-4.5px]",
+  "iso-loop-bob [--iso-bob-duration:4.8s] [--iso-bob-y:-4.5px] [--iso-bob-delay:-1.6s]",
+  "iso-loop-bob [--iso-bob-duration:4.8s] [--iso-bob-y:-4.5px] [--iso-bob-delay:-3.2s]",
+] as const;
+
+// Ambient dev-server traffic on the two solid wires, echo-twinned a half
+// period apart so a pulse is always mid-route and the system reads live
+// between story beats. Deltas are the wires' screen-space runs; the two
+// routes are phase-shifted against each other so they never sync up.
+export const hmrRail = [
+  "iso-loop-pulse [--iso-pulse-x:-185.3px] [--iso-pulse-y:98px] [--iso-pulse-duration:4.8s]",
+  "iso-loop-pulse [--iso-pulse-x:-185.3px] [--iso-pulse-y:98px] [--iso-pulse-duration:4.8s] [--iso-pulse-delay:-2.4s]",
+] as const;
+export const hmrSync = [
+  "iso-loop-pulse [--iso-pulse-x:316.1px] [--iso-pulse-y:17.5px] [--iso-pulse-duration:4.8s] [--iso-pulse-delay:-1.2s]",
+  "iso-loop-pulse [--iso-pulse-x:316.1px] [--iso-pulse-y:17.5px] [--iso-pulse-duration:4.8s] [--iso-pulse-delay:-3.6s]",
 ] as const;
 
 // Skeleton shimmer stagger, top of the page to the bottom.
