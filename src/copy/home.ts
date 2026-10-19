@@ -194,6 +194,13 @@ export const homeCopy = {
       },
     ],
   },
+  selectedWork: {
+    eyebrow: "Selected work",
+    heading: "Things I've built lately",
+    description:
+      "Three side projects from this year, each written up with the problem, the architecture, the calls that shaped it, and how I checked it works.",
+    cardLabel: (params: { title: string }) => `Read the ${params.title} case study`,
+  },
   contactCta: {
     heading: "Let's connect",
     description:

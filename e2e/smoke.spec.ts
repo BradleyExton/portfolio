@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { caseStudies } from "../src/copy/caseStudies";
 import { homeCopy } from "../src/copy/home";
 
 /* Derived from the copy module that owns it rather than pinned to a literal.
@@ -182,4 +183,48 @@ test("mobile landing layout keeps key cards compact and nav targets tappable", a
   mobileNavLinkHeights.forEach((height) => {
     expect(height).toBeGreaterThanOrEqual(44);
   });
+});
+
+for (const study of caseStudies) {
+  test(`case study ${study.slug} renders its hero and gallery`, async ({ page }) => {
+    await page.goto(`/work/${study.slug}`);
+
+    await expect(page.getByRole("heading", { level: 1, name: study.title })).toBeVisible();
+    await expect(page.getByText(study.summary).first()).toBeVisible();
+
+    const gallery = page.locator("[data-case-study-gallery]");
+    await gallery.scrollIntoViewIfNeeded();
+    await expect(gallery.getByRole("heading", { level: 2 })).toBeVisible();
+
+    // Every screenshot in the study must actually decode, not just mount an
+    // <img> pointing at a missing file.
+    const images = gallery.locator("img");
+    await expect(images).toHaveCount(study.gallery.length);
+    for (const image of await images.all()) {
+      await image.scrollIntoViewIfNeeded();
+      await expect
+        .poll(() => image.evaluate((node) => (node as HTMLImageElement).naturalWidth))
+        .toBeGreaterThan(0);
+    }
+  });
+}
+
+test("homepage selected work links to each case study", async ({ page }) => {
+  await page.goto("/");
+
+  const work = page.locator("#work");
+  await work.scrollIntoViewIfNeeded();
+  for (const study of caseStudies) {
+    await expect(work.locator(`a[href="/work/${study.slug}"]`)).toBeVisible();
+  }
+
+  const [first] = caseStudies;
+  await work.locator(`a[href="/work/${first.slug}"]`).click();
+  await expect(page).toHaveURL(new RegExp(`/work/${first.slug}$`));
+  await expect(page.getByRole("heading", { level: 1, name: first.title })).toBeVisible();
+});
+
+test("unknown case study slugs return a 404", async ({ page }) => {
+  const response = await page.goto("/work/not-a-real-project");
+  expect(response?.status()).toBe(404);
 });
