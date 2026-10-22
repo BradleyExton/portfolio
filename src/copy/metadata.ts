@@ -99,3 +99,37 @@ export const contactMetadata: Metadata = {
       "Get in touch with Bradley Exton for opportunities, projects, and collaboration.",
   },
 };
+
+type CaseStudyMetadataParams = {
+  slug: string;
+  title: string;
+  summary: string;
+  coverSrc: string;
+};
+
+export const caseStudyMetadata = ({
+  slug,
+  title,
+  summary,
+  coverSrc,
+}: CaseStudyMetadataParams): Metadata => {
+  const pageTitle = `${title} case study | ${profile.fullName}`;
+  const url = `${profile.links.website}/work/${slug}`;
+
+  return {
+    title: pageTitle,
+    description: summary,
+    openGraph: {
+      title: pageTitle,
+      description: summary,
+      url,
+      type: "article",
+      images: [{ url: `${profile.links.website}${coverSrc}` }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: pageTitle,
+      description: summary,
+    },
+  };
+};
